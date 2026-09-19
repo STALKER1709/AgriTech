@@ -97,6 +97,22 @@ tests/Unit  tests/Feature
   n'utilise, et le compteur s'initialise depuis la base — sans quoi un script
   relancé réutilise les numéros du tour précédent.
 
+### Catalogue
+
+- Les images de produits vivent sur un **disque privé** et sont servies par
+  `ProductImageController`. **Ne jamais revenir au disque `public` +
+  `storage:link`** : ce lien symbolique n'a pas pu être vérifié sous Windows.
+- Un nom de fichier téléversé est jeté et remplacé par un ULID. Le type MIME
+  **réel** est vérifié, jamais l'extension.
+- `Product::scopeVisibleToPublic()` filtre sur le statut du produit **et** sur
+  celui de son agriculteur : un compte suspendu cesse de vendre.
+- Une fiche non publique répond **404**, pas 403 — inutile de confirmer son
+  existence.
+- Un slug ne change pas si le nom n'a pas changé, et renommer une catégorie ne
+  change jamais son slug : des URL déjà partagées en dépendent.
+- `PublicationService` est le seul endroit qui lit `prior_moderation_enabled`
+  (RG09).
+
 ### Administration
 
 - Le rôle `admin` ouvre `/admin` ; **il n'autorise rien à l'intérieur**. Chaque

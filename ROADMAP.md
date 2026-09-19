@@ -133,21 +133,34 @@ avant/après, et la suppression n'y recopie pas la donnée qu'elle efface ·
 parcours complet inscription → paiement → validation → espace agriculteur
 ouvert · `composer test` intégralement propre (Pint, Larastan niveau 7, 315 tests).
 
-> **Non livré, et annoncé comme tel :** l'écran de modération des publications.
-> Le privilège `publications.moderate` et sa vérification existent, mais les
-> produits et formations n'ont pas encore d'écran de publication — c'est la
-> phase 5.
+> L'écran de modération, annoncé ici comme non livré, a été ajouté en
+> **phase 5**, pour les produits comme pour les formations.
 
 ---
 
-## Phase 5 — Catalogue et publication ⬜
+## Phase 5 — Catalogue et publication ✅
 
-- [ ] CRUD produits et catégories
-- [ ] Upload d'images (validation du type MIME réel, taille, renommage)
-- [ ] Circuit de modération `in_review` → `published` / `rejected`
-- [ ] Catalogue public, recherche et filtres, pages produit
+- [x] CRUD produits côté agriculteur : liste, création, modification, soumission, archivage
+- [x] Upload d'images : **type MIME réel** vérifié, taille, dimensions, nombre, **renommage en ULID**
+- [x] Images sur **disque privé servies par un contrôleur** — aucune dépendance à `storage:link`
+- [x] Circuit de modération (RG09) piloté par le paramètre `prior_moderation_enabled`
+- [x] Écran de modération admin : produits **et** formations, refus avec motif obligatoire
+- [x] CRUD catégories + nouveau privilège `categories.manage`
+- [x] Catalogue public : recherche, filtres catégorie et région, tri, pagination
+- [x] Fiche produit publique
+- [x] Layout `public` et page d'accueil AgriTech
+- [x] `SlugGenerator` : noms identiques → slugs distincts, slug stable à la modification
+- [x] Scope `visibleToPublic()` : un agriculteur suspendu ou supprimé cesse de vendre
+- [x] Images de démonstration générées avec GD
+- [x] 52 tests ajoutés
 
-**Acceptation :** RG01 et RG09 testées ; catalogue utilisable à 360 px.
+**Acceptation :** **RG01** — un agriculteur non actif ne peut rien publier,
+vérifié via l'écran **et** via le service · **RG09** — passage par `in_review`,
+ou publication directe si la modération a priori est désactivée · produit
+d'agriculteur suspendu absent du catalogue et fiche en **404** · fichier PHP
+nommé `.jpg` refusé · trois produits de même nom → trois slugs · grille sans
+N+1, vérifié en comptant les requêtes · `composer test` intégralement propre
+(Pint, Larastan niveau 7, 367 tests).
 
 ---
 

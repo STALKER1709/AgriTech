@@ -547,7 +547,48 @@ d'effacer — seulement le fait qu'il y en avait une.
 
 ---
 
-## 7. Structure du projet
+## 7. Catalogue et publication
+
+### Côté visiteur
+
+`/catalogue` est ouvert sans compte : recherche, filtres par catégorie et par
+région, tri. `/produits/{slug}` affiche la fiche.
+
+**Ce qui n'y apparaît pas :** les brouillons, les fiches en cours de
+modération, les fiches refusées ou archivées, et **les produits d'un
+agriculteur suspendu ou supprimé** — suspendre un compte doit l'empêcher de
+vendre, sinon la sanction ne sert à rien.
+
+### Côté agriculteur
+
+Connectez-vous avec `agriculteur@agritech.local` puis allez dans
+**Mes produits**. Une fiche est enregistrée en **brouillon**, puis soumise à
+publication. Selon le paramètre *Modération a priori* (écran des paramètres
+admin), elle part en modération ou paraît immédiatement.
+
+Un refus affiche son motif directement sur la fiche, à corriger puis
+resoumettre.
+
+### Les images
+
+Elles sont stockées sur un disque **privé** et servies par une route
+applicative, **jamais par `storage:link`**. Conséquence utile : même si le lien
+symbolique échoue sur votre machine, les images fonctionnent.
+
+Contrôles appliqués : type réel du fichier (un script PHP renommé `.jpg` est
+refusé), 4 Mo maximum, 4000 × 4000 pixels maximum, 5 images par produit, et
+renommage systématique — le nom que vous choisissez n'est jamais conservé.
+
+### Côté administrateur
+
+`/admin/publications-a-moderer` liste ce qui attend une décision, produits et
+formations confondus. `/admin/categories` gère les catégories ; une catégorie
+qui contient des produits ne peut pas être supprimée, et l'écran le dit au lieu
+de laisser passer une erreur.
+
+---
+
+## 8. Structure du projet
 
 ```
 app/
@@ -573,7 +614,7 @@ Documents de référence à la racine :
 
 ---
 
-## 8. Problèmes fréquents
+## 9. Problèmes fréquents
 
 | Symptôme | Cause probable | Solution |
 |---|---|---|

@@ -790,3 +790,119 @@ affiche le compteur des publications en attente avec la mention « écran de
 modération à venir ».
 
 Livrer un écran vide aurait été pire que de l'annoncer.
+
+---
+
+## Phase 5 — Catalogue et publication
+
+### 2026-09-19 — Les images passent par un contrôleur, pas par `storage:link`
+
+**Décision.** Les images de produits sont stockées sur un **disque privé** et
+servies par `ProductImageController`, jamais par une URL de fichier directe.
+
+**Justification.** La méthode habituelle — disque `public` + `php artisan
+storage:link` — dépend d'un lien symbolique dont le comportement sous Windows
+**n'a pas pu être vérifié** depuis cet environnement. S'il échoue, aucune image
+ne s'affiche, et le symptôme (« mes photos ne montent pas ») ne désigne pas sa
+cause. Le contrôleur supprime ce risque entièrement.
+
+Deux bénéfices annexes : c'est déjà l'architecture qu'exigera la RG05 pour les
+contenus de formation payants, et les en-têtes de cache sont maîtrisés
+(`immutable`, un an — les noms de fichiers sont des ULID, donc jamais réécrits).
+
+**Coût assumé.** Une requête PHP par image au lieu d'un fichier statique.
+Négligeable pour un usage local ; à reconsidérer si le projet devait un jour
+servir du trafic réel.
+
+---
+
+### 2026-09-19 — Un produit d'agriculteur suspendu disparaît du catalogue
+
+**Décision.** Le scope `visibleToPublic()` filtre sur **deux** conditions : le
+produit est `published` **et** son agriculteur est `active`.
+
+**Justification.** Sans cela, suspendre un compte le laisserait vendre — la
+sanction ne servirait à rien. C'est la visibilité publique qui dépend du
+vendeur, pas seulement de la fiche. Trois tests le vérifient : suspension,
+suppression logique, et accès direct à l'URL de la fiche, qui répond **404** et
+non 403 — inutile de confirmer à un visiteur que la fiche existe.
+
+---
+
+### 2026-09-19 — Les noms de fichiers téléversés sont jetés
+
+**Décision.** Chaque image reçoit un nom ULID. Le nom d'origine n'est conservé
+nulle part.
+
+**Justification.** Un nom de fichier choisi par celui qui téléverse est une
+**instruction adressée au système de fichiers**, pas une information utile.
+Le type MIME **réel** est vérifié (règle `image` de Laravel, qui lit le
+contenu), pas l'extension du nom — un test envoie du code PHP nommé `photo.jpg`
+et vérifie qu'il est refusé.
+
+Limites également appliquées : taille (4 Mo), dimensions (4000 x 4000) et
+nombre d'images par produit (5).
+
+---
+
+### 2026-09-19 — Le slug suit le nom, mais seulement s'il change
+
+**Décision.** `SlugGenerator` ajoute un suffixe numérique jusqu'à trouver un
+slug libre. À la modification, le slug **ne bouge pas** si le nom n'a pas
+changé.
+
+**Justification.** Deux agriculteurs vendant « Tomate fraîche » est le cas
+normal, pas le cas limite, et `products.slug` est unique. Sans générateur, la
+seconde fiche échouerait. Et une URL stable vaut mieux qu'une URL jolie : un
+lien déjà partagé ne doit pas casser parce qu'une description a été retouchée.
+
+Même raisonnement pour les catégories : **renommer une catégorie ne change pas
+son slug**, qui est déjà dans des URL de catalogue.
+
+---
+
+### 2026-09-19 — La modération couvre produits et formations dès maintenant
+
+**Décision.** L'écran de modération traite les deux, alors que les formations
+n'auront leur écran de publication qu'en phase 7.
+
+**Justification.** Leur machinerie de statut est identique et existe depuis la
+phase 1. Attendre aurait imposé soit un écran à moitié vide maintenant, soit
+deux écrans à fusionner plus tard. Cela solde aussi la dette annoncée en phase
+4 : le compteur du tableau de bord pointe désormais vers un écran réel.
+
+---
+
+### 2026-09-19 — Une signature qui mentait, corrigée par Larastan
+
+`PublicationService` déclarait accepter un `Model` tout en appelant
+`publish()`, `rejectPublication()`, `$status` et `$farmer`. Le docblock disait
+`Product|Training` ; la signature, elle, acceptait n'importe quel modèle.
+
+**Corrigé par un type union `Product|Training`** plutôt que par une interface
+inventée pour la circonstance. Les deux modèles partagent réellement cette
+machinerie ; le dire est plus honnête qu'ajouter une abstraction dont le seul
+rôle serait de faire tenir une signature.
+
+Larastan a aussi trouvé une dépendance injectée dans `ProductService` puis
+jamais utilisée. Retirée.
+
+---
+
+### 2026-09-19 — Les images de démonstration sont générées, pas commitées
+
+**Décision.** `DemoSeeder` dessine une image par produit avec GD.
+
+**Justification.** Un catalogue de rectangles gris donne l'impression d'une
+application cassée. Mais committer des photos poserait deux problèmes : le poids
+du dépôt, et la licence — aucune photo ne peut être versionnée sans savoir d'où
+elle vient. GD est déjà une extension requise ; générer à l'installation règle
+les deux.
+
+---
+
+### 2026-09-19 — Page d'accueil remplacée
+
+Le gabarit de bienvenue de Laravel a été remplacé par une vraie page AgriTech
+qui mène au catalogue, avec un layout `public` distinct (en-tête simple, pas de
+barre latérale) pour les visiteurs non connectés.
