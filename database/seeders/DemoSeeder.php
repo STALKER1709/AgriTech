@@ -15,6 +15,8 @@ use App\Enums\SubscriptionStatus;
 use App\Enums\TrainingFormat;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Category;
 use App\Models\Conversation;
 use App\Models\FarmerProfile;
@@ -166,6 +168,21 @@ class DemoSeeder extends Seeder
             OrderStatus::Cancelled,
             $commissionRate,
         );
+
+        // --- Cart in progress ---------------------------------------------------
+
+        // So the cart screen has something to show on a fresh install, and the
+        // checkout can be walked through end to end without hunting for a
+        // product first.
+        $cart = Cart::create(['client_id' => $secondClient->id]);
+
+        foreach ([['tomate', '3'], ['miel', '1']] as [$key, $quantity]) {
+            CartItem::create([
+                'cart_id' => $cart->id,
+                'product_id' => $products[$key]->id,
+                'quantity' => Quantity::fromString($quantity),
+            ]);
+        }
 
         // --- Trainings bought and subscribed to --------------------------------
 
