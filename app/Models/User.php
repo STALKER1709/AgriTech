@@ -21,14 +21,15 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
  * @property int $id
  * @property string $first_name
  * @property string $last_name
- * @property string $email
- * @property string $phone
+ * @property string|null $email
+ * @property string|null $phone
  * @property Carbon|null $email_verified_at
  * @property string $password
  * @property UserRole $role
@@ -168,15 +169,20 @@ class User extends Authenticatable
      *
      * The unique constraint on this column is only meaningful if every write
      * normalises first: "650 00 00 01" and "+237650000001" are the same
-     * number and must collide.
+     * number and must collide. Null is allowed through untouched: that is an
+     * anonymised account, per business rule RG08.
      *
-     * @return Attribute<string, string>
+     * @return Attribute<string|null, string|null>
      */
     protected function phone(): Attribute
     {
-        return Attribute::set(
-            fn (string $value): string => PhoneNumber::tryParse($value)?->toE164() ?? $value,
-        );
+        return Attribute::set(function (?string $value): ?string {
+            if ($value === null) {
+                return null;
+            }
+
+            return PhoneNumber::tryParse($value)?->toE164() ?? $value;
+        });
     }
 
     public function initials(): string
@@ -289,6 +295,37 @@ class User extends Authenticatable
     public function reinstate(): void
     {
         $this->transitionTo(UserStatus::Active);
+    }
+
+    /**
+     * Business rule RG08: a deleted account keeps its row and loses its
+     * person.
+     *
+     * The row survives so that the orders and payments pointing at it stay
+     * readable; the personal data does not. Email and phone go to null rather
+     * than to a placeholder — anonymising means removing the data, not
+     * replacing it with something that still looks like a person.
+     */
+    public function anonymise(): void
+    {
+        $this->transitionTo(UserStatus::Deleted);
+
+        $this->forceFill([
+            'first_name' => 'Compte',
+            'last_name' => 'supprimé',
+            'email' => null,
+            'phone' => null,
+            'email_verified_at' => null,
+            'password' => Hash::make(Str::random(64)),
+            'remember_token' => null,
+        ])->save();
+
+        $this->privileges()->detach();
+    }
+
+    public function isAnonymised(): bool
+    {
+        return $this->status === UserStatus::Deleted;
     }
 
     /*
