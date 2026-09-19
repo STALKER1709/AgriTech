@@ -1,0 +1,52 @@
+<div class="flex w-full max-w-2xl flex-1 flex-col gap-6">
+    <div>
+        <flux:heading size="xl" level="1">{{ __('Statut de mon compte') }}</flux:heading>
+        <flux:text class="mt-2">
+            {{ __('Compte de :name — :status', ['name' => $this->user()->name, 'status' => $this->user()->status->label()]) }}
+        </flux:text>
+    </div>
+
+    @if ($this->awaitsPayment())
+        <flux:callout icon="banknotes" variant="warning">
+            <flux:callout.heading>{{ __('Frais d\'inscription à régler') }}</flux:callout.heading>
+            <flux:callout.text>
+                {{ __('Votre compte a bien été créé. Pour qu\'il soit examiné par un administrateur, réglez les frais d\'inscription de :amount.', ['amount' => $this->registrationFee()->format()]) }}
+            </flux:callout.text>
+        </flux:callout>
+
+        <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+            <flux:heading size="lg">{{ __('Paiement') }}</flux:heading>
+            <flux:text class="mt-2">
+                {{ __('Le paiement Mobile Money n\'est pas encore disponible à cette étape du projet. Il sera branché ici même, avec MTN Mobile Money et Orange Money.') }}
+            </flux:text>
+            <flux:button class="mt-4" variant="primary" disabled>
+                {{ __('Payer :amount', ['amount' => $this->registrationFee()->format()]) }}
+            </flux:button>
+        </div>
+    @elseif ($this->awaitsValidation())
+        <flux:callout icon="clock">
+            <flux:callout.heading>{{ __('Compte en attente de validation') }}</flux:callout.heading>
+            <flux:callout.text>
+                {{ __('Vos frais d\'inscription ont bien été reçus. Un administrateur examine votre dossier ; vous serez notifié par e-mail dès qu\'une décision sera prise.') }}
+            </flux:callout.text>
+        </flux:callout>
+    @elseif ($this->wasRejected())
+        <flux:callout icon="x-circle" variant="danger">
+            <flux:callout.heading>{{ __('Demande refusée') }}</flux:callout.heading>
+            <flux:callout.text>
+                @if ($this->rejectionReason())
+                    {{ __('Motif : :reason', ['reason' => $this->rejectionReason()]) }}
+                @else
+                    {{ __('Votre demande de compte agriculteur n\'a pas été retenue.') }}
+                @endif
+            </flux:callout.text>
+        </flux:callout>
+    @else
+        <flux:callout icon="exclamation-triangle" variant="warning">
+            <flux:callout.heading>{{ __('Accès restreint') }}</flux:callout.heading>
+            <flux:callout.text>
+                {{ __('Votre compte n\'est pas actif. Contactez un administrateur pour en connaître la raison.') }}
+            </flux:callout.text>
+        </flux:callout>
+    @endif
+</div>
