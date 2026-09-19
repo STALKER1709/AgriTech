@@ -1,20 +1,42 @@
 <?php
 
+use App\Http\Controllers\Catalog\ProductImageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Payments\WebhookController;
 use App\Livewire\Account\Status as AccountStatus;
 use App\Livewire\Admin\AuditTrail;
+use App\Livewire\Admin\Categories as AdminCategories;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\FarmerValidation;
+use App\Livewire\Admin\Moderation;
 use App\Livewire\Admin\Privileges as AdminPrivileges;
 use App\Livewire\Admin\Settings as AdminSettings;
 use App\Livewire\Admin\Users as AdminUsers;
 use App\Livewire\Auth\RegisterFarmer;
+use App\Livewire\Catalog\Browse;
+use App\Livewire\Catalog\ProductPage;
+use App\Livewire\Farmer\ProductForm;
+use App\Livewire\Farmer\ProductList;
 use App\Livewire\Payments\Pending as PaymentPending;
 use App\Livewire\Payments\Sandbox as PaymentSandbox;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+
+/*
+|--------------------------------------------------------------------------
+| Catalogue public
+|--------------------------------------------------------------------------
+|
+| Open to visitors: browsing is what brings people in, and an account should
+| only be needed to buy. Images are served by a controller rather than from a
+| public file URL, so nothing here depends on storage:link.
+|
+*/
+
+Route::get('catalogue', Browse::class)->name('catalog.browse');
+Route::get('produits/{product:slug}', ProductPage::class)->name('catalog.product');
+Route::get('images/produits/{image}', ProductImageController::class)->name('catalog.image');
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +102,9 @@ Route::middleware(['auth', 'role:farmer', 'account.active'])
     ->name('farmer.')
     ->group(function (): void {
         Route::view('tableau-de-bord', 'farmer.dashboard')->name('dashboard');
+        Route::get('produits', ProductList::class)->name('products');
+        Route::get('produits/nouveau', ProductForm::class)->name('products.create');
+        Route::get('produits/{product:slug}/modifier', ProductForm::class)->name('products.edit');
     });
 
 /*
@@ -96,6 +121,8 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('utilisateurs', AdminUsers::class)->name('users');
         Route::get('privileges', AdminPrivileges::class)->name('privileges');
         Route::get('parametres', AdminSettings::class)->name('settings');
+        Route::get('publications-a-moderer', Moderation::class)->name('moderation');
+        Route::get('categories', AdminCategories::class)->name('categories');
         Route::get('journal-audit', AuditTrail::class)->name('audit');
     });
 
