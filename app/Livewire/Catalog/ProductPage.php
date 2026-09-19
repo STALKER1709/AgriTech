@@ -5,6 +5,13 @@ declare(strict_types=1);
 namespace App\Livewire\Catalog;
 
 use App\Models\Product;
+use App\Models\User;
+use App\Services\Orders\CartService;
+use App\Support\Quantity;
+use DomainException;
+use Flux\Flux;
+use Illuminate\Support\Facades\Auth;
+use InvalidArgumentException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -15,6 +22,8 @@ use Livewire\Component;
 class ProductPage extends Component
 {
     public Product $product;
+
+    public string $quantity = '1';
 
     public function mount(Product $product): void
     {
@@ -27,6 +36,52 @@ class ProductPage extends Component
         );
 
         $this->product = $product->load(['category', 'images', 'farmer.farmerProfile']);
+    }
+
+    /**
+     * Whether the person reading can actually buy: browsing is open to all,
+     * buying is a client's.
+     */
+    public function canAddToCart(): bool
+    {
+        $user = Auth::user();
+
+        return $user instanceof User && $user->isClient() && $user->isActive();
+    }
+
+    public function isVisitor(): bool
+    {
+        return ! Auth::check();
+    }
+
+    public function addToCart(CartService $carts): void
+    {
+        $user = Auth::user();
+
+        // A visitor is sent to log in and comes straight back here.
+        if (! $user instanceof User) {
+            session(['url.intended' => route('catalog.product', ['product' => $this->product->slug])]);
+
+            $this->redirectRoute('login', navigate: true);
+
+            return;
+        }
+
+        abort_unless($user->isClient() && $user->isActive(), 403);
+
+        try {
+            $carts->add(
+                $user,
+                $this->product,
+                Quantity::fromString(str_replace(',', '.', trim($this->quantity))),
+            );
+        } catch (DomainException|InvalidArgumentException $exception) {
+            Flux::toast(variant: 'danger', text: $exception->getMessage());
+
+            return;
+        }
+
+        Flux::toast(variant: 'success', text: __('Produit ajouté au panier.'));
     }
 
     public function title(): string

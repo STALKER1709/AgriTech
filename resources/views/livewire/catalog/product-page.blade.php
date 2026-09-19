@@ -65,11 +65,42 @@
                 <flux:text class="mt-2 whitespace-pre-line">{{ $product->description }}</flux:text>
             </div>
 
-            <flux:callout icon="shopping-cart">
-                <flux:callout.text>
-                    {{ __('L\'achat en ligne arrive à la prochaine étape du projet. En attendant, contactez l\'agriculteur par la messagerie.') }}
-                </flux:callout.text>
-            </flux:callout>
+            @if (! $product->isInStock())
+                <flux:callout icon="x-circle" variant="warning">
+                    <flux:callout.text>
+                        {{ __('Ce produit est momentanément épuisé. Revenez bientôt ou contactez l\'agriculteur.') }}
+                    </flux:callout.text>
+                </flux:callout>
+            @elseif ($this->isVisitor())
+                <flux:callout icon="shopping-cart">
+                    <flux:callout.text>
+                        {{ __('Connectez-vous avec un compte client pour ajouter ce produit à votre panier.') }}
+                    </flux:callout.text>
+                    <x-slot name="actions">
+                        <flux:button size="sm" variant="primary" wire:click="addToCart" data-test="add-to-cart">
+                            {{ __('Se connecter pour commander') }}
+                        </flux:button>
+                    </x-slot>
+                </flux:callout>
+            @elseif ($this->canAddToCart())
+                <form wire:submit="addToCart" class="flex flex-wrap items-end gap-3">
+                    <flux:input
+                        wire:model="quantity"
+                        :label="__('Quantité (:unit)', ['unit' => $product->unit->shortLabel()])"
+                        class="w-32"
+                        data-test="quantity" />
+
+                    <flux:button type="submit" variant="primary" icon="shopping-cart" data-test="add-to-cart">
+                        {{ __('Ajouter au panier') }}
+                    </flux:button>
+                </form>
+            @else
+                <flux:callout icon="information-circle">
+                    <flux:callout.text>
+                        {{ __('Seul un compte client actif peut commander sur la plateforme.') }}
+                    </flux:callout.text>
+                </flux:callout>
+            @endif
         </div>
     </div>
 </div>

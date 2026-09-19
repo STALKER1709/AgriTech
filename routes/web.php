@@ -15,6 +15,10 @@ use App\Livewire\Admin\Users as AdminUsers;
 use App\Livewire\Auth\RegisterFarmer;
 use App\Livewire\Catalog\Browse;
 use App\Livewire\Catalog\ProductPage;
+use App\Livewire\Client\CartPage;
+use App\Livewire\Client\OrderList as ClientOrderList;
+use App\Livewire\Client\OrderPage as ClientOrderPage;
+use App\Livewire\Farmer\OrderList as FarmerOrderList;
 use App\Livewire\Farmer\ProductForm;
 use App\Livewire\Farmer\ProductList;
 use App\Livewire\Payments\Pending as PaymentPending;
@@ -95,6 +99,9 @@ Route::middleware(['auth', 'role:client'])
     ->name('client.')
     ->group(function (): void {
         Route::view('tableau-de-bord', 'client.dashboard')->name('dashboard');
+        Route::get('panier', CartPage::class)->name('cart');
+        Route::get('commandes', ClientOrderList::class)->name('orders');
+        Route::get('commandes/{order:reference}', ClientOrderPage::class)->name('orders.show');
     });
 
 Route::middleware(['auth', 'role:farmer', 'account.active'])
@@ -105,6 +112,7 @@ Route::middleware(['auth', 'role:farmer', 'account.active'])
         Route::get('produits', ProductList::class)->name('products');
         Route::get('produits/nouveau', ProductForm::class)->name('products.create');
         Route::get('produits/{product:slug}/modifier', ProductForm::class)->name('products.edit');
+        Route::get('commandes', FarmerOrderList::class)->name('orders');
     });
 
 /*
