@@ -18,6 +18,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => EnsureUserHasRole::class,
             'account.active' => EnsureAccountIsActive::class,
         ]);
+
+        // The payment webhook is a server-to-server call: it carries no
+        // session and no CSRF token. Its protection is the HMAC signature the
+        // gateway puts on every callback, verified before the payload is read.
+        $middleware->validateCsrfTokens(except: [
+            'webhooks/paiements',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
