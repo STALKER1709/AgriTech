@@ -10,6 +10,203 @@ paiements Mobile Money **simulés localement**.
 
 ---
 
+## 0. Démarrage rapide — la liste complète
+
+**Tout ce qu'il faut faire, dans l'ordre, pour lancer AgriTech sur une machine
+Windows qui n'a jamais vu le projet.** Chaque étape renvoie à la section
+détaillée correspondante si quelque chose coince.
+
+Ouvrez le **terminal de Laragon** (bouton *Terminal*) ou PowerShell. Les
+commandes sont identiques.
+
+### ✅ Étape 1 — Vérifier les outils
+
+```powershell
+php -v          # doit afficher 8.4.x
+composer -V     # doit afficher 2.8 ou plus
+node -v         # doit afficher 20.x ou 22.x
+git --version
+```
+
+> **Si `php -v` affiche 8.3 ou moins**, changez de version dans Laragon :
+> clic droit sur l'icône → **PHP** → **Version** → choisissez 8.4, puis
+> **redémarrez Laragon**. PHP 8.4 n'est pas négociable : Pest 5, le framework
+> de test du projet, l'exige. Voir le § 1.
+
+Vérifiez ensuite les extensions PHP :
+
+```powershell
+php -m
+```
+
+Doivent apparaître : `pdo_mysql`, `mbstring`, `openssl`, `tokenizer`, `xml`,
+`ctype`, `json`, `fileinfo`, `gd`, `zip`, `intl`. Elles sont actives par défaut
+dans Laragon. Voir le § 1 si l'une manque.
+
+### ✅ Étape 2 — Démarrer MySQL
+
+Dans Laragon, cliquez sur **Démarrer tout** et vérifiez que **MySQL** est vert.
+Rien ne fonctionnera sans lui.
+
+### ✅ Étape 3 — Récupérer le code
+
+```powershell
+cd C:\laragon\www
+git clone https://github.com/STALKER1709/AgriTech.git
+cd AgriTech
+git checkout claude/new-session-wbw8iu
+```
+
+### ✅ Étape 4 — Créer les deux bases de données
+
+```powershell
+mysql -u root -e "CREATE DATABASE agritech CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -e "CREATE DATABASE agritech_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+```
+
+Il en faut bien **deux** : `agritech` pour l'application, `agritech_test` pour
+les tests. Voir le § 2.2.
+
+### ✅ Étape 5 — Installer les dépendances
+
+```powershell
+composer install
+npm install
+npm run build
+```
+
+Comptez quelques minutes la première fois. Une connexion Internet est
+nécessaire **à cette étape uniquement** : ensuite, l'application tourne hors
+ligne.
+
+`npm run build` compile les styles et les scripts une fois pour toutes. Sans
+lui, l'application afficherait `Vite manifest not found`.
+
+### ✅ Étape 6 — Configurer l'environnement
+
+```powershell
+copy .env.example .env
+php artisan key:generate
+```
+
+Ouvrez `.env` et vérifiez la section base de données. Les valeurs par défaut
+correspondent à Laragon (`root`, sans mot de passe) :
+
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=agritech
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Changez aussi la clé de signature des paiements simulés — n'importe quelle
+chaîne fait l'affaire, elle ne sort jamais de votre machine :
+
+```dotenv
+PAYMENT_WEBHOOK_SECRET=une-chaine-aleatoire-de-votre-choix
+```
+
+### ✅ Étape 7 — Préparer la base et les fichiers
+
+```powershell
+php artisan migrate --seed
+php artisan storage:link
+```
+
+> **Si `storage:link` échoue** (`symlink(): Protocol error` ou
+> `Cannot create symlink`), c'est une restriction Windows sur les liens
+> symboliques. Deux solutions, l'une ou l'autre :
+> 1. activez le **Mode développeur** : *Paramètres → Système → Espace développeur* ;
+> 2. **ou** relancez le terminal **en tant qu'administrateur** et réexécutez la commande.
+>
+> **Honnêteté :** cette commande n'a **pas pu être testée sous Windows** lors du
+> développement — le projet a été écrit sur une machine Linux. Si le
+> comportement diffère de ce qui est décrit ici, signalez-le.
+
+### ✅ Étape 8 — Vérifier que tout est sain
+
+```powershell
+composer test
+```
+
+Cette commande enchaîne le formatage (Pint), l'analyse statique (Larastan) et
+la suite de tests. **Les trois doivent passer.** Si un test échoue à ce stade,
+inutile de lancer l'application : quelque chose ne va pas dans l'installation.
+
+### ✅ Étape 9 — Lancer l'application : quatre terminaux
+
+Chaque commande occupe son terminal. Gardez-les tous ouverts.
+
+| Terminal | Commande | Rôle |
+|---|---|---|
+| **1** | `php artisan serve` | le serveur web |
+| **2** | `npm run dev` | recompilation à chaque modification — *facultatif si vous ne modifiez pas le code* |
+| **3** | `php artisan queue:work` | **la file d'attente** |
+| **4** | `php artisan schedule:work` | les tâches planifiées |
+
+> ### ⚠️ Le terminal 3 n'est pas optionnel
+>
+> Les confirmations de paiement passent par la file d'attente, exactement comme
+> la réponse d'un vrai opérateur Mobile Money : hors bande, quelques secondes
+> plus tard. **Sans `queue:work`, aucun paiement n'aboutira jamais** — l'écran
+> d'attente tournera indéfiniment et vous croirez à un bug.
+>
+> Le terminal 4 sert à l'expiration automatique des paiements sans réponse. Vous
+> pouvez vous en passer pour une simple démonstration, mais pas pour tester ce
+> cas-là.
+
+Ouvrez ensuite **http://localhost:8000**.
+
+### ✅ Étape 10 — Se connecter
+
+Tous les comptes de démonstration utilisent le mot de passe **`password`**.
+
+| Pour voir… | Connectez-vous avec |
+|---|---|
+| L'administration complète | `admin@agritech.local` |
+| Un espace client | `client@agritech.local` |
+| Un espace agriculteur | `agriculteur@agritech.local` |
+| **Le paiement des frais d'inscription** | `agriculteur-impaye@agritech.local` |
+| Un compte en attente de validation | `agriculteur-attente@agritech.local` |
+
+Le champ de connexion accepte aussi le **numéro de téléphone** — voir le § 4.
+
+---
+
+### Remettre la base à zéro
+
+À tout moment, pour repartir du jeu de démonstration propre :
+
+```powershell
+php artisan migrate:fresh --seed
+```
+
+### Ce qu'il faut faire après un `git pull`
+
+```powershell
+composer install
+npm install
+php artisan migrate
+npm run build
+```
+
+### Récapitulatif des pièges connus
+
+| Symptôme | Cause | Solution |
+|---|---|---|
+| `composer install` réclame PHP 8.4 | Mauvaise version PHP active | Laragon → PHP → Version → 8.4, puis redémarrer |
+| `Unknown database 'agritech'` | Bases non créées | Étape 4 |
+| `Connection refused` sur le port 3306 | MySQL arrêté | Étape 2 |
+| `Vite manifest not found` | Assets non compilés | `npm run build` (étape 5) |
+| Un paiement reste bloqué sur « vérification » | `queue:work` ne tourne pas | Terminal 3 |
+| `Cannot create symlink` | Droits Windows | Étape 7 |
+| `Access denied ... agritech_test_test_1` | L'utilisateur MySQL ne peut pas créer de bases | Utiliser `root`, ou accorder les droits sur `agritech_test%` |
+| Page blanche après une modification | Cache de vues | `php artisan view:clear` |
+
+---
+
 ## 1. Prérequis (Windows)
 
 | Outil | Version minimale | Vérification |
@@ -380,7 +577,7 @@ Documents de référence à la racine :
 
 | Symptôme | Cause probable | Solution |
 |---|---|---|
-| `Vite manifest not found` | Assets non compilés | `npm run dev` ou `npm run build` |
+| `Vite manifest not found` | Assets non compilés | `npm run build` (étape 5) |
 | Un paiement reste `pending` | File d'attente non lancée | `php artisan queue:work` |
 | `SQLSTATE[HY000] [1049] Unknown database` | Base non créée | Voir § 2.2 |
 | `Access denied ... agritech_test_test_1` | L'utilisateur MySQL ne peut pas créer de bases | Utiliser `root`, ou accorder les droits sur `agritech_test%` |
