@@ -76,6 +76,20 @@ class User extends Authenticatable
         return $this->hasOne(FarmerProfile::class);
     }
 
+    /** @return HasOne<Cart, $this> */
+    public function cart(): HasOne
+    {
+        return $this->hasOne(Cart::class, 'client_id');
+    }
+
+    /**
+     * How many lines the client has waiting, for the badge in the navigation.
+     */
+    public function cartItemCount(): int
+    {
+        return $this->cart?->items()->count() ?? 0;
+    }
+
     /** @return BelongsToMany<Privilege, $this> */
     public function privileges(): BelongsToMany
     {

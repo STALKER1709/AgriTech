@@ -167,6 +167,20 @@ class Product extends Model
             ->whereHas('farmer', fn ($farmer) => $farmer->where('status', UserStatus::Active));
     }
 
+    /**
+     * The same rule as scopeVisibleToPublic(), read from a loaded model.
+     *
+     * The two have to stay in step; they are kept side by side for that
+     * reason. The query form is what the catalogue and the order service
+     * trust — this one only answers for a row already in hand, such as a cart
+     * line being displayed.
+     */
+    public function isVisibleToPublic(): bool
+    {
+        return $this->status === PublicationStatus::Published
+            && $this->farmer->status === UserStatus::Active;
+    }
+
     /** @param  Builder<$this>  $query */
     public function scopeForFarmer(Builder $query, User $farmer): void
     {
