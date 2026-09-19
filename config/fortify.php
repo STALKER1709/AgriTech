@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\ThrottleSensitiveAuthRoutes;
 use Laravel\Fortify\Features;
 
 return [
@@ -43,9 +44,15 @@ return [
     | requests to have a field named 'email'. If the application uses
     | another name for the field you may define it below as needed.
     |
+    | AgriTech accepts either an email address or a phone number at login, so
+    | the field is named 'login' rather than 'email'. Resolving it to a user is
+    | done by Fortify::authenticateUsing() in FortifyServiceProvider. Password
+    | resets stay on 'email': the broker needs an address to send the link to,
+    | and there is no SMS channel in a local install.
+    |
     */
 
-    'username' => 'email',
+    'username' => 'login',
 
     'email' => 'email',
 
@@ -58,9 +65,12 @@ return [
     | them in the database, as some database system string fields are case
     | sensitive. You may disable this for your application if necessary.
     |
+    | Left off here: the login field may hold a phone number, where lowercasing
+    | means nothing. Email lookups lowercase the address themselves.
+    |
     */
 
-    'lowercase_usernames' => true,
+    'lowercase_usernames' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +111,7 @@ return [
     |
     */
 
-    'middleware' => ['web'],
+    'middleware' => ['web', ThrottleSensitiveAuthRoutes::class],
 
     /*
     |--------------------------------------------------------------------------
@@ -112,10 +122,20 @@ return [
     | every email and IP address combination. However, if you would like to
     | specify a custom rate limiter to call then you may specify it here.
     |
+    | The login key is deliberately left null. Setting it makes Fortify rely
+    | on the throttle middleware, which answers a bare 429 page; leaving it
+    | unset keeps Fortify's own EnsureLoginIsNotThrottled action, which fails
+    | validation with the translated auth.throttle message right on the form.
+    | Both allow five attempts per minute.
+    |
+    | Registration and password reset are throttled by
+    | ThrottleSensitiveAuthRoutes, registered in the middleware list above,
+    | because Fortify does not throttle them at all.
+    |
     */
 
     'limiters' => [
-        'login' => 'login',
+        'login' => null,
     ],
 
     /*
