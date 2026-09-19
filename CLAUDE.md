@@ -77,7 +77,11 @@ tests/Unit  tests/Feature
 - Les transitions de statut passent par des **méthodes de transition
   explicites** qui refusent les transitions invalides, et sont testées.
 - Les opérations multi-tables s'exécutent dans `DB::transaction()`.
-- Les montants sont formatés par une classe `Money` (`12 500 FCFA`).
+- Les montants passent par l'objet-valeur `Support\Money` : **entiers de FCFA**,
+  jamais de `float`. Les quantités passent par `Support\Quantity` : **entiers de
+  millièmes**. Leurs casts Eloquent (`MoneyCast`, `QuantityCast`) refusent un
+  `float` à l'écriture plutôt que de l'arrondir en silence.
+- `bcmath` n'est **pas** une dépendance du projet.
 - Factory + seeder pour chaque modèle.
 
 ## 5. Règles de gestion
@@ -107,6 +111,7 @@ tests/Unit  tests/Feature
 | Formatage | `./vendor/bin/pint` |
 | Analyse statique | `./vendor/bin/phpstan analyse` |
 | Tout vérifier | `composer test` |
+| Comptes de démonstration | voir le § 4 du `README.md` — mot de passe `password` |
 | File d'attente | `php artisan queue:work` |
 | Planificateur | `php artisan schedule:work` |
 

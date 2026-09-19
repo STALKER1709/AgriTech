@@ -30,7 +30,11 @@ XAMPP convient également.
 ### Extensions PHP requises
 
 `pdo_mysql`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`,
-`bcmath`, `fileinfo`, `gd`, `zip`, `intl`.
+`fileinfo`, `gd`, `zip`, `intl`.
+
+> `bcmath` n'est **pas** nécessaire : les montants et les quantités sont
+> manipulés en entiers par les classes `Money` et `Quantity`, sans arithmétique
+> à précision arbitraire.
 
 Vérification :
 
@@ -171,7 +175,32 @@ composer test
 
 ## 4. Comptes de démonstration
 
-*Seront fournis à partir de la phase 1, une fois les seeders en place.*
+Créés par `php artisan migrate:fresh --seed`. **Le mot de passe est `password`
+pour tous.**
+
+| Rôle | Identifiant | État du compte |
+|---|---|---|
+| Administrateur | `admin@agritech.local` | Actif, tous les privilèges |
+| Client | `client@agritech.local` | Actif, a une commande payée et une formation achetée |
+| Client | `client2@agritech.local` | Actif, a un abonnement trimestriel en cours |
+| Agriculteur | `agriculteur@agritech.local` | **Actif** (validé) — Ferme du Mbam, Obala |
+| Agricultrice | `agricultrice@agritech.local` | **Actif** (validé) — Coopérative des Hauts Plateaux, Dschang |
+| Agriculteur | `agriculteur-attente@agritech.local` | **En attente de validation** — à approuver depuis l'admin |
+| Agricultrice | `agriculteur-impaye@agritech.local` | **En attente de paiement** des frais d'inscription |
+| Agriculteur | `agriculteur-refuse@agritech.local` | **Refusé**, avec motif enregistré |
+
+### Ce que contient le jeu de démonstration
+
+- **7 produits** répartis sur deux agriculteurs, dont **un en attente de
+  modération** (« Ananas de Bafia ») pour tester l'écran d'administration.
+- **4 formations**, dont trois incluses dans l'abonnement.
+- **3 commandes** : une payée **répartie entre deux agriculteurs** (deux
+  sous-commandes), une en attente de paiement, une annulée.
+- **4 paiements**, une souscription active, une conversation avec un message
+  non lu côté agriculteur.
+
+> Ces comptes sont destinés à une base locale de démonstration. Les mots de
+> passe sont volontairement triviaux et ne doivent jamais servir ailleurs.
 
 ---
 

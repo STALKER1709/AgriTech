@@ -218,3 +218,151 @@ modifié pour en tenir compte.
 avertissements « Ambiguous class resolution » pour `league/flysystem`, car les
 archives `dist` excluent des fichiers de test que le dépôt git contient. Ces
 avertissements n'apparaissent pas sur une installation `dist` classique.
+
+---
+
+## Phase 1 — Modèle de données
+
+### 2026-09-19 — Les lignes de commande s'attachent aux sous-commandes
+
+**Décision.** `order_items.sub_order_id`, et non `order_id`.
+
+**Justification.** Le panier est multi-agriculteurs : chaque ligne appartient
+nécessairement à un seul agriculteur. Passer par la sous-commande rend ce lien
+structurel plutôt que déductible, et supprime la possibilité qu'une ligne se
+retrouve rattachée à une commande sans sous-commande correspondante. Le
+`total_amount` de la commande est la somme des `subtotal_amount`, eux-mêmes
+sommes de leurs lignes ; un test vérifie cette cohérence sur tout le jeu de
+démonstration.
+
+**Alternative écartée.** Lignes sur la commande avec un `farmer_id` dupliqué :
+deux sources de vérité pour la même information.
+
+---
+
+### 2026-09-19 — Privilèges implémentés sans `spatie/laravel-permission`
+
+**Décision.** Table `privileges` + pivot `privilege_user`, écrits à la main.
+
+**Justification.** Le rôle est déjà une colonne enum sur `users` ; Spatie
+apporterait ses propres tables de rôles, en doublon avec cette colonne, pour un
+besoin qui tient en une table et un pivot. Le catalogue des privilèges est
+déclaré dans `Privilege::catalogue()`, ce qui garde le seeder et l'écran
+d'administration alignés sur une seule liste. Moins de dépendance à suivre,
+comportement entièrement lisible dans le code du projet.
+
+**Alternative écartée.** `spatie/laravel-permission` : excellent paquet, mais
+dimensionné pour des besoins d'autorisation nettement plus riches que les huit
+privilèges d'AgriTech.
+
+---
+
+### 2026-09-19 — La commission est figée sur la sous-commande
+
+**Décision.** `sub_orders.commission_rate_snapshot` et
+`sub_orders.commission_amount` sont enregistrés à la création de la commande.
+
+**Justification.** Le taux est un paramètre modifiable par l'administrateur.
+S'il était relu à l'affichage, changer le taux réécrirait rétroactivement la
+valeur de toutes les commandes passées. Le figer préserve l'historique
+comptable. Même raisonnement que `order_items.unit_price_snapshot`.
+
+---
+
+### 2026-09-19 — Objet-valeur `Quantity` plutôt que `bcmath`
+
+**Décision.** Les quantités (`stock_quantity`, `order_items.quantity`) passent
+par une classe `Quantity` qui stocke un **entier de millièmes**, sur le modèle
+de `Money`.
+
+**Justification.** La RG04 interdit tout risque d'arrondi sur les stocks. Trois
+options se présentaient :
+
+1. `float` — écartée d'emblée, c'est précisément ce que la règle proscrit ;
+2. `bcmath` — ajoute une extension PHP obligatoire à installer sous Windows, et
+   **n'est pas disponible dans l'environnement de développement** ;
+3. un entier mis à l'échelle — aucune dépendance, aucune extension, comparaisons
+   exactes, et parfaitement cohérent avec la façon dont l'argent est déjà traité.
+
+La troisième a été retenue. La colonne reste `decimal(12,3)` comme prévu au
+cahier des charges ; `QuantityCast` fait la conversion, et refuse un `float` à
+l'écriture plutôt que de l'arrondir en silence.
+
+**Conséquence documentée.** `bcmath` a été **retiré** de la liste des extensions
+requises dans le `README.md`, où il figurait à tort.
+
+---
+
+### 2026-09-19 — Bug corrigé dans le formatage monétaire
+
+Le premier jet de `Money::formatNumber()` groupait les milliers avec
+`strrev(implode(..., str_split(strrev($digits), 3)))`. `strrev` inverse des
+**octets**, pas des caractères : l'espace fine insécable U+202F (`E2 80 AF`)
+ressortait inversé en `AF 80 E2`, soit une séquence UTF-8 invalide.
+
+Le test de formatage l'a détecté immédiatement. Le groupage se fait désormais
+par découpage depuis la droite, sans inversion de la chaîne assemblée. Les
+montants s'affichent `12 500 FCFA` avec U+202F entre les groupes et U+00A0
+avant la devise, pour qu'un retour à la ligne ne sépare jamais le montant de
+« FCFA ».
+
+---
+
+### 2026-09-19 — Hypothèse sur le format des numéros camerounais
+
+**Hypothèse retenue, à confirmer.** Les numéros sont stockés normalisés au
+format international `+237XXXXXXXXX`, et les jeux de données utilisent des
+mobiles à neuf chiffres commençant par 6.
+
+**Réserve.** Je crois que la renumérotation de 2016 a porté les mobiles
+camerounais à neuf chiffres préfixés par 6, **mais je ne peux pas le confirmer
+par une source vérifiable**, et la règle a pu évoluer depuis. La contrainte
+n'est pour l'instant appliquée qu'au niveau du stockage (colonne unique de 20
+caractères) : **aucune expression régulière ne rejette encore de numéro**. La
+règle de validation précise sera écrite en phase 2, une fois le format
+confirmé. Le message d'erreur correspondant est déjà prévu dans
+`lang/fr/validation.php`, sous `custom.phone.regex`.
+
+---
+
+### 2026-09-19 — La table `users` a été modifiée sur place
+
+**Décision.** La migration d'origine `create_users_table` a été réécrite
+(`first_name`, `last_name`, `phone`, `role`, `status`) plutôt que complétée par
+une migration d'altération.
+
+**Justification.** Rien n'est déployé et la base est recréée à volonté : un
+historique de migrations qui ajoute des colonnes à une table livrée quelques
+heures plus tôt serait une fiction. Un schéma lisible d'un seul tenant vaut
+mieux.
+
+**Conséquence.** La colonne `name` disparaît. Un accesseur `name` la
+reconstitue (`first_name` + `last_name`), ce qui laisse fonctionner les vues du
+starter kit sans modification. Les écrans d'inscription et de profil ont été
+adaptés aux nouveaux champs, ainsi que leurs tests.
+
+---
+
+### 2026-09-19 — Détection des requêtes N+1 en local uniquement
+
+**Décision.** `Model::preventLazyLoading(app()->environment('local'))`.
+
+**Justification.** Transforme un chargement paresseux silencieux en exception
+pendant le développement, là où le problème doit se voir. Volontairement limité
+à `local` : cette protection ne doit jamais faire tomber une page devant un
+utilisateur. Vérifié que `migrate:fresh --seed` passe avec cette option active.
+
+---
+
+### 2026-09-19 — Le jeu de démonstration est rejouable
+
+**Décision.** Les données de référence et les comptes utilisent
+`updateOrCreate` ; les transactions (commandes, paiements, achats, abonnement,
+conversation) ne sont créées que si aucune commande n'existe déjà.
+
+**Justification.** Un test qui exécute le seeder deux fois de suite a révélé une
+violation de contrainte d'unicité sur `training_purchases`. Une commande est un
+**événement**, pas une donnée à réconcilier : la rejouer n'a pas de sens. Le
+seeder s'arrête donc avant cette section lorsqu'elle a déjà été jouée, ce qui
+rend `php artisan db:seed` sûr à relancer. `migrate:fresh --seed` repart
+évidemment d'une base vide et reproduit l'intégralité du jeu.

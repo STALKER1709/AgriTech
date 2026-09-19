@@ -30,19 +30,23 @@ explicite avant de passer à la suivante.
 
 ---
 
-## Phase 1 — Modèle de données ⬜
+## Phase 1 — Modèle de données ✅
 
-- [ ] Enums PHP natifs pour tous les statuts (`UserStatus`, `UserRole`, `PublicationStatus`, `OrderStatus`, `PaymentStatus`, `PaymentPurpose`, `SubscriptionStatus`, `PaymentMethod`)
-- [ ] Migrations : `users` (étendue), `farmer_profiles`, `privileges`, `privilege_user`, `categories`, `products`, `trainings`, `orders`, `sub_orders`, `order_items`, `training_purchases`, `subscription_plans`, `subscriptions`, `payments`, `conversations`, `messages`, `audit_logs`, `settings`, `notifications`
-- [ ] Modèles Eloquent : relations, `casts`, `$fillable`
-- [ ] Classe `Support\Money` (entiers FCFA, formatage `12 500 FCFA`)
-- [ ] Méthodes de transition de statut explicites, refusant les transitions invalides
-- [ ] Factories pour chaque modèle
-- [ ] Seeders : super-admin, privilèges, catégories, plans d'abonnement, jeu de démonstration réaliste
-- [ ] `preventLazyLoading` activé en local
+- [x] 13 enums PHP natifs pour les statuts et les types, avec libellés français et transitions autorisées
+- [x] 16 migrations : `users` (réécrite), `farmer_profiles`, `privileges` + pivot, `categories`, `products` + images, `trainings` + contenus, `orders` / `sub_orders` / `order_items`, `training_purchases`, `subscription_plans` / `subscriptions`, `payments`, `conversations` / `messages`, `audit_logs`, `settings`, `notifications`
+- [x] 19 modèles Eloquent : relations, `casts`, `#[Fillable]`, scopes
+- [x] Objet-valeur `Support\Money` (entiers FCFA, formatage `12 500 FCFA`) et son `MoneyCast`
+- [x] Objet-valeur `Support\Quantity` (entiers de millièmes) et son `QuantityCast`, sans `bcmath`
+- [x] Méthodes de transition explicites levant `InvalidStatusTransition`
+- [x] 19 factories avec états nommés
+- [x] Seeders : privilèges, super-admin, catégories, paramètres, plans d'abonnement, jeu de démonstration
+- [x] `preventLazyLoading` actif en environnement local
+- [x] 133 tests ajoutés (`Money`, `Quantity`, transitions, relations, intégrité, seeders)
 
-**Acceptation :** `php artisan migrate:fresh --seed` reproductible ; tests des
-relations et des transitions de statut au vert.
+**Acceptation :** `php artisan migrate:fresh --seed` exécuté deux fois de suite
+donne le même résultat · aucune colonne monétaire n'est un flottant, vérifié par
+un test lisant `information_schema` · `composer test` intégralement propre
+(Pint, Larastan niveau 7, 162 tests).
 
 ---
 
