@@ -23,6 +23,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Setting;
 use App\Models\SubOrder;
 use App\Models\Subscription;
@@ -31,9 +32,11 @@ use App\Models\Training;
 use App\Models\TrainingPurchase;
 use App\Models\User;
 use App\Support\Money;
+use App\Support\PlaceholderImage;
 use App\Support\Quantity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -301,6 +304,10 @@ class DemoSeeder extends Seeder
             );
         }
 
+        foreach ($products as $product) {
+            $this->attachPlaceholderImage($product);
+        }
+
         // One product still waiting on moderation, so the admin screen has
         // something to act on out of the box.
         Product::updateOrCreate(
@@ -318,6 +325,38 @@ class DemoSeeder extends Seeder
         );
 
         return $products;
+    }
+
+    /**
+     * Give a product one generated image, so the catalogue looks like a
+     * catalogue rather than a grid of empty boxes.
+     *
+     * Skipped when the product already has one, which keeps the seeder
+     * rerunnable.
+     */
+    private function attachPlaceholderImage(Product $product): void
+    {
+        if ($product->images()->exists()) {
+            return;
+        }
+
+        $palette = [
+            [34, 110, 62], [176, 122, 32], [140, 54, 42],
+            [42, 96, 140], [104, 64, 128], [64, 120, 96],
+        ];
+
+        $path = 'products/'.$product->id.'/'.Str::ulid()->toString().'.png';
+
+        Storage::disk((string) config('catalog.images.disk', 'local'))->put(
+            $path,
+            PlaceholderImage::png($product->name, $palette[$product->id % count($palette)]),
+        );
+
+        ProductImage::create([
+            'product_id' => $product->id,
+            'path' => $path,
+            'position' => 1,
+        ]);
     }
 
     /**
