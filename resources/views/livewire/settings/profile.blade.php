@@ -5,7 +5,9 @@
 
     <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
-            <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
+            <flux:input wire:model="first_name" :label="__('First name')" type="text" required autofocus autocomplete="given-name" />
+
+            <flux:input wire:model="last_name" :label="__('Last name')" type="text" required autocomplete="family-name" />
 
             <div>
                 <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
@@ -23,6 +25,8 @@
                     </div>
                 @endif
             </div>
+
+            <flux:input wire:model="phone" :label="__('Phone number')" type="tel" required autocomplete="tel" />
 
             <div class="flex items-center gap-4">
                 <flux:button variant="primary" type="submit">{{ __('Save') }}</flux:button>

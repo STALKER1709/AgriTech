@@ -26,16 +26,19 @@ class ProfileUpdateTest extends TestCase
         $this->actingAs($user);
 
         $response = Livewire::test(Profile::class)
-            ->set('name', 'Test User')
+            ->set('first_name', 'Clarisse')
+            ->set('last_name', 'Etoundi')
             ->set('email', 'test@example.com')
+            ->set('phone', '+237650000124')
             ->call('updateProfileInformation');
 
         $response->assertHasNoErrors();
 
         $user->refresh();
 
-        $this->assertEquals('Test User', $user->name);
+        $this->assertEquals('Clarisse Etoundi', $user->name);
         $this->assertEquals('test@example.com', $user->email);
+        $this->assertEquals('+237650000124', $user->phone);
         $this->assertNull($user->email_verified_at);
     }
 
@@ -46,8 +49,10 @@ class ProfileUpdateTest extends TestCase
         $this->actingAs($user);
 
         $response = Livewire::test(Profile::class)
-            ->set('name', 'Test User')
+            ->set('first_name', 'Clarisse')
+            ->set('last_name', 'Etoundi')
             ->set('email', $user->email)
+            ->set('phone', $user->phone)
             ->call('updateProfileInformation');
 
         $response->assertHasNoErrors();

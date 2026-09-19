@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +33,11 @@ class AppServiceProvider extends ServiceProvider
     protected function configureDefaults(): void
     {
         Date::use(CarbonImmutable::class);
+
+        // Surfaces N+1 queries while developing, by turning a silent lazy load
+        // into an exception. Deliberately local-only: it must never take a
+        // page down for a user.
+        Model::preventLazyLoading(app()->environment('local'));
 
         DB::prohibitDestructiveCommands(
             app()->isProduction(),
