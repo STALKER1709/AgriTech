@@ -16,12 +16,26 @@ class DashboardTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_authenticated_users_can_visit_the_dashboard(): void
+    /**
+     * The dashboard is a signpost rather than a page: it sends each role to
+     * its own area.
+     */
+    public function test_authenticated_users_are_sent_to_their_own_area(): void
     {
-        $user = User::factory()->create();
-        $this->actingAs($user);
+        $this->actingAs(User::factory()->client()->create());
+        $this->get(route('dashboard'))->assertRedirect(route('client.dashboard'));
 
-        $response = $this->get(route('dashboard'));
-        $response->assertOk();
+        $this->actingAs(User::factory()->farmer()->create());
+        $this->get(route('dashboard'))->assertRedirect(route('farmer.dashboard'));
+
+        $this->actingAs(User::factory()->admin()->create());
+        $this->get(route('dashboard'))->assertRedirect(route('admin.dashboard'));
+    }
+
+    public function test_an_account_that_is_not_active_is_sent_to_the_status_screen(): void
+    {
+        $this->actingAs(User::factory()->awaitingPayment()->create());
+
+        $this->get(route('dashboard'))->assertRedirect(route('account.status'));
     }
 }
