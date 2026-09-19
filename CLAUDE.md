@@ -35,6 +35,7 @@ comptes agriculteurs et modère les publications.
 | Base de données | MySQL 8 / MariaDB — base applicative `agritech`, base de tests `agritech_test` |
 | Front | Blade + **Livewire 4** (composants de classe) + **Flux 2** + **Tailwind 4**, build **Vite 8** via `vite-plus` |
 | Authentification | **Livewire Starter Kit** officiel, propulsé par **Laravel Fortify** |
+| Identifiant de connexion | champ unique `login` : **e-mail ou téléphone** (`Fortify::authenticateUsing`) |
 | Tests | **Pest 5** (sur PHPUnit 13) |
 | Formatage | **Laravel Pint** (preset `laravel`) |
 | Analyse statique | **Larastan** niveau **7** |
@@ -82,6 +83,15 @@ tests/Unit  tests/Feature
   millièmes**. Leurs casts Eloquent (`MoneyCast`, `QuantityCast`) refusent un
   `float` à l'écriture plutôt que de l'arrondir en silence.
 - `bcmath` n'est **pas** une dépendance du projet.
+- Les numéros de téléphone passent par `Support\PhoneNumber` et sont stockés
+  normalisés en `+237XXXXXXXXX`. Un mutateur sur `User::phone` garantit que
+  toute écriture y passe, sans quoi la contrainte d'unicité ne voudrait rien dire.
+- **L'interface est écrite en français directement dans `__()`.** Il n'y a pas
+  de table de correspondance anglais → français ; `lang/fr/*.php` ne sert qu'aux
+  messages de Laravel lui-même.
+- Un composant **Livewire pleine page** doit rendre un **seul élément racine** :
+  le layout est appliqué automatiquement (`#[Layout('layouts::auth')]` pour
+  changer de layout). L'envelopper dans `<x-layouts::app>` lève une exception.
 - Factory + seeder pour chaque modèle.
 
 ## 5. Règles de gestion
@@ -112,6 +122,7 @@ tests/Unit  tests/Feature
 | Analyse statique | `./vendor/bin/phpstan analyse` |
 | Tout vérifier | `composer test` |
 | Comptes de démonstration | voir le § 4 du `README.md` — mot de passe `password` |
+| Espaces par rôle | `/client/…`, `/agriculteur/…`, `/admin/…` ; `/dashboard` aiguille |
 | File d'attente | `php artisan queue:work` |
 | Planificateur | `php artisan schedule:work` |
 

@@ -202,6 +202,43 @@ pour tous.**
 > Ces comptes sont destinés à une base locale de démonstration. Les mots de
 > passe sont volontairement triviaux et ne doivent jamais servir ailleurs.
 
+### Se connecter par téléphone
+
+Le champ de connexion accepte **une adresse e-mail ou un numéro de téléphone**.
+Le numéro peut être saisi de toutes les façons usuelles — `650000001`,
+`650 00 00 01`, `+237 650 00 00 01`, `00237650000001` — il est normalisé avant
+la recherche.
+
+| Compte | Numéro |
+|---|---|
+| Administrateur | `600 00 00 01` |
+| Client | `650 00 00 01` |
+| Client (abonné) | `650 00 00 02` |
+| Agriculteur (validé) | `670 00 00 01` |
+| Agricultrice (validée) | `690 00 00 02` |
+| Agriculteur en attente de validation | `680 00 00 03` |
+| Agricultrice en attente de paiement | `670 00 00 04` |
+| Agriculteur refusé | `690 00 00 05` |
+
+Les comptes **suspendu**, **refusé** et **supprimé** ne peuvent pas se
+connecter : ils reçoivent un message qui explique pourquoi, et non un
+« identifiants incorrects » trompeur.
+
+### Parcours à essayer
+
+| Parcours | Chemin |
+|---|---|
+| Inscription client | `/register` |
+| **Inscription agriculteur** | `/inscription/agriculteur` |
+| Statut d'un compte non actif | `/mon-compte/statut` |
+| Espace client | `/client/tableau-de-bord` |
+| Espace agriculteur | `/agriculteur/tableau-de-bord` |
+| Administration | `/admin/tableau-de-bord` |
+
+Connectez-vous avec `agriculteur-impaye@agritech.local` pour voir l'écran des
+frais d'inscription. **Le bouton de paiement y est volontairement désactivé** :
+la passerelle Mobile Money simulée arrive à l'étape suivante du projet.
+
 ---
 
 ## 5. Passerelle de paiement simulée

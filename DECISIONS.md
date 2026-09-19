@@ -366,3 +366,167 @@ violation de contrainte d'unicité sur `training_purchases`. Une commande est un
 seeder s'arrête donc avant cette section lorsqu'elle a déjà été jouée, ce qui
 rend `php artisan db:seed` sûr à relancer. `migrate:fresh --seed` repart
 évidemment d'une base vide et reproduit l'intégralité du jeu.
+
+---
+
+## Phase 2 — Authentification et comptes
+
+### 2026-09-19 — Connexion par e-mail ou téléphone : un champ unique `login`
+
+**Décision.** `config/fortify.php` passe de `'username' => 'email'` à
+`'username' => 'login'`, et `Fortify::authenticateUsing()` résout la saisie :
+une adresse e-mail si elle en a la forme, sinon un numéro normalisé.
+
+**Justification.** Fortify n'accepte qu'un seul champ d'identification. Offrir
+deux champs séparés aurait obligé l'utilisateur à choisir avant de saisir, pour
+un bénéfice nul. Le service `UserLookup` porte cette résolution, testée pour
+cinq écritures différentes du même numéro.
+
+**Conséquences.**
+- `lowercase_usernames` passe à `false` : mettre un numéro en minuscules n'a
+  aucun sens. Les recherches par e-mail appliquent `mb_strtolower` elles-mêmes.
+- **La réinitialisation du mot de passe reste par e-mail uniquement.** Le broker
+  de Laravel a besoin d'une adresse pour envoyer le lien, et aucun canal SMS
+  n'existe en local. Un utilisateur inscrit sans e-mail ne pourrait pas
+  réinitialiser — le champ e-mail reste donc obligatoire.
+- Les tests du starter kit qui postaient `email` ont été adaptés.
+
+---
+
+### 2026-09-19 — Un compte suspendu, refusé ou supprimé reçoit un message explicite
+
+**Décision.** Le service `AccountAccess` refuse l'ouverture de session de ces
+trois statuts, avec un message propre à chacun plutôt que « identifiants
+incorrects ».
+
+**Justification.** Renvoyer « identifiants incorrects » à quelqu'un dont les
+identifiants sont corrects l'envoie tourner en rond : il ressaisira, réessaiera,
+puis se fera bloquer par la limitation de débit. Le compromis de sécurité est
+mince : il faut déjà connaître le mot de passe pour voir ce message.
+
+**Choix associé.** Un agriculteur `pending_payment` ou `pending_validation`
+**peut** se connecter. C'est nécessaire : c'est ainsi qu'il paie ses frais et
+suit son dossier. C'est le middleware `account.active` qui lui ferme son espace
+de travail, pas la connexion.
+
+---
+
+### 2026-09-19 — Limitation de débit : Fortify n'en pose que sur la connexion
+
+**Constat.** En lisant les routes de Fortify, seules la connexion, la
+double authentification, les passkeys et la vérification d'e-mail lisent une
+clé `limiters`. **L'inscription et la demande de réinitialisation de mot de
+passe ne sont limitées par rien.** Déclarer `'limiters.register' => …` aurait
+donné un réglage sans aucun effet.
+
+**Décision.** Un middleware `ThrottleSensitiveAuthRoutes`, ajouté à
+`config('fortify.middleware')`, limite ces routes à cinq tentatives par minute
+et par adresse IP, et s'efface immédiatement pour tout le reste.
+
+**Décision associée.** `'limiters.login'` est volontairement laissé à `null`.
+Renseigné, Fortify délègue au middleware `throttle`, qui répond une page 429
+brute ; laissé vide, il utilise sa propre action `EnsureLoginIsNotThrottled`,
+qui échoue en validation avec le message `auth.throttle` traduit, affiché sur
+le formulaire. Même limite de cinq tentatives par minute, bien meilleure
+expérience.
+
+---
+
+### 2026-09-19 — L'inscription agriculteur est un parcours distinct
+
+**Décision.** Route, composant Livewire et service `FarmerRegistrar` propres,
+séparés de l'inscription Fortify qui crée les clients.
+
+**Justification.** Un compte agriculteur écrit **deux** enregistrements
+(`User` + `FarmerProfile`) et démarre dans un état différent
+(`pending_payment`). Les deux écritures sont dans une `DB::transaction()`, ce
+qui exclut le compte sans profil ; un test le vérifie en provoquant un échec de
+validation.
+
+**Limite assumée et visible.** Le bouton de paiement de l'écran de statut est
+**désactivé**, avec un texte qui dit explicitement que le paiement Mobile Money
+n'est pas encore disponible. La passerelle simulée est le sujet de la phase 3,
+qui branchera ce parcours jusqu'à `pending_validation` (RG02).
+
+---
+
+### 2026-09-19 — Numéros de téléphone : objet-valeur et hypothèse documentée
+
+**Décision.** `Support\PhoneNumber` normalise tout vers `+237XXXXXXXXX`. Un
+mutateur sur `User::phone` garantit que **toute** écriture passe par là.
+
+**Justification.** Sans normalisation, la contrainte d'unicité sur `users.phone`
+ne veut rien dire : « 650 00 00 01 » et « +237650000001 » sont le même numéro et
+doivent entrer en collision. Deux règles séparées appliquent la forme
+(`CameroonPhoneNumber`) et l'unicité (`UniquePhoneNumber`, qui compare la forme
+normalisée).
+
+**Hypothèse retenue — toujours non confirmée.** Neuf chiffres nationaux
+commençant par **6** (mobile) ou **2** (fixe), avec préfixe `+237`, `237`,
+`00237` ou aucun, espaces et tirets acceptés. **Je n'ai pas de source
+vérifiable** pour cette règle ; elle est délibérément large, car un refus
+injustifié coûte plus cher qu'une acceptation trop permissive. Elle tient dans
+une expression régulière d'une seule classe : la resserrer est trivial.
+
+**Piège évité, et testé.** Un fixe commence par 2, comme l'indicatif pays. Le
+préfixe `237` n'est retiré que si la longueur restante est correcte, sinon
+`237222222` (un numéro fixe national) serait lu comme `222222` — le test
+`it('does not mistake a landline prefix for the country code')` verrouille ce cas.
+
+---
+
+### 2026-09-19 — Un shell, quatre navigations
+
+**Décision.** Écart assumé au cahier des charges, qui demandait des « layouts
+par rôle ». Le projet garde **un seul shell applicatif** et lui injecte une
+navigation choisie par `Support\RoleNavigation` selon le rôle et l'état du
+compte.
+
+**Justification.** Quatre layouts complets auraient signifié corriger quatre
+fois chaque détail d'ergonomie, alors que seule la navigation diffère
+réellement. Le résultat visible pour l'utilisateur est identique.
+
+**Note.** Un compte non actif reçoit la navigation `pending`, qui ne propose que
+l'écran de statut : le menu ne montre pas des espaces auxquels l'accès est
+refusé.
+
+---
+
+### 2026-09-19 — Interface entièrement en français, sans table de correspondance
+
+**Décision.** Le texte français est écrit **directement** dans `__()`, et
+`lang/fr.json` a été supprimé.
+
+**Justification.** `lang/fr.json` associait des clés anglaises à des textes
+français. Une fois toutes les vues traduites, plus aucune clé anglaise n'existe :
+le fichier était devenu une table morte. Écrire le français dans `__()` a un
+avantage concret : si un jour une chaîne échappe aux fichiers de langue, elle
+s'affiche en français, pas en anglais. Les appels `__()` restent en place, donc
+l'ajout d'une seconde langue reste possible.
+
+Les fichiers `lang/fr/*.php` (validation, auth, passwords, pagination) sont
+conservés : ce sont ceux que Laravel consulte pour ses propres messages.
+
+---
+
+### 2026-09-19 — Piège Livewire : composants pleine page et racine unique
+
+Les composants Livewire pleine page (`RegisterFarmer`, `Account\Status`) doivent
+rendre **un seul élément racine** ; le layout est appliqué automatiquement
+(`livewire.component_layout`, par défaut `layouts::app`). Les envelopper dans
+`<x-layouts::app>` provoque une `MultipleRootElementsDetectedException`.
+`RegisterFarmer` déclare `#[Layout('layouts::auth')]` pour obtenir le layout
+d'authentification.
+
+Les vues d'authentification de Fortify ne sont **pas** des composants Livewire —
+elles sont rendues par `view()` — et gardent donc leur `<x-layouts::auth>`.
+
+---
+
+### 2026-09-19 — Bug de traduction attrapé à la compilation des vues
+
+La première passe de traduction a produit `:title="__("Se connecter")"` : des
+guillemets doubles à l'intérieur d'un attribut HTML lui-même délimité par des
+guillemets doubles, ce qui casse la compilation Blade. Toutes les chaînes ont
+été repassées en apostrophes échappées, sûres dans les deux contextes. Les
+tests de rendu ont signalé l'erreur immédiatement.

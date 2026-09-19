@@ -24,9 +24,8 @@ explicite avant de passer à la suivante.
 `./vendor/bin/phpstan analyse` passent ; l'application démarre sur
 `http://localhost:8000`.
 
-> **Reste à faire, reporté en phase 2 :** les vues du starter kit contiennent
-> encore des chaînes anglaises en dur. Leur traduction est traitée avec le reste
-> de l'authentification.
+> La traduction française des vues du starter kit, annoncée ici comme reste à
+> faire, a été réalisée en **phase 2**.
 
 ---
 
@@ -50,19 +49,32 @@ un test lisant `information_schema` · `composer test` intégralement propre
 
 ---
 
-## Phase 2 — Authentification et comptes ⬜
+## Phase 2 — Authentification et comptes ✅
 
-- [ ] Inscription client
-- [ ] Inscription agriculteur (informations d'exploitation, unicité e-mail/téléphone)
-- [ ] Connexion par **e-mail ou téléphone** + mot de passe
-- [ ] Déconnexion, réinitialisation du mot de passe (e-mail visible en local)
-- [ ] Vérification d'e-mail (optionnelle, activable)
-- [ ] Profil utilisateur
-- [ ] Middleware et layouts par rôle (public, client, farmer, admin)
-- [ ] **Traduction française complète des vues d'authentification et de réglages**
-- [ ] Rate limiting sur connexion, inscription et réinitialisation
+- [x] Inscription client (Fortify) créant un compte `client` actif
+- [x] Inscription agriculteur : parcours dédié, `User` + `FarmerProfile` créés en transaction, statut `pending_payment`
+- [x] Connexion par **e-mail ou téléphone** sur un champ unique, cinq écritures du même numéro testées
+- [x] Refus explicite des comptes suspendus, refusés et supprimés
+- [x] Déconnexion, réinitialisation du mot de passe (e-mail visible dans `storage/logs`)
+- [x] Objet-valeur `Support\PhoneNumber` + règles `CameroonPhoneNumber` et `UniquePhoneNumber`
+- [x] Normalisation systématique du téléphone à l'écriture (mutateur sur `User`)
+- [x] Middlewares `role` et `account.active`, espaces `/client`, `/agriculteur`, `/admin`
+- [x] `/dashboard` devient un aiguillage vers l'espace du rôle
+- [x] Écran « statut de mon compte » avec le montant des frais d'inscription
+- [x] Navigation par rôle dans un shell partagé
+- [x] **Traduction française complète** des vues d'authentification et de réglages
+- [x] Limitation de débit sur la connexion, l'inscription et la réinitialisation
+- [x] 73 tests ajoutés (cloisonnement, connexion, inscription agriculteur, téléphone)
 
-**Acceptation :** des tests prouvent qu'aucun rôle n'accède aux routes d'un autre.
+**Acceptation :** aucun rôle n'accède aux routes d'un autre — visiteur redirigé,
+rôle étranger en 403, agriculteur non actif renvoyé vers son écran de statut ·
+connexion vérifiée par e-mail et par téléphone dans l'application réelle ·
+plus aucune chaîne anglaise en dur dans les vues · `composer test` intégralement
+propre (Pint, Larastan niveau 7, 235 tests).
+
+> **Reporté en phase 3 :** le bouton de paiement des frais d'inscription est
+> désactivé et signalé comme tel. Il sera branché sur la passerelle simulée,
+> qui fera passer le compte en `pending_validation` (RG02).
 
 ---
 
