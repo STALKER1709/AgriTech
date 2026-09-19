@@ -8,6 +8,7 @@ use App\Casts\MoneyCast;
 use App\Casts\QuantityCast;
 use App\Enums\ProductUnit;
 use App\Enums\PublicationStatus;
+use App\Enums\UserStatus;
 use App\Exceptions\InvalidStatusTransition;
 use App\Support\Money;
 use App\Support\Quantity;
@@ -30,8 +31,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property ProductUnit $unit
  * @property Quantity $stock_quantity
  * @property PublicationStatus $status
+ * @property string|null $rejection_reason
  */
-#[Fillable(['farmer_id', 'category_id', 'name', 'slug', 'description', 'unit_price', 'unit', 'stock_quantity', 'status'])]
+#[Fillable(['farmer_id', 'category_id', 'name', 'slug', 'description', 'unit_price', 'unit', 'stock_quantity', 'status', 'rejection_reason'])]
 class Product extends Model
 {
     /** @use HasFactory<ProductFactory> */
@@ -147,6 +149,22 @@ class Product extends Model
     public function scopePublished(Builder $query): void
     {
         $query->where('status', PublicationStatus::Published);
+    }
+
+    /**
+     * What the public catalogue is allowed to show.
+     *
+     * Published is not enough: a product whose farmer has been suspended or
+     * deleted must disappear, otherwise suspending an account would leave it
+     * selling. The farmer's status is part of the visibility rule, not a
+     * separate concern.
+     *
+     * @param  Builder<$this>  $query
+     */
+    public function scopeVisibleToPublic(Builder $query): void
+    {
+        $query->where('status', PublicationStatus::Published)
+            ->whereHas('farmer', fn ($farmer) => $farmer->where('status', UserStatus::Active));
     }
 
     /** @param  Builder<$this>  $query */

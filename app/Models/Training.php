@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Casts\MoneyCast;
 use App\Enums\PublicationStatus;
 use App\Enums\TrainingFormat;
+use App\Enums\UserStatus;
 use App\Exceptions\InvalidStatusTransition;
 use App\Support\Money;
 use Database\Factories\TrainingFactory;
@@ -27,8 +28,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property TrainingFormat $format
  * @property bool $included_in_subscription
  * @property PublicationStatus $status
+ * @property string|null $rejection_reason
  */
-#[Fillable(['farmer_id', 'title', 'slug', 'description', 'price', 'format', 'included_in_subscription', 'status'])]
+#[Fillable(['farmer_id', 'title', 'slug', 'description', 'price', 'format', 'included_in_subscription', 'status', 'rejection_reason'])]
 class Training extends Model
 {
     /** @use HasFactory<TrainingFactory> */
@@ -127,6 +129,17 @@ class Training extends Model
     public function scopePublished(Builder $query): void
     {
         $query->where('status', PublicationStatus::Published);
+    }
+
+    /**
+     * Same reasoning as Product: a suspended farmer stops selling.
+     *
+     * @param  Builder<$this>  $query
+     */
+    public function scopeVisibleToPublic(Builder $query): void
+    {
+        $query->where('status', PublicationStatus::Published)
+            ->whereHas('farmer', fn ($farmer) => $farmer->where('status', UserStatus::Active));
     }
 
     /** @param  Builder<$this>  $query */

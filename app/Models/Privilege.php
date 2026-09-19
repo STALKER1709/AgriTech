@@ -36,6 +36,8 @@ class Privilege extends Model
 
     public const string MODERATE_PUBLICATIONS = 'publications.moderate';
 
+    public const string MANAGE_CATEGORIES = 'categories.manage';
+
     public const string MANAGE_SETTINGS = 'settings.manage';
 
     public const string VIEW_AUDIT_LOG = 'audit.view';
@@ -61,6 +63,7 @@ class Privilege extends Model
             self::DELETE_USERS => 'Supprimer un utilisateur',
             self::MANAGE_PRIVILEGES => 'Gérer les privilèges',
             self::MODERATE_PUBLICATIONS => 'Modérer les publications',
+            self::MANAGE_CATEGORIES => 'Gérer les catégories',
             self::MANAGE_SETTINGS => 'Modifier les paramètres',
             self::VIEW_AUDIT_LOG => "Consulter le journal d'audit",
             self::REFUND_PAYMENTS => 'Rembourser un paiement',

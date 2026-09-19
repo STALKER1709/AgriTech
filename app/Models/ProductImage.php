@@ -37,4 +37,15 @@ class ProductImage extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    /**
+     * Where a view should point to display this image.
+     *
+     * Always a route, never a file URL: the files live on a private disk and
+     * the application never relies on storage:link.
+     */
+    public function url(): string
+    {
+        return route('catalog.image', ['image' => $this->id]);
+    }
 }
