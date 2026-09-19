@@ -530,3 +530,146 @@ guillemets doubles à l'intérieur d'un attribut HTML lui-même délimité par d
 guillemets doubles, ce qui casse la compilation Blade. Toutes les chaînes ont
 été repassées en apostrophes échappées, sûres dans les deux contextes. Les
 tests de rendu ont signalé l'erreur immédiatement.
+
+---
+
+## Phase 3 — Passerelle de paiement simulée
+
+### 2026-09-19 — Le callback est une vraie requête HTTP, traitée par le noyau
+
+**Décision.** Le job `DeliverSimulatedCallback` construit une `Request` et la
+passe à `app()->handle()`. Routage, middleware, exemption CSRF, vérification de
+signature et contrôleur s'exécutent réellement.
+
+**Justification.** Trois options se présentaient :
+
+| Option | Verdict |
+|---|---|
+| Requête interne via le noyau | **retenue** — fidèle, testable, sans réseau |
+| Vrai HTTP via `Http::post()` | exigerait `php artisan serve` en plus de `queue:work`, et les tests devraient simuler le client HTTP — ce qui retirerait précisément ce qu'on veut vérifier |
+| Appel direct du service | contournerait routage, middleware et signature : la RG06 ne serait plus réellement testée |
+
+Passer à un vrai opérateur ne changerait que le **producteur** du callback ; son
+traitement resterait identique.
+
+---
+
+### 2026-09-19 — L'idempotence est garantie par la base, pas par un `if`
+
+**Décision.** Nouvelle table `payment_callbacks`, avec `event_id` **unique**.
+Le traitement insère d'abord la ligne ; une collision signifie « déjà traité »,
+et la réponse est 200 sans aucun effet.
+
+**Justification.** `payments.idempotency_key` identifie **un paiement**, pas
+**un callback**. Vérifier l'existence en PHP laisserait une fenêtre pendant
+laquelle deux livraisons simultanées ne trouveraient rien et appliqueraient
+toutes deux l'effet métier. La contrainte d'unicité, elle, ne perd pas cette
+course.
+
+**Écart assumé.** La phase 1 devait porter toutes les migrations ; celle-ci
+arrive en phase 3, parce que le besoin n'apparaît qu'ici. Il valait mieux
+l'ajouter au bon moment que de deviner sa forme deux phases trop tôt.
+
+---
+
+### 2026-09-19 — Le montant annoncé par le callback est comparé, jamais cru
+
+**Décision.** Si le montant du callback diffère de celui enregistré, le
+callback est journalisé, marqué traité, et **aucun effet n'est appliqué**.
+
+**Justification.** Un callback est une information venue de l'extérieur. Le
+montant dû est une donnée de la plateforme, lue dans `Setting` au moment de
+l'initiation. Un écart signale un problème en amont : la réponse sûre est de ne
+rien faire, pas de suivre l'appelant.
+
+---
+
+### 2026-09-19 — Décider d'expirer relève de l'application, pas de la passerelle
+
+**Décision corrigée en cours de phase.** `getStatus()` rapporte ce que la
+passerelle sait, sans jamais transformer une attente en expiration. C'est
+`PaymentService::reconcile()` qui décide, avec la fenêtre que l'appelant lui
+donne.
+
+**Ce qui l'a révélé.** Un test de l'option `--minutes` de la commande de
+réconciliation. L'option promettait de piloter la fenêtre d'attente, mais le
+seuil réel venait de `config('payments.expiration_minutes')` : passer
+`--minutes 1` n'expirait rien. Le réglage était décoratif.
+
+**Pourquoi la nouvelle conception est meilleure.** Un vrai opérateur a son
+propre délai et ne prendrait pas le nôtre en argument. Le contrat reste ainsi
+crédible pour une implémentation réelle, et la politique d'expiration est au
+seul endroit qui la connaît.
+
+---
+
+### 2026-09-19 — Un effet métier manquant lève une exception
+
+**Décision.** `OutcomeRegistry` ne connaît que `registration_fee`. Les trois
+autres usages (`order`, `training`, `subscription`) lèvent
+`PaymentOutcomeNotHandled`.
+
+**Justification.** Un `default => null` silencieux signifierait qu'un client
+paie une commande et qu'il ne se passe rien — découvert bien plus tard, côté
+client. Une exception rend l'oubli impossible à manquer au moment où la phase
+correspondante commence. Le contrôleur journalise en erreur avant de la
+relancer.
+
+---
+
+### 2026-09-19 — Le retour navigateur n'accorde rien
+
+**Décision.** L'écran `payments.pending` interroge le paiement toutes les deux
+secondes et **affiche** ce que le serveur a confirmé. Il n'a aucune méthode qui
+modifie quoi que ce soit.
+
+**Justification.** C'est littéralement la RG06. Un test dédié gèle la file
+d'attente, clique « Confirmer », puis rafraîchit l'écran deux fois : le
+paiement reste `initiated`. La page ne peut rien faire aboutir.
+
+---
+
+### 2026-09-19 — La page de paiement est volontairement voyante
+
+Bandeau « Environnement de test » en bordure pointillée ambre, mention
+explicite qu'aucun opérateur n'est contacté et qu'aucun argent ne circule. Une
+page de paiement factice qui ressemble à une vraie est un piège : mieux vaut
+qu'elle soit impossible à confondre.
+
+Trois boutons couvrent les issues d'un paiement réel, dont les deux qu'un
+opérateur rend difficiles à déclencher à la demande : **Refuser** et **Laisser
+expirer**. Deux numéros imposent leur issue quel que soit le bouton
+(`670 00 00 00` échoue, `670 00 00 99` n'aboutit jamais), afin de rejouer ces
+cas depuis un script.
+
+---
+
+### 2026-09-19 — Bug attrapé par le script de vérification : les numéros de la factory
+
+`UserFactory` numérotait les téléphones depuis un compteur statique démarrant à
+zéro. Deux collisions s'en sont suivies :
+
+1. avec les numéros fixes du `DemoSeeder` — la factory produisait
+   `+237600000001`, déjà pris par le super-admin ;
+2. avec elle-même, d'une exécution de script à l'autre : le compteur vit dans le
+   processus, les numéros vivent dans la base.
+
+**Correction.** Les numéros générés occupent une bande réservée `+23761…`,
+qu'aucun compte de démonstration n'utilise, et le compteur est initialisé une
+fois par processus depuis le plus grand numéro déjà stocké.
+
+Le problème n'apparaissait pas dans la suite de tests, où la base est
+réinitialisée : il fallait un script réel pour le faire sortir.
+
+---
+
+### 2026-09-19 — Le paiement exige la file d'attente, par conception
+
+La confirmation transite par `php artisan queue:work`. Ce n'est pas une
+contrainte subie : un vrai opérateur répond hors bande, quelques secondes plus
+tard, sur sa propre connexion. Exécuter le callback en ligne masquerait tous les
+défauts qui n'apparaissent que lorsque la réponse arrive après que le navigateur
+est passé à autre chose.
+
+C'est rappelé dans le `README.md`, dans `CLAUDE.md`, **sur la page de paiement
+elle-même** et dans la sortie de la commande Artisan.

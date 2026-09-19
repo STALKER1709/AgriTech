@@ -72,27 +72,39 @@ connexion vérifiée par e-mail et par téléphone dans l'application réelle ·
 plus aucune chaîne anglaise en dur dans les vues · `composer test` intégralement
 propre (Pint, Larastan niveau 7, 235 tests).
 
-> **Reporté en phase 3 :** le bouton de paiement des frais d'inscription est
-> désactivé et signalé comme tel. Il sera branché sur la passerelle simulée,
-> qui fera passer le compte en `pending_validation` (RG02).
+> Le bouton de paiement des frais d'inscription, annoncé ici comme désactivé,
+> a été branché en **phase 3**.
 
 ---
 
-## Phase 3 — Passerelle de paiement simulée ⬜
+## Phase 3 — Passerelle de paiement simulée ✅
 
-- [ ] Interface `PaymentGateway` (`initiate`, `verifyCallback`, `getStatus`, `refund`)
-- [ ] `FakeMobileMoneyGateway` activée par `PAYMENT_GATEWAY=fake`
-- [ ] Page de paiement de test (mention « Environnement de test », MTN MoMo / Orange Money, boutons Confirmer / Refuser / Laisser expirer)
-- [ ] Callback signé HMAC, envoyé par un job en file d'attente avec latence configurable
-- [ ] Route webhook : vérification de signature, **idempotence**, journalisation du payload brut
-- [ ] Commande `agritech:payment:simulate {reference} {succeeded|failed|expired}`
-- [ ] Option d'envoi dupliqué du callback (test d'idempotence)
-- [ ] Tâche de réconciliation planifiée pour les paiements restés `pending`
-- [ ] Branchement sur les frais d'inscription agriculteur (RG02)
-- [ ] Numéros de test documentés dans le README
+- [x] Contrat `PaymentGateway` (`initiate`, `verifyCallback`, `getStatus`, `refund`)
+- [x] `FakeMobileMoneyGateway`, liée par `PAYMENT_GATEWAY` ; une passerelle inconnue échoue bruyamment au démarrage
+- [x] Page de paiement de test : bandeau « Environnement de test », montant, opérateur, numéro, **Confirmer / Refuser / Laisser expirer**
+- [x] Callback signé HMAC-SHA256 (horodatage inclus dans la signature), envoyé par un job en file d'attente avec latence configurable
+- [x] Webhook : signature vérifiée **avant toute lecture du payload**, exempté de CSRF, payload brut journalisé
+- [x] **Idempotence garantie par la base** : table `payment_callbacks`, `event_id` unique
+- [x] Montant du callback **comparé**, jamais cru
+- [x] Commande `agritech:payment:simulate {reference} {issue} [--duplicate] [--now]`
+- [x] Commande `agritech:payments:reconcile`, planifiée toutes les 5 minutes
+- [x] Deux numéros à issue forcée, documentés dans le README
+- [x] Branchement sur les frais d'inscription agriculteur → `pending_validation` (RG02) + notification admin
+- [x] Effet métier manquant = exception explicite, jamais un silence
+- [x] Écran d'attente qui **affiche** sans rien accorder (RG06)
+- [x] Rate limiting sur les écrans de paiement
+- [x] 36 tests ajoutés
 
-**Acceptation :** parcours d'inscription agriculteur jusqu'à `pending_validation` ;
-scénarios succès, échec, expiration et callback dupliqué testés. **RG06 couverte.**
+**Acceptation :** parcours complet d'inscription agriculteur jusqu'à
+`pending_validation`, vérifié **dans l'application réelle avec `queue:work`** ·
+succès, échec, expiration et callback dupliqué testés · signature forgée ou
+absente → 403, aucun enregistrement, aucun effet, rejet journalisé · **aucun
+paiement ne devient `succeeded` par une redirection navigateur** · réconciliation
+testée · `composer test` intégralement propre (Pint, Larastan niveau 7, 271 tests).
+
+> **Reporté aux phases suivantes :** les effets métier de `order` (phase 6),
+> `training` (phase 7) et `subscription` (phase 8). Le registre lève une
+> exception explicite tant qu'ils ne sont pas écrits.
 
 ---
 

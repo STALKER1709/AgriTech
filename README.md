@@ -235,20 +235,83 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 | Espace agriculteur | `/agriculteur/tableau-de-bord` |
 | Administration | `/admin/tableau-de-bord` |
 
-Connectez-vous avec `agriculteur-impaye@agritech.local` pour voir l'écran des
-frais d'inscription. **Le bouton de paiement y est volontairement désactivé** :
-la passerelle Mobile Money simulée arrive à l'étape suivante du projet.
+Connectez-vous avec `agriculteur-impaye@agritech.local` pour dérouler le
+paiement des frais d'inscription de bout en bout — voir le § 5.
 
 ---
 
 ## 5. Passerelle de paiement simulée
 
-Aucun opérateur Mobile Money réel n'est contacté. Une passerelle interne
-reproduit fidèlement le cycle d'un paiement : initiation, page de paiement,
-décision, callback signé côté serveur, vérification, puis effet métier.
+Aucun opérateur Mobile Money réel n'est contacté, aucun argent ne circule. Une
+passerelle interne reproduit le cycle complet d'un paiement.
 
-*Le détail du fonctionnement, les numéros de test et la commande
-`agritech:payment:simulate` seront documentés ici à l'issue de la phase 3.*
+```
+Écran « statut de mon compte »
+  → montant lu côté serveur, jamais du formulaire
+  → page de paiement de test
+      [Confirmer]  [Refuser]  [Laisser expirer]
+  → job en file d'attente, latence configurable
+  → callback signé HMAC vers /webhooks/paiements
+  → signature vérifiée, idempotence, payload journalisé
+  → le compte agriculteur passe en « en attente de validation »
+```
+
+> **`php artisan queue:work` doit tourner.** La confirmation passe par la file
+> d'attente, comme la réponse d'un vrai opérateur. Sans worker, aucun paiement
+> n'aboutit. C'est voulu : exécuter le callback en ligne masquerait tous les
+> défauts qui n'apparaissent que lorsque la réponse arrive en différé.
+
+### Numéros de test
+
+| Numéro | Comportement, quel que soit le bouton cliqué |
+|---|---|
+| `670 00 00 00` | **échoue toujours** |
+| `670 00 00 99` | **n'aboutit jamais** — force le passage par la réconciliation |
+| tout autre | suit le bouton choisi |
+
+### Piloter un paiement depuis le terminal
+
+```powershell
+# Forcer une issue (la référence est affichée sur la page de paiement)
+php artisan agritech:payment:simulate PAY-XXXXXXXXXXXXXXXX succeeded
+php artisan agritech:payment:simulate PAY-XXXXXXXXXXXXXXXX failed
+
+# Sans attendre la latence configurée
+php artisan agritech:payment:simulate PAY-XXXXXXXXXXXXXXXX succeeded --now
+
+# Envoyer DEUX FOIS le même callback : le paiement ne doit bouger qu'une fois
+php artisan agritech:payment:simulate PAY-XXXXXXXXXXXXXXXX succeeded --duplicate --now
+
+# Clôturer les paiements restés sans réponse
+php artisan agritech:payments:reconcile
+php artisan agritech:payments:reconcile --minutes=1
+```
+
+### Essayer le parcours complet
+
+1. Connectez-vous avec `agriculteur-impaye@agritech.local` (mot de passe `password`).
+2. Sur l'écran de statut, choisissez un opérateur et validez.
+3. Sur la page de test, cliquez **Confirmer**.
+4. L'écran d'attente se met à jour seul dès que le callback est traité.
+5. Le compte passe en **« en attente de validation »**.
+
+> **Ce que cet écran ne fait pas.** Revenir dessus, le recharger ou le laisser
+> ouvert ne fera jamais aboutir un paiement. Seul un callback vérifié côté
+> serveur — ou la réconciliation — peut le confirmer. C'est la règle RG06, et
+> elle vaut aussi pour la passerelle simulée.
+
+### Vérifier soi-même que la signature protège vraiment
+
+```powershell
+# Callback forgé : doit répondre 403 et ne rien changer
+curl -X POST http://localhost:8000/webhooks/paiements `
+  -H "Content-Type: application/json" `
+  -H "X-AgriTech-Signature: 0000000000000000000000000000000000000000000000000000000000000000" `
+  -H "X-AgriTech-Timestamp: 1789000000" `
+  -d '{"event_id":"evt_test","reference":"PAY-XXXX","status":"succeeded","amount":10000,"currency":"XAF","occurred_at":"2026-01-01T00:00:00+01:00"}'
+```
+
+Le rejet est tracé dans `storage/logs/laravel.log`.
 
 ---
 

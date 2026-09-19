@@ -92,7 +92,24 @@ tests/Unit  tests/Feature
 - Un composant **Livewire pleine page** doit rendre un **seul élément racine** :
   le layout est appliqué automatiquement (`#[Layout('layouts::auth')]` pour
   changer de layout). L'envelopper dans `<x-layouts::app>` lève une exception.
-- Factory + seeder pour chaque modèle.
+- Factory + seeder pour chaque modèle. Les téléphones générés par `UserFactory`
+  occupent la bande réservée `+23761…`, qu'aucun compte de démonstration
+  n'utilise, et le compteur s'initialise depuis la base — sans quoi un script
+  relancé réutilise les numéros du tour précédent.
+
+### Paiements
+
+- **Un seul endroit peut confirmer un paiement** : `PaymentService`, appelé par
+  le webhook vérifié ou par la réconciliation. Aucune page, aucun composant
+  Livewire, aucune redirection n'appelle `markAsSucceeded()`.
+- **L'idempotence est une contrainte de base de données**, pas un `if` :
+  `payment_callbacks.event_id` est unique, et l'insertion précède l'effet.
+- Le montant d'un callback est **comparé** à celui enregistré, jamais adopté.
+- Décider qu'un paiement a trop attendu appartient à `PaymentService`, pas à la
+  passerelle : un vrai opérateur a son propre délai.
+- Un `PaymentPurpose` sans effet métier écrit **lève une exception**. Ne jamais
+  remplacer cela par un `default => null`.
+- La confirmation transite par la file d'attente : **`queue:work` est requis**.
 
 ## 5. Règles de gestion
 
@@ -125,6 +142,8 @@ tests/Unit  tests/Feature
 | Espaces par rôle | `/client/…`, `/agriculteur/…`, `/admin/…` ; `/dashboard` aiguille |
 | File d'attente | `php artisan queue:work` |
 | Planificateur | `php artisan schedule:work` |
+| Forcer une issue de paiement | `php artisan agritech:payment:simulate {ref} {succeeded\|failed\|expired} [--duplicate] [--now]` |
+| Clôturer les paiements en attente | `php artisan agritech:payments:reconcile [--minutes=N]` |
 
 > Les callbacks de la passerelle de paiement simulée passent par la file
 > d'attente : **`php artisan queue:work` doit tourner** pour que les paiements
