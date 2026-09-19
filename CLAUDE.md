@@ -97,6 +97,22 @@ tests/Unit  tests/Feature
   n'utilise, et le compteur s'initialise depuis la base — sans quoi un script
   relancé réutilise les numéros du tour précédent.
 
+### Administration
+
+- Le rôle `admin` ouvre `/admin` ; **il n'autorise rien à l'intérieur**. Chaque
+  action passe par une Policy adossée à un privilège. Un Gate est déclaré par
+  privilège depuis `Privilege::catalogue()` — une seule liste, jamais deux.
+- **Anonymiser, c'est mettre à `NULL`**, pas écrire une valeur de remplacement.
+  `users.email` et `users.phone` sont nullables pour cela (RG08).
+- Le journal d'audit **ne recopie jamais la donnée qu'une suppression efface** :
+  `had_email: true → false`, pas l'adresse.
+- `AuditLogger::record()` est appelé **explicitement** par les services. Ne
+  jamais le remplacer par un observateur de modèle : il tracerait les écritures
+  techniques et noierait les actions administratives.
+- Une modification qui ne change rien n'écrit aucune entrée d'audit.
+- Un administrateur ne peut ni se suspendre, ni se supprimer, ni modifier ses
+  propres privilèges ; le dernier administrateur actif est protégé.
+
 ### Paiements
 
 - **Un seul endroit peut confirmer un paiement** : `PaymentService`, appelé par

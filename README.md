@@ -234,6 +234,11 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 | Espace client | `/client/tableau-de-bord` |
 | Espace agriculteur | `/agriculteur/tableau-de-bord` |
 | Administration | `/admin/tableau-de-bord` |
+| Comptes agriculteurs à valider | `/admin/agriculteurs-a-valider` |
+| Utilisateurs | `/admin/utilisateurs` |
+| Privilèges | `/admin/privileges` |
+| Paramètres de la plateforme | `/admin/parametres` |
+| Journal d'audit | `/admin/journal-audit` |
 
 Connectez-vous avec `agriculteur-impaye@agritech.local` pour dérouler le
 paiement des frais d'inscription de bout en bout — voir le § 5.
@@ -315,7 +320,37 @@ Le rejet est tracé dans `storage/logs/laravel.log`.
 
 ---
 
-## 6. Structure du projet
+## 6. Administration
+
+Le rôle administrateur ouvre `/admin` ; **ce sont les privilèges qui autorisent
+chaque action**. Le super-administrateur de démonstration les détient tous.
+
+### Voir le cloisonnement à l'œuvre
+
+Depuis `/admin/privileges`, retirez des privilèges à un autre administrateur,
+puis connectez-vous avec son compte : les écrans correspondants renvoient une
+erreur 403 et disparaissent de sa navigation. Masquer le lien ne suffit jamais —
+essayez l'URL directement.
+
+### Suppression d'un compte
+
+Elle est **logique** : le compte passe en « supprimé », son nom devient
+« Compte supprimé », son adresse et son numéro sont mis à `NULL`. Ses commandes
+et ses paiements restent consultables, et son adresse redevient disponible pour
+une nouvelle inscription.
+
+Un administrateur ne peut ni se suspendre, ni se supprimer, ni modifier ses
+propres privilèges.
+
+### Journal d'audit
+
+Chaque action sensible y figure avec son auteur, son horodatage et le détail
+avant/après. La suppression d'un compte n'y recopie pas l'adresse qu'elle vient
+d'effacer — seulement le fait qu'il y en avait une.
+
+---
+
+## 7. Structure du projet
 
 ```
 app/
@@ -341,7 +376,7 @@ Documents de référence à la racine :
 
 ---
 
-## 7. Problèmes fréquents
+## 8. Problèmes fréquents
 
 | Symptôme | Cause probable | Solution |
 |---|---|---|

@@ -673,3 +673,120 @@ est passé à autre chose.
 
 C'est rappelé dans le `README.md`, dans `CLAUDE.md`, **sur la page de paiement
 elle-même** et dans la sortie de la commande Artisan.
+
+---
+
+## Phase 4 — Administration
+
+### 2026-09-19 — Le rôle ouvre la porte, le privilège autorise l'action
+
+**Décision.** Le middleware `role:admin` donne accès à `/admin`. **Il n'autorise
+rien à l'intérieur.** Chaque action passe par une Policy adossée à un privilège,
+et un Gate est déclaré par privilège depuis `Privilege::catalogue()`.
+
+**Justification.** Déclarer les Gates depuis le catalogue plutôt qu'un par un
+garde le seeder, l'écran des privilèges et les Policies sur une seule liste :
+un nouveau privilège ne peut pas exister à un endroit et être oublié à un autre.
+
+**Vérifié dans l'application réelle**, pas seulement en tests : un administrateur
+ne disposant que de `farmers.approve` reçoit 403 sur les paramètres, le journal
+d'audit et les privilèges, et sa navigation ne lui propose que ce qu'il peut
+faire.
+
+---
+
+### 2026-09-19 — Anonymiser, c'est supprimer la donnée
+
+**Décision.** `users.email` et `users.phone` deviennent nullables, et une
+suppression logique les met à `NULL`.
+
+**Justification.** Trois options existaient :
+
+| Option | Verdict |
+|---|---|
+| **`NULL`** | **retenue** — anonymiser, c'est retirer la donnée. MySQL accepte plusieurs `NULL` sous un index unique, donc l'unicité tient toujours pour les comptes vivants. |
+| `supprime-{id}@agritech.invalid` | garde une donnée fictive qui ressemble à une vraie, et pollue les recherches |
+| Chaîne non téléphonique dans `phone` | stocke une valeur qui viole le format de la colonne |
+
+**Effet de bord voulu.** Une adresse et un numéro libérés redeviennent
+disponibles pour une nouvelle inscription — un test le vérifie.
+
+`first_name` / `last_name` deviennent « Compte » / « supprimé » : ils restent
+non nullables, et un historique de commande doit bien afficher quelque chose.
+
+**Troisième migration hors phase 1**, pour la même raison que les précédentes :
+la forme exacte du besoin n'apparaît qu'ici.
+
+---
+
+### 2026-09-19 — Le journal d'audit n'enregistre pas ce qu'il vient d'effacer
+
+**Décision.** L'entrée d'audit d'une suppression porte `had_email: true → false`,
+jamais l'adresse elle-même.
+
+**Justification.** Écrire l'adresse dans le journal annulerait l'anonymisation
+que ce journal est en train d'enregistrer. L'identifiant du compte et son rôle
+suffisent à suivre l'historique. Un test vérifie explicitement que l'adresse
+n'apparaît nulle part dans l'entrée.
+
+---
+
+### 2026-09-19 — Journal écrit à la main, pas par observateur de modèle
+
+**Décision.** `AuditLogger::record()` est appelé explicitement par chaque
+service.
+
+**Justification.** Un observateur tracerait tout, y compris les écritures
+techniques — un `updated_at` touché par un job en file d'attente — et noierait
+les actions administratives dans le bruit. La RG11 parle d'« actions
+administratives sensibles » : les nommer une par une est plus juste, et bien
+plus lisible à la relecture six mois plus tard.
+
+**Corollaire :** une modification qui ne modifie rien n'écrit rien. Enregistrer
+des changements vides produirait un journal que personne ne lit.
+
+---
+
+### 2026-09-19 — Deux garde-fous contre le verrouillage hors de la plateforme
+
+**Décision.** Un administrateur ne peut ni se suspendre, ni se supprimer, ni
+modifier ses propres privilèges. Et le dernier administrateur actif ne peut pas
+être supprimé.
+
+**Ce que le test a révélé.** Le second garde-fou est **inatteignable depuis
+l'interface** : l'acteur est forcément un administrateur actif, donc en
+l'excluant il en reste toujours au moins un. Mon premier test prétendait le
+contraire et échouait à juste titre.
+
+Plutôt que de supprimer ce code ou d'écrire un test qui ne prouve rien, je l'ai
+gardé — il protège les appels qui ne viennent pas de l'écran, une commande
+console ou un seeder — et je le teste **au niveau de la Policy**, là où la
+situation est réellement atteignable. Le commentaire du test dit exactement
+pourquoi.
+
+---
+
+### 2026-09-19 — Incohérence trouvée dans l'application réelle
+
+L'écran des privilèges s'ouvrait à tout administrateur (`viewAny` = être admin),
+alors que la navigation le cachait à ceux qui n'ont pas `privileges.manage`. Le
+menu et l'URL directe ne disaient pas la même chose.
+
+**Corrigé :** l'écran est désormais fermé sur le privilège lui-même. Qui détient
+quels pouvoirs est précisément ce que la RG07 est là pour garder fermé.
+
+Ce décalage ne se voyait pas dans les tests, qui appelaient les actions. Il a
+fallu ouvrir les six URL avec un administrateur volontairement limité pour le
+voir.
+
+---
+
+### 2026-09-19 — Ce que la phase 4 ne livre pas
+
+Le privilège `publications.moderate` existe et sa vérification est en place,
+**mais il n'y a pas d'écran de modération** : les produits et les formations
+n'ont pas encore d'écran de publication, c'est la phase 5. Le tableau de bord
+affiche le compteur des publications en attente avec la mention « écran de
+modération à venir ».
+
+Livrer un écran vide aurait été pire que de l'annoncer.

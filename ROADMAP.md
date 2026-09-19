@@ -108,16 +108,35 @@ testée · `composer test` intégralement propre (Pint, Larastan niveau 7, 271 t
 
 ---
 
-## Phase 4 — Administration ⬜
+## Phase 4 — Administration ✅
 
-- [ ] Tableau de bord admin
-- [ ] Approbation / refus motivé des comptes agriculteurs
-- [ ] Suspension et suppression logique (statut `deleted` + anonymisation)
-- [ ] Gestion des privilèges
-- [ ] Journal d'audit (qui, quoi, quand, avant/après)
-- [ ] Écran des paramètres (frais d'inscription, commission, délais, modération a priori)
+- [x] Tableau de bord admin : comptes à valider, publications en attente, paiements sans réponse, encaissé du jour
+- [x] Approbation / refus des agriculteurs, **motif obligatoire** envoyé par e-mail et affiché sur l'écran de statut
+- [x] Suspension, réintégration, **suppression logique avec anonymisation**
+- [x] Écran des utilisateurs : recherche, filtres rôle et statut
+- [x] Gestion des privilèges par administrateur
+- [x] Écran des paramètres, validation selon le type
+- [x] Journal d'audit : filtres, détail avant/après
+- [x] Un Gate par privilège, déclaré depuis `Privilege::catalogue()`
+- [x] Policies `UserPolicy`, `SettingPolicy`, `AuditLogPolicy`
+- [x] Garde-fous : pas d'auto-suspension, pas d'auto-suppression, pas d'auto-modification de ses privilèges, dernier administrateur protégé
+- [x] Notifications `FarmerApproved` et `FarmerRejected`
+- [x] Navigation admin adaptée aux privilèges détenus
+- [x] 44 tests ajoutés
 
-**Acceptation :** RG07, RG08 et RG11 couvertes par des tests.
+**Acceptation :** **RG07** — chaque action testée avec et sans son privilège,
+et vérifiée dans l'application réelle avec un administrateur volontairement
+limité · **RG08** — compte anonymisé (`email` et `phone` à `NULL`), commandes
+et paiements intacts, connexion impossible, adresse libérée pour une nouvelle
+inscription · **RG11** — chaque action sensible produit une entrée avec
+avant/après, et la suppression n'y recopie pas la donnée qu'elle efface ·
+parcours complet inscription → paiement → validation → espace agriculteur
+ouvert · `composer test` intégralement propre (Pint, Larastan niveau 7, 315 tests).
+
+> **Non livré, et annoncé comme tel :** l'écran de modération des publications.
+> Le privilège `publications.moderate` et sa vérification existent, mais les
+> produits et formations n'ont pas encore d'écran de publication — c'est la
+> phase 5.
 
 ---
 
