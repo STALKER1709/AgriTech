@@ -11,6 +11,18 @@
         {{ __('Utilisateurs') }}
     </flux:sidebar.item>
 
+    @can('publications.moderate')
+        <flux:sidebar.item icon="check-badge" :href="route('admin.moderation')" :current="request()->routeIs('admin.moderation')" wire:navigate>
+            {{ __('Publications à modérer') }}
+        </flux:sidebar.item>
+    @endcan
+
+    @can('categories.manage')
+        <flux:sidebar.item icon="tag" :href="route('admin.categories')" :current="request()->routeIs('admin.categories')" wire:navigate>
+            {{ __('Catégories') }}
+        </flux:sidebar.item>
+    @endcan
+
     @can('privileges.manage')
         <flux:sidebar.item icon="key" :href="route('admin.privileges')" :current="request()->routeIs('admin.privileges')" wire:navigate>
             {{ __('Privilèges') }}

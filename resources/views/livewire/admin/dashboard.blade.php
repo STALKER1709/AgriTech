@@ -12,11 +12,12 @@
             <flux:text class="mt-1 text-xs">{{ __('Agriculteurs ayant payé leurs frais') }}</flux:text>
         </a>
 
-        <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+        <a href="{{ route('admin.moderation') }}" wire:navigate
+           class="rounded-xl border border-neutral-200 p-4 transition hover:border-neutral-400 dark:border-neutral-700">
             <flux:text>{{ __('Publications à modérer') }}</flux:text>
             <flux:heading size="xl" class="mt-1">{{ $this->publicationsAwaitingModeration() }}</flux:heading>
-            <flux:text class="mt-1 text-xs">{{ __('Écran de modération à venir') }}</flux:text>
-        </div>
+            <flux:text class="mt-1 text-xs">{{ __('Produits et formations soumis') }}</flux:text>
+        </a>
 
         <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
             <flux:text>{{ __('Paiements en attente') }}</flux:text>

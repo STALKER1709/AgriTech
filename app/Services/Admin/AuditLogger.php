@@ -34,6 +34,16 @@ final class AuditLogger
 
     public const string SETTING_UPDATED = 'setting.updated';
 
+    public const string PUBLICATION_APPROVED = 'publication.approved';
+
+    public const string PUBLICATION_REJECTED = 'publication.rejected';
+
+    public const string CATEGORY_CREATED = 'category.created';
+
+    public const string CATEGORY_UPDATED = 'category.updated';
+
+    public const string CATEGORY_DELETED = 'category.deleted';
+
     /**
      * @param  array<string, mixed>|null  $before
      * @param  array<string, mixed>|null  $after
@@ -72,6 +82,11 @@ final class AuditLogger
             self::USER_DELETED => 'Utilisateur supprimé',
             self::PRIVILEGES_UPDATED => 'Privilèges modifiés',
             self::SETTING_UPDATED => 'Paramètre modifié',
+            self::PUBLICATION_APPROVED => 'Publication approuvée',
+            self::PUBLICATION_REJECTED => 'Publication refusée',
+            self::CATEGORY_CREATED => 'Catégorie créée',
+            self::CATEGORY_UPDATED => 'Catégorie modifiée',
+            self::CATEGORY_DELETED => 'Catégorie supprimée',
         ];
     }
 
