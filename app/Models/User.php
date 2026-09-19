@@ -8,6 +8,7 @@ use App\Enums\SubscriptionStatus;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
 use App\Exceptions\InvalidStatusTransition;
+use App\Support\PhoneNumber;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -160,6 +161,22 @@ class User extends Authenticatable
     protected function name(): Attribute
     {
         return Attribute::get(fn (): string => trim($this->first_name.' '.$this->last_name));
+    }
+
+    /**
+     * Phone numbers are stored in one canonical shape.
+     *
+     * The unique constraint on this column is only meaningful if every write
+     * normalises first: "650 00 00 01" and "+237650000001" are the same
+     * number and must collide.
+     *
+     * @return Attribute<string, string>
+     */
+    protected function phone(): Attribute
+    {
+        return Attribute::set(
+            fn (string $value): string => PhoneNumber::tryParse($value)?->toE164() ?? $value,
+        );
     }
 
     public function initials(): string
