@@ -14,15 +14,35 @@
             </flux:callout.text>
         </flux:callout>
 
-        <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
-            <flux:heading size="lg">{{ __('Paiement') }}</flux:heading>
-            <flux:text class="mt-2">
-                {{ __('Le paiement Mobile Money n\'est pas encore disponible à cette étape du projet. Il sera branché ici même, avec MTN Mobile Money et Orange Money.') }}
-            </flux:text>
-            <flux:button class="mt-4" variant="primary" disabled>
-                {{ __('Payer :amount', ['amount' => $this->registrationFee()->format()]) }}
+        <form wire:submit="payRegistrationFee" class="flex flex-col gap-4 rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+            <flux:heading size="lg">{{ __('Régler les frais d\'inscription') }}</flux:heading>
+
+            <flux:radio.group wire:model="method" :label="__('Opérateur')" variant="segmented">
+                @foreach ($this->methods() as $method)
+                    <flux:radio value="{{ $method->value }}" :label="$method->label()" />
+                @endforeach
+            </flux:radio.group>
+
+            <flux:input
+                wire:model="phone"
+                :label="__('Numéro Mobile Money')"
+                type="tel"
+                required
+                autocomplete="tel"
+                placeholder="650 00 00 01"
+            />
+
+            <flux:button variant="primary" type="submit" data-test="pay-registration-fee">
+                <span wire:loading.remove wire:target="payRegistrationFee">
+                    {{ __('Payer :amount', ['amount' => $this->registrationFee()->format()]) }}
+                </span>
+                <span wire:loading wire:target="payRegistrationFee">{{ __('Redirection…') }}</span>
             </flux:button>
-        </div>
+
+            <flux:text class="text-xs">
+                {{ __('Vous serez redirigé vers la page de paiement. La file d\'attente doit tourner (`php artisan queue:work`) pour que la confirmation arrive.') }}
+            </flux:text>
+        </form>
     @elseif ($this->awaitsValidation())
         <flux:callout icon="clock">
             <flux:callout.heading>{{ __('Compte en attente de validation') }}</flux:callout.heading>

@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Livewire\Account;
 
+use App\Enums\PaymentMethod;
 use App\Enums\UserStatus;
-use App\Models\Setting;
 use App\Models\User;
+use App\Rules\CameroonPhoneNumber;
+use App\Services\Payments\RegistrationFeeService;
 use App\Support\Money;
+use App\Support\PhoneNumber;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
@@ -16,13 +19,17 @@ use Livewire\Component;
 /**
  * Tells a user whose account is not active yet where their file stands.
  *
- * Reached by anyone who is signed in but blocked from their working area: a
- * farmer who has not paid the fee, one waiting on an administrator, or a
- * suspended account.
+ * For a farmer who still owes the registration fee, this is also where the
+ * payment starts: business rule RG02 makes that payment the only way the
+ * account moves on to review.
  */
 #[Title('Statut de mon compte')]
 class Status extends Component
 {
+    public string $method = PaymentMethod::MtnMomo->value;
+
+    public string $phone = '';
+
     public function mount(): void
     {
         $user = Auth::user();
@@ -30,7 +37,11 @@ class Status extends Component
         // An active account has no waiting to report; send it to its area.
         if ($user instanceof User && $user->isActive()) {
             $this->redirectRoute('dashboard', navigate: true);
+
+            return;
         }
+
+        $this->phone = $user instanceof User ? $user->phone : '';
     }
 
     #[Computed]
@@ -46,11 +57,7 @@ class Status extends Component
     #[Computed]
     public function registrationFee(): Money
     {
-        $amount = Setting::query()
-            ->where('key', Setting::FARMER_REGISTRATION_FEE)
-            ->first()?->integerValue() ?? 0;
-
-        return Money::fromInteger($amount);
+        return app(RegistrationFeeService::class)->amountDue();
     }
 
     #[Computed]
@@ -75,6 +82,36 @@ class Status extends Component
     public function rejectionReason(): ?string
     {
         return $this->user()->farmerProfile?->rejection_reason;
+    }
+
+    /**
+     * @return array<int, PaymentMethod>
+     */
+    public function methods(): array
+    {
+        return PaymentMethod::cases();
+    }
+
+    /**
+     * Start the fee payment and hand the payer over to the gateway.
+     *
+     * Note what is not passed: the amount. It is read server-side from the
+     * settings, so a tampered form changes nothing.
+     */
+    public function payRegistrationFee(RegistrationFeeService $fees): void
+    {
+        $this->validate([
+            'phone' => ['required', 'string', new CameroonPhoneNumber],
+            'method' => ['required', 'string', 'in:'.implode(',', array_column(PaymentMethod::cases(), 'value'))],
+        ]);
+
+        $redirect = $fees->start(
+            farmer: $this->user(),
+            method: PaymentMethod::from($this->method),
+            payerNumber: PhoneNumber::parse($this->phone),
+        );
+
+        $this->redirect($redirect->url, navigate: true);
     }
 
     public function render(): mixed
