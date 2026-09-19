@@ -23,7 +23,7 @@ final class OutcomeRegistry
      */
     private const array HANDLERS = [
         PaymentPurpose::RegistrationFee->value => RegistrationFeeOutcome::class,
-        // PaymentPurpose::Order          — phase 6
+        PaymentPurpose::Order->value => OrderOutcome::class,
         // PaymentPurpose::Training       — phase 7
         // PaymentPurpose::Subscription   — phase 8
     ];
