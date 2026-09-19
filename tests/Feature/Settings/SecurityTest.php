@@ -51,10 +51,10 @@ class SecurityTest extends TestCase
             ->withSession(['auth.password_confirmed_at' => time()])
             ->get(route('security.edit'))
             ->assertOk()
-            ->assertSee('Update password')
-            ->assertDontSee('Manage your passkeys for passwordless sign-in')
-            ->assertDontSee('Add a passkey to sign in without a password')
-            ->assertDontSee('Two-factor authentication');
+            ->assertSee('Mettre à jour le mot de passe')
+            ->assertDontSee('passkey')
+            ->assertDontSee('Two-factor authentication')
+            ->assertDontSee('Authentification à deux facteurs');
     }
 
     public function test_password_can_be_updated(): void
