@@ -3,6 +3,12 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Payments\WebhookController;
 use App\Livewire\Account\Status as AccountStatus;
+use App\Livewire\Admin\AuditTrail;
+use App\Livewire\Admin\Dashboard as AdminDashboard;
+use App\Livewire\Admin\FarmerValidation;
+use App\Livewire\Admin\Privileges as AdminPrivileges;
+use App\Livewire\Admin\Settings as AdminSettings;
+use App\Livewire\Admin\Users as AdminUsers;
 use App\Livewire\Auth\RegisterFarmer;
 use App\Livewire\Payments\Pending as PaymentPending;
 use App\Livewire\Payments\Sandbox as PaymentSandbox;
@@ -76,11 +82,21 @@ Route::middleware(['auth', 'role:farmer', 'account.active'])
         Route::view('tableau-de-bord', 'farmer.dashboard')->name('dashboard');
     });
 
+/*
+| The admin role opens this area; it authorises nothing inside it. Every
+| action goes through a policy keyed on a privilege — business rule RG07.
+*/
+
 Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function (): void {
-        Route::view('tableau-de-bord', 'admin.dashboard')->name('dashboard');
+        Route::get('tableau-de-bord', AdminDashboard::class)->name('dashboard');
+        Route::get('agriculteurs-a-valider', FarmerValidation::class)->name('farmers');
+        Route::get('utilisateurs', AdminUsers::class)->name('users');
+        Route::get('privileges', AdminPrivileges::class)->name('privileges');
+        Route::get('parametres', AdminSettings::class)->name('settings');
+        Route::get('journal-audit', AuditTrail::class)->name('audit');
     });
 
 require __DIR__.'/settings.php';
