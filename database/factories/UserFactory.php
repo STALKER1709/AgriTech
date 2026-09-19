@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Throwable;
 
 /**
  * @extends Factory<User>
@@ -24,8 +25,13 @@ class UserFactory extends Factory
     /**
      * A running counter, so that generated phone numbers stay unique without
      * relying on the faker unique() pool, which gives up after a while.
+     *
+     * Null until it has been seeded from what is already stored: the counter
+     * lives in the process, the numbers live in the database, and a script run
+     * twice against the same database would otherwise reuse the first run's
+     * numbers.
      */
-    private static int $phoneSequence = 0;
+    private static ?int $phoneSequence = null;
 
     /**
      * @return array<string, mixed>
@@ -47,12 +53,36 @@ class UserFactory extends Factory
 
     /**
      * A Cameroonian mobile number in its normalised international form.
+     *
+     * Generated numbers sit in their own band, +23761…, which no seeded demo
+     * account uses. Without that separation a factory user can collide with a
+     * seeded one on the unique phone column — as one happily did.
      */
     public static function nextPhoneNumber(): string
     {
+        self::$phoneSequence ??= self::highestGeneratedNumber();
         self::$phoneSequence++;
 
-        return sprintf('+2376%08d', self::$phoneSequence % 100_000_000);
+        return sprintf('+23761%07d', self::$phoneSequence % 10_000_000);
+    }
+
+    /**
+     * The highest number already handed out in the factory band.
+     *
+     * Read once per process. A missing table simply means nothing has been
+     * handed out yet, which is the case when a factory runs before migrations.
+     */
+    private static function highestGeneratedNumber(): int
+    {
+        try {
+            $highest = User::query()
+                ->where('phone', 'like', '+23761%')
+                ->max('phone');
+        } catch (Throwable) {
+            return 0;
+        }
+
+        return is_string($highest) ? (int) substr($highest, -7) : 0;
     }
 
     public function unverified(): static

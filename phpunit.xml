@@ -33,6 +33,7 @@
         <env name="PAYMENT_GATEWAY" value="fake"/>
         <env name="PAYMENT_WEBHOOK_SECRET" value="testing-webhook-secret"/>
         <env name="PAYMENT_CALLBACK_DELAY_SECONDS" value="0"/>
+        <env name="PAYMENT_EXPIRATION_MINUTES" value="15"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="PULSE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
