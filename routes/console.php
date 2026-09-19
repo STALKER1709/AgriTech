@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Schedule;
 Schedule::command('agritech:payments:reconcile')
     ->everyFiveMinutes()
     ->withoutOverlapping();
+
+// Closes the orders clients placed and never paid for. Nothing is released —
+// business rule RG04 never moved the stock in the first place — but an order
+// list full of abandoned carts helps nobody.
+Schedule::command('agritech:orders:cancel-expired')
+    ->everyFiveMinutes()
+    ->withoutOverlapping();
