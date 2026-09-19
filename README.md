@@ -379,7 +379,7 @@ pour tous.**
 |---|---|---|
 | Administrateur | `admin@agritech.local` | Actif, tous les privilèges |
 | Client | `client@agritech.local` | Actif, a une commande payée et une formation achetée |
-| Client | `client2@agritech.local` | Actif, a un abonnement trimestriel en cours |
+| Client | `client2@agritech.local` | Actif, **panier en cours**, abonnement trimestriel, commande impayée |
 | Agriculteur | `agriculteur@agritech.local` | **Actif** (validé) — Ferme du Mbam, Obala |
 | Agricultrice | `agricultrice@agritech.local` | **Actif** (validé) — Coopérative des Hauts Plateaux, Dschang |
 | Agriculteur | `agriculteur-attente@agritech.local` | **En attente de validation** — à approuver depuis l'admin |
@@ -393,6 +393,8 @@ pour tous.**
 - **4 formations**, dont trois incluses dans l'abonnement.
 - **3 commandes** : une payée **répartie entre deux agriculteurs** (deux
   sous-commandes), une en attente de paiement, une annulée.
+- **Un panier en cours** (deux produits, sur `client2@agritech.local`), pour
+  dérouler la commande sans chercher un produit d'abord.
 - **4 paiements**, une souscription active, une conversation avec un message
   non lu côté agriculteur.
 
@@ -429,7 +431,10 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 | **Inscription agriculteur** | `/inscription/agriculteur` |
 | Statut d'un compte non actif | `/mon-compte/statut` |
 | Espace client | `/client/tableau-de-bord` |
+| **Panier** | `/client/panier` |
+| **Mes commandes** | `/client/commandes` |
 | Espace agriculteur | `/agriculteur/tableau-de-bord` |
+| **Commandes reçues** | `/agriculteur/commandes` |
 | Administration | `/admin/tableau-de-bord` |
 | Comptes agriculteurs à valider | `/admin/agriculteurs-a-valider` |
 | Utilisateurs | `/admin/utilisateurs` |
@@ -438,7 +443,8 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 | Journal d'audit | `/admin/journal-audit` |
 
 Connectez-vous avec `agriculteur-impaye@agritech.local` pour dérouler le
-paiement des frais d'inscription de bout en bout — voir le § 5.
+paiement des frais d'inscription de bout en bout — voir le § 5. Le parcours
+panier → commande → paiement → préparation est détaillé au § 8.
 
 ---
 
@@ -588,7 +594,104 @@ de laisser passer une erreur.
 
 ---
 
-## 8. Structure du projet
+## 8. Panier, commandes et livraison
+
+### Le panier
+
+`/client/panier`, réservé à un compte **client** connecté. Un visiteur qui
+clique « Ajouter au panier » est envoyé se connecter puis ramené sur la fiche.
+
+Le panier est **en base**, pas en session : un panier qui disparaît au moindre
+rechargement sur un téléphone est un panier qui ne devient jamais une commande.
+Les lignes sont regroupées **par agriculteur**, comme le sera la commande.
+
+Une ligne devenue indisponible (produit dépublié, agriculteur suspendu, stock
+descendu sous la quantité demandée) est **signalée et exclue du total**, jamais
+supprimée en silence. Tant qu'une ligne est signalée, le bouton « Commander »
+reste inactif : une commande passe en une seule fois ou pas du tout.
+
+### Passer commande (RG03)
+
+« Commander » crée la commande sans rien payer et **sans toucher au stock**.
+Ce qu'elle fige au passage :
+
+| Figé | Pourquoi |
+|---|---|
+| Le prix unitaire de chaque ligne | Un agriculteur qui change son prix demain ne doit pas réécrire une commande d'hier |
+| Le taux de commission | Un administrateur qui relève la commission ne doit pas réécrire une comptabilité déjà convenue |
+| La référence `CMD-AAAA-NNNNNN` | Lisible au téléphone, séquence remise à zéro chaque année |
+
+Une commande multi-agriculteurs donne **une sous-commande par agriculteur**
+(`CMD-2026-000123-A`, `-B`…) : c'est l'unité réellement préparée et livrée.
+
+Les quantités demandées sont vérifiées **sous verrou de ligne** au moment de la
+création. Si un produit est devenu insuffisant entre l'ajout au panier et le
+clic, la commande est refusée en entier et le panier est conservé tel quel.
+
+### Payer (RG04, RG06)
+
+Depuis la fiche de la commande : opérateur, numéro, puis la passerelle simulée
+(voir le § 5). **Le montant n'est pas envoyé par le formulaire** — le serveur le
+lit sur la commande.
+
+Cliquer deux fois sur « Payer » ne crée pas deux paiements : le client est
+renvoyé vers celui qui est déjà en cours de vérification.
+
+**Le stock ne bouge qu'à la confirmation vérifiée**, dans la transaction qui
+confirme le paiement, sous `lockForUpdate`. Deux paiements simultanés sur le
+dernier lot sont donc sérialisés par la base, et non par la chance :
+
+- le premier confirmé emporte le stock et la commande passe en **payée** ;
+- le second trouve le stock insuffisant : sa commande est **annulée en entier**
+  et son paiement **remboursé**, avec un message qui nomme le produit en cause.
+
+> Une livraison partielle n'a pas été retenue : elle obligerait à inventer un
+> remboursement au prorata que personne n'a demandé.
+
+Même traitement pour un paiement qui arrive **après** l'annulation automatique
+de sa commande.
+
+### Annulation automatique
+
+Une commande impayée est annulée passé le délai du paramètre *Annulation des
+commandes non payées* (30 minutes par défaut) :
+
+```powershell
+php artisan agritech:orders:cancel-expired
+```
+
+Planifiée toutes les cinq minutes par `php artisan schedule:work`. Une commande
+dont **un paiement est encore en cours de vérification** est laissée tranquille :
+l'annuler sous un paiement lent le transformerait en remboursement.
+
+### Côté agriculteur
+
+`/agriculteur/commandes` montre **sa part et rien d'autre** : ce que le même
+client a acheté ailleurs ne le regarde pas. Chaque ligne affiche le sous-total,
+la commission figée et **ce qui lui revient**.
+
+Les transitions `payée → en préparation → livrée` sont les siennes. La commande
+du client ne passe en *livrée* que lorsque **tous** les agriculteurs concernés
+ont livré.
+
+### Essayer le parcours complet
+
+1. Connectez-vous avec `client2@agritech.local` (mot de passe `password`) : son
+   panier contient déjà deux produits.
+2. **Mon panier** → **Commander**.
+3. Sur la commande, choisissez un opérateur et validez.
+4. Sur la page de la passerelle, choisissez **Paiement réussi**.
+5. `php artisan queue:work` doit tourner : le callback arrive quelques secondes
+   plus tard, la commande passe en **payée** et le stock diminue.
+6. Connectez-vous avec l'agriculteur concerné : la commande est dans
+   **Commandes reçues**.
+
+Pour voir le remboursement : avant l'étape 4, mettez le stock du produit à zéro
+(`php artisan tinker`), puis confirmez le paiement.
+
+---
+
+## 9. Structure du projet
 
 ```
 app/
@@ -614,7 +717,7 @@ Documents de référence à la racine :
 
 ---
 
-## 9. Problèmes fréquents
+## 10. Problèmes fréquents
 
 | Symptôme | Cause probable | Solution |
 |---|---|---|

@@ -66,7 +66,7 @@ app/
 database/         migrations/ seeders/ factories/
 resources/views/  layouts par rôle : public, client, farmer, admin
 routes/web.php    groupes par rôle et middleware
-tests/Unit  tests/Feature
+tests/Unit  tests/Feature  tests/Concurrency
 ```
 
 ### Principes
@@ -129,6 +129,29 @@ tests/Unit  tests/Feature
 - Un administrateur ne peut ni se suspendre, ni se supprimer, ni modifier ses
   propres privilèges ; le dernier administrateur actif est protégé.
 
+### Commandes
+
+- Le **panier vit en base**, pas en session, et n'existe que pour un client
+  connecté. Une ligne indisponible est **signalée et exclue du total**, jamais
+  supprimée en silence ; tant qu'il en reste une, la commande est impossible.
+- `OrderService::place()` vérifie les quantités **sous `lockForUpdate`** (RG03)
+  et ne touche **jamais** au stock. Il fige le prix unitaire de chaque ligne et
+  le **taux de commission** sur la sous-commande.
+- Les produits sont verrouillés **triés par identifiant**, sans quoi deux
+  paniers contenant les deux mêmes produits dans l'ordre inverse pourraient
+  s'interbloquer.
+- `OrderFulfilmentService` est le seul endroit qui **déplace du stock** (RG04),
+  et uniquement dans la transaction qui confirme le paiement.
+- Stock devenu insuffisant à la confirmation, ou commande déjà annulée :
+  **annulation totale + remboursement**. Pas de livraison partielle — elle
+  obligerait à inventer un remboursement au prorata.
+- Un taux de commission absent des paramètres **lève une exception**. Un
+  `?? 0` silencieux offrirait chaque commande à la plateforme perdante.
+- Un agriculteur ne voit que les sous-commandes **réellement payées** : une
+  sous-commande annulée n'a jamais été du travail.
+- La commande passe en *livrée* quand **toutes** ses sous-commandes non
+  annulées le sont.
+
 ### Paiements
 
 - **Un seul endroit peut confirmer un paiement** : `PaymentService`, appelé par
@@ -176,6 +199,7 @@ tests/Unit  tests/Feature
 | Planificateur | `php artisan schedule:work` |
 | Forcer une issue de paiement | `php artisan agritech:payment:simulate {ref} {succeeded\|failed\|expired} [--duplicate] [--now]` |
 | Clôturer les paiements en attente | `php artisan agritech:payments:reconcile [--minutes=N]` |
+| Annuler les commandes impayées | `php artisan agritech:orders:cancel-expired` |
 
 > Les callbacks de la passerelle de paiement simulée passent par la file
 > d'attente : **`php artisan queue:work` doit tourner** pour que les paiements

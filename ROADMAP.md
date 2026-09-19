@@ -160,21 +160,34 @@ ou publication directe si la modération a priori est désactivée · produit
 d'agriculteur suspendu absent du catalogue et fiche en **404** · fichier PHP
 nommé `.jpg` refusé · trois produits de même nom → trois slugs · grille sans
 N+1, vérifié en comptant les requêtes · `composer test` intégralement propre
-(Pint, Larastan niveau 7, 367 tests).
+(Pint, Larastan niveau 7, 367 tests à l'issue de cette phase).
 
 ---
 
-## Phase 6 — Panier et commandes ⬜
+## Phase 6 — Panier et commandes ✅
 
-- [ ] Panier multi-agriculteurs
-- [ ] Commande + sous-commandes par agriculteur
-- [ ] Paiement simulé de la commande
-- [ ] Décrément du stock sous `lockForUpdate`, dans une transaction
-- [ ] Suivi des commandes côté client et côté agriculteur
-- [ ] Annulation automatique des commandes non payées (tâche planifiée)
+- [x] Panier multi-agriculteurs **en base**, lignes groupées par agriculteur
+- [x] Ligne indisponible signalée et exclue du total, jamais supprimée en silence
+- [x] Commande + une sous-commande par agriculteur, références `-A`, `-B`…
+- [x] Prix unitaire **et** taux de commission figés à la création (RG03)
+- [x] Paiement simulé de la commande, montant lu sur la commande et jamais reçu
+- [x] Un second clic sur « Payer » réutilise le paiement en cours
+- [x] Décrément du stock sous `lockForUpdate`, dans la transaction du paiement (RG04)
+- [x] Stock disparu ou commande déjà annulée → annulation totale + remboursement
+- [x] Suivi côté client (paiement, préparation, livraison) et côté agriculteur
+- [x] Transitions `payée → en préparation → livrée`, avec remontée au niveau commande
+- [x] `agritech:orders:cancel-expired` + planification toutes les cinq minutes
+- [x] Une commande dont le paiement est en cours de vérification est épargnée
+- [x] Suite de tests `Concurrency` : vrais sous-processus, vraies connexions
+- [x] 59 tests ajoutés
 
-**Acceptation :** RG03, RG04 et RG06 testées, **y compris un test de concurrence
-sur le stock**.
+**Acceptation :** **RG03** — quantité supérieure au stock refusée, rien
+d'écrit · **RG04** — stock déplacé uniquement à la confirmation, **test de
+concurrence à deux processus** vérifié comme discriminant (il échoue si l'on
+retire `lockForUpdate`) · **RG06** — ni la page de retour ni un montant reçu ne
+paient une commande · commission figée malgré un changement de paramètre ·
+callback rejoué sans double décrément · `composer test` intégralement propre
+(Pint, Larastan niveau 7, 426 tests).
 
 ---
 

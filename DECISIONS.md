@@ -906,3 +906,119 @@ les deux.
 Le gabarit de bienvenue de Laravel a été remplacé par une vraie page AgriTech
 qui mène au catalogue, avec un layout `public` distinct (en-tête simple, pas de
 barre latérale) pour les visiteurs non connectés.
+
+---
+
+### 2026-09-19 — Le panier vit en base, et seulement pour un client connecté
+
+**Décision.** Tables `carts` et `cart_items`, un panier par client. Un visiteur
+qui clique « Ajouter au panier » est envoyé se connecter, puis ramené sur la
+fiche du produit.
+
+**Justification.** L'usage visé est majoritairement mobile : un panier en
+session disparaît au premier rechargement, au premier changement de réseau, au
+premier retour depuis une autre application. C'est exactement le moment où l'on
+perd la vente.
+
+**Alternative écartée.** Panier en session fusionné à la connexion. Cela ajoute
+un chemin de fusion — quantités cumulées, produits devenus indisponibles entre
+temps, conflits avec un panier déjà existant — à écrire et à tester, pour un
+gain limité à un visiteur qui n'a pas encore de compte et qui devra en créer un
+avant de payer de toute façon.
+
+---
+
+### 2026-09-19 — Une ligne indisponible bloque la commande, elle ne disparaît pas
+
+**Décision.** Une ligne dont le produit a été dépublié, dont l'agriculteur a été
+suspendu ou dont le stock est descendu sous la quantité demandée est **affichée,
+signalée, exclue du total**, et empêche de commander tant qu'elle est là.
+
+**Justification.** Retirer la ligne en silence change le montant sous les yeux
+du client sans rien expliquer. Et commander « ce qui reste » suppose que la
+plateforme décide à sa place de ce qu'il accepte d'acheter.
+
+---
+
+### 2026-09-19 — Stock disparu à la confirmation : annulation totale et remboursement
+
+**Décision.** Si, au moment où le paiement est confirmé, un produit de la
+commande n'est plus disponible en quantité suffisante, la commande est
+**annulée en entier** et le paiement passe en `refunded` via la passerelle. Le
+client est notifié avec le nom du produit en cause. Même traitement pour un
+paiement qui arrive après l'annulation automatique de sa commande.
+
+**Justification.** C'est la conséquence directe de RG04 : le stock n'étant pas
+réservé à la commande, deux clients peuvent légitimement commander le même lot,
+et le second doit être traité proprement.
+
+**Alternative écartée.** Livrer partiellement ce qui reste. Cela obligerait à
+inventer un remboursement au prorata, à recalculer des sous-totaux et des
+commissions après coup, et à décider unilatéralement que le client veut trois
+sacs alors qu'il en a commandé dix. Rien de tout cela n'est demandé.
+
+---
+
+### 2026-09-19 — Un taux de commission absent lève une exception
+
+**Décision.** `OrderService::commissionRate()` ne retourne pas `0` quand le
+paramètre manque : il lève une `DomainException`.
+
+**Justification.** Une valeur par défaut à zéro offrirait chaque commande
+commission comprise, silencieusement et pour toujours. Le délai d'annulation,
+lui, garde un repli à 30 minutes : ce n'est pas de l'argent.
+
+---
+
+### 2026-09-19 — Les produits sont verrouillés triés par identifiant
+
+**Décision.** `OrderService` et `OrderFulfilmentService` lisent les produits
+avec `->orderBy('id')->lockForUpdate()`.
+
+**Justification.** Deux paniers contenant les deux mêmes produits dans l'ordre
+inverse prendraient les verrous en sens contraire et pourraient s'interbloquer.
+Un ordre de verrouillage commun supprime la possibilité même du cycle.
+
+---
+
+### 2026-09-19 — Une suite de tests dédiée à la concurrence
+
+**Décision.** Un répertoire `tests/Concurrency`, une entrée dans `phpunit.xml`,
+et `DatabaseTruncation` au lieu de `RefreshDatabase` pour cette suite. Les tests
+lancent deux **vrais sous-processus** qui attendent un instant convenu avant de
+délivrer chacun leur callback.
+
+**Justification.** `RefreshDatabase` enveloppe le test dans une transaction : un
+second processus ne verrait aucune des données créées. Et un seul processus PHP
+sérialise les deux confirmations par construction — un tel test passerait aussi
+bien sans verrou, donc ne prouverait rien.
+
+**Vérifié.** En retirant `lockForUpdate` de `OrderFulfilmentService`, les deux
+tests de la suite échouent : deux commandes payées pour un seul lot, et un
+décrément perdu. Le test discrimine réellement.
+
+---
+
+### 2026-09-19 — Fixtures de test partagées dans `tests/Helpers.php`
+
+**Décision.** Les helpers utilisés par plusieurs fichiers de test
+(`productOnSale()`, `orderFor()`, `startOrderPayment()`…) sont dans
+`tests/Helpers.php`, autoloadé par `composer.json` (`autoload-dev.files`).
+
+**Justification.** Déclarer une fonction dans un fichier de test et l'appeler
+depuis un autre fonctionne tant que Pest charge les deux — c'est-à-dire tant que
+personne ne renomme ni ne supprime le premier. Une dépendance implicite à
+l'ordre de chargement n'est pas une dépendance qu'on veut découvrir six mois
+plus tard.
+
+---
+
+### 2026-09-19 — Un agriculteur ne voit pas les sous-commandes annulées
+
+**Décision.** `/agriculteur/commandes` liste uniquement les statuts `paid`,
+`preparing` et `delivered`.
+
+**Justification.** Rien n'annule une sous-commande déjà payée : une
+sous-commande annulée l'a donc toujours été **avant** paiement. Elle n'a jamais
+représenté du travail pour l'agriculteur, et l'afficher ne ferait qu'encombrer
+l'écran de commandes qui n'ont jamais existé pour lui.
