@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"border-warm":"#E5E0D8","on-tertiary-fixed":"#251a00","secondary-fixed":"#ffdcc6","tertiary-fixed":"#ffdf94","status-success":"#2E7D32","text-primary":"#1F2421","surface-container-high":"#eae8e3","surface-container":"#f0eee9","surface-white":"#FFFFFF","surface-container-highest":"#e4e2dd","surface-container-low":"#f5f3ee","on-error-container":"#93000a","on-surface-variant":"#404940","primary-fixed":"#a5f4b6","on-secondary":"#ffffff","on-secondary-container":"#703500","tertiary":"#584300","on-secondary-fixed-variant":"#723600","secondary-fixed-dim":"#ffb786","error-container":"#ffdad6","on-tertiary-fixed-variant":"#594400","payment-orange":"#FF7900","outline":"#707a6f","tertiary-fixed-dim":"#f0c038","secondary-container":"#fe9b52","outline-variant":"#bfc9bd","payment-mtn":"#FFCC00","surface-container-lowest":"#ffffff","primary":"#005127","inverse-surface":"#30312e","on-primary-container":"#9ae9ab","on-tertiary":"#ffffff","surface-dim":"#dbdad5","on-surface":"#1b1c19","on-secondary-fixed":"#311400","status-warning":"#ED6C02","on-primary":"#ffffff","background":"#fbf9f4","surface-bright":"#fbf9f4","inverse-on-surface":"#f2f1ec","error":"#ba1a1a","primary-fixed-dim":"#8ad89c","surface-tint":"#1c6c3b","tertiary-container":"#755a00","surface":"#fbf9f4","secondary":"#954a00","text-secondary":"#555F58","surface-variant":"#e4e2dd","on-background":"#1b1c19","inverse-primary":"#8ad89c","primary-container":"#1b6b3a","on-primary-fixed-variant":"#005227","on-error":"#ffffff","on-primary-fixed":"#00210c","status-error":"#D32F2F","on-tertiary-container":"#ffd25c"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-sm":"0.5rem","margin-desktop":"2rem","space-2xl":"3rem","space-xs":"0.25rem","space-xl":"2rem","gutter-desktop":"1.5rem","space-lg":"1.5rem","margin":"1rem","space-md":"1rem","gutter":"1rem"},fontFamily:{"display-lg":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"label-sm":["Inter"],"price-tag":["Plus Jakarta Sans"],"body-md":["Inter"],"body-lg":["Inter"],"headline-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"label-lg":["Inter"],"headline-lg":["Plus Jakarta Sans"],"body-md-bold":["Inter"]},fontSize:{"display-lg":["40px",{lineHeight:"48px",fontWeight:"700"}],"headline-sm":["18px",{lineHeight:"24px",fontWeight:"600"}],"headline-lg-mobile":["24px",{lineHeight:"32px",fontWeight:"700"}],"label-sm":["12px",{lineHeight:"16px",fontWeight:"500"}],"price-tag":["18px",{lineHeight:"22px",fontWeight:"700"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"headline-md":["22px",{lineHeight:"28px",fontWeight:"600"}],"display-lg-mobile":["30px",{lineHeight:"38px",fontWeight:"700"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"600"}],"headline-lg":["32px",{lineHeight:"40px",fontWeight:"700"}],"body-md-bold":["16px",{lineHeight:"24px",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-text-primary antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col flex-1 overflow-y-auto"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="Logo AgriTech" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1V_BiyY3BdZotVy28gxpxXlGk349sp_wchjz_QSByM4GDQiGJdLLWQE-4_dxDfJ_Xu3UMGSTDch87Awddj6WFCyRi3r5omEMO17OH8yWo8O6tKp-qQf65TtAuU9SLznEYlVmvSTcSPMpK7g8oj6KcVkt6qhLCSVqv4SlXBxrAp1EhNwvRwa6R6W2Rmt9_znS_mlekW8fBi2lu1d0QZKeM_nlqj35R0ZlPkdY2_rOdtbhvd96LPFVGL5cfs"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight leading-none truncate">AgriTech</span><span class="font-label-sm text-label-sm text-text-secondary truncate mt-1">Back-office Central</span></div></div><div class="px-space-md py-space-xs"><div class="px-space-sm py-1.5 rounded-lg bg-surface-container flex items-center justify-between"><span class="font-label-sm text-label-sm text-text-secondary">Région Cameroun</span><span class="inline-flex items-center gap-1 font-label-sm text-label-sm font-semibold text-primary"><span class="w-2 h-2 rounded-full bg-status-success"></span>+237</span></div></div><nav class="flex-1 px-space-sm py-space-sm space-y-1" data-active-classes="bg-primary-container text-on-primary font-body-md-bold shadow-[0_1px_4px_rgba(0,0,0,0.06)]"><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="tableau-de-bord" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span class="font-label-lg text-label-lg">Tableau de bord</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="agriculteurs-a-valider" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">how_to_reg</span><span class="font-label-lg text-label-lg">Agriculteurs à valider</span></div><span class="inline-flex items-center justify-center h-5 min-w-[20px] px-1.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold">5</span></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="utilisateurs" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-label-lg text-label-lg">Utilisateurs</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="moderation" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">gavel</span><span class="font-label-lg text-label-lg">Modération</span></div><span class="inline-flex items-center justify-center h-5 min-w-[20px] px-1.5 rounded-full bg-error text-on-error font-label-sm text-label-sm font-bold">3</span></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="privileges" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="font-label-lg text-label-lg">Privilèges</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="journal-daudit" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span class="font-label-lg text-label-lg">Journal d'audit</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="parametres" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-label-lg text-label-lg">Paramètres</span></div></a></nav></div><div class="p-space-sm bg-surface-container-low"><div class="p-space-sm rounded-xl bg-surface-container flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm min-w-0"><div class="relative flex-shrink-0"><div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-sm text-[14px]">MN</div><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-status-success ring-2 ring-surface-white"></span></div><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-text-primary font-semibold truncate">Dr. Marcelle Ngono</span><span class="font-label-sm text-label-sm text-text-secondary truncate">Super Admin MINADER</span></div></div><a class="p-1.5 rounded-lg text-text-secondary hover:bg-surface-container-high hover:text-error transition-colors flex-shrink-0" data-path="connexion" href="#" title="Déconnexion"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="pl-64 flex flex-col min-h-screen"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-white/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md flex-1 max-w-2xl"><div class="relative w-full max-w-md"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">search</span><input class="w-full h-10 pl-10 pr-space-md rounded-full bg-surface-container-low text-text-primary font-body-md text-[14px] placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Rechercher un producteur, utilisateur, commande..." type="text"/></div><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low text-text-secondary font-label-sm text-label-sm"><span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span><span>Réseau DLA/YDE Opérationnel</span></div></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center px-3 py-1 rounded-full bg-surface-container-low font-label-sm text-label-sm font-semibold text-text-secondary">FCFA (XAF)</div><button class="relative p-2 rounded-full text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-payment-orange ring-2 ring-surface-white"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface flex-1 px-space-lg py-space-lg"><div class="flex flex-col w-full">
+<div class="relative mb-space-2xl overflow-hidden rounded-xl bg-surface-container-low p-space-xl">
+<div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-primary-fixed/30 blur-3xl pointer-events-none"></div>
+<div class="absolute right-48 -bottom-20 w-64 h-64 rounded-full bg-secondary-fixed/40 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-space-lg">
+<div class="flex flex-col max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 mb-3 rounded-full bg-surface-container text-text-secondary font-label-sm text-label-sm w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span>Instance Nationale • République du Cameroun</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">Paramètres généraux de la plateforme</h1>
+<p class="font-body-md text-text-secondary mt-1">Configuration économique, règles de modération et gestion des abonnements AgriTech Cameroun sous tutelle MINADER.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-5 py-2.5 rounded-full bg-surface-container text-text-primary font-label-lg text-label-lg hover:bg-surface-container-high transition-colors" type="button">
+          Réinitialiser
+        </button>
+<button class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary-container active:scale-95 transition-all" id="save-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Enregistrer les modifications</span>
+</button>
+</div>
+</div>
+<div class="mt-space-xl pt-space-md border-0 flex items-center gap-2 overflow-x-auto">
+<button class="tab-btn px-5 py-2 rounded-full font-label-lg text-label-lg transition-all bg-primary text-on-primary shadow-sm" data-tab="tab-eco" type="button">
+        Général &amp; Économie
+      </button>
+<button class="tab-btn px-5 py-2 rounded-full font-label-lg text-label-lg transition-all bg-surface-container text-text-secondary hover:text-text-primary hover:bg-surface-container-high" data-tab="tab-moderation" type="button">
+        Modération &amp; Délais
+      </button>
+<button class="tab-btn px-5 py-2 rounded-full font-label-lg text-label-lg transition-all bg-surface-container text-text-secondary hover:text-text-primary hover:bg-surface-container-high" data-tab="tab-plans" type="button">
+        Plans d'abonnement
+      </button>
+<button class="tab-btn px-5 py-2 rounded-full font-label-lg text-label-lg transition-all bg-surface-container text-text-secondary hover:text-text-primary hover:bg-surface-container-high" data-tab="tab-momo" type="button">
+        Paiements MoMo &amp; Orange
+      </button>
+<button class="tab-btn px-5 py-2 rounded-full font-label-lg text-label-lg transition-all bg-surface-container text-text-secondary hover:text-text-primary hover:bg-surface-container-high" data-tab="tab-sms" type="button">
+        Notifications &amp; SMS
+      </button>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-xl items-start">
+<div class="xl:col-span-8 space-y-space-xl">
+<section class="p-space-xl rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-lg" id="tab-eco">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">account_balance_wallet</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Paramètres financiers &amp; Commissions</h2>
+<p class="font-label-sm text-label-sm text-text-secondary">Structure des prélèvements et flux de trésorerie XAF</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-low text-text-secondary font-label-sm text-label-sm">Devise: FCFA</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-primary flex items-center justify-between">
+              Frais d'adhésion producteur
+              <span class="text-text-secondary material-symbols-outlined text-[16px]" title="Audit d'exploitation agronomique">info</span>
+</label>
+<div class="relative flex items-center">
+<input class="w-full h-12 pl-4 pr-16 rounded-xl bg-surface-container-low font-body-md-bold text-text-primary focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary transition-all" type="text" value="10 000"/>
+<span class="absolute right-3 px-2.5 py-1 rounded-md bg-surface-container-high text-text-secondary font-label-sm text-label-sm">FCFA</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary mt-1">Perçus à la vérification physique des parcelles par les relais MINADER.</p>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-primary flex items-center justify-between">
+              Commission sur les récoltes brutes
+              <span class="text-text-secondary material-symbols-outlined text-[16px]">info</span>
+</label>
+<div class="relative flex items-center">
+<input class="w-full h-12 pl-4 pr-14 rounded-xl bg-surface-container-low font-body-md-bold text-text-primary focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary transition-all" step="0.5" type="number" value="5.0"/>
+<span class="absolute right-3 px-2.5 py-1 rounded-md bg-surface-container-high text-text-secondary font-label-sm text-label-sm">%</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary mt-1">Appliquée au volume marchand lors de la transaction escrow.</p>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-primary flex items-center justify-between">
+              Commission sur les formations
+              <span class="text-text-secondary material-symbols-outlined text-[16px]">info</span>
+</label>
+<div class="relative flex items-center">
+<input class="w-full h-12 pl-4 pr-14 rounded-xl bg-surface-container-low font-body-md-bold text-text-primary focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary transition-all" step="0.5" type="number" value="10.0"/>
+<span class="absolute right-3 px-2.5 py-1 rounded-md bg-surface-container-high text-text-secondary font-label-sm text-label-sm">%</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary mt-1">Prélèvement de maintenance pédagogique &amp; hébergement vidéo.</p>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-primary flex items-center justify-between">
+              Seuil de virement Mobile Money
+              <span class="text-text-secondary material-symbols-outlined text-[16px]">info</span>
+</label>
+<div class="relative flex items-center">
+<input class="w-full h-12 pl-4 pr-16 rounded-xl bg-surface-container-low font-body-md-bold text-text-primary focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary transition-all" type="text" value="2 000"/>
+<span class="absolute right-3 px-2.5 py-1 rounded-md bg-surface-container-high text-text-secondary font-label-sm text-label-sm">FCFA</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary mt-1">Montant minimum requis pour déclencher un reversement automatique.</p>
+</div>
+</div>
+</section>
+<section class="p-space-xl rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-lg" id="tab-moderation">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">policy</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Délais &amp; Règles opérationnelles de vente</h2>
+<p class="font-label-sm text-label-sm text-text-secondary">Cadre de conformité agronomique et gestion des expirations</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-primary">Délai d'annulation commande impayée</label>
+<div class="relative">
+<select class="w-full h-12 px-4 appearance-none rounded-xl bg-surface-container-low font-body-md text-text-primary focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary transition-all">
+<option selected="">30 minutes (Recommandé)</option>
+<option>45 minutes</option>
+<option>60 minutes</option>
+<option>2 heures</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-text-secondary">arrow_drop_down</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary">Libère automatiquement les stocks de récoltes réservées en cas d'abandon de paiement.</p>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-primary">Délai maximum préparation producteur</label>
+<div class="relative">
+<select class="w-full h-12 px-4 appearance-none rounded-xl bg-surface-container-low font-body-md text-text-primary focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary transition-all">
+<option>12 heures</option>
+<option selected="">24 heures (Norme nationale)</option>
+<option>48 heures</option>
+<option>72 heures</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-text-secondary">arrow_drop_down</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary">Temps imparti pour pesage, conditionnement et dépôt au hub logistique.</p>
+</div>
+</div>
+<div class="space-y-space-md pt-space-xs">
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start justify-between gap-space-md">
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-white flex items-center justify-center text-primary mt-1 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="flex flex-col max-w-lg">
+<span class="font-body-md-bold text-text-primary">Modération a priori des récoltes et produits</span>
+<span class="font-label-sm text-label-sm text-text-secondary mt-0.5">Directive MINADER 2024. Tout nouveau lot maraîcher ou vivrier doit être validé par un agent certifié avant parution sur le marché national.</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-white after:border-border-warm after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start justify-between gap-space-md">
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-white flex items-center justify-center text-primary mt-1 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">school</span>
+</div>
+<div class="flex flex-col max-w-lg">
+<span class="font-body-md-bold text-text-primary">Modération a priori des formations vidéo &amp; guides PDF</span>
+<span class="font-label-sm text-label-sm text-text-secondary mt-0.5">Vérification de la validité technique, des méthodes de fertilisation biologique et de la qualité audio en langue locale.</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-white after:border-border-warm after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<section class="p-space-xl rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-lg" id="tab-plans">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[22px]">workspace_premium</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Gestion du Pass Formations Agricoles</h2>
+<p class="font-label-sm text-label-sm text-text-secondary">Offres d'abonnement au catalogue d'apprentissage</p>
+</div>
+</div>
+<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container-high text-primary font-label-lg text-label-lg hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Ajouter un plan</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative group hover:bg-surface-container transition-colors">
+<div class="flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="font-headline-sm text-headline-sm text-text-primary">Pass Mensuel</span>
+<span class="px-2 py-0.5 rounded-full bg-status-success/10 text-status-success font-label-sm text-label-sm font-semibold">Actif</span>
+</div>
+<div class="flex items-baseline gap-1 mb-2">
+<span class="font-price-tag text-display-lg text-primary">5 000</span>
+<span class="font-label-sm text-label-sm text-text-secondary">FCFA / mois</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary mb-4">Accès total aux tutoriels hors-ligne pour un exploitant.</p>
+<div class="p-2.5 rounded-lg bg-surface-white text-text-primary font-label-sm text-label-sm flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-[16px] text-tertiary">monetization_on</span>
+<span>Rétribution : <strong>450 FCFA</strong> / heure vue</span>
+</div>
+</div>
+<button class="w-full py-2 rounded-full bg-surface-white text-text-primary font-label-sm text-label-sm hover:bg-surface-container-high transition-colors text-center" type="button">
+              Modifier les quotas
+            </button>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative group hover:bg-surface-container transition-colors">
+<div class="absolute -top-2.5 right-4 px-3 py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold shadow-sm">
+              -15% Réduction
+            </div>
+<div class="flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="font-headline-sm text-headline-sm text-text-primary">Pass Trimestre</span>
+<span class="px-2 py-0.5 rounded-full bg-status-success/10 text-status-success font-label-sm text-label-sm font-semibold">Actif</span>
+</div>
+<div class="flex items-baseline gap-1 mb-2">
+<span class="font-price-tag text-display-lg text-primary">12 500</span>
+<span class="font-label-sm text-label-sm text-text-secondary">FCFA / 3 mois</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary mb-4">Formule idéale pour un cycle complet de semis &amp; récolte.</p>
+<div class="p-2.5 rounded-lg bg-surface-white text-text-primary font-label-sm text-label-sm flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-[16px] text-tertiary">monetization_on</span>
+<span>Rétribution : <strong>450 FCFA</strong> / heure vue</span>
+</div>
+</div>
+<button class="w-full py-2 rounded-full bg-surface-white text-text-primary font-label-sm text-label-sm hover:bg-surface-container-high transition-colors text-center" type="button">
+              Modifier les quotas
+            </button>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative group hover:bg-surface-container transition-colors">
+<div class="absolute -top-2.5 right-4 px-3 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold shadow-sm">
+              2 Mois Offerts
+            </div>
+<div class="flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="font-headline-sm text-headline-sm text-text-primary">Pass Annuel GIC</span>
+<span class="px-2 py-0.5 rounded-full bg-status-success/10 text-status-success font-label-sm text-label-sm font-semibold">Actif</span>
+</div>
+<div class="flex items-baseline gap-1 mb-2">
+<span class="font-price-tag text-display-lg text-primary">45 000</span>
+<span class="font-label-sm text-label-sm text-text-secondary">FCFA / an</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary mb-4">Accès multi-écrans pour coopératives et groupements (GIC).</p>
+<div class="p-2.5 rounded-lg bg-surface-white text-text-primary font-label-sm text-label-sm flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-[16px] text-tertiary">monetization_on</span>
+<span>Rétribution : <strong>450 FCFA</strong> / heure vue</span>
+</div>
+</div>
+<button class="w-full py-2 rounded-full bg-surface-white text-text-primary font-label-sm text-label-sm hover:bg-surface-container-high transition-colors text-center" type="button">
+              Modifier les quotas
+            </button>
+</div>
+</div>
+</section>
+<section class="p-space-xl rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-lg" id="tab-sms">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-text-primary">
+<span class="material-symbols-outlined text-[22px]">cell_tower</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Passerelles de communication &amp; SMS Cameroun</h2>
+<p class="font-label-sm text-label-sm text-text-secondary">Connecteurs réseaux locaux pour zones à faible connectivité internet</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-white flex items-center justify-center text-primary font-headline-sm text-headline-sm shadow-sm">
+                  CP
+                </div>
+<div>
+<h3 class="font-body-md-bold text-text-primary">Passerelle Campost / MINADER</h3>
+<span class="font-label-sm text-label-sm text-status-success flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                    Connectée (Opérationnelle)
+                  </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-secondary">settings</span>
+</div>
+<div class="space-y-2 mb-4">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span class="text-text-secondary">Solde SMS restant:</span>
+<span class="font-body-md-bold text-text-primary">14 250 crédits</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 72%;"></div>
+</div>
+<span class="text-[11px] text-text-secondary block">Renouvellement automatique configuré sous 2 000 crédits.</span>
+</div>
+<button class="w-full py-2.5 rounded-full bg-surface-white text-text-primary font-label-sm text-label-sm hover:bg-surface-container-high transition-colors" type="button">
+              Recharger le bouquet SMS
+            </button>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-white flex items-center justify-center text-status-success font-headline-sm text-headline-sm shadow-sm">
+<span class="material-symbols-outlined text-[24px]">chat</span>
+</div>
+<div>
+<h3 class="font-body-md-bold text-text-primary">Canal WhatsApp Support National</h3>
+<span class="font-label-sm text-label-sm text-status-success flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                    API Cloud Vérifiée
+                  </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-secondary">bolt</span>
+</div>
+<div class="space-y-1 mb-4">
+<label class="font-label-sm text-label-sm text-text-secondary">Numéro vert d'assistance producteur</label>
+<input class="w-full h-11 px-3 rounded-lg bg-surface-white font-body-md-bold text-text-primary focus:outline-none focus:ring-2 focus:ring-primary transition-all" type="text" value="(+237) 699 00 11 22"/>
+</div>
+<button class="w-full py-2.5 rounded-full bg-surface-white text-text-primary font-label-sm text-label-sm hover:bg-surface-container-high transition-colors" type="button">
+              Tester l'envoi d'un message
+            </button>
+</div>
+</div>
+</section>
+</div>
+<div class="xl:col-span-4 space-y-space-xl">
+<div class="p-space-xl rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-3 border-0">
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Opérateurs Mobiles</h3>
+<span class="px-2.5 py-0.5 rounded-full bg-status-success/10 text-status-success font-label-sm text-label-sm font-semibold">2 Actifs</span>
+</div>
+<div class="p-space-md rounded-xl bg-[#FFFDF0] flex flex-col gap-2 relative">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-payment-mtn"></span>
+<span class="font-body-md-bold text-text-primary">MTN MoMo Gateway</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary">v2.4 API</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary">Collecte directe USSD (*126#) &amp; versements marchands B2B.</p>
+<div class="mt-2 flex items-center justify-between text-[13px] pt-2">
+<span class="text-text-secondary">Latence moyenne:</span>
+<span class="font-semibold text-text-primary">1.2 sec</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-[#FFF7F0] flex flex-col gap-2 relative">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-payment-orange"></span>
+<span class="font-body-md-bold text-text-primary">Orange Money Cameroun</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary">WebPay 3.0</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary">Protocole sécurisé OTP (*150#) avec webhook de validation immédiate.</p>
+<div class="mt-2 flex items-center justify-between text-[13px] pt-2">
+<span class="text-text-secondary">Latence moyenne:</span>
+<span class="font-semibold text-text-primary">1.6 sec</span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container text-text-secondary font-label-sm text-label-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>Escrow certifié conforme BEAC / Cobac 2024.</span>
+</div>
+</div>
+<div class="p-space-xl rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-md">
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Contrôle de conformité</h3>
+<div class="flex items-center gap-4">
+<div class="relative w-20 h-20 flex-shrink-0 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="94, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<span class="absolute font-headline-sm text-headline-sm text-text-primary">94%</span>
+</div>
+<div>
+<span class="font-body-md-bold text-text-primary block">Indice de rigueur</span>
+<span class="font-label-sm text-label-sm text-text-secondary">Conformité aux recommandations sanitaires du Bassin Agricole Ouest/Centre.</span>
+</div>
+</div>
+<div class="pt-2 space-y-2">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-secondary">Audit des parcelles</span>
+<span class="text-status-success font-semibold">Validé</span>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-secondary">Registre phytosanitaire</span>
+<span class="text-status-success font-semibold">À jour</span>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-text-secondary">Chiffrement API Telco</span>
+<span class="text-status-success font-semibold">TLS 1.3</span>
+</div>
+</div>
+</div>
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md flex flex-col gap-2">
+<div class="flex items-center gap-2 text-text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span>Dernière révision système</span>
+</div>
+<p class="font-body-md-bold text-text-primary">Aujourd'hui à 11:42 par Dr. Marcelle Ngono</p>
+<span class="text-[12px] text-text-secondary">Modification du seuil minimal de reversement MoMo de 1 500 à 2 000 FCFA.</span>
+</div>
+</div>
+</div>
+<div class="fixed bottom-6 right-6 px-6 py-4 rounded-xl bg-text-primary text-on-primary shadow-xl flex items-center gap-3 transition-transform duration-300 translate-y-32 z-50 pointer-events-none" id="toast-save">
+<span class="material-symbols-outlined text-primary-fixed text-[24px]">check_circle</span>
+<div>
+<p class="font-body-md-bold text-[14px]">Paramètres sauvegardés</p>
+<p class="font-label-sm text-[12px] opacity-80">Les taux et règles MINADER ont été répercutés avec succès.</p>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const saveBtn = document.getElementById('save-btn');
+    const toast = document.getElementById('toast-save');
+    const tabs = document.querySelectorAll('.tab-btn');
+
+    if (saveBtn && toast) {
+      saveBtn.addEventListener('click', () => {
+        toast.classList.remove('translate-y-32');
+        toast.classList.add('translate-y-0');
+        setTimeout(() => {
+          toast.classList.remove('translate-y-0');
+          toast.classList.add('translate-y-32');
+        }, 3200);
+      });
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+          t.classList.add('bg-surface-container', 'text-text-secondary');
+        });
+        tab.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+        tab.classList.remove('bg-surface-container', 'text-text-secondary');
+
+        const targetId = tab.getAttribute('data-tab');
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  })();
+</script></main></div></body></html>

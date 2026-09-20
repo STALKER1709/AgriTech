@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#fbf9f4;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "inverse-primary": "#8ad89c", "on-primary-fixed": "#00210c", "outline": "#707a6f", "on-tertiary-container": "#ffd25c", "on-surface": "#1b1c19", "on-secondary-fixed-variant": "#723600", "on-error": "#ffffff", "error": "#ba1a1a", "status-error": "#D32F2F", "payment-orange": "#FF7900", "on-background": "#1b1c19", "surface-tint": "#1c6c3b", "secondary-fixed-dim": "#ffb786", "tertiary-container": "#755a00", "on-primary-container": "#9ae9ab", "text-primary": "#1F2421", "on-error-container": "#93000a", "on-tertiary-fixed": "#251a00", "text-secondary": "#555F58", "surface-container-highest": "#e4e2dd", "on-secondary-fixed": "#311400", "secondary-container": "#fe9b52", "border-warm": "#E5E0D8", "background": "#fbf9f4", "on-surface-variant": "#404940", "primary": "#005127", "surface-dim": "#dbdad5", "error-container": "#ffdad6", "primary-fixed": "#a5f4b6", "on-primary": "#ffffff", "surface-container-high": "#eae8e3", "secondary-fixed": "#ffdcc6", "surface-container-low": "#f5f3ee", "primary-container": "#1b6b3a", "inverse-surface": "#30312e", "surface-variant": "#e4e2dd", "primary-fixed-dim": "#8ad89c", "secondary": "#954a00", "surface-container-lowest": "#ffffff", "outline-variant": "#bfc9bd", "on-tertiary": "#ffffff", "inverse-on-surface": "#f2f1ec", "payment-mtn": "#FFCC00", "on-secondary-container": "#703500", "tertiary": "#584300", "status-success": "#2E7D32", "on-secondary": "#ffffff", "tertiary-fixed-dim": "#f0c038", "surface-white": "#FFFFFF", "tertiary-fixed": "#ffdf94", "status-warning": "#ED6C02", "surface-container": "#f0eee9", "on-primary-fixed-variant": "#005227", "surface": "#fbf9f4", "on-tertiary-fixed-variant": "#594400", "surface-bright": "#fbf9f4" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xs": "0.25rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "margin": "1rem", "margin-desktop": "2rem", "gutter-desktop": "1.5rem", "space-md": "1rem", "space-2xl": "3rem" }, fontFamily: { "display-lg": ["Plus Jakarta Sans"], "body-md-bold": ["Inter"], "price-tag": ["Plus Jakarta Sans"], "body-md": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "label-lg": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"] }, fontSize: { "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }], "body-md-bold": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "price-tag": ["18px", { "lineHeight": "22px", "fontWeight": "700" }], "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }], "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }], "display-lg-mobile": ["30px", { "lineHeight": "38px", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-white/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(31,36,33,0.05)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="AgriTech Logo" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1V_BiyY3BdZotVy28gxpxXlGk349sp_wchjz_QSByM4GDQiGJdLLWQE-4_dxDfJ_Xu3UMGSTDch87Awddj6WFCyRi3r5omEMO17OH8yWo8O6tKp-qQf65TtAuU9SLznEYlVmvSTcSPMpK7g8oj6KcVkt6qhLCSVqv4SlXBxrAp1EhNwvRwa6R6W2Rmt9_znS_mlekW8fBi2lu1d0QZKeM_nlqj35R0ZlPkdY2_rOdtbhvd96LPFVGL5cfs"/><div class="flex flex-col truncate"><span class="font-label-sm text-label-sm text-text-secondary leading-none">AgriTech</span><h1 class="font-headline-sm text-headline-sm text-text-primary tracking-tight truncate">Agritech — Messages</h1></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Rechercher ou filtrer" class="w-11 h-11 rounded-full flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-container active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[22px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full">
+<div class="px-gutter pt-space-sm pb-space-xs">
+<div class="relative flex items-center bg-surface-container-lowest rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-text-secondary pl-space-md text-[20px]">search</span>
+<input class="w-full h-12 bg-transparent pl-space-sm pr-10 font-body-md text-text-primary placeholder:text-text-secondary focus:outline-none" id="search-input" placeholder="Rechercher une conversation, un producteur..." type="text"/>
+<button aria-label="Effacer la recherche" class="absolute right-2 w-8 h-8 rounded-full flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-container-high transition-colors" id="clear-search" type="button">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</div>
+<div class="w-full overflow-x-auto py-space-sm px-gutter flex gap-space-xs no-scrollbar">
+<button class="filter-chip shrink-0 h-9 px-4 rounded-full font-label-sm flex items-center gap-1.5 transition-all bg-primary-container text-on-primary shadow-sm" data-filter="all" type="button">
+<span class="material-symbols-outlined text-[16px]">forum</span>
+<span>Tous (4)</span>
+</button>
+<button class="filter-chip shrink-0 h-9 px-4 rounded-full font-label-sm flex items-center gap-1.5 transition-all bg-surface-container-lowest text-text-secondary shadow-sm hover:text-text-primary" data-filter="unread" type="button">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+<span>Non lus (2)</span>
+</button>
+<button class="filter-chip shrink-0 h-9 px-4 rounded-full font-label-sm flex items-center gap-1.5 transition-all bg-surface-container-lowest text-text-secondary shadow-sm hover:text-text-primary" data-filter="farmers" type="button">
+<span class="material-symbols-outlined text-[16px]">agriculture</span>
+<span>Producteurs (3)</span>
+</button>
+<button class="filter-chip shrink-0 h-9 px-4 rounded-full font-label-sm flex items-center gap-1.5 transition-all bg-surface-container-lowest text-text-secondary shadow-sm hover:text-text-primary" data-filter="support" type="button">
+<span class="material-symbols-outlined text-[16px]">support_agent</span>
+<span>Support technique</span>
+</button>
+</div>
+<div class="px-gutter pt-space-xs">
+<div class="bg-surface-container-low rounded-xl p-space-sm flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<p class="font-label-sm text-text-secondary truncate">
+          Vente directe de la terre à votre table, sans commissions cachées.
+        </p>
+</div>
+<span class="font-label-sm text-primary-container font-semibold whitespace-nowrap shrink-0">Cameroun 237</span>
+</div>
+</div>
+<div class="px-gutter pt-space-sm pb-space-lg flex flex-col gap-space-sm">
+<div class="conversation-item relative flex items-start gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all active:scale-[0.99] cursor-pointer" data-category="farmers unread" role="button" tabindex="0">
+<div class="relative shrink-0">
+<img class="w-14 h-14 rounded-full object-cover shadow-inner" data-alt="Portrait photograph of Mama Helene Etoa, a friendly middle-aged Cameroonian female market gardener wearing a bright patterned headwrap in an open-air verdant tomato field in Foumbot under soft morning sunlight, natural authentic warm tones with fresh green foliage in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsW0Oyl6Ob93TpcTpmjWMmioqBKZAR4-igslzu0_YbMmSnXdpkh8Hp7uC_hpZkr8WQozk7arKTMHO_dt7fs_4woLLn4inT6ugyzvtCIAhhZevFYY3oeb4nPeEkfzF0tockSJL5_KGoApCjcWhNDuusKxcqhaaUHDO30GckzQ4Dgf0IdFOWUtILOKX9aKAWzIdD958fJZd77MBWfWVaU2PDtvW_FXwMZIfMzmbAF17DULa3a1pMDLEb"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-status-success rounded-full ring-2 ring-surface-container-lowest"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-space-xs mb-0.5">
+<h3 class="font-headline-sm text-text-primary truncate">Mama Hélène Etoa</h3>
+<span class="font-label-sm text-status-success font-semibold shrink-0">11:42</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1.5">
+<span class="font-label-sm text-text-secondary truncate">Productrice Maraîchère</span>
+<span class="w-1 h-1 rounded-full bg-text-secondary opacity-40"></span>
+<span class="font-label-sm text-text-secondary flex items-center gap-0.5 shrink-0">
+<span class="material-symbols-outlined text-[13px] text-secondary">location_on</span>
+            Foumbot
+          </span>
+</div>
+<p class="font-body-md text-text-primary line-clamp-2 leading-snug">
+          Bonjour M. Kemajou, vos 2 cageots de tomates de Foumbot sont soigneusement emballés dans les caisses aérées...
+        </p>
+<div class="mt-2.5 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-[11px] font-medium">
+<span class="material-symbols-outlined text-[13px]">nutrition</span>
+            Tomates fermes
+          </span>
+<span class="h-5 min-w-[20px] px-1.5 rounded-full bg-primary-container text-on-primary font-label-sm text-[11px] font-bold flex items-center justify-center">
+            2
+          </span>
+</div>
+</div>
+</div>
+<div class="conversation-item relative flex items-start gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all active:scale-[0.99] cursor-pointer" data-category="farmers unread" role="button" tabindex="0">
+<div class="relative shrink-0">
+<img class="w-14 h-14 rounded-full object-cover shadow-inner" data-alt="Close-up portrait of Papa Tagne, an experienced Cameroonian male farmer wearing traditional embroidered work shirt standing before rich highland volcanic red soil and plantain banana groves in Bafoussam, confident and welcoming expression in golden afternoon light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWRfUiWusEESxAjThaBVFyyi_RJMT9DOfEojhfxHjDFFNw4ZDCO86R2IiA_ShIwDJrx0kWJwAkvq5U0ROKA1_P50iICNFMcmeLjAJXLVzmupNgVEfqcBaznv5LjH3KrlPUR7JxRgN-Gu6nFF1-b53H6aTz2zcybl5shretNmMDmRn-0MNA0hTXoaSfMyGGshYU2RDCyf585DmE9i2hw-n7CCwynRZXFwrqRuHIFPHCleHI0RE0Auc_"/>
+<span class="absolute bottom-0 right-0 w-5 h-5 bg-primary-container text-on-primary rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-space-xs mb-0.5">
+<h3 class="font-headline-sm text-text-primary truncate">Ferme Papa Tagne</h3>
+<span class="font-label-sm text-status-success font-semibold shrink-0">09:15</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1.5">
+<span class="font-label-sm text-secondary font-semibold truncate">Producteur Référent</span>
+<span class="w-1 h-1 rounded-full bg-text-secondary opacity-40"></span>
+<span class="font-label-sm text-text-secondary flex items-center gap-0.5 shrink-0">
+<span class="material-symbols-outlined text-[13px] text-secondary">location_on</span>
+            Bafoussam
+          </span>
+</div>
+<p class="font-body-md text-text-primary line-clamp-2 leading-snug">
+          Le transporteur Touristique Express part de Bafoussam à 16h précises. Vous recevrez le numéro de bordereau.
+        </p>
+<div class="mt-2.5 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-[11px] font-medium">
+<span class="material-symbols-outlined text-[13px]">eco</span>
+            Manioc blanc &amp; Plantain
+          </span>
+<span class="h-5 min-w-[20px] px-1.5 rounded-full bg-primary-container text-on-primary font-label-sm text-[11px] font-bold flex items-center justify-center">
+            1
+          </span>
+</div>
+</div>
+</div>
+<div class="conversation-item relative flex items-start gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all active:scale-[0.99] cursor-pointer" data-category="farmers" role="button" tabindex="0">
+<div class="relative shrink-0">
+<img class="w-14 h-14 rounded-full object-cover shadow-inner" data-alt="Professional portrait of Engineer Samuel Fotso, a young Cameroonian agricultural expert and lecturer wearing a neat sage green collared field polo holding an agronomy notebook in an experimental maize plantation, warm daylight and natural professional smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIOkA6QalX_dtyVdYY7MgG0n__o5a89dQsjgfmEPUn_hB9pH8BlxHf4Ip4xDWycDaBy5q0yk7yJ3mqmEQgi0JYDXKvztzcNOpC6JyVZmEEyoz3AU_wsyw7cXbr7DhcTmcmLsn_Blbj-Yc6b67xUlxpB3q4puVrBADu8kq8r4z2IrKoV2UbHOs1fJmNprb_xB9rYeKQTY0bMSNg51EpT0JHxKEFpCEFKsCcoIKQbcE7CADrBHDmDQy4"/>
+<span class="absolute bottom-0 right-0 w-5 h-5 bg-tertiary-container text-on-tertiary-container rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[12px]">school</span>
+</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-space-xs mb-0.5">
+<h3 class="font-headline-sm text-text-primary truncate">Ing. Samuel Fotso</h3>
+<span class="font-label-sm text-text-secondary shrink-0">Hier</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1.5">
+<span class="font-label-sm text-text-secondary truncate">Agronome Formateur Certifié</span>
+</div>
+<p class="font-body-md text-text-secondary line-clamp-2 leading-snug">
+<span class="font-semibold text-text-primary">Vous:</span> Merci pour la réponse sur le dosage du bio-pesticide au neem ! Nos plants sont vigoureux.
+        </p>
+<div class="mt-2.5 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-[11px] font-medium">
+<span class="material-symbols-outlined text-[13px]">psychology</span>
+            Formation Maïs hybride
+          </span>
+<div class="flex items-center text-primary-container" title="Lu">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+</div>
+</div>
+</div>
+</div>
+<div class="conversation-item relative flex items-start gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all active:scale-[0.99] cursor-pointer" data-category="support" role="button" tabindex="0">
+<div class="relative shrink-0">
+<div class="w-14 h-14 rounded-full bg-primary-container flex items-center justify-center text-on-primary shadow-inner">
+<span class="material-symbols-outlined text-[28px]">support_agent</span>
+</div>
+<span class="absolute bottom-0 right-0 w-5 h-5 bg-payment-orange text-surface-white rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[12px]">payments</span>
+</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-space-xs mb-0.5">
+<div class="flex items-center gap-1 min-w-0">
+<h3 class="font-headline-sm text-text-primary truncate">Support Client AgriTech</h3>
+</div>
+<span class="font-label-sm text-text-secondary shrink-0">22 Mars</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1.5">
+<span class="font-label-sm text-text-secondary truncate">Yaoundé &amp; Douala</span>
+<span class="w-1 h-1 rounded-full bg-text-secondary opacity-40"></span>
+<span class="inline-flex items-center gap-0.5 font-label-sm text-primary-container font-semibold">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+            Officiel
+          </span>
+</div>
+<p class="font-body-md text-text-secondary line-clamp-2 leading-snug">
+          Votre paiement MTN MoMo de 25 000 FCFA a bien été validé pour la commande #CMD-2025-0489.
+        </p>
+<div class="mt-2.5 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-[11px] font-medium">
+<span class="material-symbols-outlined text-[13px]">receipt_long</span>
+            Commande validée
+          </span>
+<div class="flex items-center text-text-secondary" title="Reçu">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-gutter pb-space-lg">
+<div class="relative overflow-hidden rounded-2xl bg-surface-container-low p-space-md shadow-sm">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-lowest flex items-center justify-center shrink-0 shadow-sm text-secondary">
+<span class="material-symbols-outlined text-[26px]">inventory_2</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-1">
+<h4 class="font-headline-sm text-text-primary text-[16px]">Archives &amp; Sécurité</h4>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-highest text-text-secondary font-label-sm text-[10px]">
+              0 archivé
+            </span>
+</div>
+<p class="font-body-md text-text-secondary text-[14px] leading-relaxed mb-space-sm">
+            Échangez directement et sans intermédiaire avec les agriculteurs certifiés du Cameroun. Vos numéros de téléphone et paiements sont protégés.
+          </p>
+<div class="flex items-center gap-space-sm">
+<button class="h-9 px-3.5 rounded-full bg-surface-container-lowest hover:bg-surface-container font-label-sm text-text-primary flex items-center gap-1.5 transition-colors shadow-sm" id="view-archive-btn" type="button">
+<span class="material-symbols-outlined text-[16px] text-text-secondary">folder_open</span>
+<span>Voir les archives</span>
+</button>
+<button class="h-9 px-3 rounded-full bg-transparent hover:bg-surface-container font-label-sm text-primary-container flex items-center gap-1 transition-colors" id="faq-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">help_outline</span>
+<span>Guide d'échange</span>
+</button>
+</div>
+</div>
+</div>
+<div class="hidden mt-space-md pt-space-md border-none flex flex-col items-center justify-center text-center p-space-md rounded-xl bg-surface-container-lowest" id="archive-drawer">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center text-text-secondary mb-2">
+<span class="material-symbols-outlined text-[24px]">archive</span>
+</div>
+<p class="font-headline-sm text-text-primary text-[15px]">Aucun message dans les archives</p>
+<p class="font-body-md text-text-secondary text-[13px] max-w-xs mt-0.5">
+          Toutes vos conversations récentes restent actives sur votre tableau principal.
+        </p>
+</div>
+</div>
+</div>
+<div class="fixed bottom-20 right-4 z-40">
+<button aria-label="Nouvel échange ou assistance" class="h-14 px-5 rounded-full bg-primary-container text-on-primary flex items-center gap-2 shadow-xl hover:bg-primary active:scale-95 transition-all" id="new-inquiry-btn" type="button">
+<span class="material-symbols-outlined text-[24px]">add_comment</span>
+<span class="font-label-lg tracking-wide">Nouveau message</span>
+</button>
+</div>
+<div class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm hidden flex items-end justify-center" id="compose-sheet">
+<div class="w-full max-w-md bg-surface-container-lowest rounded-t-3xl p-gutter shadow-2xl flex flex-col gap-space-md">
+<div class="w-10 h-1 rounded-full bg-surface-container-high mx-auto -mt-1 mb-1"></div>
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-md text-text-primary">Démarrer un échange</h3>
+<p class="font-label-sm text-text-secondary">Contactez un coopérateur ou notre permanence</p>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-text-secondary hover:text-text-primary" id="close-sheet" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-xs">
+<button class="flex items-center gap-space-sm p-space-sm rounded-xl hover:bg-surface-container-low transition-colors text-left" type="button">
+<div class="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-lg text-text-primary">Contacter un producteur du catalogue</p>
+<p class="font-label-sm text-text-secondary truncate">Posez une question sur la disponibilité des récoltes</p>
+</div>
+<span class="material-symbols-outlined text-text-secondary text-[18px]">chevron_right</span>
+</button>
+<button class="flex items-center gap-space-sm p-space-sm rounded-xl hover:bg-surface-container-low transition-colors text-left" type="button">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-lg text-text-primary">Suivi de livraison inter-villes</p>
+<p class="font-label-sm text-text-secondary truncate">Touristique Express, agences régionales Ouest/Centre</p>
+</div>
+<span class="material-symbols-outlined text-text-secondary text-[18px]">chevron_right</span>
+</button>
+<button class="flex items-center gap-space-sm p-space-sm rounded-xl hover:bg-surface-container-low transition-colors text-left" type="button">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">contact_support</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-lg text-text-primary">Assistance AgriTech Cameroun</p>
+<p class="font-label-sm text-text-secondary truncate">Paiement Mobile Money (MTN/Orange), compte, abonnement</p>
+</div>
+<span class="material-symbols-outlined text-text-secondary text-[18px]">chevron_right</span>
+</button>
+</div>
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-status-success text-[20px]">lock</span>
+<p class="font-label-sm text-text-secondary text-[12px] leading-tight">
+          Paiement sécurisé avec séquestre jusqu'à validation de la réception des récoltes.
+        </p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const filterButtons = document.querySelectorAll('.filter-chip');
+    const items = document.querySelectorAll('.conversation-item');
+    const searchInput = document.getElementById('search-input');
+    const clearSearch = document.getElementById('clear-search');
+    const archiveBtn = document.getElementById('view-archive-btn');
+    const archiveDrawer = document.getElementById('archive-drawer');
+    const newInquiryBtn = document.getElementById('new-inquiry-btn');
+    const composeSheet = document.getElementById('compose-sheet');
+    const closeSheet = document.getElementById('close-sheet');
+
+    let currentFilter = 'all';
+
+    function applyFilters() {
+      const term = searchInput.value.toLowerCase().trim();
+
+      items.forEach(item => {
+        const categories = item.getAttribute('data-category') || '';
+        const textContent = item.textContent.toLowerCase();
+
+        const matchesFilter = (currentFilter === 'all') || categories.includes(currentFilter);
+        const matchesSearch = !term || textContent.includes(term);
+
+        if (matchesFilter && matchesSearch) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-primary-container', 'text-on-primary');
+          b.classList.add('bg-surface-container-lowest', 'text-text-secondary');
+        });
+
+        btn.classList.add('bg-primary-container', 'text-on-primary');
+        btn.classList.remove('bg-surface-container-lowest', 'text-text-secondary');
+
+        currentFilter = btn.getAttribute('data-filter') || 'all';
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener('input', applyFilters);
+
+    clearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      applyFilters();
+      searchInput.focus();
+    });
+
+    archiveBtn.addEventListener('click', () => {
+      const isHidden = archiveDrawer.classList.contains('hidden');
+      if (isHidden) {
+        archiveDrawer.classList.remove('hidden');
+        archiveBtn.querySelector('span:last-child').textContent = 'Masquer';
+      } else {
+        archiveDrawer.classList.add('hidden');
+        archiveBtn.querySelector('span:last-child').textContent = 'Voir les archives';
+      }
+    });
+
+    newInquiryBtn.addEventListener('click', () => {
+      composeSheet.classList.remove('hidden');
+    });
+
+    closeSheet.addEventListener('click', () => {
+      composeSheet.classList.add('hidden');
+    });
+
+    composeSheet.addEventListener('click', (e) => {
+      if (e.target === composeSheet) {
+        composeSheet.classList.add('hidden');
+      }
+    });
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-white/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(31,36,33,0.06)]" data-active-classes="text-primary-container font-semibold"><div class="flex items-center justify-around h-16 px-space-xs"><a class="flex flex-col items-center justify-center min-w-[54px] h-12 gap-0.5 text-text-secondary hover:text-text-primary active:scale-95 transition-all" data-path="accueil" href="#"><span class="material-symbols-outlined text-[22px]">home</span><span class="font-label-sm text-[11px] leading-tight">Accueil</span></a><a class="flex flex-col items-center justify-center min-w-[54px] h-12 gap-0.5 text-text-secondary hover:text-text-primary active:scale-95 transition-all" data-path="catalogue" href="#"><span class="material-symbols-outlined text-[22px]">storefront</span><span class="font-label-sm text-[11px] leading-tight">Catalogue</span></a><a class="flex flex-col items-center justify-center min-w-[54px] h-12 gap-0.5 text-text-secondary hover:text-text-primary active:scale-95 transition-all" data-path="formations" href="#"><span class="material-symbols-outlined text-[22px]">school</span><span class="font-label-sm text-[11px] leading-tight">Formations</span></a><a class="relative flex flex-col items-center justify-center min-w-[54px] h-12 gap-0.5 text-text-secondary hover:text-text-primary active:scale-95 transition-all" data-path="agritech-messages" href="#"><span class="material-symbols-outlined text-[22px]">chat_bubble</span><span class="font-label-sm text-[11px] leading-tight">Messages</span><span class="absolute top-1 right-2 min-w-[16px] h-4 px-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[10px] font-bold flex items-center justify-center">3</span></a><a class="flex flex-col items-center justify-center min-w-[54px] h-12 gap-0.5 text-text-secondary hover:text-text-primary active:scale-95 transition-all" data-path="compte" href="#"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-sm text-[11px] leading-tight">Compte</span></a></div></nav></body></html>

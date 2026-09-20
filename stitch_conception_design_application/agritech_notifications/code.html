@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#fbf9f4;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "inverse-primary": "#8ad89c", "on-primary-fixed": "#00210c", "outline": "#707a6f", "on-tertiary-container": "#ffd25c", "on-surface": "#1b1c19", "on-secondary-fixed-variant": "#723600", "on-error": "#ffffff", "error": "#ba1a1a", "status-error": "#D32F2F", "payment-orange": "#FF7900", "on-background": "#1b1c19", "surface-tint": "#1c6c3b", "secondary-fixed-dim": "#ffb786", "tertiary-container": "#755a00", "on-primary-container": "#9ae9ab", "text-primary": "#1F2421", "on-error-container": "#93000a", "on-tertiary-fixed": "#251a00", "text-secondary": "#555F58", "surface-container-highest": "#e4e2dd", "on-secondary-fixed": "#311400", "secondary-container": "#fe9b52", "border-warm": "#E5E0D8", "background": "#fbf9f4", "on-surface-variant": "#404940", "primary": "#005127", "surface-dim": "#dbdad5", "error-container": "#ffdad6", "primary-fixed": "#a5f4b6", "on-primary": "#ffffff", "surface-container-high": "#eae8e3", "secondary-fixed": "#ffdcc6", "surface-container-low": "#f5f3ee", "primary-container": "#1b6b3a", "inverse-surface": "#30312e", "surface-variant": "#e4e2dd", "primary-fixed-dim": "#8ad89c", "secondary": "#954a00", "surface-container-lowest": "#ffffff", "outline-variant": "#bfc9bd", "on-tertiary": "#ffffff", "inverse-on-surface": "#f2f1ec", "payment-mtn": "#FFCC00", "on-secondary-container": "#703500", "tertiary": "#584300", "status-success": "#2E7D32", "on-secondary": "#ffffff", "tertiary-fixed-dim": "#f0c038", "surface-white": "#FFFFFF", "tertiary-fixed": "#ffdf94", "status-warning": "#ED6C02", "surface-container": "#f0eee9", "on-primary-fixed-variant": "#005227", "surface": "#fbf9f4", "on-tertiary-fixed-variant": "#594400", "surface-bright": "#fbf9f4" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xs": "0.25rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "margin": "1rem", "margin-desktop": "2rem", "gutter-desktop": "1.5rem", "space-md": "1rem", "space-2xl": "3rem" }, fontFamily: { "display-lg": ["Plus Jakarta Sans"], "body-md-bold": ["Inter"], "price-tag": ["Plus Jakarta Sans"], "body-md": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "label-lg": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"] }, fontSize: { "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }], "body-md-bold": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "price-tag": ["18px", { "lineHeight": "22px", "fontWeight": "700" }], "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }], "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }], "display-lg-mobile": ["30px", { "lineHeight": "38px", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-white/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(31,36,33,0.05)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="AgriTech Logo" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1V_BiyY3BdZotVy28gxpxXlGk349sp_wchjz_QSByM4GDQiGJdLLWQE-4_dxDfJ_Xu3UMGSTDch87Awddj6WFCyRi3r5omEMO17OH8yWo8O6tKp-qQf65TtAuU9SLznEYlVmvSTcSPMpK7g8oj6KcVkt6qhLCSVqv4SlXBxrAp1EhNwvRwa6R6W2Rmt9_znS_mlekW8fBi2lu1d0QZKeM_nlqj35R0ZlPkdY2_rOdtbhvd96LPFVGL5cfs"/><div class="flex flex-col truncate"><span class="font-label-sm text-label-sm text-text-secondary leading-none">AgriTech</span><h1 class="font-headline-sm text-headline-sm text-text-primary tracking-tight truncate">Agritech — Notifications</h1></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Rechercher ou filtrer" class="w-11 h-11 rounded-full flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-container active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[22px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full">
+<div class="px-gutter pt-space-md pb-space-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-text-primary tracking-tight">Notifications</h2>
+<p class="font-label-sm text-label-sm text-text-secondary mt-0.5">Restez informé de vos commandes, récoltes et cours</p>
+</div>
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary-fixed text-on-primary-fixed hover:bg-primary hover:text-on-primary active:scale-95 transition-all shadow-sm" id="mark-all-read-btn" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary transition-colors duration-200">done_all</span>
+<span class="font-label-sm text-label-sm">Tout lire</span>
+</button>
+</div>
+<!-- Filter chips -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 -mx-gutter px-gutter no-scrollbar" id="filter-container">
+<button class="filter-chip active-filter shrink-0 h-9 px-4 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-sm active:scale-95 transition-all flex items-center gap-1.5" data-filter="all" type="button">
+<span>Toutes</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-white/20 text-on-primary font-label-sm text-[11px]" id="unread-pill-count">2</span>
+</button>
+<button class="filter-chip shrink-0 h-9 px-4 rounded-full bg-surface-container-lowest text-text-secondary font-label-lg text-label-lg shadow-sm hover:text-text-primary active:scale-95 transition-all" data-filter="commandes" type="button">Commandes</button>
+<button class="filter-chip shrink-0 h-9 px-4 rounded-full bg-surface-container-lowest text-text-secondary font-label-lg text-label-lg shadow-sm hover:text-text-primary active:scale-95 transition-all" data-filter="paiements" type="button">Paiements</button>
+<button class="filter-chip shrink-0 h-9 px-4 rounded-full bg-surface-container-lowest text-text-secondary font-label-lg text-label-lg shadow-sm hover:text-text-primary active:scale-95 transition-all" data-filter="formations" type="button">Formations</button>
+<button class="filter-chip shrink-0 h-9 px-4 rounded-full bg-surface-container-lowest text-text-secondary font-label-lg text-label-lg shadow-sm hover:text-text-primary active:scale-95 transition-all" data-filter="systeme" type="button">Système</button>
+</div>
+</div>
+<!-- Main Notification Feed -->
+<div class="px-gutter flex flex-col gap-space-lg pb-space-md" id="notification-groups">
+<!-- Group: Aujourd'hui -->
+<div class="flex flex-col gap-space-sm group-section" data-group="today">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-secondary font-semibold">Aujourd'hui</span>
+<span class="font-label-sm text-[11px] text-primary font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+          2 non lues
+        </span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Notif 1: Commande Unread -->
+<article class="notif-card is-unread relative flex items-start gap-3.5 p-3.5 rounded-xl bg-surface-container-lowest shadow-sm active:scale-[0.99] transition-all cursor-pointer" data-category="commandes">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-11 h-11 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shadow-sm">
+<span class="material-symbols-outlined text-[22px]">local_shipping</span>
+</div>
+<span class="unread-dot absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-primary ring-2 ring-surface-white"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-baseline justify-between gap-1">
+<h3 class="font-headline-sm text-[15px] leading-snug text-text-primary font-semibold truncate">Commande #CMD-2025-0495 en préparation</h3>
+<time class="shrink-0 font-label-sm text-[11px] text-primary font-medium">Il y a 25 min</time>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-text-secondary mt-1 line-clamp-2">
+              Papa Tagne prépare vos 2 sacs de manioc blanc à Bafoussam.
+            </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-on-secondary-container font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-[13px]">inventory_2</span>
+                Expédition Ouest → Douala
+              </span>
+</div>
+</div>
+</article>
+<!-- Notif 2: Paiement MoMo Unread -->
+<article class="notif-card is-unread relative flex items-start gap-3.5 p-3.5 rounded-xl bg-surface-container-lowest shadow-sm active:scale-[0.99] transition-all cursor-pointer" data-category="paiements">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-11 h-11 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed shadow-sm">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<span class="unread-dot absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-primary ring-2 ring-surface-white"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-baseline justify-between gap-1">
+<h3 class="font-headline-sm text-[15px] leading-snug text-text-primary font-semibold truncate">Paiement Mobile Money confirmé (25 000 FCFA)</h3>
+<time class="shrink-0 font-label-sm text-[11px] text-primary font-medium">Il y a 2h</time>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-text-secondary mt-1 line-clamp-2">
+              Votre transaction MTN MoMo #AGT-2025-8842 a été validée avec succès.
+            </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-text-primary font-price-tag text-[12px]">
+                25 000 FCFA
+              </span>
+<span class="inline-flex items-center gap-1 text-status-success font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                Validée
+              </span>
+</div>
+</div>
+</article>
+<!-- Notif 3: Modération Vendeur Read -->
+<article class="notif-card relative flex items-start gap-3.5 p-3.5 rounded-xl bg-surface-container-lowest/80 shadow-sm active:scale-[0.99] transition-all cursor-pointer" data-category="systeme">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-11 h-11 rounded-full bg-primary-fixed-dim/40 flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[22px]">verified_user</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-baseline justify-between gap-1">
+<h3 class="font-headline-sm text-[15px] leading-snug text-text-primary font-semibold truncate">Fiche produit 'Manioc blanc' approuvée</h3>
+<time class="shrink-0 font-label-sm text-[11px] text-text-secondary">Il y a 4h</time>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-text-secondary mt-1 line-clamp-2">
+              Votre offre est désormais visible par tous les acheteurs du Cameroun.
+            </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-fixed/30 text-primary font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-[13px]">visibility</span>
+                En ligne sur le marché
+              </span>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- Group: Hier -->
+<div class="flex flex-col gap-space-sm group-section" data-group="yesterday">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-secondary font-semibold">Hier</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Notif 4: Message Read -->
+<article class="notif-card relative flex items-start gap-3.5 p-3.5 rounded-xl bg-surface-container-lowest/80 shadow-sm active:scale-[0.99] transition-all cursor-pointer" data-category="commandes">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-11 h-11 rounded-full bg-primary-fixed-dim/40 flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[22px]">chat</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-baseline justify-between gap-1">
+<h3 class="font-headline-sm text-[15px] leading-snug text-text-primary font-semibold truncate">Nouveau message de Mama Hélène Etoa</h3>
+<time class="shrink-0 font-label-sm text-[11px] text-text-secondary">Hier à 11:42</time>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-text-secondary mt-1 italic line-clamp-2">
+              « C'est noté, le colis part avec la navette de 16h00... »
+            </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 text-text-secondary font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-[13px]">reply</span>
+                Répondre
+              </span>
+</div>
+</div>
+</article>
+<!-- Notif 5: Formation Read -->
+<article class="notif-card relative flex items-start gap-3.5 p-3.5 rounded-xl bg-surface-container-lowest/80 shadow-sm active:scale-[0.99] transition-all cursor-pointer" data-category="formations">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-11 h-11 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shadow-sm">
+<span class="material-symbols-outlined text-[22px]">school</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-baseline justify-between gap-1">
+<h3 class="font-headline-sm text-[15px] leading-snug text-text-primary font-semibold truncate">Nouveau module : Culture de la tomate</h3>
+<time class="shrink-0 font-label-sm text-[11px] text-text-secondary">Hier à 08:30</time>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-text-secondary mt-1 line-clamp-2">
+              Le module 3 "Gestion du goutte-à-goutte" est désormais disponible.
+            </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[13px]">play_circle</span>
+                Voir la vidéo (18 min)
+              </span>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- Group: Plus tôt -->
+<div class="flex flex-col gap-space-sm group-section" data-group="earlier">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-secondary font-semibold">Plus tôt</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Notif 6: Validation compte -->
+<article class="notif-card relative flex items-start gap-3.5 p-3.5 rounded-xl bg-surface-container-lowest/80 shadow-sm active:scale-[0.99] transition-all cursor-pointer" data-category="systeme">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-11 h-11 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed shadow-sm">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-baseline justify-between gap-1">
+<h3 class="font-headline-sm text-[15px] leading-snug text-text-primary font-semibold truncate">Agrément Producteur vérifié</h3>
+<time class="shrink-0 font-label-sm text-[11px] text-text-secondary">21 Mars 2025</time>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-text-secondary mt-1 line-clamp-2">
+              Félicitations ! Votre profil Ferme Papa Tagne bénéficie désormais du badge Certifié MINADER.
+            </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-tertiary-fixed/40 text-tertiary font-label-sm text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[13px]">military_tech</span>
+                Badge activé
+              </span>
+</div>
+</div>
+</article>
+<!-- Notif 7: Rappel commande -->
+<article class="notif-card relative flex items-start gap-3.5 p-3.5 rounded-xl bg-surface-container-lowest/80 shadow-sm active:scale-[0.99] transition-all cursor-pointer" data-category="commandes">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-11 h-11 rounded-full bg-surface-container-high flex items-center justify-center text-text-secondary shadow-sm">
+<span class="material-symbols-outlined text-[22px]">notification_important</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-baseline justify-between gap-1">
+<h3 class="font-headline-sm text-[15px] leading-snug text-text-primary font-semibold truncate">Rappel commande en attente</h3>
+<time class="shrink-0 font-label-sm text-[11px] text-text-secondary">19 Mars 2025</time>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-text-secondary mt-1 line-clamp-2">
+              Votre panier de tomates de Foumbot a été validé après confirmation de stock.
+            </p>
+</div>
+</article>
+</div>
+</div>
+<!-- Empty State (Hidden initially) -->
+<div class="hidden flex-col items-center justify-center py-12 px-gutter text-center bg-surface-container-lowest rounded-xl" id="empty-state">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-text-secondary mb-3">
+<span class="material-symbols-outlined text-[32px]">notifications_off</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary mb-1">Aucune notification trouvée</h3>
+<p class="font-body-md text-label-sm text-text-secondary max-w-[240px]">Vous êtes à jour dans cette catégorie pour le moment.</p>
+</div>
+<!-- Bottom Tip Box: Notification Preferences -->
+<aside class="mt-2 p-4 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-full bg-primary-fixed flex items-center justify-center text-primary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-label-lg text-label-lg text-text-primary font-semibold">Gérer vos préférences d'alerte</h4>
+<p class="font-body-md text-label-sm text-text-secondary mt-0.5">
+            Choisissez vos canaux prioritaires : SMS pour les zones à faible réseau, WhatsApp ou alertes Push directes.
+          </p>
+</div>
+</div>
+<!-- Quick toggle badges -->
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<button class="channel-toggle px-3 py-1.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm flex items-center gap-1.5 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[15px]">sms</span>
+<span>SMS (Actif)</span>
+</button>
+<button class="channel-toggle px-3 py-1.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm flex items-center gap-1.5 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[15px]">chat</span>
+<span>WhatsApp (Actif)</span>
+</button>
+<button class="channel-toggle px-3 py-1.5 rounded-full bg-surface-container text-text-secondary font-label-sm text-label-sm flex items-center gap-1.5 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[15px]">notifications_active</span>
+<span>Push</span>
+</button>
+</div>
+</aside>
+</div>
+</div>
+<script>
+  (function() {
+    const markAllBtn = document.getElementById('mark-all-read-btn');
+    const unreadDots = document.querySelectorAll('.unread-dot');
+    const unreadCards = document.querySelectorAll('.is-unread');
+    const unreadPillCount = document.getElementById('unread-pill-count');
+    const filterChips = document.querySelectorAll('.filter-chip');
+    const cards = document.querySelectorAll('.notif-card');
+    const emptyState = document.getElementById('empty-state');
+    const groupSections = document.querySelectorAll('.group-section');
+
+    // Action: Mark all as read
+    if (markAllBtn) {
+      markAllBtn.addEventListener('click', function() {
+        unreadDots.forEach(function(dot) {
+          dot.style.opacity = '0';
+          setTimeout(function() { dot.remove(); }, 200);
+        });
+        unreadCards.forEach(function(card) {
+          card.classList.remove('is-unread');
+          card.classList.add('bg-surface-container-lowest/80');
+        });
+        if (unreadPillCount) {
+          unreadPillCount.textContent = '0';
+          unreadPillCount.classList.add('hidden');
+        }
+        markAllBtn.innerHTML = `
+          <span class="material-symbols-outlined text-[18px] text-status-success">check_circle</span>
+          <span class="font-label-sm text-label-sm text-status-success">Tout est lu</span>
+        `;
+        markAllBtn.classList.replace('bg-primary-fixed', 'bg-surface-container');
+        markAllBtn.disabled = true;
+      });
+    }
+
+    // Tap on single card to mark it as read
+    cards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        const dot = card.querySelector('.unread-dot');
+        if (dot) {
+          dot.remove();
+          card.classList.remove('is-unread');
+          card.classList.add('bg-surface-container-lowest/80');
+          let currentCount = parseInt(unreadPillCount.textContent || '0', 10);
+          if (currentCount > 1) {
+            unreadPillCount.textContent = (currentCount - 1).toString();
+          } else {
+            unreadPillCount.textContent = '0';
+            unreadPillCount.classList.add('hidden');
+          }
+        }
+      });
+    });
+
+    // Category Filtering
+    filterChips.forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        filterChips.forEach(function(btn) {
+          btn.classList.remove('bg-primary', 'text-on-primary');
+          btn.classList.add('bg-surface-container-lowest', 'text-text-secondary');
+        });
+        chip.classList.remove('bg-surface-container-lowest', 'text-text-secondary');
+        chip.classList.add('bg-primary', 'text-on-primary');
+
+        const filter = chip.getAttribute('data-filter');
+        let visibleCount = 0;
+
+        cards.forEach(function(card) {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        // Hide empty group titles
+        groupSections.forEach(function(sec) {
+          const visibleInSec = sec.querySelectorAll('.notif-card:not(.hidden)').length;
+          if (visibleInSec === 0) {
+            sec.classList.add('hidden');
+          } else {
+            sec.classList.remove('hidden');
+          }
+        });
+
+        // Toggle Empty State
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+          emptyState.classList.add('flex');
+        } else {
+          emptyState.classList.add('hidden');
+          emptyState.classList.remove('flex');
+        }
+      });
+    });
+
+    // Channel toggles feedback
+    const channelToggles = document.querySelectorAll('.channel-toggle');
+    channelToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function() {
+        const isActive = toggle.classList.contains('bg-primary-container');
+        if (isActive) {
+          toggle.classList.remove('bg-primary-container', 'text-on-primary');
+          toggle.classList.add('bg-surface-container', 'text-text-secondary');
+        } else {
+          toggle.classList.remove('bg-surface-container', 'text-text-secondary');
+          toggle.classList.add('bg-primary-container', 'text-on-primary');
+        }
+      });
+    });
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-white/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(31,36,33,0.06)]" data-active-classes="text-primary-container font-semibold"><div class="flex items-center justify-around h-16 px-space-xs"><a class="flex flex-col items-center justify-center min-w-[54px] h-12 gap-0.5 text-text-secondary hover:text-text-primary active:scale-95 transition-all" data-path="accueil" href="#"><span class="material-symbols-outlined text-[22px]">home</span><span class="font-label-sm text-[11px] leading-tight">Accueil</span></a><a class="flex flex-col items-center justify-center min-w-[54px] h-12 gap-0.5 text-text-secondary hover:text-text-primary active:scale-95 transition-all" data-path="catalogue" href="#"><span class="material-symbols-outlined text-[22px]">storefront</span><span class="font-label-sm text-[11px] leading-tight">Catalogue</span></a><a class="flex flex-col items-center justify-center min-w-[54px] h-12 gap-0.5 text-text-secondary hover:text-text-primary active:scale-95 transition-all" data-path="formations" href="#"><span class="material-symbols-outlined text-[22px]">school</span><span class="font-label-sm text-[11px] leading-tight">Formations</span></a><a class="relative flex flex-col items-center justify-center min-w-[54px] h-12 gap-0.5 text-text-secondary hover:text-text-primary active:scale-95 transition-all" data-path="agritech-messages" href="#"><span class="material-symbols-outlined text-[22px]">chat_bubble</span><span class="font-label-sm text-[11px] leading-tight">Messages</span><span class="absolute top-1 right-2 min-w-[16px] h-4 px-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[10px] font-bold flex items-center justify-center">3</span></a><a class="flex flex-col items-center justify-center min-w-[54px] h-12 gap-0.5 text-text-secondary hover:text-text-primary active:scale-95 transition-all" data-path="compte" href="#"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-sm text-[11px] leading-tight">Compte</span></a></div></nav></body></html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"border-warm":"#E5E0D8","on-tertiary-fixed":"#251a00","secondary-fixed":"#ffdcc6","tertiary-fixed":"#ffdf94","status-success":"#2E7D32","text-primary":"#1F2421","surface-container-high":"#eae8e3","surface-container":"#f0eee9","surface-white":"#FFFFFF","surface-container-highest":"#e4e2dd","surface-container-low":"#f5f3ee","on-error-container":"#93000a","on-surface-variant":"#404940","primary-fixed":"#a5f4b6","on-secondary":"#ffffff","on-secondary-container":"#703500","tertiary":"#584300","on-secondary-fixed-variant":"#723600","secondary-fixed-dim":"#ffb786","error-container":"#ffdad6","on-tertiary-fixed-variant":"#594400","payment-orange":"#FF7900","outline":"#707a6f","tertiary-fixed-dim":"#f0c038","secondary-container":"#fe9b52","outline-variant":"#bfc9bd","payment-mtn":"#FFCC00","surface-container-lowest":"#ffffff","primary":"#005127","inverse-surface":"#30312e","on-primary-container":"#9ae9ab","on-tertiary":"#ffffff","surface-dim":"#dbdad5","on-surface":"#1b1c19","on-secondary-fixed":"#311400","status-warning":"#ED6C02","on-primary":"#ffffff","background":"#fbf9f4","surface-bright":"#fbf9f4","inverse-on-surface":"#f2f1ec","error":"#ba1a1a","primary-fixed-dim":"#8ad89c","surface-tint":"#1c6c3b","tertiary-container":"#755a00","surface":"#fbf9f4","secondary":"#954a00","text-secondary":"#555F58","surface-variant":"#e4e2dd","on-background":"#1b1c19","inverse-primary":"#8ad89c","primary-container":"#1b6b3a","on-primary-fixed-variant":"#005227","on-error":"#ffffff","on-primary-fixed":"#00210c","status-error":"#D32F2F","on-tertiary-container":"#ffd25c"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-sm":"0.5rem","margin-desktop":"2rem","space-2xl":"3rem","space-xs":"0.25rem","space-xl":"2rem","gutter-desktop":"1.5rem","space-lg":"1.5rem","margin":"1rem","space-md":"1rem","gutter":"1rem"},fontFamily:{"display-lg":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"label-sm":["Inter"],"price-tag":["Plus Jakarta Sans"],"body-md":["Inter"],"body-lg":["Inter"],"headline-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"label-lg":["Inter"],"headline-lg":["Plus Jakarta Sans"],"body-md-bold":["Inter"]},fontSize:{"display-lg":["40px",{lineHeight:"48px",fontWeight:"700"}],"headline-sm":["18px",{lineHeight:"24px",fontWeight:"600"}],"headline-lg-mobile":["24px",{lineHeight:"32px",fontWeight:"700"}],"label-sm":["12px",{lineHeight:"16px",fontWeight:"500"}],"price-tag":["18px",{lineHeight:"22px",fontWeight:"700"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"headline-md":["22px",{lineHeight:"28px",fontWeight:"600"}],"display-lg-mobile":["30px",{lineHeight:"38px",fontWeight:"700"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"600"}],"headline-lg":["32px",{lineHeight:"40px",fontWeight:"700"}],"body-md-bold":["16px",{lineHeight:"24px",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-text-primary antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col flex-1 overflow-y-auto"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="Logo AgriTech" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1V_BiyY3BdZotVy28gxpxXlGk349sp_wchjz_QSByM4GDQiGJdLLWQE-4_dxDfJ_Xu3UMGSTDch87Awddj6WFCyRi3r5omEMO17OH8yWo8O6tKp-qQf65TtAuU9SLznEYlVmvSTcSPMpK7g8oj6KcVkt6qhLCSVqv4SlXBxrAp1EhNwvRwa6R6W2Rmt9_znS_mlekW8fBi2lu1d0QZKeM_nlqj35R0ZlPkdY2_rOdtbhvd96LPFVGL5cfs"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight leading-none truncate">AgriTech</span><span class="font-label-sm text-label-sm text-text-secondary truncate mt-1">Back-office Central</span></div></div><div class="px-space-md py-space-xs"><div class="px-space-sm py-1.5 rounded-lg bg-surface-container flex items-center justify-between"><span class="font-label-sm text-label-sm text-text-secondary">Région Cameroun</span><span class="inline-flex items-center gap-1 font-label-sm text-label-sm font-semibold text-primary"><span class="w-2 h-2 rounded-full bg-status-success"></span>+237</span></div></div><nav class="flex-1 px-space-sm py-space-sm space-y-1" data-active-classes="bg-primary-container text-on-primary font-body-md-bold shadow-[0_1px_4px_rgba(0,0,0,0.06)]"><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="tableau-de-bord" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span class="font-label-lg text-label-lg">Tableau de bord</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="agriculteurs-a-valider" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">how_to_reg</span><span class="font-label-lg text-label-lg">Agriculteurs à valider</span></div><span class="inline-flex items-center justify-center h-5 min-w-[20px] px-1.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold">5</span></a><a aria-current="page" class="flex items-center justify-between px-space-sm py-2.5 rounded-lg transition-all bg-primary-container text-on-primary font-body-md-bold shadow-[0_1px_4px_rgba(0,0,0,0.06)]" data-path="utilisateurs" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-label-lg text-label-lg">Utilisateurs</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="moderation" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">gavel</span><span class="font-label-lg text-label-lg">Modération</span></div><span class="inline-flex items-center justify-center h-5 min-w-[20px] px-1.5 rounded-full bg-error text-on-error font-label-sm text-label-sm font-bold">3</span></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="privileges" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="font-label-lg text-label-lg">Privilèges</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="journal-daudit" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span class="font-label-lg text-label-lg">Journal d'audit</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="parametres" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-label-lg text-label-lg">Paramètres</span></div></a></nav></div><div class="p-space-sm bg-surface-container-low"><div class="p-space-sm rounded-xl bg-surface-container flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm min-w-0"><div class="relative flex-shrink-0"><div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-sm text-[14px]">MN</div><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-status-success ring-2 ring-surface-white"></span></div><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-text-primary font-semibold truncate">Dr. Marcelle Ngono</span><span class="font-label-sm text-label-sm text-text-secondary truncate">Super Admin MINADER</span></div></div><a class="p-1.5 rounded-lg text-text-secondary hover:bg-surface-container-high hover:text-error transition-colors flex-shrink-0" data-path="connexion" href="#" title="Déconnexion"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="pl-64 flex flex-col min-h-screen"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-white/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md flex-1 max-w-2xl"><div class="relative w-full max-w-md"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">search</span><input class="w-full h-10 pl-10 pr-space-md rounded-full bg-surface-container-low text-text-primary font-body-md text-[14px] placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Rechercher un producteur, utilisateur, commande..." type="text"/></div><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low text-text-secondary font-label-sm text-label-sm"><span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span><span>Réseau DLA/YDE Opérationnel</span></div></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center px-3 py-1 rounded-full bg-surface-container-low font-label-sm text-label-sm font-semibold text-text-secondary">FCFA (XAF)</div><button class="relative p-2 rounded-full text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-payment-orange ring-2 ring-surface-white"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface flex-1 px-space-lg py-space-lg"><div class="flex flex-col w-full">
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-space-md mb-space-xl">
+<div class="space-y-1">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-text-secondary">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Gouvernance &amp; Identités Nationales</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">Gestion des Utilisateurs</h1>
+<p class="font-body-md text-body-md text-text-secondary max-w-3xl">
+        Administration centrale des comptes acheteurs, producteurs certifiés, formateurs et autorités de régulation sur le réseau AgriTech Cameroun.
+      </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-surface-container-high text-text-primary font-label-lg text-label-lg hover:bg-surface-container-highest transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>Exporter l'annuaire (CSV)</span>
+</button>
+<button class="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all shadow-md" onclick="document.getElementById('modal-add-admin').classList.remove('hidden')" type="button">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+<span>+ Ajouter un administrateur</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-space-md mb-space-xl">
+<div class="relative overflow-hidden p-space-md rounded-xl bg-surface-white shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">Total Comptes</span>
+<span class="p-2 rounded-lg bg-surface-container text-primary material-symbols-outlined text-[20px]">group</span>
+</div>
+<div class="mt-4">
+<div class="font-display-lg text-display-lg text-text-primary leading-none">14 820</div>
+<div class="inline-flex items-center gap-1.5 mt-2 font-label-sm text-label-sm text-status-success">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+8.4% ce mois</span>
+</div>
+</div>
+</div>
+<div class="relative overflow-hidden p-space-md rounded-xl bg-surface-white shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">Acheteurs &amp; Clients</span>
+<span class="p-2 rounded-lg bg-surface-container text-secondary material-symbols-outlined text-[20px]">shopping_bag</span>
+</div>
+<div class="mt-4">
+<div class="font-display-lg text-display-lg text-text-primary leading-none">13 410</div>
+<div class="inline-flex items-center gap-1.5 mt-2 font-label-sm text-label-sm text-text-secondary">
+<span>90.5% du volume total</span>
+</div>
+</div>
+</div>
+<div class="relative overflow-hidden p-space-md rounded-xl bg-surface-white shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">Agriculteurs Vendeurs</span>
+<span class="p-2 rounded-lg bg-primary/10 text-primary material-symbols-outlined text-[20px]">psychiatry</span>
+</div>
+<div class="mt-4">
+<div class="font-display-lg text-display-lg text-primary leading-none">1 248</div>
+<div class="inline-flex items-center gap-1.5 mt-2 font-label-sm text-label-sm text-status-success">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>98.2% vérifiés MINADER</span>
+</div>
+</div>
+</div>
+<div class="relative overflow-hidden p-space-md rounded-xl bg-surface-white shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">Formateurs Agréés</span>
+<span class="p-2 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed material-symbols-outlined text-[20px]">school</span>
+</div>
+<div class="mt-4">
+<div class="font-display-lg text-display-lg text-text-primary leading-none">142</div>
+<div class="inline-flex items-center gap-1.5 mt-2 font-label-sm text-label-sm text-text-secondary">
+<span>Ingénieurs &amp; Vulgarisateurs</span>
+</div>
+</div>
+</div>
+<div class="relative overflow-hidden p-space-md rounded-xl bg-surface-white shadow-sm flex flex-col justify-between col-span-2 md:col-span-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">Administrateurs</span>
+<span class="p-2 rounded-lg bg-secondary-fixed text-on-secondary-fixed material-symbols-outlined text-[20px]">admin_panel_settings</span>
+</div>
+<div class="mt-4">
+<div class="font-display-lg text-display-lg text-text-primary leading-none">20</div>
+<div class="inline-flex items-center gap-1.5 mt-2 font-label-sm text-label-sm text-status-success">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+<span>2FA actif &amp; crypté</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md rounded-2xl bg-surface-white shadow-sm mb-space-lg">
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-space-md">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary text-[22px]">search</span>
+<input class="w-full h-12 pl-12 pr-4 rounded-full bg-surface-container-low text-text-primary font-body-md text-[14px] placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Rechercher par nom, téléphone (+237), email, ville, matricule..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="relative">
+<select class="h-12 pl-4 pr-10 rounded-full bg-surface-container-low text-text-primary font-label-lg text-label-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20">
+<option value="">Rôle : Tous</option>
+<option value="buyer">Client / Acheteur</option>
+<option value="seller">Agriculteur Vendeur</option>
+<option value="trainer">Formateur</option>
+<option value="moderator">Modérateur</option>
+<option value="admin">Administrateur</option>
+</select>
+<span class="material-symbols-outlined absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-text-secondary text-[20px]">expand_more</span>
+</div>
+<div class="relative">
+<select class="h-12 pl-4 pr-10 rounded-full bg-surface-container-low text-text-primary font-label-lg text-label-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20">
+<option value="">Statut : Tous</option>
+<option value="active">Actif</option>
+<option value="suspended">Suspendu</option>
+<option value="pending">En attente</option>
+<option value="deleted">Supprimé (Soft-delete)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-text-secondary text-[20px]">expand_more</span>
+</div>
+<div class="relative">
+<select class="h-12 pl-4 pr-10 rounded-full bg-surface-container-low text-text-primary font-label-lg text-label-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20">
+<option value="">Région : Toutes</option>
+<option value="ouest">Ouest (Bafoussam, Foumbot...)</option>
+<option value="centre">Centre (Yaoundé, Mbalmayo...)</option>
+<option value="littoral">Littoral (Douala, Nkongsamba...)</option>
+<option value="nord">Nord &amp; Extrême-Nord</option>
+<option value="nord-ouest">Nord-Ouest &amp; Sud-Ouest</option>
+</select>
+<span class="material-symbols-outlined absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-text-secondary text-[20px]">expand_more</span>
+</div>
+<button class="p-3 rounded-full bg-surface-container-low text-text-secondary hover:text-text-primary hover:bg-surface-container transition-colors" title="Réinitialiser les filtres" type="button">
+<span class="material-symbols-outlined text-[22px]">tune</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-surface-white rounded-2xl shadow-sm overflow-hidden mb-space-xl">
+<div class="overflow-x-auto">
+<table class="w-full text-left text-text-primary">
+<thead class="bg-surface-container-low font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">
+<tr>
+<th class="py-4 px-6">Utilisateur</th>
+<th class="py-4 px-6">Rôle</th>
+<th class="py-4 px-6">Contact (+237)</th>
+<th class="py-4 px-6">Région / Ville</th>
+<th class="py-4 px-6">Date d'inscription</th>
+<th class="py-4 px-6">Statut</th>
+<th class="py-4 px-6 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-[14px]">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-space-sm">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait photo of Jean-Paul Kemajou, a young Cameroonian tech-savvy professional smiling in an urban office setting in Yaounde with warm tropical natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeFTbDGBggFwLYfJhv9GFvF6AFpUC-m9URHfIZtSLH361x4OGNFqXNSoopYQh1vY49KNJAao3vSPpe_K2kAMK-EeZtEffX4ZQy88La44bJZqVJi-yneU5RCo0J-1R-S65abqqLmockFTCj3kBYwz9O2ngaVjjdGYXQONdJHzDgMVs_-R-xbd61bh7g8s2UIyRPsH4jIoJXJ_ZCV_1sH8OZReUJJphb3bl5qX9tyJ_QnByh7lmkhR_D"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-[15px] text-text-primary font-semibold truncate">Jean-Paul Kemajou</span>
+<span class="font-label-sm text-label-sm text-text-secondary">UID-CMR-2025-0841</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-text-primary font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-text-secondary"></span>
+                Client &amp; Apprenant
+              </span>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-text-primary">(+237) 677 89 45 12</span>
+<span class="font-label-sm text-label-sm text-text-secondary">jp.kemajou@gmail.com</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">location_on</span>
+<span class="font-body-md text-text-primary">Yaoundé (Centre)</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-md text-text-secondary">24 Mars 2025</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-status-success font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+                Actif
+              </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-2 rounded-lg text-text-secondary hover:bg-surface-container hover:text-primary transition-colors" title="Voir la fiche" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-2 rounded-lg text-text-secondary hover:bg-surface-container hover:text-status-warning transition-colors" title="Suspendre" type="button">
+<span class="material-symbols-outlined text-[20px]">block</span>
+</button>
+<button class="p-2 rounded-lg text-text-secondary hover:bg-error-container hover:text-error transition-colors" onclick="document.getElementById('modal-delete-account').classList.remove('hidden')" title="Supprimer" type="button">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low/60 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-space-sm">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait photo of Papa Tagne, an experienced senior Cameroonian organic farmer wearing a straw hat and green work shirt standing proudly in his fertile plantain plantation in Bafoussam." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0A2fG0mtmqL-ezN-GN2wefk6zteiHlgqCS8z03LLEVG7bywCWbpdCy-P1SFuQ_jIPfY-H-4wVvDzAM7GTujMG63Ky3NZ75W2JuaXlY2bWsHzMMlPziP3_I0W7e2UOzZEJXAMBRc9iPKxhBgkogB8KxaEyVDXmfgJq8ilRYGOx0UpcnuhTcGhaWakBoQ-v-TO2UXvGBWgFqkZipCG0_ORsCXwl-6Tg1lLzfFAPAXOFdIo8xXuVJSSo"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-[15px] text-text-primary font-semibold truncate">Papa Tagne</span>
+<span class="material-symbols-outlined text-primary text-[16px]" title="Vendeur Certifié">verified</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary truncate">Ferme Papa Tagne (UID-CMR-2025-0103)</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Agriculteur &amp; Vendeur
+              </span>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-text-primary">(+237) 670 12 34 56</span>
+<span class="font-label-sm text-label-sm text-text-secondary">contact@fermetagne.cm</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">location_on</span>
+<span class="font-body-md text-text-primary">Bafoussam (Ouest)</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-md text-text-secondary">24 Mars 2025</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-status-success font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+                Actif
+              </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-2 rounded-lg text-text-secondary hover:bg-surface-container hover:text-primary transition-colors" title="Voir la fiche" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-2 rounded-lg text-text-secondary hover:bg-surface-container hover:text-status-warning transition-colors" title="Suspendre" type="button">
+<span class="material-symbols-outlined text-[20px]">block</span>
+</button>
+<button class="p-2 rounded-lg text-text-secondary hover:bg-error-container hover:text-error transition-colors" onclick="document.getElementById('modal-delete-account').classList.remove('hidden')" title="Supprimer" type="button">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-space-sm">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait photo of Mama Helene Etoa, an African female market gardener in Foumbot Cameroon smiling warmly wearing a traditional colorful African headwrap in an open air tomato agricultural field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArpjA9ygHxqB8YcVeZozFSpv4qltBHiW9UlS5b-tVZr5Xq1Uj-bKgzpKiwx4Urgt6CEBe2zkZ0omclH_9oZ9WW30K_Vxx4gXfcpK3ScpSZMdt-Xskny7xtihZ8CTc9rnBydpFE-tQ-8GJMNgB-2LMc5A8FXJ_T9BLWr2AfXDXt-4QhBiYrutYlVXDtCyvuR8ZTYb8UNaPkMlxkTE2KNkZJAQnjmZHt_HDg4eZC2qEvt4lXNvHX5oUk"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-[15px] text-text-primary font-semibold truncate">Mama Hélène Etoa</span>
+<span class="font-label-sm text-label-sm text-text-secondary">UID-CMR-2025-0044</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Vendeur Maraîcher
+              </span>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-text-primary">(+237) 699 12 33 44</span>
+<span class="font-label-sm text-label-sm text-text-secondary">etoa.foumbot@yahoo.fr</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">location_on</span>
+<span class="font-body-md text-text-primary">Foumbot (Ouest)</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-md text-text-secondary">12 Janv 2025</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-status-success font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+                Actif
+              </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-2 rounded-lg text-text-secondary hover:bg-surface-container hover:text-primary transition-colors" title="Voir la fiche" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-2 rounded-lg text-text-secondary hover:bg-surface-container hover:text-status-warning transition-colors" title="Suspendre" type="button">
+<span class="material-symbols-outlined text-[20px]">block</span>
+</button>
+<button class="p-2 rounded-lg text-text-secondary hover:bg-error-container hover:text-error transition-colors" onclick="document.getElementById('modal-delete-account').classList.remove('hidden')" title="Supprimer" type="button">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="bg-error-container/20 hover:bg-error-container/30 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-headline-sm text-[13px] font-bold">
+                  GE
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-[15px] text-text-primary font-semibold truncate">GIC Espoir du Noun</span>
+<span class="font-label-sm text-label-sm text-text-secondary">UID-CMR-2025-0199</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Agriculteur Vendeur
+              </span>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-text-primary">(+237) 655 44 33 22</span>
+<span class="font-label-sm text-label-sm text-text-secondary">contact@gic-noun.cm</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">location_on</span>
+<span class="font-body-md text-text-primary">Foumban (Ouest)</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-md text-text-secondary">08 Fév 2025</span>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col items-start gap-0.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-error"></span>
+                  Suspendu
+                </span>
+<span class="text-[11px] text-error font-medium">Non-respect qualité</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-2 rounded-lg text-text-secondary hover:bg-surface-container hover:text-primary transition-colors" title="Voir le dossier" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-2 rounded-lg text-status-success hover:bg-surface-container transition-colors" title="Réactiver le compte" type="button">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</button>
+<button class="p-2 rounded-lg bg-error-container text-on-error-container hover:bg-error hover:text-on-error transition-all" onclick="document.getElementById('modal-delete-account').classList.remove('hidden')" title="Supprimer définitivement" type="button">
+<span class="material-symbols-outlined text-[20px]">delete_forever</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-space-sm">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait photo of Engineer Samuel Fotso, an African agronomist expert with eyeglasses in a modern agriculture laboratory in Bafoussam surrounded by hydroponic crop samples and documentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDr1p6gH7XR_l3jeT895o6x6lsg-7v3RyQV8V3XaGb_JX7SiQylxMdAXxdsrjZc9OfSD_JA8QTAZMSqRL9ouLqSp8w0wvTS-HNepE4K3HpuT2HLzU5DNun9Dc_uRso6qL8rnTY-y1uiRWJhhWBL0-qqVdNpbRI3jqj-32CXK5g_5sEqNixplVATOOMjIbjxrDMYpm_RGZHhuqf_P4rS55rczFejImqbwzknFkB18vNcUV2K1cfY-d59"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-[15px] text-text-primary font-semibold truncate">Ing. Samuel Fotso</span>
+<span class="font-label-sm text-label-sm text-text-secondary">UID-CMR-2024-0089</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">school</span>
+                Formateur Agréé
+              </span>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-body-md font-semibold text-text-primary">(+237) 671 22 33 44</span>
+<span class="font-label-sm text-label-sm text-text-secondary">s.fotso@agritech.cm</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">location_on</span>
+<span class="font-body-md text-text-primary">Bafoussam (Ouest)</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-md text-text-secondary">15 Déc 2024</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-status-success font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+                Actif
+              </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-2 rounded-lg text-text-secondary hover:bg-surface-container hover:text-primary transition-colors" title="Voir les cours" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-2 rounded-lg text-text-secondary hover:bg-surface-container hover:text-status-warning transition-colors" title="Suspendre" type="button">
+<span class="material-symbols-outlined text-[20px]">block</span>
+</button>
+<button class="p-2 rounded-lg text-text-secondary hover:bg-error-container hover:text-error transition-colors" onclick="document.getElementById('modal-delete-account').classList.remove('hidden')" title="Supprimer" type="button">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="opacity-60 bg-surface-container/40 hover:opacity-100 transition-opacity">
+<td class="py-4 px-6">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-text-secondary flex items-center justify-center font-headline-sm text-[13px] font-bold">
+                  IM
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-[15px] text-text-secondary font-medium truncate italic line-through">Ibrahim Mounchili</span>
+<span class="font-label-sm text-label-sm text-text-secondary">UID-CMR-2024-0012 [ANON-CMR-98]</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-text-secondary font-label-sm text-label-sm">
+                Acheteur Particulier
+              </span>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col text-text-secondary">
+<span class="font-body-md italic">(+237) 690 •• •• ••</span>
+<span class="font-label-sm text-label-sm italic text-text-secondary/70">anonymized_98@vault.local</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5 text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">location_off</span>
+<span class="font-body-md">Douala Akwa (Littoral)</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-md text-text-secondary">02 Nov 2024</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-highest text-text-secondary font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-text-secondary"></span>
+                Supprimé (Anonymisé)
+              </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm font-bold hover:bg-primary hover:text-on-primary transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">restore</span>
+<span>Restaurer</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm text-text-secondary">
+<div>
+        Affichage de <span class="font-bold text-text-primary">1 à 6</span> sur <span class="font-bold text-text-primary">14 820</span> profils enregistrés
+      </div>
+<div class="flex items-center gap-1">
+<button class="p-2 rounded-lg text-text-secondary opacity-40 cursor-not-allowed" disabled="" type="button">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-bold" type="button">1</button>
+<button class="w-8 h-8 rounded-lg text-text-primary hover:bg-surface-container transition-colors" type="button">2</button>
+<button class="w-8 h-8 rounded-lg text-text-primary hover:bg-surface-container transition-colors" type="button">3</button>
+<span class="px-1 text-text-secondary">...</span>
+<button class="w-8 h-8 rounded-lg text-text-primary hover:bg-surface-container transition-colors" type="button">247</button>
+<button class="p-2 rounded-lg text-text-secondary hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<div class="fixed inset-0 z-50 flex items-center justify-center p-space-md bg-inverse-surface/60 backdrop-blur-sm" id="modal-delete-account">
+<div class="relative w-full max-w-xl bg-surface-white rounded-3xl shadow-xl overflow-hidden p-space-xl flex flex-col">
+<div class="flex items-start justify-between gap-space-sm mb-space-md">
+<div class="w-12 h-12 rounded-full bg-error-container text-on-error-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[26px]">warning</span>
+</div>
+<button class="p-2 rounded-full text-text-secondary hover:bg-surface-container transition-colors" onclick="document.getElementById('modal-delete-account').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<h2 class="font-headline-md text-headline-md text-text-primary mb-2">
+        Confirmer la suppression du compte de GIC Espoir
+      </h2>
+<p class="font-label-sm text-label-sm text-text-secondary mb-space-md">
+        Matricule MINADER : <span class="font-mono text-text-primary font-bold">CMR-GIC-2025-0199</span> | Foumban, Ouest
+      </p>
+<div class="p-space-md rounded-2xl bg-surface-container-low mb-space-lg space-y-2">
+<div class="flex items-center gap-2 text-secondary font-label-lg text-label-lg font-bold">
+<span class="material-symbols-outlined text-[20px]">shield_person</span>
+<span>Protocole légal &amp; Soft Delete (RGPD / Droit Camerounais)</span>
+</div>
+<p class="font-body-md text-[14px] text-text-secondary leading-relaxed">
+          Cette action désactive le compte et anonymise immédiatement les données personnelles (nom, téléphone, adresse). L'historique des commandes et transactions financières en <strong class="text-text-primary font-bold">FCFA</strong> sera conservé à des fins d'audit comptable réglementaire.
+        </p>
+</div>
+<div class="space-y-2 mb-space-xl">
+<label class="font-label-lg text-label-lg text-text-primary font-semibold flex items-center justify-between" for="delete-reason">
+<span>Motif de suppression <span class="text-error">*</span></span>
+<span class="font-label-sm text-label-sm text-text-secondary">Obligatoire pour audit</span>
+</label>
+<div class="relative">
+<select class="w-full h-12 px-4 rounded-xl bg-surface-container text-text-primary font-body-md text-[14px] appearance-none focus:outline-none focus:ring-2 focus:ring-error/30" id="delete-reason">
+<option value="">Sélectionner une justification légale...</option>
+<option value="breach">Non-respect récurrent de la charte de qualité agricole MINADER</option>
+<option value="fraud">Suspicion d'irrégularité financière ou fraude Mobile Money (MTN/Orange)</option>
+<option value="request">Demande formelle d'exercice du droit à l'oubli par l'utilisateur</option>
+<option value="inactivity">Inactivité prolongée supérieure à 24 mois sans récolte enregistrée</option>
+<option value="other">Autre décision administrative motivée</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-text-secondary text-[20px]">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-end gap-space-sm pt-space-md">
+<button class="w-full sm:w-auto h-12 px-6 rounded-full bg-surface-container text-text-primary font-label-lg text-label-lg hover:bg-surface-container-high transition-colors text-center" onclick="document.getElementById('modal-delete-account').classList.add('hidden')" type="button">
+          Annuler
+        </button>
+<button class="w-full sm:w-auto h-12 px-6 rounded-full bg-error text-on-error font-label-lg text-label-lg hover:bg-on-error-container transition-colors shadow-md text-center inline-flex items-center justify-center gap-2" onclick="document.getElementById('modal-delete-account').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+<span>Confirmer la suppression et anonymisation</span>
+</button>
+</div>
+</div>
+</div>
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-space-md bg-inverse-surface/60 backdrop-blur-sm" id="modal-add-admin">
+<div class="relative w-full max-w-lg bg-surface-white rounded-3xl shadow-xl overflow-hidden p-space-xl flex flex-col">
+<div class="flex items-center justify-between mb-space-md">
+<h2 class="font-headline-md text-headline-md text-text-primary">Nouvel Administrateur</h2>
+<button class="p-2 rounded-full text-text-secondary hover:bg-surface-container transition-colors" onclick="document.getElementById('modal-add-admin').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-text-secondary mb-space-lg">
+        Attribuez un rôle administratif avec double authentification obligatoire conforme aux normes MINADER.
+      </p>
+<div class="space-y-4 mb-space-xl">
+<div>
+<label class="block font-label-lg text-label-lg text-text-primary mb-1">Nom complet</label>
+<input class="w-full h-12 px-4 rounded-xl bg-surface-container text-text-primary font-body-md text-[14px] focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="ex. Dr. Ernestine Beyala" type="text"/>
+</div>
+<div>
+<label class="block font-label-lg text-label-lg text-text-primary mb-1">Numéro de téléphone (+237)</label>
+<div class="flex items-center">
+<span class="h-12 px-3 flex items-center justify-center bg-surface-container-high rounded-l-xl font-body-md-bold text-text-primary text-[14px]">+237</span>
+<input class="flex-1 h-12 px-4 rounded-r-xl bg-surface-container text-text-primary font-body-md text-[14px] focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="6XX XX XX XX" type="tel"/>
+</div>
+</div>
+<div>
+<label class="block font-label-lg text-label-lg text-text-primary mb-1">Niveau d'accréditation</label>
+<select class="w-full h-12 px-4 rounded-xl bg-surface-container text-text-primary font-body-md text-[14px] focus:outline-none focus:ring-2 focus:ring-primary/20">
+<option>Modérateur des transactions régionales</option>
+<option>Inspecteur qualité agricole</option>
+<option>Administrateur Sécurité &amp; Données</option>
+</select>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm">
+<button class="h-12 px-6 rounded-full bg-surface-container text-text-primary font-label-lg text-label-lg hover:bg-surface-container-high transition-colors" onclick="document.getElementById('modal-add-admin').classList.add('hidden')" type="button">
+          Annuler
+        </button>
+<button class="h-12 px-6 rounded-full bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all shadow-md" onclick="document.getElementById('modal-add-admin').classList.add('hidden')" type="button">
+          Créer le profil sécurisé
+        </button>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

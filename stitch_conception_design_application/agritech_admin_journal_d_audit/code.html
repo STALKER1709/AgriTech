@@ -1,0 +1,532 @@
+<!DOCTYPE html><html lang="fr" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"border-warm":"#E5E0D8","on-tertiary-fixed":"#251a00","secondary-fixed":"#ffdcc6","tertiary-fixed":"#ffdf94","status-success":"#2E7D32","text-primary":"#1F2421","surface-container-high":"#eae8e3","surface-container":"#f0eee9","surface-white":"#FFFFFF","surface-container-highest":"#e4e2dd","surface-container-low":"#f5f3ee","on-error-container":"#93000a","on-surface-variant":"#404940","primary-fixed":"#a5f4b6","on-secondary":"#ffffff","on-secondary-container":"#703500","tertiary":"#584300","on-secondary-fixed-variant":"#723600","secondary-fixed-dim":"#ffb786","error-container":"#ffdad6","on-tertiary-fixed-variant":"#594400","payment-orange":"#FF7900","outline":"#707a6f","tertiary-fixed-dim":"#f0c038","secondary-container":"#fe9b52","outline-variant":"#bfc9bd","payment-mtn":"#FFCC00","surface-container-lowest":"#ffffff","primary":"#005127","inverse-surface":"#30312e","on-primary-container":"#9ae9ab","on-tertiary":"#ffffff","surface-dim":"#dbdad5","on-surface":"#1b1c19","on-secondary-fixed":"#311400","status-warning":"#ED6C02","on-primary":"#ffffff","background":"#fbf9f4","surface-bright":"#fbf9f4","inverse-on-surface":"#f2f1ec","error":"#ba1a1a","primary-fixed-dim":"#8ad89c","surface-tint":"#1c6c3b","tertiary-container":"#755a00","surface":"#fbf9f4","secondary":"#954a00","text-secondary":"#555F58","surface-variant":"#e4e2dd","on-background":"#1b1c19","inverse-primary":"#8ad89c","primary-container":"#1b6b3a","on-primary-fixed-variant":"#005227","on-error":"#ffffff","on-primary-fixed":"#00210c","status-error":"#D32F2F","on-tertiary-container":"#ffd25c"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-sm":"0.5rem","margin-desktop":"2rem","space-2xl":"3rem","space-xs":"0.25rem","space-xl":"2rem","gutter-desktop":"1.5rem","space-lg":"1.5rem","margin":"1rem","space-md":"1rem","gutter":"1rem"},fontFamily:{"display-lg":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"label-sm":["Inter"],"price-tag":["Plus Jakarta Sans"],"body-md":["Inter"],"body-lg":["Inter"],"headline-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"label-lg":["Inter"],"headline-lg":["Plus Jakarta Sans"],"body-md-bold":["Inter"]},fontSize:{"display-lg":["40px",{lineHeight:"48px",fontWeight:"700"}],"headline-sm":["18px",{lineHeight:"24px",fontWeight:"600"}],"headline-lg-mobile":["24px",{lineHeight:"32px",fontWeight:"700"}],"label-sm":["12px",{lineHeight:"16px",fontWeight:"500"}],"price-tag":["18px",{lineHeight:"22px",fontWeight:"700"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"headline-md":["22px",{lineHeight:"28px",fontWeight:"600"}],"display-lg-mobile":["30px",{lineHeight:"38px",fontWeight:"700"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"600"}],"headline-lg":["32px",{lineHeight:"40px",fontWeight:"700"}],"body-md-bold":["16px",{lineHeight:"24px",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-text-primary antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col flex-1 overflow-y-auto"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="Logo AgriTech" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1V_BiyY3BdZotVy28gxpxXlGk349sp_wchjz_QSByM4GDQiGJdLLWQE-4_dxDfJ_Xu3UMGSTDch87Awddj6WFCyRi3r5omEMO17OH8yWo8O6tKp-qQf65TtAuU9SLznEYlVmvSTcSPMpK7g8oj6KcVkt6qhLCSVqv4SlXBxrAp1EhNwvRwa6R6W2Rmt9_znS_mlekW8fBi2lu1d0QZKeM_nlqj35R0ZlPkdY2_rOdtbhvd96LPFVGL5cfs"><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight leading-none truncate">AgriTech</span><span class="font-label-sm text-label-sm text-text-secondary truncate mt-1">Back-office Central</span></div></div><div class="px-space-md py-space-xs"><div class="px-space-sm py-1.5 rounded-lg bg-surface-container flex items-center justify-between"><span class="font-label-sm text-label-sm text-text-secondary">Région Cameroun</span><span class="inline-flex items-center gap-1 font-label-sm text-label-sm font-semibold text-primary"><span class="w-2 h-2 rounded-full bg-status-success"></span>+237</span></div></div><nav class="flex-1 px-space-sm py-space-sm space-y-1" data-active-classes="bg-primary-container text-on-primary font-body-md-bold shadow-[0_1px_4px_rgba(0,0,0,0.06)]"><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="tableau-de-bord" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span class="font-label-lg text-label-lg">Tableau de bord</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="agriculteurs-a-valider" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">how_to_reg</span><span class="font-label-lg text-label-lg">Agriculteurs à valider</span></div><span class="inline-flex items-center justify-center h-5 min-w-[20px] px-1.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold">5</span></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="utilisateurs" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-label-lg text-label-lg">Utilisateurs</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="moderation" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">gavel</span><span class="font-label-lg text-label-lg">Modération</span></div><span class="inline-flex items-center justify-center h-5 min-w-[20px] px-1.5 rounded-full bg-error text-on-error font-label-sm text-label-sm font-bold">3</span></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="privileges" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="font-label-lg text-label-lg">Privilèges</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="journal-daudit" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span class="font-label-lg text-label-lg">Journal d'audit</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="parametres" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-label-lg text-label-lg">Paramètres</span></div></a></nav></div><div class="p-space-sm bg-surface-container-low"><div class="p-space-sm rounded-xl bg-surface-container flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm min-w-0"><div class="relative flex-shrink-0"><div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-sm text-[14px]">MN</div><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-status-success ring-2 ring-surface-white"></span></div><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-text-primary font-semibold truncate">Dr. Marcelle Ngono</span><span class="font-label-sm text-label-sm text-text-secondary truncate">Super Admin MINADER</span></div></div><a class="p-1.5 rounded-lg text-text-secondary hover:bg-surface-container-high hover:text-error transition-colors flex-shrink-0" data-path="connexion" href="#" title="Déconnexion"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="pl-64 flex flex-col min-h-screen"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-white/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md flex-1 max-w-2xl"><div class="relative w-full max-w-md"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">search</span><input class="w-full h-10 pl-10 pr-space-md rounded-full bg-surface-container-low text-text-primary font-body-md text-[14px] placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Rechercher un producteur, utilisateur, commande..." type="text"></div><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low text-text-secondary font-label-sm text-label-sm"><span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span><span class="">Réseau DLA/YDE Opérationnel</span></div></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center px-3 py-1 rounded-full bg-surface-container-low font-label-sm text-label-sm font-semibold text-text-secondary">FCFA (XAF)</div><button class="relative p-2 rounded-full text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-payment-orange ring-2 ring-surface-white"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface flex-1 px-space-lg py-space-lg"><div class="flex flex-col w-full space-y-space-xl">
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-space-lg">
+<div class="space-y-space-xs max-w-3xl">
+<div class="flex items-center gap-space-sm mb-1">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm uppercase tracking-wider font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span>
+          Conformité Norme MINADER / ART
+        </span>
+<span class="text-text-secondary font-label-sm text-label-sm">Noeud Cryptographique #YDE-04</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">
+        Journal d'audit &amp; Traçabilité réglementaire
+      </h1>
+<p class="font-body-md text-body-md text-text-secondary leading-relaxed">
+        Registre chronologique inviolable des actions administratives, modifications de statuts et opérations financières sur le réseau national.
+      </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="inline-flex items-center gap-2 h-12 px-5 rounded-full bg-surface-white hover:bg-surface-container-low text-text-primary font-label-lg text-label-lg shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[20px] text-primary">verified_user</span>
+<span class="">Vérifier l'intégrité du registre</span>
+</button>
+<button class="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="">Exporter le registre officiel (PDF/CSV certifié)</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<div class="p-space-lg rounded-xl bg-surface-white shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold uppercase tracking-wider">Activité 24h</span>
+<span class="p-2 rounded-lg bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-[20px]">sync_saved_locally</span>
+</span>
+</div>
+<div class="mt-4">
+<div class="font-headline-lg text-headline-lg text-text-primary">142</div>
+<p class="font-label-sm text-label-sm text-status-success font-medium mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+          +12% par rapport à hier
+        </p>
+</div>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-white shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold uppercase tracking-wider">Modérations &amp; Rejets</span>
+<span class="p-2 rounded-lg bg-surface-container-low text-secondary">
+<span class="material-symbols-outlined text-[20px]">rule_folder</span>
+</span>
+</div>
+<div class="mt-4">
+<div class="font-headline-lg text-headline-lg text-text-primary">28</div>
+<p class="font-label-sm text-label-sm text-text-secondary mt-1">
+          Dont 6 fiches non conformes
+        </p>
+</div>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-white shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold uppercase tracking-wider">Opérations Financières</span>
+<span class="p-2 rounded-lg bg-surface-container-low text-payment-orange">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+</span>
+</div>
+<div class="mt-4">
+<div class="font-headline-lg text-headline-lg text-text-primary">1 050 000 FCFA</div>
+<p class="font-label-sm text-label-sm text-status-success mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">done_all</span>
+          Rapprochement bancaire conforme
+        </p>
+</div>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-white shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold uppercase tracking-wider">État du Registre</span>
+<span class="p-2 rounded-lg bg-surface-container-low text-status-success">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+</span>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-primary font-bold">
+          SHA-256 Intègre
+        </span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary truncate mt-1">
+        Dernier bloc: 0x9f4a...83d2
+      </p>
+</div>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-white shadow-sm space-y-space-md">
+<div class="flex flex-col lg:flex-row gap-space-md items-stretch lg:items-center justify-between">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">manage_search</span>
+<input class="w-full h-12 pl-11 pr-space-md rounded-xl bg-surface-container-low text-text-primary font-body-md text-body-md placeholder:text-text-secondary focus:outline-none focus:bg-surface-white transition-all shadow-inner" placeholder="Rechercher par administrateur, action, référence, matricule GIC..." type="text">
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="relative"><label class="sr-only" for="select-region-filter">Filtrer par région</label><div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-[20px] pointer-events-none">public</span><select id="select-region-filter" class="h-12 pl-10 pr-9 rounded-xl bg-surface-container-low hover:bg-surface-container text-text-primary font-label-lg text-label-lg transition-colors cursor-pointer appearance-none border-0 focus:outline-none focus:ring-2 focus:ring-primary/20"><option selected="" value="all">Toutes les régions (10)</option><option value="ouest">Région de l'Ouest (Bafoussam)</option><option value="littoral">Région du Littoral (Douala)</option><option value="centre">Région du Centre (Yaoundé)</option><option value="nord-ouest">Région du Nord-Ouest (Bamenda)</option><option value="sud-ouest">Région du Sud-Ouest (Buea)</option><option value="nord">Région du Nord (Garoua)</option><option value="extreme-nord">Région de l'Extrême-Nord (Maroua)</option><option value="adamaoua">Région de l'Adamaoua (Ngaoundéré)</option><option value="est">Région de l'Est (Bertoua)</option><option value="sud">Région du Sud (Ebolowa)</option></select><span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-text-secondary text-[18px] pointer-events-none">expand_more</span></div></div><div class="relative">
+<button class="inline-flex items-center gap-2 h-12 px-4 rounded-xl bg-surface-container-low hover:bg-surface-container text-text-primary font-label-lg text-label-lg transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px] text-text-secondary">calendar_today</span>
+<span class="">7 derniers jours</span>
+<span class="material-symbols-outlined text-[18px] text-text-secondary">expand_more</span>
+</button>
+</div>
+<button class="inline-flex items-center gap-2 h-12 px-4 rounded-xl bg-surface-container-low hover:bg-surface-container text-text-primary font-label-lg text-label-lg transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px] text-text-secondary">tune</span>
+<span class="">Filtres avancés</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto pb-1 pt-1 no-scrollbar">
+<button class="inline-flex items-center px-4 py-2 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-sm" type="button">
+        Tous les événements (1 428)
+      </button>
+<button class="inline-flex items-center px-4 py-2 rounded-full bg-surface-container-low hover:bg-surface-container text-text-secondary hover:text-text-primary font-label-lg text-label-lg transition-colors" type="button">
+        Validation agriculteur (342)
+      </button>
+<button class="inline-flex items-center px-4 py-2 rounded-full bg-surface-container-low hover:bg-surface-container text-text-secondary hover:text-text-primary font-label-lg text-label-lg transition-colors" type="button">
+        Modération produit (512)
+      </button>
+<button class="inline-flex items-center px-4 py-2 rounded-full bg-surface-container-low hover:bg-surface-container text-text-secondary hover:text-text-primary font-label-lg text-label-lg transition-colors" type="button">
+        Sanction utilisateur (18)
+      </button>
+<button class="inline-flex items-center px-4 py-2 rounded-full bg-surface-container-low hover:bg-surface-container text-text-secondary hover:text-text-primary font-label-lg text-label-lg transition-colors" type="button">
+        Modification tarifaire (45)
+      </button>
+<button class="inline-flex items-center px-4 py-2 rounded-full bg-surface-container-low hover:bg-surface-container text-text-secondary hover:text-text-primary font-label-lg text-label-lg transition-colors" type="button">
+        Sécurité &amp; Accès (511)
+      </button>
+</div>
+</div>
+<div class="rounded-xl bg-surface-white shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left text-text-primary font-body-md">
+<thead>
+<tr class="bg-surface-container-low/70 text-text-secondary font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-4 px-space-lg font-semibold">Date &amp; Heure</th>
+<th class="py-4 px-space-md font-semibold">Administrateur / Acteur</th>
+<th class="py-4 px-space-md font-semibold">Catégorie</th>
+<th class="py-4 px-space-md font-semibold">Action exécutée</th>
+<th class="py-4 px-space-md font-semibold">Élément concerné / Cible</th>
+<th class="py-4 px-space-md font-semibold">Statut / Résultat</th>
+<th class="py-4 px-space-lg font-semibold text-right">Détail</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<tr class="bg-surface-container-lowest transition-colors cursor-pointer" onclick="toggleRow('row-diff-1', this)">
+<td class="py-4 px-space-lg whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-warning"></span>
+<div>
+<div class="font-body-md-bold text-body-md-bold text-text-primary">24 Mars 2025</div>
+<div class="font-label-sm text-label-sm text-text-secondary">11:25:40 (WAT)</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center font-label-lg text-label-lg text-text-primary font-bold">
+                  SB
+                </div>
+<div>
+<div class="font-label-lg text-label-lg text-text-primary">Sarah Belinga</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Modératrice Ouest</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-text-primary">
+                Modération produit
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="font-body-md-bold text-body-md-bold text-status-error">Rejet de fiche produit</span>
+<div class="font-label-sm text-label-sm text-text-secondary">Motif non-conformité sanitaire</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="font-label-lg text-label-lg text-text-primary truncate max-w-[220px]">Piment rouge doux séché</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Ferme Papa Tagne • #REC-2024-8841</div>
+</td>
+<td class="py-4 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-status-error font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-error"></span>
+                Rejeté (SMS envoyé)
+              </span>
+</td>
+<td class="py-4 px-space-lg text-right whitespace-nowrap">
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-surface-container inline-flex items-center justify-center transition-transform row-toggle-icon" type="button">
+<span class="material-symbols-outlined text-[20px] text-text-primary rotate-180">expand_less</span>
+</button>
+</td>
+</tr>
+<tr class="bg-surface-container-low/40" id="row-diff-1">
+<td class="p-space-lg" colspan="7">
+<div class="rounded-xl bg-surface-white p-space-lg shadow-sm space-y-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-space-sm border-b border-border-warm/40">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">compare_arrows</span>
+<span class="font-headline-sm text-headline-sm text-text-primary">Comparatif des modifications (Diff Avant / Après)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-text-secondary font-mono">Empreinte d'opération: #OP-8841-B</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-label-sm text-label-sm font-bold">Certifié cryptographiquement</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-low space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-bold text-text-secondary">État Avant</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-text-secondary font-label-sm text-label-sm font-medium">Capture T-1</span>
+</div>
+<div class="space-y-2 font-body-md text-[14px]">
+<div class="flex justify-between py-1 bg-surface-white/60 px-3 rounded">
+<span class="text-text-secondary">Statut de la fiche :</span>
+<span class="font-semibold text-status-warning">En attente de modération</span>
+</div>
+<div class="flex justify-between py-1 bg-surface-white/60 px-3 rounded">
+<span class="text-text-secondary">Visibilité catalogue :</span>
+<span class="font-medium text-text-primary">Masqué (Par défaut)</span>
+</div>
+<div class="flex justify-between py-1 bg-surface-white/60 px-3 rounded">
+<span class="text-text-secondary">Motif de refus :</span>
+<span class="italic text-text-secondary">Aucun motif enregistré</span>
+</div>
+<div class="flex justify-between py-1 bg-surface-white/60 px-3 rounded">
+<span class="text-text-secondary">Photos justificatives :</span>
+<span class="font-medium text-text-primary">2 fichiers uploadés (IMG_01.JPG, IMG_02.JPG)</span>
+</div>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-bold text-status-error">État Après (Modification Sarah Belinga)</span>
+<span class="px-2 py-0.5 rounded-full bg-status-error/10 text-status-error font-label-sm text-label-sm font-medium">Actuel</span>
+</div>
+<div class="space-y-2 font-body-md text-[14px]">
+<div class="flex justify-between py-1 bg-surface-white px-3 rounded shadow-xs">
+<span class="text-text-secondary">Statut de la fiche :</span>
+<span class="font-semibold text-status-error">Rejeté avec motif formel</span>
+</div>
+<div class="flex justify-between py-1 bg-surface-white px-3 rounded shadow-xs">
+<span class="text-text-secondary">Visibilité catalogue :</span>
+<span class="font-semibold text-status-error">Masqué (Refusé)</span>
+</div>
+<div class="flex flex-col py-2 bg-surface-white px-3 rounded shadow-xs">
+<span class="text-text-secondary font-label-sm text-label-sm">Motif consigné :</span>
+<p class="text-text-primary text-[13px] leading-snug mt-1 italic">
+                          « Photo floue ne permettant pas de vérifier la conformité sanitaire et le calibrage réglementaire du piment séché. Merci de renvoyer une prise de vue nette avec étiquette de traçabilité visible. »
+                        </p>
+</div>
+<div class="flex justify-between items-center py-1 bg-surface-white px-3 rounded shadow-xs">
+<span class="text-text-secondary">Notification producteur :</span>
+<span class="font-medium text-text-primary inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-status-success">sms</span>
+                          SMS + In-App transmis à (+237) 670 12 34 56
+                        </span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs text-text-secondary font-label-sm text-label-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span class="">Session ID: sess_adm_west_847192</span>
+<span class="mx-1">•</span>
+<span class="">Adresse IP: 154.72.164.22 (Orange Cameroun Douala)</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="hover:text-primary font-medium underline" type="button">Consulter l'historique complet de ce produit</button>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-space-lg whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<div>
+<div class="font-body-md-bold text-body-md-bold text-text-primary">24 Mars 2025</div>
+<div class="font-label-sm text-label-sm text-text-secondary">10:45:12 (WAT)</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center font-label-lg text-label-lg text-text-primary font-bold">
+                  EK
+                </div>
+<div>
+<div class="font-label-lg text-label-lg text-text-primary">Dr. Emmanuel Kenmogne</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Inspecteur Phytosanitaire</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-text-primary">
+                Validation agriculteur
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="font-body-md-bold text-body-md-bold text-text-primary">Validation audit terrain 5ha</span>
+<div class="font-label-sm text-label-sm text-text-secondary">Rapport géolocalisé joint</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="font-label-lg text-label-lg text-text-primary truncate max-w-[220px]">Ferme Papa Tagne</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Matricule AGR-237-849</div>
+</td>
+<td class="py-4 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-status-success font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                Validé (Étape 2/3)
+              </span>
+</td>
+<td class="py-4 px-space-lg text-right whitespace-nowrap">
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-surface-container inline-flex items-center justify-center transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px] text-text-primary">expand_more</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-space-lg whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-error"></span>
+<div>
+<div class="font-body-md-bold text-body-md-bold text-text-primary">24 Mars 2025</div>
+<div class="font-label-sm text-label-sm text-text-secondary">09:12:00 (WAT)</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center font-label-lg text-label-lg text-text-primary font-bold">
+                  MN
+                </div>
+<div>
+<div class="font-label-lg text-label-lg text-text-primary">Dr. Marcelle Ngono</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Super Admin MINADER</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-text-primary">
+                Utilisateurs
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="font-body-md-bold text-body-md-bold text-status-error">Suspension temporaire compte</span>
+<div class="font-label-sm text-label-sm text-text-secondary">Blocage des retraits MoMo/OM</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="font-label-lg text-label-lg text-text-primary truncate max-w-[220px]">GIC Espoir du Noun</div>
+<div class="font-label-sm text-label-sm text-text-secondary">ID #USR-9021 • Foumbot</div>
+</td>
+<td class="py-4 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-status-error font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-error"></span>
+                Suspendu (Litige récurrent)
+              </span>
+</td>
+<td class="py-4 px-space-lg text-right whitespace-nowrap">
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-surface-container inline-flex items-center justify-center transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px] text-text-primary">expand_more</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-space-lg whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-warning"></span>
+<div>
+<div class="font-body-md-bold text-body-md-bold text-text-primary">23 Mars 2025</div>
+<div class="font-label-sm text-label-sm text-text-secondary">17:30:18 (WAT)</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center font-label-lg text-label-lg text-text-primary font-bold">
+                  CF
+                </div>
+<div>
+<div class="font-label-lg text-label-lg text-text-primary">Célestin Fotso</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Directeur Administratif</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-text-primary">
+                Configuration financière
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="font-body-md-bold text-body-md-bold text-text-primary">Ajustement commission temporaire</span>
+<div class="font-label-sm text-label-sm text-text-secondary">Campagne nationale vivriers</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="font-label-lg text-label-lg text-text-primary truncate max-w-[220px]">Promotion fête des récoltes</div>
+<div class="font-label-sm text-label-sm text-text-secondary">0% au lieu de 5% (Toutes filières)</div>
+</td>
+<td class="py-4 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-status-success font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                Appliqué
+              </span>
+</td>
+<td class="py-4 px-space-lg text-right whitespace-nowrap">
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-surface-container inline-flex items-center justify-center transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px] text-text-primary">expand_more</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-space-lg whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<div>
+<div class="font-body-md-bold text-body-md-bold text-text-primary">23 Mars 2025</div>
+<div class="font-label-sm text-label-sm text-text-secondary">14:10:05 (WAT)</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-label-lg text-label-lg font-bold">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-text-primary">Système automatique</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Cron Agritech Daemon</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-text-primary">
+                Passerelle de paiement
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="font-body-md-bold text-body-md-bold text-text-primary">Rapprochement bancaire journalier</span>
+<div class="font-label-sm text-label-sm text-text-secondary">Agrégation Orange Money &amp; MTN MoMo</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="font-label-lg text-label-lg text-text-primary truncate max-w-[220px]">42 transactions consolidées</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Total: 1 050 000 FCFA</div>
+</td>
+<td class="py-4 px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-status-success font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                Conforme
+              </span>
+</td>
+<td class="py-4 px-space-lg text-right whitespace-nowrap">
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-surface-container inline-flex items-center justify-center transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px] text-text-primary">expand_more</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-lg bg-surface-container-low/40 flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-text-secondary">
+          Affichage de <span class="font-bold text-text-primary">1</span> à <span class="font-bold text-text-primary">5</span> sur <span class="font-bold text-text-primary">1 428</span> événements enregistrés
+        </span>
+<span class="text-text-secondary hidden sm:inline">•</span>
+<span class="hidden sm:inline-flex items-center gap-1 text-[12px] font-mono text-text-secondary">
+<span class="material-symbols-outlined text-[14px] text-status-success">verified</span>
+          Chaîne d'audit scellée
+        </span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-9 h-9 rounded-lg bg-surface-white text-text-secondary hover:text-text-primary inline-flex items-center justify-center disabled:opacity-40 transition-colors" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-9 h-9 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg inline-flex items-center justify-center" type="button">
+          1
+        </button>
+<button class="w-9 h-9 rounded-lg bg-surface-white text-text-primary hover:bg-surface-container font-label-lg text-label-lg inline-flex items-center justify-center transition-colors" type="button">
+          2
+        </button>
+<button class="w-9 h-9 rounded-lg bg-surface-white text-text-primary hover:bg-surface-container font-label-lg text-label-lg inline-flex items-center justify-center transition-colors" type="button">
+          3
+        </button>
+<span class="px-2 text-text-secondary">...</span>
+<button class="w-9 h-9 rounded-lg bg-surface-white text-text-primary hover:bg-surface-container font-label-lg text-label-lg inline-flex items-center justify-center transition-colors" type="button">
+          286
+        </button>
+<button class="w-9 h-9 rounded-lg bg-surface-white text-text-secondary hover:text-text-primary inline-flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-white shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">lock</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-text-primary">Registre certifié selon l'Arrêté N°0041/MINADER</h4>
+<p class="font-body-md text-[14px] text-text-secondary">
+          Les traces applicatives sont chiffrées au fil de l'eau et synchronisées avec le serveur de contrôle régalien de Yaoundé. Aucune suppression n'est autorisée.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm whitespace-nowrap">
+<span class="font-label-sm text-label-sm font-mono text-text-secondary bg-surface-container-low px-3 py-1.5 rounded-lg">
+        SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      </span>
+</div>
+</div>
+</div>
+<script>
+  function toggleRow(rowId, triggerRow) {
+    const target = document.getElementById(rowId);
+    const icon = triggerRow.querySelector('.row-toggle-icon span');
+    if (!target) return;
+    
+    if (target.classList.contains('hidden')) {
+      target.classList.remove('hidden');
+      if (icon) icon.classList.add('rotate-180');
+    } else {
+      target.classList.add('hidden');
+      if (icon) icon.classList.remove('rotate-180');
+    }
+  }
+</script></main></div>
+
+<div id="pdf-preview-modal-backdrop" class="fixed inset-0 z-50 flex flex-col bg-on-surface/50 backdrop-blur-sm overflow-hidden p-2 sm:p-4 md:p-6 lg:p-8"><div class="relative w-full max-w-5xl mx-auto my-auto bg-inverse-surface rounded-2xl shadow-2xl border border-border-warm flex flex-col h-[92vh] overflow-hidden"><div class="h-14 px-4 bg-inverse-surface text-surface-white flex items-center justify-between border-b border-surface-dim/20 flex-shrink-0"><div class="flex items-center gap-3 min-w-0"><div class="w-9 h-9 rounded-lg bg-error flex items-center justify-center text-on-error flex-shrink-0"><span class="material-symbols-outlined text-[22px]">picture_as_pdf</span></div><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg font-bold truncate text-surface-white">REGISTRE-AUDIT-MINADER-2025-Q1-CERTIFIE.pdf</span><div class="flex items-center gap-2 text-[11px] text-text-secondary"><span class="inline-flex items-center gap-1 font-mono text-inverse-primary"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Scellé SHA-256</span><span class="">•</span><span class="">2.4 Mo</span><span class="">•</span><span class="">A4 Portrait</span></div></div></div><div class="hidden md:flex items-center gap-1 bg-surface-dim/20 px-2 py-1 rounded-xl text-surface-white"><button class="p-1.5 rounded hover:bg-surface-dim/30 transition-colors text-surface-white/90 hover:text-surface-white" title="Page précédente"><span class="material-symbols-outlined text-[18px]">navigate_before</span></button><span class="font-mono text-label-sm px-2 text-surface-white font-medium">Page 1 / 4</span><button class="p-1.5 rounded hover:bg-surface-dim/30 transition-colors text-surface-white/90 hover:text-surface-white" title="Page suivante"><span class="material-symbols-outlined text-[18px]">navigate_next</span></button><span class="w-px h-4 bg-surface-dim/40 mx-1"></span><button class="p-1.5 rounded hover:bg-surface-dim/30 transition-colors text-surface-white/90 hover:text-surface-white" title="Zoom arrière"><span class="material-symbols-outlined text-[18px]">zoom_out</span></button><span class="font-mono text-label-sm px-1.5 text-surface-white font-medium">100%</span><button class="p-1.5 rounded hover:bg-surface-dim/30 transition-colors text-surface-white/90 hover:text-surface-white" title="Zoom avant"><span class="material-symbols-outlined text-[18px]">zoom_in</span></button><span class="w-px h-4 bg-surface-dim/40 mx-1"></span><button class="p-1.5 rounded hover:bg-surface-dim/30 transition-colors text-surface-white/90 hover:text-surface-white" title="Rotation"><span class="material-symbols-outlined text-[18px]">rotate_right</span></button><button class="p-1.5 rounded hover:bg-surface-dim/30 transition-colors text-surface-white/90 hover:text-surface-white" title="Plein écran"><span class="material-symbols-outlined text-[18px]">fullscreen</span></button></div><div class="flex items-center gap-2"><button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-high text-primary hover:bg-surface-container font-label-sm text-label-sm font-semibold transition-colors border border-primary/30 shadow-xs" type="button" onclick="const p = document.getElementById('signers-config-panel'); if(p) p.classList.toggle('hidden');"><span class="material-symbols-outlined text-[18px] text-primary">history_edu</span><span class="hidden lg:inline">Signataires &amp; Visas</span><span class="px-1.5 py-0.2 rounded-full bg-primary text-on-primary text-[10px] font-bold">2</span></button><button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-dim/25 hover:bg-surface-dim/40 text-surface-white font-label-sm text-label-sm transition-colors" type="button" onclick="window.print()"><span class="material-symbols-outlined text-[18px]">print</span><span class="">Imprimer</span></button><button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold shadow transition-all" type="button"><span class="material-symbols-outlined text-[18px]">download</span><span class="hidden sm:inline">Télécharger</span><span class="font-mono text-[11px] opacity-80">(.pdf)</span></button><button onclick="document.getElementById('pdf-preview-modal-backdrop').remove()" class="w-9 h-9 rounded-lg bg-surface-dim/20 hover:bg-error hover:text-on-error text-surface-white flex items-center justify-center transition-colors ml-1" type="button" title="Fermer"><span class="material-symbols-outlined text-[20px]">close</span></button></div></div><div class="flex-1 bg-on-surface/50 overflow-y-auto p-4 sm:p-6 md:p-8 flex justify-center items-start"><div class="w-full max-w-[760px] bg-surface-white text-text-primary rounded-sm shadow-2xl p-8 sm:p-12 relative flex flex-col border border-border-warm"><div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.035] overflow-hidden"><span class="material-symbols-outlined text-[420px] text-primary select-none">local_police</span></div><div class="flex items-start justify-between border-b-2 border-primary/20 pb-4 text-[11px] uppercase leading-tight font-semibold tracking-wide text-text-secondary"><div class="text-left w-52"><p class="text-primary font-bold">République du Cameroun</p><p class="italic text-[10px] text-text-secondary">Paix - Travail - Patrie</p><div class="w-10 h-0.5 bg-primary mt-1 mb-1"></div><p class="text-[10px]">Ministère de l'Agriculture et du Développement Rural</p><p class="text-[9px] text-text-secondary">Direction de la Régulation Numérique</p></div><div class="flex flex-col items-center justify-center text-center px-2"><div class="w-12 h-12 rounded-full border-2 border-primary/40 flex items-center justify-center bg-primary/10 text-primary mb-1"><span class="material-symbols-outlined text-[28px]">shield</span></div><span class="font-mono text-[9px] font-bold text-primary tracking-widest">MINADER • ART</span></div><div class="text-right w-52"><p class="text-primary font-bold">Republic of Cameroon</p><p class="italic text-[10px] text-text-secondary">Peace - Work - Fatherland</p><div class="w-10 h-0.5 bg-primary ml-auto mt-1 mb-1"></div><p class="text-[10px]">Ministry of Agriculture &amp; Rural Development</p><p class="text-[9px] text-text-secondary">National Digital Agro-Registry</p></div></div><div class="my-6 text-center space-y-1.5"><div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container font-label-sm text-[11px] font-bold text-primary uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Document Officiel Scellé N°0041/MINADER/ART-2025</div><h2 class="font-headline-sm text-headline-sm font-bold text-text-primary tracking-tight leading-snug uppercase">Registre Officiel de Traçabilité Numérique &amp; Audit des Transactions Agropastorales</h2><p class="text-[12px] text-text-secondary font-medium">Période réglementaire : 18 Mars 2025 au 24 Mars 2025 • Extrait certifié pour contrôle de tutelle</p></div><div class="p-3 rounded-xl bg-surface-container-low border border-border-warm/60 grid grid-cols-1 sm:grid-cols-2 gap-2 text-[12px] mb-5"><div class="space-y-1"><div class="flex items-center gap-1.5"><span class="text-text-secondary font-medium">Empreinte racine SHA-256 :</span></div><div class="font-mono text-[11px] text-primary font-bold bg-surface-white px-2 py-1 rounded border border-border-warm truncate">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</div></div><div class="space-y-1"><div class="flex items-center justify-between"><span class="text-text-secondary font-medium">Identifiant Certificat :</span><span class="font-mono text-text-primary font-bold text-[11px]">CERT-CMR-2025-994821</span></div><div class="flex items-center justify-between text-text-secondary text-[11px]"><span class="">Horodatage scellé :</span><span class="font-mono text-text-primary font-semibold">24/03/2025 23:59:59 (WAT / UTC+1)</span></div></div></div><div class="grid grid-cols-3 gap-3 mb-5 text-center"><div class="p-2.5 rounded-lg bg-surface-container-low border border-border-warm/60"><div class="font-headline-sm text-[20px] font-bold text-text-primary leading-tight">1 428</div><div class="text-[11px] text-text-secondary uppercase font-semibold tracking-wider mt-0.5">Événements Audités</div></div><div class="p-2.5 rounded-lg bg-surface-container-low border border-border-warm/60"><div class="font-headline-sm text-[20px] font-bold text-primary leading-tight">1 050 000 FCFA</div><div class="text-[11px] text-text-secondary uppercase font-semibold tracking-wider mt-0.5">Transactions Rapprochées</div></div><div class="p-2.5 rounded-lg bg-surface-container-low border border-border-warm/60"><div class="font-headline-sm text-[20px] font-bold text-status-warning leading-tight">28</div><div class="text-[11px] text-text-secondary uppercase font-semibold tracking-wider mt-0.5">Modérations Consignées</div></div></div><div class="mb-6"><div class="text-[11px] font-bold uppercase tracking-wider text-text-secondary mb-2 flex items-center justify-between"><span class="">Extrait certifié du journal des actes récents</span><span class="text-[10px] font-normal">Classification réglementaire R-IV</span></div><table class="w-full text-left text-[11px] border border-border-warm rounded overflow-hidden"><thead><tr class="bg-surface-container text-text-secondary uppercase text-[10px] tracking-wider"><th class="py-2 px-2.5 border-b border-border-warm">Date / Heure</th><th class="py-2 px-2.5 border-b border-border-warm">Opérateur Habilité</th><th class="py-2 px-2.5 border-b border-border-warm">Acte Consigné</th><th class="py-2 px-2.5 border-b border-border-warm">Cible / Réf</th><th class="py-2 px-2.5 border-b border-border-warm text-right">Scellement</th></tr></thead><tbody class="divide-y divide-border-warm"><tr class="bg-surface-white"><td class="py-2 px-2.5 font-mono text-[10px]">24/03/2025 11:25</td><td class="py-2 px-2.5 font-medium">Sarah Belinga (Modératrice)</td><td class="py-2 px-2.5 text-status-error font-semibold">Rejet Fiche Produit (Sanitaire)</td><td class="py-2 px-2.5 text-text-secondary font-mono text-[10px]">#REC-2024-8841</td><td class="py-2 px-2.5 text-right"><span class="inline-block px-1.5 py-0.5 rounded bg-status-success/10 text-status-success text-[9px] font-bold">SCELLÉ</span></td></tr><tr class="bg-surface-container-low/40"><td class="py-2 px-2.5 font-mono text-[10px]">24/03/2025 10:45</td><td class="py-2 px-2.5 font-medium">Dr. Kenmogne (Inspecteur)</td><td class="py-2 px-2.5 text-status-success font-semibold">Validation Terrain (5 ha)</td><td class="py-2 px-2.5 text-text-secondary font-mono text-[10px]">AGR-237-849</td><td class="py-2 px-2.5 text-right"><span class="inline-block px-1.5 py-0.5 rounded bg-status-success/10 text-status-success text-[9px] font-bold">SCELLÉ</span></td></tr><tr class="bg-surface-white"><td class="py-2 px-2.5 font-mono text-[10px]">24/03/2025 09:12</td><td class="py-2 px-2.5 font-medium">Dr. Ngono (Super Admin)</td><td class="py-2 px-2.5 text-status-error font-semibold">Suspension Compte Opérateur</td><td class="py-2 px-2.5 text-text-secondary font-mono text-[10px]">USR-9021</td><td class="py-2 px-2.5 text-right"><span class="inline-block px-1.5 py-0.5 rounded bg-status-success/10 text-status-success text-[9px] font-bold">SCELLÉ</span></td></tr><tr class="bg-surface-container-low/40"><td class="py-2 px-2.5 font-mono text-[10px]">23/03/2025 17:30</td><td class="py-2 px-2.5 font-medium">Célestin Fotso (Dir. Admin)</td><td class="py-2 px-2.5 text-text-primary font-semibold">Ajustement Commission 0%</td><td class="py-2 px-2.5 text-text-secondary font-mono text-[10px]">Campagne Vivriers</td><td class="py-2 px-2.5 text-right"><span class="inline-block px-1.5 py-0.5 rounded bg-status-success/10 text-status-success text-[9px] font-bold">SCELLÉ</span></td></tr></tbody></table></div><div class="mt-auto pt-4 border-t border-border-warm"><div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center"><div class="md:col-span-4 flex flex-col gap-2 p-2.5 rounded-xl bg-surface-container-low/70 border border-border-warm/60"><div class="flex items-center gap-2.5"><div class="w-14 h-14 bg-surface-white border border-border-warm p-1 rounded-lg flex items-center justify-center flex-shrink-0 shadow-xs"><svg class="w-12 h-12 text-text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm10-2h2v2h-2v-2zm4 0h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2zm2-2h2v2h-2v-2zm0 4h2v2h-2v-2zm-2 2h2v2h-2v-2zm-4 0h2v2h-2v-2zm-4-4h2v2h-2v-2z"></path></svg></div><div class="text-[10px] space-y-0.5 min-w-0"><div class="inline-flex items-center gap-1 font-bold text-primary uppercase text-[9px]"><span class="material-symbols-outlined text-[12px] text-status-success">verified_user</span>Vérification Souveraine</div><p class="text-text-secondary text-[9px] leading-tight">Noeud MINADER Yaoundé #YDE-04</p><div class="font-mono text-[8px] text-primary truncate font-bold">SHA-KEY: 994821/CMR-REG</div></div></div><div class="pt-1 border-t border-border-warm text-[8px] text-text-secondary flex justify-between items-center"><span class="font-mono">Horodatage eIDAS/ANTIC</span><span class="font-bold text-status-success">24/03/2025 23:59:59</span></div></div><div class="md:col-span-3 flex flex-col items-center justify-center text-center p-2"><div class="w-24 h-24 rounded-full border-2 border-dashed border-primary/60 p-1 flex flex-col items-center justify-center relative bg-primary/5 text-primary shadow-xs"><div class="w-full h-full rounded-full border border-primary/40 flex flex-col items-center justify-center p-1"><span class="text-[7px] uppercase font-bold tracking-tighter leading-none text-primary">RÉPUBLIQUE DU CAMEROUN</span><span class="material-symbols-outlined text-[20px] text-primary my-0.5">star</span><span class="text-[6px] font-bold text-text-secondary leading-none uppercase">Paix - Travail - Patrie</span><span class="text-[7px] font-bold text-secondary tracking-tight uppercase mt-0.5">MINADER • SCEAU</span></div></div><span class="font-label-sm text-[8px] text-text-secondary uppercase tracking-wider font-semibold mt-1">Cachet Régalien Scellé</span></div><div class="md:col-span-5 flex flex-col gap-2"><div class="p-2 rounded-lg border border-status-success/40 bg-status-success/10 relative overflow-hidden"><div class="flex items-start justify-between"><div class="space-y-0.5"><div class="text-[8px] uppercase tracking-wider font-bold text-primary flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Visa N°1 : Autorité Tutélaire</div><div class="font-bold text-text-primary text-[11px] leading-tight">Dr. Marcelle Ngono</div><div class="text-[9px] text-text-secondary leading-none">Directrice Générale Régulation Numérique MINADER</div></div><div class="text-right font-mono text-[8px] text-status-success"><span class="px-1 py-0.5 rounded bg-surface-white font-bold">e-Sign Validée</span></div></div><div class="mt-1 flex items-center justify-between text-[8px] pt-1 border-t border-primary/20 text-text-secondary font-mono"><span class="">Matricule: MINADER-AD-01</span><span class="">Clef: MINADER-KEY-2025-09A</span></div></div><div class="p-2 rounded-lg border border-border-warm bg-surface-container-low relative"><div class="flex items-start justify-between"><div class="space-y-0.5"><div class="text-[8px] uppercase tracking-wider font-bold text-secondary flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Visa N°2 : Contrôle Technique Régional</div><div class="font-bold text-text-primary text-[11px] leading-tight">Dr. Emmanuel Kenmogne</div><div class="text-[9px] text-text-secondary leading-none">Inspecteur Assermenté (Bassin Ouest)</div></div><div class="text-right text-[8px] italic text-text-secondary"><span class="font-serif text-primary font-bold">E. Kenmogne</span></div></div><div class="mt-1 flex items-center justify-between text-[8px] pt-1 border-t border-border-warm text-text-secondary font-mono"><span class="">Matricule: AGR-4412</span><span class="italic font-sans text-status-success font-medium">« Certifié exact sur pièces »</span></div></div></div></div></div><div class="mt-4 pt-3 border-t border-border-warm/60 flex items-center justify-between text-[9px] text-text-secondary"><span class="font-mono">Page 1 sur 4 — Décret N°0041/MINADER</span><span class="italic">Toute reproduction non certifiée est passible des peines prévues par l'Art. 205 du Code Pénal.</span></div></div><div id="signers-config-panel" class="hidden xl:flex flex-col w-96 ml-6 bg-surface-white rounded-xl shadow-2xl border border-border-warm flex-shrink-0 sticky top-0 overflow-hidden"><div class="p-4 bg-surface-container-low border-b border-border-warm flex items-center justify-between"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">history_edu</span></div><div><h3 class="font-headline-sm text-[15px] font-bold text-text-primary leading-none">Signataires &amp; Visas Officiels</h3><span class="font-label-sm text-[11px] text-text-secondary">Personnalisation réglementaire</span></div></div><button onclick="document.getElementById('signers-config-panel').classList.add('hidden')" class="w-7 h-7 rounded-lg hover:bg-surface-container text-text-secondary flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[18px]">close</span></button></div><div class="p-4 space-y-4 max-h-[calc(92vh-130px)] overflow-y-auto text-text-primary"><div class="space-y-1.5"><label class="block font-label-sm text-[12px] font-bold text-text-primary uppercase tracking-wide">Signataire Principal (Autorité de tutelle)</label><div class="relative"><select class="w-full p-2.5 text-[13px] rounded-lg bg-surface-container-low border border-border-warm text-text-primary font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"><option selected="">Dr. Marcelle Ngono — Super Admin MINADER / Insp. Générale</option><option>M. Henri Eyebe — Directeur de la Régulation Agropastorale</option><option>Dr. Célestin Fotso — Secrétaire Général MINADER</option></select></div><div class="flex items-center gap-1 text-[11px] text-status-success font-medium"><span class="material-symbols-outlined text-[14px]">verified</span>Certificat Cryptographique Actif #MINADER-YDE-01</div></div><div class="space-y-1.5 pt-2 border-t border-border-warm"><div class="flex items-center justify-between"><label class="font-label-sm text-[12px] font-bold text-text-primary uppercase tracking-wide">Co-Signataire / Visa Régional</label><span class="px-2 py-0.5 rounded-full bg-status-success/10 text-status-success text-[10px] font-bold">Double Visa Actif</span></div><div class="relative"><select class="w-full p-2.5 text-[13px] rounded-lg bg-surface-container-low border border-border-warm text-text-primary font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"><option selected="">Dr. Emmanuel Kenmogne — Inspecteur Régional (Ouest) • AGR-4412</option><option>Mme Sarah Belinga — Modératrice &amp; Vérificatrice Centrale</option><option>M. Jean-Paul Mbarga — Contrôleur Littoral • AGR-1089</option></select></div><p class="text-[11px] text-text-secondary italic">Mention automatique : « Certifié exact et conforme sur pièces »</p></div><div class="space-y-2 pt-2 border-t border-border-warm"><label class="block font-label-sm text-[12px] font-bold text-text-primary uppercase tracking-wide">Type de Sceau &amp; Cachet Républicain</label><div class="space-y-1.5 text-[12px]"><label class="flex items-center gap-2.5 p-2 rounded-lg bg-surface-container-low/70 border border-border-warm cursor-pointer hover:bg-surface-container"><input type="radio" name="seal_type" checked="" class="accent-primary"><span class="font-medium">Grand Sceau Sec Circulaire de la République</span></label><label class="flex items-center gap-2.5 p-2 rounded-lg bg-surface-container-low/70 border border-border-warm cursor-pointer hover:bg-surface-container"><input type="radio" name="seal_type" class="accent-primary"><span class="font-medium">Tampon humide d'agrément MINADER Yaoundé</span></label><label class="flex items-center gap-2.5 p-2 rounded-lg bg-surface-container-low/70 border border-border-warm cursor-pointer hover:bg-surface-container"><input type="radio" name="seal_type" class="accent-primary"><span class="font-medium">Visa purement cryptographique eIDAS / ANTIC</span></label></div></div><div class="space-y-2 pt-2 border-t border-border-warm"><label class="block font-label-sm text-[12px] font-bold text-text-primary uppercase tracking-wide">Mentions Officielles Obligatoires</label><div class="space-y-2 text-[12px]"><label class="flex items-start gap-2 cursor-pointer"><input type="checkbox" checked="" class="mt-0.5 accent-primary"><span class="leading-tight text-text-primary">Mention « Bon pour conformité légale et archivage régalien »</span></label><label class="flex items-start gap-2 cursor-pointer"><input type="checkbox" checked="" class="mt-0.5 accent-primary"><span class="leading-tight text-text-primary">Certificat d'inviolabilité blockchain nationale (Noeud #YDE-04)</span></label><label class="flex items-start gap-2 cursor-pointer"><input type="checkbox" checked="" class="mt-0.5 accent-primary"><span class="leading-tight text-text-primary">Mention de diffusion restreinte (Usage Administratif Exclusif)</span></label></div></div><div class="pt-3 border-t border-border-warm"><button type="button" onclick="alert('Signatures et visas officiels appliqués avec succès au document.');" class="w-full py-2.5 px-4 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm font-bold shadow-sm transition-colors flex items-center justify-center gap-2"><span class="material-symbols-outlined text-[18px]">check_circle</span>Appliquer les signatures au document</button></div></div></div></div><div class="px-6 py-3 bg-inverse-surface border-t border-surface-dim/20 flex flex-col sm:flex-row items-center justify-between gap-3 flex-shrink-0"><div class="flex items-center gap-2 text-xs text-text-secondary"><span class="material-symbols-outlined text-[16px] text-status-success">lock</span><span class="">Document sécurisé et conforme à la loi camerounaise sur la cybersécurité.</span></div><div class="flex items-center gap-2.5"><button onclick="document.getElementById('pdf-preview-modal-backdrop').remove()" class="h-9 px-4 rounded-lg bg-surface-dim/25 hover:bg-surface-dim/40 text-surface-white font-label-sm text-label-sm transition-colors" type="button">Fermer l'aperçu</button><button onclick="document.getElementById('pdf-preview-modal-backdrop').remove()" class="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm font-bold shadow transition-all" type="button"><span class="material-symbols-outlined text-[18px]">file_download</span><span class="">Télécharger le PDF signé (2.4 Mo)</span></button></div></div></div></div></body></html>

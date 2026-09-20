@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-bright": "#fbf9f4", "inverse-surface": "#30312e", "on-secondary-fixed-variant": "#723600", "on-error-container": "#93000a", "outline": "#707a6f", "inverse-on-surface": "#f2f1ec", "surface-dim": "#dbdad5", "secondary-fixed-dim": "#ffb786", "surface-container-high": "#eae8e3", "status-warning": "#ED6C02", "tertiary-container": "#755a00", "text-primary": "#1F2421", "text-secondary": "#555F58", "on-error": "#ffffff", "on-primary-container": "#9ae9ab", "error-container": "#ffdad6", "primary-container": "#1b6b3a", "primary-fixed-dim": "#8ad89c", "surface-white": "#FFFFFF", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#594400", "on-secondary": "#ffffff", "tertiary-fixed-dim": "#f0c038", "status-error": "#D32F2F", "surface-container": "#f0eee9", "surface-variant": "e4e2dd", "outline-variant": "#bfc9bd", "tertiary-fixed": "#ffdf94", "error": "#ba1a1a", "on-secondary-fixed": "#311400", "surface-tint": "#1c6c3b", "inverse-primary": "#8ad89c", "surface": "#fbf9f4", "on-surface": "#1b1c19", "on-primary-fixed-variant": "#005227", "secondary-container": "#fe9b52", "primary-fixed": "#a5f4b6", "background": "#fbf9f4", "on-tertiary-container": "#ffd25c", "on-tertiary-fixed": "#251a00", "surface-container-highest": "#e4e2dd", "on-primary": "#ffffff", "payment-mtn": "#FFCC00", "surface-container-low": "#f5f3ee", "on-secondary-container": "#703500", "on-tertiary": "#ffffff", "on-primary-fixed": "#00210c", "border-warm": "#E5E0D8", "on-background": "#1b1c19", "payment-orange": "#FF7900", "on-surface-variant": "#404940", "secondary": "#954a00", "status-success": "#2E7D32", "primary": "#005127", "tertiary": "#584300", "secondary-fixed": "#ffdcc6" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xl": "2rem", "space-xs": "0.25rem", "margin-desktop": "2rem", "gutter": "1rem", "gutter-desktop": "1.5rem", "space-2xl": "3rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "space-md": "1rem", "margin": "1rem" }, "fontFamily": { "headline-md": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "label-lg": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "body-md": ["Inter"], "headline-lg-mobile": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "body-md-bold": ["Inter"], "display-lg-mobile": ["Plus Jakarta Sans"], "price-tag": ["Plus Jakarta Sans"] }, "fontSize": { "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }], "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "body-md-bold": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "display-lg-mobile": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "price-tag": ["18px", { "lineHeight": "22px", "fontWeight": "700" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface pt-safe pb-safe flex flex-col min-h-screen"><main class="flex flex-col relative w-full bg-surface min-h-screen"><div class="flex flex-col w-full relative px-margin pb-space-2xl overflow-hidden">
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-0" id="confetti-container"></div>
+<div class="relative z-10 flex flex-col items-center text-center pt-space-md">
+<div class="relative flex items-center justify-center mb-space-md">
+<div class="absolute w-28 h-28 rounded-full bg-primary-fixed/30 animate-ping opacity-60"></div>
+<div class="absolute w-24 h-24 rounded-full bg-surface-container-high"></div>
+<div class="relative w-20 h-20 rounded-full bg-primary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-surface-white text-[42px]" style="font-variation-settings: 'FILL' 1, 'wght' 700;">check</span>
+</div>
+<div class="absolute -top-1 -right-1 bg-surface-white rounded-full p-1 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">spa</span>
+</div>
+<div class="absolute -bottom-1 -left-1 bg-surface-white rounded-full p-1 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">eco</span>
+</div>
+</div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm mb-space-xs">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>Paiement sécurisé direct producteur</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-text-primary mb-space-xs">
+      Paiement confirmé avec succès !
+    </h1>
+<p class="font-body-md text-body-md text-text-secondary max-w-xs">
+      Merci pour votre confiance. Votre commande a été transmise avec soin aux producteurs locaux.
+    </p>
+</div>
+<div class="relative z-10 mt-space-lg w-full bg-surface-white rounded-xl shadow-md overflow-hidden">
+<div class="h-2 w-full bg-gradient-to-r from-primary via-secondary to-payment-mtn"></div>
+<div class="p-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-text-secondary">Reçu électronique</p>
+<p class="font-body-md-bold text-body-md-bold text-text-primary">#CMD-2025-0489</p>
+</div>
+</div>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-status-success font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span>
+<span>Payé &amp; Enregistré</span>
+</div>
+</div>
+<div class="my-space-sm p-space-md rounded-lg bg-surface-container-low flex flex-col items-center justify-center">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider">Montant total réglé</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary mt-0.5">25 000 FCFA</span>
+<span class="font-label-sm text-label-sm text-text-secondary mt-1">TVA et frais de logistique inclus</span>
+</div>
+<div class="space-y-3 pt-space-xs">
+<div class="flex items-center justify-between text-left">
+<span class="font-label-sm text-label-sm text-text-secondary">Moyen de paiement</span>
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-payment-mtn/20 text-on-surface font-label-sm text-label-sm font-semibold">MTN MoMo</span>
+<span class="font-body-md-bold text-body-md-bold text-text-primary text-right">+237 677 89 45 12</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-left">
+<span class="font-label-sm text-label-sm text-text-secondary">Réf. transaction</span>
+<span class="font-body-md text-body-md text-text-primary font-mono text-right">AGT-2025-8842-MOMO</span>
+</div>
+<div class="flex items-center justify-between text-left">
+<span class="font-label-sm text-label-sm text-text-secondary">Date &amp; heure</span>
+<span class="font-body-md text-body-md text-text-primary text-right">24 Mars 2025 à 14:34</span>
+</div>
+</div>
+</div>
+<div class="relative py-1 flex items-center justify-center">
+<div class="absolute -left-3 w-6 h-6 rounded-full bg-surface"></div>
+<div class="w-full mx-4 h-[1px] bg-outline-variant/60"></div>
+<div class="absolute -right-3 w-6 h-6 rounded-full bg-surface"></div>
+</div>
+<div class="p-space-md bg-surface-container-low/50">
+<div class="flex items-start gap-3">
+<div class="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">sms</span>
+</div>
+<div class="min-w-0">
+<p class="font-body-md-bold text-body-md-bold text-text-primary">Notification par SMS transmise</p>
+<p class="font-label-sm text-label-sm text-text-secondary mt-0.5">
+            Un reçu complet et le code de retrait ont été envoyés au <span class="text-text-primary font-semibold">(+237) 677 89 45 12</span>.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative z-10 mt-space-md w-full bg-surface-white rounded-xl shadow-sm p-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">agriculture</span>
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Préparation locale</h2>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">
+        En cours
+      </span>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-2 rounded-lg bg-surface-container-low">
+<img class="w-11 h-11 rounded-full object-cover flex-shrink-0" data-alt="Portrait photographique d'un agriculteur camerounais souriant dans une plantation verdoyante de tomates à Bafoussam sous la lumière naturelle de l'après-midi, tons terre cuite et feuillage abondant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs9_yGt7rv4swIOSoJwbaAzU-o-B-cQxEIw5kj-wElP84WI3U17sxJKF_kkHNgU7DsK3s319EmcqCn-gc7Ci8D4_nFdpICQaZRMBJS5cghjcnmwZex1CQRR7fLx_8oMwdEFslkadYX-ndbqdnO7oIsyoHUZ_-mpR-BZZ5dyxna0WrDxQ9vlQPY9xPoCbc6Sdu959KCUcKmQMLHmzQTOAjy7rGXpakuBgFYwtObaBkSg9iLGGxE94Mn"/>
+<div class="min-w-0 flex-1">
+<div class="flex items-center justify-between">
+<p class="font-body-md-bold text-body-md-bold text-text-primary truncate">Ferme Papa Tagne</p>
+<span class="font-label-sm text-label-sm text-text-secondary">Bafoussam, Ouest</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary truncate">1x Panier maraîcher bio 25kg &amp; Poivrons</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-2 rounded-lg bg-surface-container-low">
+<img class="w-11 h-11 rounded-full object-cover flex-shrink-0" data-alt="Productrice locale en tenue artisanale inspectant des grains de poivre blanc séchés au soleil dans une plantation certifiée de Penja au Cameroun, ambiance agricole chaleureuse et authentique." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpevr0HnaPH-eN-Bz3r3GP7ymrPEUZz9c0zXhbZgZJWJARi1gJNhLJaX2sNNHOo9vGFidSfoOFZpfgcU6kypOR47GG9WBjdnD9ivA0rUYbVHWkR18QNwsrh0TOlkARtKbRRruWaigW-odBjiVE2moSRfdUG0mS2NzWiG4pnjzVhlzRWKspBO8YIiojbXyX9loFQJDdss2uLWNHkXbhht-MnD9O1PmQxrAEm9989Bvx887BFdVTvwKE"/>
+<div class="min-w-0 flex-1">
+<div class="flex items-center justify-between">
+<p class="font-body-md-bold text-body-md-bold text-text-primary truncate">Plantation Penja Terroir</p>
+<span class="font-label-sm text-label-sm text-text-secondary">Penja, Littoral</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary truncate">2x Bocaux Poivre Blanc IGP Penja</p>
+</div>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-text-secondary font-label-sm text-label-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">local_shipping</span>
+<span>Livraison estimée : Demain avant 12h00</span>
+</div>
+<span class="font-semibold text-primary">Circuit court direct</span>
+</div>
+</div>
+<div class="relative z-10 mt-space-lg flex flex-col gap-3 w-full">
+<button class="w-full h-12 rounded-full bg-primary hover:bg-primary-container text-surface-white font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-md active:scale-[0.99] transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+<span>Suivre ma commande</span>
+</button>
+<button class="w-full h-12 rounded-full bg-surface-white hover:bg-surface-container text-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm active:scale-[0.99] transition-all" id="download-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span id="download-text">Télécharger le reçu (PDF)</span>
+</button>
+<button class="w-full h-11 rounded-full bg-transparent hover:bg-surface-container-high/40 text-text-secondary font-label-lg text-label-lg flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">storefront</span>
+<span>Retour à l'accueil du marché</span>
+</button>
+</div>
+</div>
+<script>
+  (function() {
+    var container = document.getElementById('confetti-container');
+    if (!container) return;
+
+    var colors = ['#1B6B3A', '#C8702A', '#FFCC00', '#2E7D32', '#fe9b52', '#8ad89c'];
+    var shapes = ['circle', 'leaf', 'rect'];
+
+    for (var i = 0; i < 28; i++) {
+      var confetti = document.createElement('div');
+      var color = colors[Math.floor(Math.random() * colors.length)];
+      var shape = shapes[Math.floor(Math.random() * shapes.length)];
+      var left = Math.random() * 100;
+      var top = Math.random() * 40;
+      var size = Math.floor(Math.random() * 8) + 6;
+      var rotate = Math.floor(Math.random() * 360);
+      var delay = (Math.random() * 1.5).toFixed(2);
+
+      confetti.style.position = 'absolute';
+      confetti.style.left = left + '%';
+      confetti.style.top = top + '%';
+      confetti.style.width = size + 'px';
+      confetti.style.height = (shape === 'leaf' ? size * 1.6 : size) + 'px';
+      confetti.style.backgroundColor = color;
+      confetti.style.opacity = '0.85';
+      confetti.style.transform = 'rotate(' + rotate + 'deg)';
+      confetti.style.transition = 'transform 3s ease-out, opacity 3s ease-out';
+
+      if (shape === 'circle') {
+        confetti.style.borderRadius = '9999px';
+      } else if (shape === 'leaf') {
+        confetti.style.borderRadius = '12px 0 12px 0';
+      } else {
+        confetti.style.borderRadius = '2px';
+      }
+
+      container.appendChild(confetti);
+    }
+
+    setTimeout(function() {
+      var nodes = container.children;
+      for (var j = 0; j < nodes.length; j++) {
+        var el = nodes[j];
+        var currentY = parseFloat(el.style.top);
+        el.style.top = (currentY + 20) + '%';
+        el.style.opacity = '0.2';
+      }
+    }, 100);
+
+    var dlBtn = document.getElementById('download-btn');
+    var dlText = document.getElementById('download-text');
+    if (dlBtn && dlText) {
+      dlBtn.addEventListener('click', function() {
+        dlText.textContent = 'Génération du PDF...';
+        setTimeout(function() {
+          dlText.textContent = 'Reçu téléchargé !';
+          setTimeout(function() {
+            dlText.textContent = 'Télécharger le reçu (PDF)';
+          }, 2500);
+        }, 800);
+      });
+    }
+  })();
+</script></main></body></html>

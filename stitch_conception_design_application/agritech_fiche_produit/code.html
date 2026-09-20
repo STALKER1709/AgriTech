@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { width: 100vw; margin: 0; padding: 0; } body { overscroll-behavior: none; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "secondary-fixed-dim": "#ffb786", "on-tertiary-container": "#ffd25c", "surface": "#fbf9f4", "surface-variant": "#e4e2dd", "secondary-container": "#fe9b52", "inverse-primary": "#8ad89c", "text-secondary": "#555F58", "on-surface-variant": "#404940", "status-success": "#2E7D32", "tertiary-fixed-dim": "#f0c038", "on-surface": "#1b1c19", "border-warm": "#E5E0D8", "on-error": "#ffffff", "on-secondary-fixed": "#311400", "surface-dim": "#dbdad5", "surface-bright": "#fbf9f4", "surface-container": "#f0eee9", "surface-tint": "#1c6c3b", "surface-container-highest": "#e4e2dd", "on-secondary-fixed-variant": "#723600", "error": "#ba1a1a", "outline-variant": "#bfc9bd", "inverse-on-surface": "#f2f1ec", "inverse-surface": "#30312e", "secondary-fixed": "#ffdcc6", "status-warning": "#ED6C02", "on-background": "#1b1c19", "text-primary": "#1F2421", "on-error-container": "#93000a", "on-tertiary-fixed-variant": "#594400", "outline": "#707a6f", "on-primary-fixed": "#00210c", "on-tertiary": "#ffffff", "status-error": "#D32F2F", "primary-fixed": "#a5f4b6", "on-secondary": "#ffffff", "surface-container-high": "#eae8e3", "tertiary-container": "#755a00", "primary-container": "#1b6b3a", "on-tertiary-fixed": "#251a00", "on-primary": "#ffffff", "surface-container-lowest": "#ffffff", "tertiary-fixed": "#ffdf94", "primary-fixed-dim": "#8ad89c", "on-secondary-container": "#703500", "secondary": "#954a00", "payment-mtn": "#FFCC00", "tertiary": "#584300", "on-primary-container": "#9ae9ab", "background": "#fbf9f4", "payment-orange": "#FF7900", "surface-white": "#FFFFFF", "primary": "#005127", "error-container": "#ffdad6", "surface-container-low": "#f5f3ee", "on-primary-fixed-variant": "#005227" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-2xl": "3rem", "margin-desktop": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "space-md": "1rem", "space-xl": "2rem", "gutter-desktop": "1.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "margin": "1rem" }, fontFamily: { "display-lg-mobile": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-md-bold": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "body-md": ["Inter"], "label-sm": ["Inter"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-lg": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "price-tag": ["Plus Jakarta Sans"], "body-lg": ["Inter"] }, fontSize: { "display-lg-mobile": ["30px", { lineHeight: "38px", fontWeight: "700" }], "display-lg": ["40px", { lineHeight: "48px", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-md-bold": ["16px", { lineHeight: "24px", fontWeight: "600" }], "headline-md": ["22px", { lineHeight: "28px", fontWeight: "600" }], "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }], "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }], "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }], "label-lg": ["14px", { lineHeight: "20px", fontWeight: "600" }], "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }], "price-tag": ["18px", { lineHeight: "22px", fontWeight: "700" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(31,36,33,0.04)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="AgriTech Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7FykvhXIDo-F8zRew4spz6T04PjAhsoKfXJP_7GrhPneqPf6HsA1mYInzV7cdTuLvcHLTHc7nSqkyJaxRmYk2oMrRG1dz31-eN7AUOjjPnN-5Vza_4QL7z0c7PooP6EljndV5mA9eR_-0LCPXhqqLXzDLRPDB61OnEQLbeYsd6bq_mcZV5nIHIuExVIC5Cui5BNDEWTwUGFSUJQBcik5D1INVAUfiGdFL0_tvG1COErmQOdaLF6mz"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-primary leading-none truncate">AgriTech</span><span class="font-label-sm text-label-sm text-text-secondary truncate">Home</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="Recherche" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">search</span></button><button aria-label="Panier" class="relative w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">shopping_cart</span><span class="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 bg-secondary text-on-secondary font-label-sm text-[10px] leading-tight font-bold rounded-full flex items-center justify-center">3</span></button><a class="hidden sm:inline-flex items-center justify-center px-3 h-8 rounded-full bg-primary/10 text-primary font-label-lg text-label-lg hover:bg-primary/20 transition-colors" data-path="account" href="#">Connexion</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-20 bg-surface"><div class="flex flex-col w-full pb-28">
+<!-- Navigation Retour & Fil d'Ariane -->
+<div class="px-gutter pt-3 pb-2 flex items-center justify-between">
+<a class="inline-flex items-center gap-1.5 text-text-secondary hover:text-primary transition-colors py-1" href="#">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+<span class="font-label-sm text-label-sm">Retour au catalogue</span>
+</a>
+<div class="flex items-center gap-1 text-text-secondary font-label-sm text-label-sm">
+<span class="hover:text-primary">Tubercules</span>
+<span>&gt;</span>
+<span class="font-body-md-bold text-body-md-bold text-primary">Manioc</span>
+</div>
+</div>
+<!-- Galerie Visuelle Mobile -->
+<div class="px-gutter mt-1">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-surface-container shadow-sm">
+<img class="w-full h-full object-cover transition-all duration-300" data-alt="Freshly harvested premium white cassava tubers in volcanic soil of Bafoussam Cameroon, rustic woven baskets in background, soft natural golden hour tropical sunlight, rich organic textures with earth tones and botanical green accents" id="main-product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwyrS713mwWAAvxtgpSEeHQPZsp2dlMWkBfkOJHBsxEptwqiu3NnKiuE9CNL_vQZWSL6MIgzubm0pw_lzBwPM5A1E_Jc9fFzfXneAzvr3t3r0468MUgHF752HfqMydEc9TyumNS167UPZ8SEBYz3Bw84olPKtKo1axRbITFLNtdNRCslegx0rXy-FZqs4rJKL3-anKFREF9dwwnCTYTdR465fRR_F7mrYjBXChFtU-gJlYdrqKckHs"/>
+<!-- Badges Superposés -->
+<div class="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-status-success text-on-primary font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[14px]">eco</span>
+          Récolté il y a 24h
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold shadow-sm">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+          Terroir Ouest — Bafoussam
+        </span>
+</div>
+<!-- Action Favoris Flottant -->
+<button aria-label="Ajouter aux favoris" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-surface-white/90 backdrop-blur-md text-text-primary hover:text-error flex items-center justify-center shadow-md active:scale-95 transition-transform" id="favorite-btn">
+<span class="material-symbols-outlined text-[22px]">favorite_border</span>
+</button>
+<!-- Indicateur de Qualité Certifiée -->
+<div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-inverse-surface/80 text-inverse-on-surface backdrop-blur-md font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary-fixed">verified</span>
+        Grade Extra A
+      </div>
+</div>
+<!-- Miniatures d'Images -->
+<div class="grid grid-cols-3 gap-2.5 mt-2.5">
+<button class="aspect-square rounded-xl overflow-hidden bg-surface-container relative focus:outline-none transition-all duration-200" onclick="switchImage(this, 'placeholder', 'Panoramic view of lush green cassava plantation in the western highlands of Bafoussam, fertile red soil, farmer inspecting mature plants in gentle morning mist')">
+<img class="w-full h-full object-cover" data-alt="Panoramic view of lush green cassava plantation in the western highlands of Bafoussam, fertile red soil, farmer inspecting mature plants in gentle morning mist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9w9shN2RDE-zG9j7feK9OvtlNlditTaMUSzl2ilReQTYsxMptaQLjRFRIDHyGwktumUe-gRhS800Joa7CSpynKYttQI97Elur91fu5z4Sn_bR3I6u3s6KEAM4EfaJCH2PRzYNtmP_FI4sbDQ6s97VJQDY2cuM-A-W_paC2RUUW_88tPrB1HNluqBMYlTCcz4udxC-_2RtTs2YA-ODalI-TMmnmt1dnw5Q-1abYhEFAT_LOC3UNiZu"/>
+<div class="thumbnail-indicator absolute inset-0 bg-primary/20 pointer-events-none"></div>
+</button>
+<button class="aspect-square rounded-xl overflow-hidden bg-surface-container relative focus:outline-none transition-all duration-200" onclick="switchImage(this, 'placeholder', 'Extreme macro close-up of cleanly sliced pure white cassava root flesh, showing high starch density, crisp fresh texture, and moisture droplets under studio light')">
+<img class="w-full h-full object-cover" data-alt="Extreme macro close-up of cleanly sliced pure white cassava root flesh, showing high starch density, crisp fresh texture, and moisture droplets under studio light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWI-Nvz1jyshzG5fvocm_aACoE6pzvDMGKqxSypkdpbtJseQB1M44uvP5tb5VAIqnbi87eotpyFDRi1xXrKtn42V12Dm6q4Ku2GQa617xSiyaJNr2C0aapvRi2w7vTRljDesHz5VHZG69SCo4diKBvP1tuJJpOvVfk8m9T-XNNTDpiBvywsfzuqAYYQMOqkLh1lwuQeVT_8arTxZcP8xaqLyI-YoR1WYrWyxrS1-3MiE5QJjgKCuSb"/>
+<div class="thumbnail-indicator absolute inset-0 bg-transparent pointer-events-none"></div>
+</button>
+<button class="aspect-square rounded-xl overflow-hidden bg-surface-container relative focus:outline-none transition-all duration-200" onclick="switchImage(this, 'placeholder', 'Authentic mechanical scale in African agricultural cooperative warehouse weighing heavy 50kg jute sack filled to brim with fresh white manioc tubers')">
+<img class="w-full h-full object-cover" data-alt="Authentic mechanical scale in African agricultural cooperative warehouse weighing heavy 50kg jute sack filled to brim with fresh white manioc tubers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfuKeADe1ja5alijmNonI0rwW4uVU8EZrWVzu9dnWDonX-I6rTLIEmRpnhKckyTOQA_XZyKHQBXVljGQwMPP_Zc77dV36efR6sBVZBBOsrvAnxLoX03tMWz0rCOhDkYC__joX-41dTUu5-C0sEqoE5Kf5pO_bN_C0crJskoRoGH8iFoyXZB8K9zKzXWEJ9r1879O5W83Ht2AzpkYAxtVynBYdjd9xjHZZt0T8ewNNVlxQDESvbhcX0"/>
+<div class="thumbnail-indicator absolute inset-0 bg-transparent pointer-events-none"></div>
+</button>
+</div>
+</div>
+<!-- Informations Principales & Prix -->
+<div class="px-gutter mt-4">
+<!-- Stock & Avis -->
+<div class="flex items-center justify-between gap-2">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success font-label-sm text-label-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+        120 sacs disponibles en stock
+      </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-md-bold text-body-md-bold text-text-primary">4.9</span>
+<span class="font-label-sm text-label-sm text-text-secondary">(48 avis)</span>
+</div>
+</div>
+<!-- Nom Produit -->
+<h1 class="mt-2 font-headline-lg-mobile text-headline-lg-mobile text-text-primary tracking-tight">
+      Manioc blanc frais de qualité supérieure
+    </h1>
+<!-- Prix & Format -->
+<div class="mt-2.5 p-3 rounded-2xl bg-surface-container-low flex items-baseline justify-between">
+<div class="flex items-baseline gap-1.5">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary font-bold">8 000 FCFA</span>
+<span class="font-body-md text-body-md text-text-secondary">/ sac de 50 kg</span>
+</div>
+<div class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+        160 FCFA / kg
+      </div>
+</div>
+</div>
+<!-- Carte Producteur Réconfortante -->
+<div class="px-gutter mt-4">
+<div class="p-3.5 rounded-2xl bg-surface-container shadow-sm flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="relative w-13 h-13 shrink-0">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of an experienced cheerful Cameroonian agricultural producer in traditional earth-toned work shirt smiling warmly outdoors in Bafoussam farm setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZYVWupZSjHIql49HcGyyTwsdqmOXtbv-oyx2oXuuT1ZDBWC6qaaPSjEHZiQ33WuVqKYsQ67UjzIWCbpE1uEpDtrU2nRZqyYZaHlxLCK6q3VMw9zanOvyIrjz-KOwcn0ucKS5GFRU-rPc5mE7suEYFGGHzJ4JDk0FJ3U4Q6gZ7o1MWtPMFlVKpxOZSyqBAJPpUC6UQKaScEmXerL1gHwQlNqxRL-_XMbZpSXUPCWt-ik4NxtaVqMVh"/>
+<div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-status-success text-on-primary flex items-center justify-center text-[10px]">
+<span class="material-symbols-outlined text-[12px]">check</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-text-primary truncate">Papa Tagne</h3>
+<span class="material-symbols-outlined text-[16px] text-primary" title="Vérifié">verified</span>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary truncate">Ferme Agropastorale des Hauts Plateaux</p>
+<p class="font-label-sm text-label-sm text-text-secondary flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[13px]">place</span>
+            Bafoussam, Région de l'Ouest
+          </p>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">shield</span>
+          Producteur Vérifié AgriTech
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">calendar_today</span>
+          Membre depuis 2022
+        </span>
+</div>
+<button class="w-full h-11 rounded-full bg-surface-white text-secondary hover:bg-secondary-fixed/40 transition-colors font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+        Contacter le producteur
+      </button>
+</div>
+</div>
+<!-- Sélecteur de Quantité & Remise par Lot -->
+<div class="px-gutter mt-4">
+<div class="p-4 rounded-2xl bg-surface-container-lowest shadow-sm">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-lg text-label-lg text-text-primary block">Quantité souhaitée</span>
+<span class="font-label-sm text-label-sm text-text-secondary">Sacs de 50 kg</span>
+</div>
+<!-- Stepper -->
+<div class="flex items-center bg-surface-container rounded-full p-1 gap-2">
+<button aria-label="Diminuer la quantité" class="w-9 h-9 rounded-full bg-surface-white text-text-primary flex items-center justify-center shadow-xs active:scale-90 transition-transform" id="qty-decrease">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="w-7 text-center font-body-md-bold text-body-md-bold text-text-primary" id="qty-value">1</span>
+<button aria-label="Augmenter la quantité" class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs active:scale-90 transition-transform" id="qty-increase">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<!-- Badge de Remise Volume -->
+<div class="mt-3 p-2 rounded-xl bg-tertiary-fixed/30 text-on-surface flex items-center justify-between" id="discount-banner">
+<div class="flex items-center gap-1.5 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">local_offer</span>
+<span>-5% de remise dès 5 sacs commandés</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-tertiary" id="tier-badge">Économisez 2 000 FCFA</span>
+</div>
+</div>
+</div>
+<!-- Sections Accordéons Agronomiques & Logistiques -->
+<div class="px-gutter mt-4 flex flex-col gap-2.5">
+<!-- Accordéon 1 : Description -->
+<details class="group rounded-2xl bg-surface-container-lowest p-4 shadow-sm" open="">
+<summary class="flex items-center justify-between cursor-pointer list-none font-headline-sm text-headline-sm text-text-primary select-none">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">nutrition</span>
+          Description du produit
+        </span>
+<span class="material-symbols-outlined text-[20px] text-text-secondary transition-transform duration-200 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="mt-3 text-text-secondary font-body-md text-body-md leading-relaxed">
+<p>Manioc frais sélectionné à chair purement blanche et dense en amidon naturel. Idéal pour la préparation traditionnelle du <strong class="text-text-primary">foufou</strong>, des bâtons de manioc (<em class="text-text-primary">bobolo, mintoumba</em>), de l'amidon pur, du tapioca artisanal ou du gari croustillant.</p>
+<div class="mt-2.5 grid grid-cols-2 gap-2 text-text-primary font-label-sm text-label-sm">
+<div class="p-2 rounded-lg bg-surface-container flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-status-success">check_circle</span>
+            Zéro pesticide chimique agressif
+          </div>
+<div class="p-2 rounded-lg bg-surface-container flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-status-success">check_circle</span>
+            Récolte manuelle soignée
+          </div>
+</div>
+</div>
+</details>
+<!-- Accordéon 2 : Origine & Récolte -->
+<details class="group rounded-2xl bg-surface-container-lowest p-4 shadow-sm">
+<summary class="flex items-center justify-between cursor-pointer list-none font-headline-sm text-headline-sm text-text-primary select-none">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">terrain</span>
+          Origine &amp; Récolte
+        </span>
+<span class="material-symbols-outlined text-[20px] text-text-secondary transition-transform duration-200 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="mt-3 text-text-secondary font-body-md text-body-md leading-relaxed">
+<p>Cultivé dans les sols volcaniques fertiles et aérés des hauts plateaux de Bafoussam (altitude 1 500 m). Les tubercules sont déterrés uniquement à la commande pour préserver une teneur en eau optimale.</p>
+<div class="mt-2 p-2.5 rounded-xl bg-surface-container-high text-text-primary font-label-sm text-label-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">hourglass_top</span>
+          Conservation naturelle recommandée : 7 à 10 jours dans un endroit sec et ventilé.
+        </div>
+</div>
+</details>
+<!-- Accordéon 3 : Modes de Livraison -->
+<details class="group rounded-2xl bg-surface-container-lowest p-4 shadow-sm">
+<summary class="flex items-center justify-between cursor-pointer list-none font-headline-sm text-headline-sm text-text-primary select-none">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">local_shipping</span>
+          Modes de livraison
+        </span>
+<span class="material-symbols-outlined text-[20px] text-text-secondary transition-transform duration-200 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="mt-3 text-text-secondary font-body-md text-body-md flex flex-col gap-2">
+<div class="p-3 rounded-xl bg-surface-container flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[20px] text-primary mt-0.5">store</span>
+<div>
+<p class="font-body-md-bold text-body-md-bold text-text-primary">Retrait gratuit à la coopérative</p>
+<p class="font-label-sm text-label-sm">Entrepôt central AgriTech de Bafoussam — Disponible dès validation.</p>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-surface-container flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[20px] text-secondary mt-0.5">rv_hookup</span>
+<div>
+<p class="font-body-md-bold text-body-md-bold text-text-primary">Camionnette partenaire (Douala &amp; Yaoundé)</p>
+<p class="font-label-sm text-label-sm">Livraison groupée sécurisée en 24h à 48h. Frais calculés à l'étape suivante.</p>
+</div>
+</div>
+</div>
+</details>
+</div>
+<!-- Produits Recommandés du Même Producteur -->
+<div class="mt-6">
+<div class="px-gutter flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Du même producteur</h2>
+<a class="font-label-sm text-label-sm text-primary font-bold" href="#">Voir tout</a>
+</div>
+<div class="px-gutter mt-3 grid grid-cols-2 gap-3">
+<!-- Carte 1 : Plantain Penja -->
+<div class="rounded-2xl bg-surface-container-lowest p-2.5 shadow-sm flex flex-col justify-between">
+<div>
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-surface-container mb-2">
+<img class="w-full h-full object-cover" data-alt="Fresh green cooking plantain bunch from Penja Cameroon, high quality bananas with thick skin displayed on wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMgam1vTXOtFBpNhX_aTcKSGdnBgg46xOIo-pq-n5RNtENjlQArYjOWSzbGzt9J9Rxvk0lY5Orayr8DMg3Dp9ebYO7oVF4i0Y5O6JXlwVN6RH-wzvBtJI0RjETaqxzyI70aEuCslYlSPr2lnMsx2JVnulx-4SVLi7td_i_w-V2Oqhax0s-fd73L87Y8Kz8ZQqj-a0CGr8kD58bA02onJG6JA-zZZCHKvKA8TO_VfUt9QVsH51qUfo9"/>
+<span class="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-full bg-surface-white/90 font-label-sm text-label-sm font-semibold text-text-primary">Régime</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary leading-tight line-clamp-1">Plantain Penja</h3>
+<p class="font-label-sm text-label-sm text-text-secondary">Régime mûr 15-20 kg</p>
+</div>
+<div class="mt-2 pt-2 flex items-center justify-between">
+<span class="font-price-tag text-price-tag text-primary">4 500 FCFA</span>
+<button aria-label="Ajouter le plantain au panier" class="w-8 h-8 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-on-primary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<!-- Carte 2 : Patate douce -->
+<div class="rounded-2xl bg-surface-container-lowest p-2.5 shadow-sm flex flex-col justify-between">
+<div>
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-surface-container mb-2">
+<img class="w-full h-full object-cover" data-alt="Vibrant orange and purple skinned sweet potatoes harvested in Cameroon rich mountain loam, clean aesthetic display" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDciU00e_rpRBEtcpnR6Tv6gvdB2kPrLhSytwsl7BejSvyXKjw4m1V5Q4hIam4k_ruo5xbIVsVm5BLEePfJgA3PblEceQohsyuVs6xVcT5tUL3ISiH3qSvuIPHW8O6CybpaO7pSGFgLMW0xXUl_QpWV8Tyotr46feJ61T8KEE0_JkugSzwIbt-A-el4d3JR0vtuZXMnPUGcZIP4OEabIKVsdZKEAZLkg9kX1hEN7Iv_2osbCiixrQQx"/>
+<span class="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-full bg-surface-white/90 font-label-sm text-label-sm font-semibold text-text-primary">Sac 50kg</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary leading-tight line-clamp-1">Patate douce orange</h3>
+<p class="font-label-sm text-label-sm text-text-secondary">Variété riche en carotène</p>
+</div>
+<div class="mt-2 pt-2 flex items-center justify-between">
+<span class="font-price-tag text-price-tag text-primary">5 000 FCFA</span>
+<button aria-label="Ajouter la patate douce au panier" class="w-8 h-8 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-on-primary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Barre Fixe d'Achat Inférieure (Sticky Bottom Bar) -->
+<div class="fixed bottom-16 inset-x-0 z-40 bg-surface-white/95 backdrop-blur-xl shadow-lg px-gutter py-2.5 flex items-center gap-3">
+<div class="flex flex-col min-w-[90px]">
+<span class="font-label-sm text-label-sm text-text-secondary">Total estimé</span>
+<span class="font-price-tag text-price-tag text-text-primary leading-tight" id="sticky-total-price">8 000 FCFA</span>
+<span class="font-label-sm text-[10px] text-status-success font-medium" id="sticky-subtext">Prix standard</span>
+</div>
+<!-- Bouton Panier Principal -->
+<button class="flex-1 h-12 rounded-full bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-md active:scale-98 transition-all hover:bg-primary-container" id="add-to-cart-cta">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+<span id="cta-label">Ajouter au panier</span>
+</button>
+<!-- Bouton Négociation / Rapide -->
+<button aria-label="Négocier par message" class="w-12 h-12 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shadow-sm active:scale-95 transition-transform shrink-0" title="Commander par téléphone ou WhatsApp">
+<span class="material-symbols-outlined text-[22px]">call</span>
+</button>
+</div>
+</div>
+<!-- Script d'Interactivité Produit & Stepper -->
+<script>
+  (function() {
+    let quantity = 1;
+    const basePrice = 8000;
+    const discountThreshold = 5;
+    const discountRate = 0.05;
+
+    const qtyValEl = document.getElementById('qty-value');
+    const stickyTotalEl = document.getElementById('sticky-total-price');
+    const stickySubtextEl = document.getElementById('sticky-subtext');
+    const ctaLabelEl = document.getElementById('cta-label');
+    const btnDecrease = document.getElementById('qty-decrease');
+    const btnIncrease = document.getElementById('qty-increase');
+    const discountBanner = document.getElementById('discount-banner');
+    const favBtn = document.getElementById('favorite-btn');
+
+    function formatFcfa(amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " FCFA";
+    }
+
+    function updateView() {
+      qtyValEl.textContent = quantity;
+      
+      let unitPrice = basePrice;
+      let isDiscounted = quantity >= discountThreshold;
+
+      if (isDiscounted) {
+        unitPrice = basePrice * (1 - discountRate);
+        stickySubtextEl.textContent = "Remise de 5% appliquée !";
+        stickySubtextEl.className = "font-label-sm text-[10px] text-secondary font-bold";
+        discountBanner.classList.add("bg-secondary-fixed/50");
+      } else {
+        stickySubtextEl.textContent = "Prix standard";
+        stickySubtextEl.className = "font-label-sm text-[10px] text-text-secondary font-medium";
+        discountBanner.classList.remove("bg-secondary-fixed/50");
+      }
+
+      const total = Math.round(quantity * unitPrice);
+      const formattedTotal = formatFcfa(total);
+      
+      stickyTotalEl.textContent = formattedTotal;
+      ctaLabelEl.textContent = "Ajouter (" + formattedTotal + ")";
+    }
+
+    btnDecrease.addEventListener('click', function() {
+      if (quantity > 1) {
+        quantity--;
+        updateView();
+      }
+    });
+
+    btnIncrease.addEventListener('click', function() {
+      if (quantity < 120) {
+        quantity++;
+        updateView();
+      }
+    });
+
+    favBtn.addEventListener('click', function() {
+      const icon = favBtn.querySelector('.material-symbols-outlined');
+      if (icon.textContent === 'favorite_border') {
+        icon.textContent = 'favorite';
+        icon.style.fontVariationSettings = "'FILL' 1";
+        favBtn.classList.add('text-error');
+      } else {
+        icon.textContent = 'favorite_border';
+        icon.style.fontVariationSettings = "'FILL' 0";
+        favBtn.classList.remove('text-error');
+      }
+    });
+
+    // Galerie photo dynamique
+    window.switchImage = function(btn, src, alt) {
+      const mainImg = document.getElementById('main-product-img');
+      mainImg.src = src;
+      mainImg.setAttribute('data-alt', alt);
+      
+      document.querySelectorAll('.thumbnail-indicator').forEach(function(ind) {
+        ind.className = 'thumbnail-indicator absolute inset-0 bg-transparent pointer-events-none';
+      });
+      const currentIndicator = btn.querySelector('.thumbnail-indicator');
+      if (currentIndicator) {
+        currentIndicator.className = 'thumbnail-indicator absolute inset-0 bg-primary/20 pointer-events-none';
+      }
+    };
+
+    updateView();
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(31,36,33,0.05)]" data-active-classes="text-primary font-body-md-bold"><div class="flex items-center justify-around h-16 px-space-xs"><a class="flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-text-secondary hover:text-primary transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-[24px]">home</span><span class="font-label-sm text-label-sm">Accueil</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-text-secondary hover:text-primary transition-colors" data-path="catalog" href="#"><span class="material-symbols-outlined text-[24px]">storefront</span><span class="font-label-sm text-label-sm">Catalogue</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-text-secondary hover:text-primary transition-colors" data-path="trainings" href="#"><span class="material-symbols-outlined text-[24px]">school</span><span class="font-label-sm text-label-sm">Formations</span></a><a class="relative flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-text-secondary hover:text-primary transition-colors" data-path="messages" href="#"><div class="relative"><span class="material-symbols-outlined text-[24px]">chat</span><span class="absolute -top-1 -right-1.5 w-2.5 h-2.5 bg-secondary rounded-full ring-2 ring-surface"></span></div><span class="font-label-sm text-label-sm">Messages</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-text-secondary hover:text-primary transition-colors" data-path="account" href="#"><span class="material-symbols-outlined text-[24px]">person</span><span class="font-label-sm text-label-sm">Compte</span></a></div></nav></body></html>

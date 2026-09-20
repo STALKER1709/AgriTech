@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-container":"#fe9b52","surface-container-lowest":"#ffffff","tertiary-fixed-dim":"#f0c038","error":"#ba1a1a","on-secondary-fixed":"#311400","on-primary-fixed":"#00210c","text-primary":"#1F2421","surface-container-highest":"#e4e2dd","tertiary-fixed":"#ffdf94","on-primary-fixed-variant":"#005227","surface-container-low":"#f5f3ee","status-error":"#D32F2F","inverse-on-surface":"#f2f1ec","surface-tint":"#1c6c3b","on-primary-container":"#9ae9ab","secondary-fixed-dim":"#ffb786","on-background":"#1b1c19","surface-container":"#f0eee9","text-secondary":"#555F58","payment-mtn":"#FFCC00","secondary-fixed":"#ffdcc6","on-secondary-fixed-variant":"#723600","inverse-primary":"#8ad89c","primary":"#005127","tertiary":"#584300","surface-dim":"#dbdad5","on-primary":"#ffffff","on-error":"#ffffff","surface-bright":"#fbf9f4","on-tertiary-fixed-variant":"#594400","on-surface":"#1b1c19","surface":"#fbf9f4","secondary":"#954a00","status-warning":"#ED6C02","on-secondary-container":"#703500","on-tertiary-fixed":"#251a00","payment-orange":"#FF7900","tertiary-container":"#755a00","surface-variant":"#e4e2dd","surface-white":"#FFFFFF","outline-variant":"#bfc9bd","primary-fixed":"#a5f4b6","surface-container-high":"#eae8e3","on-surface-variant":"#404940","on-error-container":"#93000a","on-tertiary":"#ffffff","border-warm":"#E5E0D8","outline":"#707a6f","inverse-surface":"#30312e","error-container":"#ffdad6","primary-container":"#1b6b3a","background":"#fbf9f4","primary-fixed-dim":"#8ad89c","status-success":"#2E7D32","on-tertiary-container":"#ffd25c","on-secondary":"#ffffff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-sm":"0.5rem","margin":"1rem","gutter":"1rem","space-lg":"1.5rem","space-xl":"2rem","gutter-desktop":"1.5rem","space-xs":"0.25rem","margin-desktop":"2rem","space-md":"1rem","space-2xl":"3rem"},fontFamily:{"display-lg":["Plus Jakarta Sans"],"label-sm":["Inter"],"display-lg-mobile":["Plus Jakarta Sans"],"price-tag":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"body-md-bold":["Inter"],"label-lg":["Inter"],"headline-lg":["Plus Jakarta Sans"],"body-lg":["Inter"],"body-md":["Inter"]},fontSize:{"display-lg":["40px",{"lineHeight":"48px","fontWeight":"700"}],"label-sm":["12px",{"lineHeight":"16px","fontWeight":"500"}],"display-lg-mobile":["30px",{"lineHeight":"38px","fontWeight":"700"}],"price-tag":["18px",{"lineHeight":"22px","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"600"}],"headline-md":["22px",{"lineHeight":"28px","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"700"}],"body-md-bold":["16px",{"lineHeight":"24px","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"700"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}]}}}};</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-text-primary flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Retour" class="w-11 h-11 flex items-center justify-center text-on-surface hover:text-primary rounded-full transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="AgriTech Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1V_BiyY3BdZotVy28gxpxXlGk349sp_wchjz_QSByM4GDQiGJdLLWQE-4_dxDfJ_Xu3UMGSTDch87Awddj6WFCyRi3r5omEMO17OH8yWo8O6tKp-qQf65TtAuU9SLznEYlVmvSTcSPMpK7g8oj6KcVkt6qhLCSVqv4SlXBxrAp1EhNwvRwa6R6W2Rmt9_znS_mlekW8fBi2lu1d0QZKeM_nlqj35R0ZlPkdY2_rOdtbhvd96LPFVGL5cfs"/></div><div class="flex-1 px-space-xs text-center truncate"><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Lecteur De Formation</h1></div><div class="flex items-center shrink-0"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-24">
+<!-- Top Context Ribbon -->
+<div class="px-margin py-space-xs bg-surface-container flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="font-label-lg text-label-lg text-on-surface truncate">Maïs hybride au Cameroun</span>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<button aria-label="Télécharger le cours complet" class="flex items-center gap-1 bg-surface-container-highest active:bg-surface-dim px-3 py-1.5 rounded-full transition-colors" id="offline-download-btn">
+<span class="material-symbols-outlined text-text-secondary text-[18px]">download_for_offline</span>
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">Hors-ligne</span>
+</button>
+</div>
+</div>
+<!-- Video Player Section (16:9 Aspect Ratio) -->
+<div class="relative w-full aspect-video bg-inverse-surface overflow-hidden group select-none">
+<div class="w-full h-full bg-cover bg-center flex flex-col justify-between p-3 relative" data-alt="Lush green maize field in West Cameroon hills with healthy tall corn plants under golden afternoon sunlight, drone view of an agricultural pilot project with red volcanic fertile soil between plant rows and modern agrarian techniques, vivid organic green palette." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAItpFq-t3g7zP0taqO1Dxbq9qzEFsoQHdVLAxkf4K8Kyne5N4mJPWlGE2cvvtphK8vPcdGvvDBUqYfOqQgviaA3tWDSHU5IJz1puOHh96S4n9YQuZ4I_2NYCNebSqvzKiWnPHWcSWjo5fTQJmtx4n9k-MI_KIrAySdbriOdbwYrg_sXKwlQgk-FBIPuPOD0ilmKuPB_Qyf0LItU9aOFRc6xBm0DSk9X7n9fzFh6VA')">
+<!-- Video Gradient Scrims -->
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/90 via-transparent to-inverse-surface/60 pointer-events-none"></div>
+<!-- Video Player Top Bar Overlay -->
+<div class="relative z-10 flex items-center justify-between w-full">
+<div class="flex items-center gap-2">
+<span class="bg-primary/90 backdrop-blur-md text-on-primary font-label-sm text-label-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-pulse"></span>
+            En lecture
+          </span>
+<span class="bg-inverse-surface/80 backdrop-blur-md text-inverse-on-surface font-label-sm text-label-sm px-2.5 py-1 rounded-full">
+            HD 720p • Éco data
+          </span>
+</div>
+<button aria-label="Options de lecture" class="w-9 h-9 rounded-full bg-inverse-surface/60 backdrop-blur-md text-inverse-on-surface flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+<!-- Big Central Play/Pause Action -->
+<div class="relative z-10 flex items-center justify-center my-auto">
+<button class="w-14 h-14 rounded-full bg-primary/90 text-on-primary flex items-center justify-center shadow-xl active:scale-90 transition-all hover:bg-primary" id="video-play-btn">
+<span class="material-symbols-outlined text-[32px]" id="play-icon" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+</div>
+<!-- Video Player Bottom Controls -->
+<div class="relative z-10 flex flex-col gap-2 w-full pt-2">
+<!-- Interactive Progress Bar -->
+<div class="w-full flex items-center gap-2">
+<div class="relative w-full h-1.5 bg-inverse-on-surface/30 rounded-full cursor-pointer overflow-hidden">
+<div class="absolute top-0 left-0 bottom-0 w-[51%] bg-primary-fixed rounded-full"></div>
+<div class="absolute top-0 left-0 bottom-0 w-[68%] bg-inverse-on-surface/20 rounded-full"></div>
+</div>
+</div>
+<!-- Controls Row -->
+<div class="flex items-center justify-between text-inverse-on-surface">
+<div class="flex items-center gap-2">
+<button aria-label="Rejouer 10 secondes" class="p-1 text-inverse-on-surface active:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[20px]">replay_10</span>
+</button>
+<span class="font-label-sm text-label-sm tracking-wider font-semibold text-inverse-on-surface">14:25 / 28:40</span>
+</div>
+<div class="flex items-center gap-3">
+<!-- Playback speed toggle -->
+<button class="font-label-sm text-label-sm bg-inverse-surface/70 px-2 py-0.5 rounded-full text-inverse-on-surface font-semibold active:bg-primary transition-colors" id="speed-selector">
+              1.0x
+            </button>
+<button aria-label="Sous-titres en français" class="p-1 text-inverse-on-surface active:text-primary-fixed">
+<span class="material-symbols-outlined text-[20px]">subtitles</span>
+</button>
+<button aria-label="Mode plein écran" class="p-1 text-inverse-on-surface active:text-primary-fixed">
+<span class="material-symbols-outlined text-[20px]">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Current Module Info & Trainer Card -->
+<div class="p-margin bg-surface flex flex-col gap-space-sm shadow-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
+          Module 9 sur 12
+        </span>
+<span class="text-text-secondary font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">schedule</span> 42 min
+        </span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface leading-snug">
+        Lutte intégrée contre la chenille légionnaire (<em>Spodoptera frugiperda</em>)
+      </h2>
+</div>
+<!-- Trainer Note & Question CTA -->
+<div class="bg-surface-container-low rounded-xl p-3 flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<img class="w-11 h-11 rounded-full object-cover shrink-0 shadow-sm" data-alt="Close up portrait photo of Ing Samuel Fotso, an experienced Cameroonian agricultural agronomist smiling warmly wearing a green cap and polo in an experimental farm setting with bright daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2uynN9X2Mi7wnNTukd8cQ75zFiBGfUDmF_1yviUdVCW7bRjJZcVJOtQYA-CovOo31jXd776We5bHQXQCFISoRsTLI-OZPxgb7pTomtns1QyqNgbUVBstlnv_x7Ll-OHBZ5pS987OIbgXef47JXLILBMz2naDIh9S7XJsjY72BdgamqVCyuqwE-yPKoPcCAS5q-QJHVzPhkXLHMz05XybFLqZcILZHVt1MmNPmbGY"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-body-md-bold text-body-md-bold text-on-surface truncate">Ing. Samuel Fotso</span>
+<span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary truncate">Agronome Formateur • IRAD Foumbot</span>
+</div>
+</div>
+<button class="shrink-0 bg-primary/10 text-primary active:bg-primary active:text-on-primary font-label-sm text-label-sm font-semibold px-3 py-2 rounded-full transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+<span>Poser question</span>
+</button>
+</div>
+</div>
+<!-- Tab Navigation -->
+<div class="sticky top-16 z-20 bg-surface/95 backdrop-blur-md px-margin pt-space-xs shadow-sm flex items-center gap-2 overflow-x-auto">
+<button class="tab-btn pb-2.5 px-3 font-label-lg text-label-lg font-bold text-primary relative shrink-0 transition-colors" id="tab-btn-modules" onclick="switchTab('modules')">
+      Modules du cours
+      <span class="tab-indicator absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"></span>
+</button>
+<button class="tab-btn pb-2.5 px-3 font-label-lg text-label-lg text-text-secondary hover:text-on-surface relative shrink-0 transition-colors" id="tab-btn-ressources" onclick="switchTab('ressources')">
+      Ressources PDF
+      <span class="tab-badge ml-1 bg-surface-container-highest text-text-primary px-1.5 py-0.2 text-[11px] rounded-full">2</span>
+<span class="tab-indicator hidden absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"></span>
+</button>
+<button class="tab-btn pb-2.5 px-3 font-label-lg text-label-lg text-text-secondary hover:text-on-surface relative shrink-0 transition-colors" id="tab-btn-notes" onclick="switchTab('notes')">
+      Notes & Discussion
+      <span class="tab-indicator hidden absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"></span>
+</button>
+</div>
+<!-- TAB PANEL: MODULES -->
+<div class="px-margin py-space-sm flex flex-col gap-space-sm" id="panel-modules">
+<!-- Progress Mini Tracker -->
+<div class="bg-surface-container rounded-xl p-3.5 flex flex-col gap-2 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">Progression globale de la formation</span>
+<span class="font-label-lg text-label-lg text-primary font-bold">67% (8/12 validés)</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 67%;"></div>
+</div>
+</div>
+<!-- Module Playlist Items -->
+<div class="flex flex-col gap-2.5">
+<!-- Module 7: Completed -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-sm active:bg-surface-container transition-colors">
+<div class="w-8 h-8 rounded-full bg-status-success/15 text-status-success flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">Module 7</span>
+<span class="text-status-success font-label-sm text-label-sm">• Validé</span>
+</div>
+<h3 class="font-body-md-bold text-body-md-bold text-on-surface truncate">Semis de précision & densités optimales</h3>
+<span class="font-label-sm text-label-sm text-text-secondary">28 min • Revoir</span>
+</div>
+<button aria-label="Revoir le module 7" class="w-8 h-8 rounded-full bg-surface-container text-text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+</button>
+</div>
+<!-- Module 8: Completed -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-sm active:bg-surface-container transition-colors">
+<div class="w-8 h-8 rounded-full bg-status-success/15 text-status-success flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">Module 8</span>
+<span class="text-status-success font-label-sm text-label-sm">• Validé</span>
+</div>
+<h3 class="font-body-md-bold text-body-md-bold text-on-surface truncate">Fertilisation raisonnée NPK & compost bio</h3>
+<span class="font-label-sm text-label-sm text-text-secondary">35 min • Revoir</span>
+</div>
+<button aria-label="Revoir le module 8" class="w-8 h-8 rounded-full bg-surface-container text-text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+</button>
+</div>
+<!-- Module 9: CURRENT PLAYING (Prominently accented with primary background tint) -->
+<div class="bg-primary/5 rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-md relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0 pl-1">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-primary font-bold">Module 9 (En cours)</span>
+<span class="bg-primary/15 text-primary text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">14:25 / 42 min</span>
+</div>
+<h3 class="font-body-md-bold text-body-md-bold text-primary truncate font-bold">Lutte intégrée contre la chenille légionnaire</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Pièges à phéromones & bio-pesticides locaux</span>
+</div>
+<div class="flex items-center shrink-0">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+</div>
+</div>
+<!-- Module 10: Next up -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-sm hover:bg-surface-container transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container text-text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">lock_open</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">À suivre</span>
+<span class="text-text-secondary font-label-sm text-label-sm">• Module 10</span>
+</div>
+<h3 class="font-body-md-bold text-body-md-bold text-on-surface truncate">Gestion de l'irrigation en période de sécheresse</h3>
+<span class="font-label-sm text-label-sm text-text-secondary">30 min • Rétention d'humidité & paillage</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[20px] shrink-0">chevron_right</span>
+</div>
+<!-- Module 11: Up next -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-sm hover:bg-surface-container transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container text-text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">lock_open</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">À venir</span>
+<span class="text-text-secondary font-label-sm text-label-sm">• Module 11</span>
+</div>
+<h3 class="font-body-md-bold text-body-md-bold text-on-surface truncate">Récolte et séchage en sacs hermétiques PICS</h3>
+<span class="font-label-sm text-label-sm text-text-secondary">45 min • Protection post-récolte charançons</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[20px] shrink-0">chevron_right</span>
+</div>
+<!-- Module 12: Quiz final / Certification -->
+<div class="bg-tertiary-fixed/30 rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed-dim text-on-tertiary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-tertiary font-bold">Étape finale</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] px-2 py-0.5 rounded-full font-bold">Certifié IRAD</span>
+</div>
+<h3 class="font-body-md-bold text-body-md-bold text-on-surface truncate">Évaluation finale & Obtention du certificat</h3>
+<span class="font-label-sm text-label-sm text-text-secondary">Quiz 20 questions • Score min. 80%</span>
+</div>
+<span class="material-symbols-outlined text-tertiary text-[20px] shrink-0">lock</span>
+</div>
+</div>
+</div>
+<!-- TAB PANEL: RESSOURCES (Visible when toggled or fallback view) -->
+<div class="px-margin py-space-sm flex flex-col gap-space-sm hidden" id="panel-ressources">
+<div class="bg-surface-container rounded-xl p-3.5 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">folder_zip</span>
+</div>
+<div>
+<h4 class="font-body-md-bold text-body-md-bold text-on-surface">Documents pédagogiques complémentaires</h4>
+<p class="font-label-sm text-label-sm text-text-secondary">Téléchargez ces fiches techniques pour vos travaux au champ.</p>
+</div>
+</div>
+<div class="flex flex-col gap-2.5">
+<!-- Resource 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-sm hover:shadow transition-shadow">
+<div class="w-10 h-10 rounded-xl bg-error/10 text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<h4 class="font-body-md-bold text-body-md-bold text-on-surface truncate">Fiche pratique : Dosage du biopesticide neem</h4>
+<span class="font-label-sm text-label-sm text-text-secondary">PDF en français • 2.4 Mo • Déparasitage</span>
+</div>
+<button aria-label="Télécharger le document PDF neem" class="w-10 h-10 rounded-full bg-primary/10 text-primary active:bg-primary active:text-on-primary flex items-center justify-center shrink-0 transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+<!-- Resource 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-sm hover:shadow transition-shadow">
+<div class="w-10 h-10 rounded-xl bg-error/10 text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<h4 class="font-body-md-bold text-body-md-bold text-on-surface truncate">Calendrier cultural Ouest & Centre 2025</h4>
+<span class="font-label-sm text-label-sm text-text-secondary">PDF en français • 1.8 Mo • Saisons des pluies</span>
+</div>
+<button aria-label="Télécharger le calendrier cultural" class="w-10 h-10 rounded-full bg-primary/10 text-primary active:bg-primary active:text-on-primary flex items-center justify-center shrink-0 transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- TAB PANEL: NOTES & DISCUSSION (Placeholder panel) -->
+<div class="px-margin py-space-sm flex flex-col gap-space-sm hidden" id="panel-notes">
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Espace d'échange (34 questions)</h4>
+<span class="font-label-sm text-label-sm bg-primary/10 text-primary px-2.5 py-0.5 rounded-full font-bold">Actif</span>
+</div>
+<!-- Community Question Snippet -->
+<div class="p-3 bg-surface-container-low rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-body-md-bold text-body-md-bold text-on-surface">Jean-Paul Kamga • Bafoussam</span>
+<span class="font-label-sm text-label-sm text-text-secondary">Hier</span>
+</div>
+<p class="font-body-md text-body-md text-text-secondary text-[14px]">
+          « Bonjour formateur, combien de jours après le semis faut-il installer les pièges à phéromones ? »
+        </p>
+<div class="pl-3 border-l-2 border-primary/40 text-primary text-[13px] font-semibold">
+          Réponse de l'Ing. Fotso : Dès la levée (Jour 7 à 10) pour détecter les premiers papillons avant ponte.
+        </div>
+</div>
+<button class="w-full bg-surface-container hover:bg-surface-container-high py-2.5 rounded-full text-on-surface font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_comment</span>
+        Poser une nouvelle question
+      </button>
+</div>
+</div>
+<!-- Sticky Bottom Completion Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-xl p-margin pb-safe shadow-[0_-4px_16px_rgba(31,36,33,0.08)] flex items-center justify-between gap-3">
+<button aria-label="Module précédent" class="w-12 h-12 rounded-full bg-surface-container hover:bg-surface-container-high active:scale-95 text-on-surface flex items-center justify-center shrink-0 transition-transform">
+<span class="material-symbols-outlined text-[24px]">skip_previous</span>
+</button>
+<button class="flex-1 bg-primary active:bg-primary-container text-on-primary h-12 rounded-full px-4 flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.98]" id="complete-btn">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-headline-sm text-headline-sm text-[15px] truncate">Marquer comme terminé & Suivant</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<script>
+  // Tab switching interaction
+  function switchTab(tabKey) {
+    const tabs = ['modules', 'ressources', 'notes'];
+    tabs.forEach(key => {
+      const panel = document.getElementById('panel-' + key);
+      const btn = document.getElementById('tab-btn-' + key);
+      if (!panel || !btn) return;
+
+      const indicator = btn.querySelector('.tab-indicator');
+
+      if (key === tabKey) {
+        panel.classList.remove('hidden');
+        btn.classList.add('text-primary', 'font-bold');
+        btn.classList.remove('text-text-secondary');
+        if (indicator) indicator.classList.remove('hidden');
+      } else {
+        panel.classList.add('hidden');
+        btn.classList.remove('text-primary', 'font-bold');
+        btn.classList.add('text-text-secondary');
+        if (indicator) indicator.classList.add('hidden');
+      }
+    });
+  }
+
+  // Play/Pause Micro-interaction
+  const playBtn = document.getElementById('video-play-btn');
+  const playIcon = document.getElementById('play-icon');
+  let isPlaying = true;
+
+  if (playBtn && playIcon) {
+    playBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      playIcon.textContent = isPlaying ? 'pause' : 'play_arrow';
+    });
+  }
+
+  // Playback speed selector cycle
+  const speedBtn = document.getElementById('speed-selector');
+  const speeds = ['1.0x', '1.25x', '1.5x', '0.75x'];
+  let currentSpeedIndex = 0;
+
+  if (speedBtn) {
+    speedBtn.addEventListener('click', () => {
+      currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+      speedBtn.textContent = speeds[currentSpeedIndex];
+    });
+  }
+
+  // Mark completed celebration feedback
+  const completeBtn = document.getElementById('complete-btn');
+  if (completeBtn) {
+    completeBtn.addEventListener('click', () => {
+      completeBtn.innerHTML = `
+        <span class="material-symbols-outlined text-[20px]">done_all</span>
+        <span class="font-headline-sm text-[15px]">Module 9 validé ! Suivant...</span>
+      `;
+      completeBtn.classList.remove('bg-primary');
+      completeBtn.classList.add('bg-status-success');
+    });
+  }
+</script></main></body></html>

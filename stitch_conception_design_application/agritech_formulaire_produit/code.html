@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-error-container": "#93000a", "inverse-primary": "#8ad89c", "text-secondary": "#555F58", "surface-tint": "#1c6c3b", "surface": "#fbf9f4", "inverse-on-surface": "#f2f1ec", "tertiary-container": "#755a00", "on-tertiary-container": "#ffd25c", "on-primary-fixed": "#00210c", "primary": "#005127", "secondary-container": "#fe9b52", "status-warning": "#ED6C02", "surface-container-low": "#f5f3ee", "surface-container": "#f0eee9", "surface-dim": "#dbdad5", "surface-container-lowest": "#ffffff", "surface-bright": "#fbf9f4", "tertiary-fixed-dim": "#f0c038", "on-tertiary-fixed-variant": "#594400", "secondary": "#954a00", "primary-container": "#1b6b3a", "error": "#ba1a1a", "primary-fixed-dim": "#8ad89c", "on-error": "#ffffff", "surface-container-high": "#eae8e3", "surface-white": "#FFFFFF", "secondary-fixed": "#ffdcc6", "on-secondary-container": "#703500", "inverse-surface": "#30312e", "primary-fixed": "#a5f4b6", "on-secondary-fixed-variant": "#723600", "on-secondary-fixed": "#311400", "payment-orange": "#FF7900", "on-tertiary": "#ffffff", "status-success": "#2E7D32", "border-warm": "#E5E0D8", "outline": "#707a6f", "text-primary": "#1F2421", "on-primary-fixed-variant": "#005227", "payment-mtn": "#FFCC00", "on-surface": "#1b1c19", "on-primary-container": "#9ae9ab", "error-container": "#ffdad6", "on-secondary": "#ffffff", "status-error": "#D32F2F", "on-background": "#1b1c19", "surface-container-highest": "#e4e2dd", "tertiary": "#584300", "secondary-fixed-dim": "#ffb786", "tertiary-fixed": "#ffdf94", "on-surface-variant": "#404940", "on-primary": "#ffffff", "on-tertiary-fixed": "#251a00", "surface-variant": "#e4e2dd", "outline-variant": "#bfc9bd", "background": "#fbf9f4" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-md": "1rem", "gutter-desktop": "1.5rem", "gutter": "1rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "margin": "1rem", "space-2xl": "3rem", "space-xl": "2rem", "space-xs": "0.25rem", "margin-desktop": "2rem" }, fontFamily: { "label-lg": ["Inter"], "label-sm": ["Inter"], "body-lg": ["Inter"], "body-md-bold": ["Inter"], "body-md": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "price-tag": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"] }, fontSize: { "label-lg": ["14px", { lineHeight: "20px", fontWeight: "600" }], "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }], "body-md-bold": ["16px", { lineHeight: "24px", fontWeight: "600" }], "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }], "display-lg-mobile": ["30px", { lineHeight: "38px", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "price-tag": ["18px", { lineHeight: "22px", fontWeight: "700" }], "display-lg": ["40px", { lineHeight: "48px", fontWeight: "700" }], "headline-md": ["22px", { lineHeight: "28px", fontWeight: "600" }], "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-text-primary min-h-screen flex flex-col antialiased selection:bg-primary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0"><button aria-label="Retour" class="w-11 h-11 -ml-1.5 rounded-full flex items-center justify-center text-text-primary hover:bg-surface-container transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="Modern minimalist logo wordmark for AgriTech featuring a stylized vibrant green sprout leaf forming an organic growth curve, paired with clean typography. Colors: deep green #1B6B3A, warm earth #C8702A and subtle gold touch. Clean flat vector on transparent background.. Design context: - Primary color: #1b6b3a - Font: plusJakartaSans - Mode: light - Roundness: rounded-md . The logo should be visually consistent with these brand tokens." class="h-7 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1V_BiyY3BdZotVy28gxpxXlGk349sp_wchjz_QSByM4GDQiGJdLLWQE-4_dxDfJ_Xu3UMGSTDch87Awddj6WFCyRi3r5omEMO17OH8yWo8O6tKp-qQf65TtAuU9SLznEYlVmvSTcSPMpK7g8oj6KcVkt6qhLCSVqv4SlXBxrAp1EhNwvRwa6R6W2Rmt9_znS_mlekW8fBi2lu1d0QZKeM_nlqj35R0ZlPkdY2_rOdtbhvd96LPFVGL5cfs"/><h1 class="font-headline-sm text-headline-sm text-text-primary truncate">Formulaire Produit</h1></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Fermer" class="w-11 h-11 rounded-full flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-container transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">close</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-10">
+<!-- Feedback de modération (Rejet bienveillant et instructif) -->
+<div class="px-margin pt-space-md">
+<div class="bg-error-container text-on-error-container rounded-2xl p-space-md shadow-sm relative overflow-hidden">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-error flex items-center justify-center flex-shrink-0 text-on-error shadow-sm mt-0.5">
+<span class="material-symbols-outlined text-[20px]">priority_high</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-space-xs mb-1">
+<h2 class="font-headline-sm text-headline-sm text-error leading-tight">Fiche rejetée à la modération</h2>
+<span class="font-label-sm text-label-sm bg-surface-container-lowest/80 text-error px-2 py-0.5 rounded-full whitespace-nowrap">24 Mars</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-error-container mb-2 font-medium">Motif de l'auditeur AgriTech Cameroun :</p>
+<div class="bg-surface-container-lowest/70 p-3 rounded-xl">
+<p class="font-body-md text-body-md text-on-surface italic leading-snug">
+              « Photo floue ne permettant pas de vérifier la conformité sanitaire des piments. Merci de téléverser 2 clichés nets à la lumière naturelle montrant l'état des récoltes et le conditionnement en sachet. »
+            </p>
+</div>
+<div class="mt-2.5 flex items-center gap-1.5 text-on-error-container">
+<span class="material-symbols-outlined text-[16px]">tips_and_updates</span>
+<span class="font-label-sm text-label-sm font-semibold">Conseil : prenez vos clichés tôt le matin à l'ombre claire.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<form class="flex flex-col gap-space-lg mt-space-lg" id="product-form" onsubmit="event.preventDefault();">
+<!-- Section 1: Photos de la récolte -->
+<section class="px-margin flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-headline-sm text-headline-sm">1</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Photos de la récolte</h3>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary">1 requise minimum</span>
+</div>
+<p class="font-body-md text-body-md text-text-secondary">
+        Prenez des photos authentiques de vos champs ou récoltes au Cameroun. Évitez les photos floues ou téléchargées sur internet.
+      </p>
+<!-- Grille Photos Bento -->
+<div class="grid grid-cols-3 gap-space-sm mt-1">
+<!-- Photo 1: Rejetée / À remplacer -->
+<div class="relative group aspect-square rounded-2xl overflow-hidden bg-surface-container-high shadow-sm">
+<img class="w-full h-full object-cover filter blur-[1px] brightness-90" data-alt="Close-up slightly blurry red chili peppers in woven raffia basket under harsh sunlight, Cameroon agricultural produce needing retake, warm earth tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWg3pqDt0TsuUuMoL5qd4l-wkvrtJ42ok-HpXPl3oxHQ6b4FiEReptHPREhcALDiq3Xu2oIw2yIkCiiKBaikDw-ItfQwkWhVfRkkQ9wWtzCubOJ8I9N5TzBi8ZVxgJo7TzkTVXeQZbmuTp4Uvf3QKk0S3DiXvP7EUrfK_vMg0y4V9gvcVoA3MkaiR8d_C4pQvGBffjQVvc4fZkvOk62rcckzhUISAJANOtjqQXWZT7sAWhatOhzFnq"/>
+<div class="absolute inset-0 bg-error/25 flex flex-col justify-between p-2">
+<div class="self-start">
+<span class="inline-flex items-center gap-1 bg-status-error text-surface-white font-label-sm text-label-sm px-2 py-0.5 rounded-full shadow-md font-semibold">
+<span class="material-symbols-outlined text-[14px]">cancel</span>
+                À remplacer
+              </span>
+</div>
+<button class="w-full py-1.5 px-2 bg-surface-white text-status-error font-label-sm text-label-sm rounded-xl shadow-md flex items-center justify-center gap-1 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+              Refaire
+            </button>
+</div>
+</div>
+<!-- Slot 2: Ajouter cliché net -->
+<label class="aspect-square rounded-2xl bg-surface-container-lowest flex flex-col items-center justify-center text-center p-2 cursor-pointer shadow-sm active:bg-surface-container-low transition-colors group">
+<div class="w-10 h-10 rounded-full bg-primary-fixed/60 text-primary flex items-center justify-center group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">add_a_photo</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-text-primary mt-2">+ Cliché net</span>
+<span class="text-[11px] text-text-secondary leading-tight">En sachet</span>
+<input accept="image/*" class="hidden" type="file"/>
+</label>
+<!-- Slot 3: Ajouter détail champ -->
+<label class="aspect-square rounded-2xl bg-surface-container-lowest flex flex-col items-center justify-center text-center p-2 cursor-pointer shadow-sm active:bg-surface-container-low transition-colors group">
+<div class="w-10 h-10 rounded-full bg-surface-container text-text-secondary flex items-center justify-center group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">photo_camera</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-text-secondary mt-2">+ Cliché champ</span>
+<span class="text-[11px] text-text-secondary leading-tight">Facultatif</span>
+<input accept="image/*" class="hidden" type="file"/>
+</label>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl flex items-center gap-3 mt-1 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[22px] flex-shrink-0">verified</span>
+<p class="font-label-sm text-label-sm text-text-secondary">
+          Les fiches avec <strong class="text-text-primary">3 photos nettes</strong> reçoivent 4x plus d'appels de grossistes de Yaoundé et Douala.
+        </p>
+</div>
+</section>
+<!-- Section 2: Informations générales -->
+<section class="px-margin flex flex-col gap-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-headline-sm text-headline-sm">2</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Informations générales</h3>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex flex-col gap-4">
+<!-- Nom du produit -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-secondary flex items-center justify-between" for="prod-name">
+<span>Nom du produit <span class="text-error">*</span></span>
+<span class="text-[11px] text-status-success font-semibold">Attractif</span>
+</label>
+<div class="relative flex items-center">
+<input class="w-full h-[50px] px-4 rounded-xl bg-surface-container-low text-text-primary font-body-md-bold text-body-md-bold focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary shadow-inner" id="prod-name" type="text" value="Piment rouge doux séché de Foumbot"/>
+</div>
+</div>
+<!-- Catégorie -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-secondary" for="prod-cat">
+            Catégorie <span class="text-error">*</span>
+</label>
+<div class="relative">
+<select class="w-full h-[50px] px-4 pr-10 rounded-xl bg-surface-container-low text-text-primary font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary shadow-inner" id="prod-cat">
+<option selected="" value="maraichage">Maraîchage &amp; Épices</option>
+<option value="tubercules">Tubercules (Manioc, Macabo, Igname)</option>
+<option value="cereales">Céréales (Maïs, Riz local, Sorgho)</option>
+<option value="fruits">Fruits &amp; Agrumes</option>
+<option value="elevage">Élevage &amp; Petits ruminants</option>
+<option value="transformes">Produits transformés locaux</option>
+</select>
+<span class="material-symbols-outlined text-text-secondary pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[22px]">
+              expand_more
+            </span>
+</div>
+</div>
+<!-- Variété / Précision -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-secondary" for="prod-variety">
+            Variété / Spécificité locale
+          </label>
+<input class="w-full h-[50px] px-4 rounded-xl bg-surface-container-low text-text-primary font-body-md text-body-md focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary shadow-inner" id="prod-variety" type="text" value="Variété locale gros calibre sans pesticides"/>
+</div>
+<!-- Description détaillée -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-text-secondary" for="prod-desc">
+              Description détaillée <span class="text-error">*</span>
+</label>
+<span class="text-[11px] text-text-secondary">Conseillée pour la vente</span>
+</div>
+<textarea class="w-full p-3.5 rounded-xl bg-surface-container-low text-text-primary font-body-md text-body-md leading-relaxed focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary shadow-inner resize-none" id="prod-desc" rows="3">Piments séchés artisanalement au soleil sur nattes ventilées. Idéal pour sauces et assaisonnements locaux, goût parfumé sans brûlure excessive.</textarea>
+</div>
+</div>
+</section>
+<!-- Section 3: Prix et unité de vente -->
+<section class="px-margin flex flex-col gap-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-headline-sm text-headline-sm">3</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Prix et conditionnement</h3>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex flex-col gap-4">
+<!-- Unité de conditionnement -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-secondary" for="prod-unit">
+            Unité de conditionnement <span class="text-error">*</span>
+</label>
+<div class="relative">
+<select class="w-full h-[50px] px-4 pr-10 rounded-xl bg-surface-container-low text-text-primary font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary shadow-inner" id="prod-unit">
+<option selected="" value="sac">Sac / Sachet hermétique</option>
+<option value="kg">Kilogramme (kg)</option>
+<option value="sac50">Sac de 50 kg</option>
+<option value="sac25">Sac de 25 kg</option>
+<option value="cageot">Cageot standard</option>
+<option value="regime">Régime entier</option>
+<option value="litre">Litre (bidon)</option>
+<option value="piece">Pièce unitaire</option>
+</select>
+<span class="material-symbols-outlined text-text-secondary pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[22px]">
+              expand_more
+            </span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Prix unitaire -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-secondary" for="prod-price">
+              Prix unitaire <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center">
+<input class="w-full h-[50px] pl-3 pr-14 rounded-xl bg-surface-container-low text-text-primary font-price-tag text-price-tag focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary shadow-inner" id="prod-price" type="text" value="3 000"/>
+<span class="absolute right-3 font-label-sm text-label-sm font-bold text-text-secondary pointer-events-none">FCFA</span>
+</div>
+</div>
+<!-- Quantité disponible -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-secondary" for="prod-stock">
+              Stock dispo <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center">
+<input class="w-full h-[50px] pl-3 pr-12 rounded-xl bg-surface-container-low text-text-primary font-body-md-bold text-body-md-bold focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary shadow-inner" id="prod-stock" type="number" value="45"/>
+<span class="absolute right-3 font-label-sm text-label-sm text-text-secondary pointer-events-none">sacs</span>
+</div>
+</div>
+</div>
+<!-- Délai habituel de préparation -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-secondary" for="prod-delay">
+            Délai d'expédition après commande
+          </label>
+<div class="relative">
+<select class="w-full h-[50px] px-4 pr-10 rounded-xl bg-surface-container-low text-text-primary font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-white focus:ring-2 focus:ring-primary shadow-inner" id="prod-delay">
+<option selected="" value="24h">24 heures (Prêt le lendemain)</option>
+<option value="48h">48 heures</option>
+<option value="same">Le jour même (commande avant midi)</option>
+<option value="week">Sur récolte programmée (3-5 jours)</option>
+</select>
+<span class="material-symbols-outlined text-text-secondary pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[22px]">
+              expand_more
+            </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Lieu d'enlèvement et expédition -->
+<section class="px-margin flex flex-col gap-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-headline-sm text-headline-sm">4</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Lieu de collecte &amp; Transport</h3>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex flex-col gap-4">
+<!-- Origine / Ferme certifiée -->
+<div class="bg-surface-container-low p-3.5 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">agriculture</span>
+</div>
+<div class="truncate">
+<p class="font-label-sm text-label-sm text-text-secondary">Origine de la récolte</p>
+<p class="font-body-md-bold text-body-md-bold text-text-primary truncate">Ferme Papa Tagne</p>
+<p class="text-[12px] text-text-secondary">Foumbot (Région de l'Ouest)</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 bg-primary-fixed text-on-primary-fixed-variant px-2.5 py-1 rounded-full font-label-sm text-label-sm font-semibold flex-shrink-0">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+            Vérifié
+          </span>
+</div>
+<!-- Options d'expédition partenaires régionales -->
+<div class="flex flex-col gap-2 pt-1">
+<span class="font-label-lg text-label-lg text-text-secondary">Canaux d'expédition acceptés</span>
+<!-- Option 1: Touristique Express -->
+<label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md-bold text-body-md-bold text-text-primary">Touristique Express</span>
+<span class="text-[12px] text-text-secondary">Colis agence Yaoundé / Douala / Bafoussam</span>
+</div>
+</div>
+<input checked="" class="w-5 h-5 rounded accent-primary text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+</label>
+<!-- Option 2: Buca Voyages -->
+<label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">directions_bus</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md-bold text-body-md-bold text-text-primary">Buca Voyages</span>
+<span class="text-[12px] text-text-secondary">Expédition rapide vers le Centre &amp; Littoral</span>
+</div>
+</div>
+<input checked="" class="w-5 h-5 rounded accent-primary text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+</label>
+<!-- Option 3: Retrait direct à la ferme -->
+<label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md-bold text-body-md-bold text-text-primary">Retrait direct à la ferme</span>
+<span class="text-[12px] text-text-secondary">Enlèvement par grossiste sur place à Foumbot</span>
+</div>
+</div>
+<input checked="" class="w-5 h-5 rounded accent-primary text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+</label>
+</div>
+</div>
+</section>
+<!-- Notification Toast interactif masqué par défaut -->
+<div class="hidden fixed bottom-24 left-4 right-4 z-50 bg-inverse-surface text-inverse-on-surface p-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-bounce" id="submit-toast">
+<span class="material-symbols-outlined text-primary-fixed text-[26px]">check_circle</span>
+<div class="flex-1 text-left">
+<p class="font-headline-sm text-headline-sm text-white">Fiche envoyée avec succès !</p>
+<p class="font-label-sm text-label-sm text-surface-dim">Auditeur assigné : réponse sous 2h ouvrées.</p>
+</div>
+</div>
+<!-- Actions du bas -->
+<div class="px-margin flex flex-col gap-3 pt-2">
+<!-- Soumettre pour nouvelle modération -->
+<button class="w-full h-13 py-3.5 px-6 rounded-full bg-primary text-on-primary font-headline-sm text-headline-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.98] transition-transform" id="btn-submit" onclick="const toast = document.getElementById('submit-toast'); toast.classList.remove('hidden'); setTimeout(() =&gt; toast.classList.add('hidden'), 4000);" type="button">
+<span class="material-symbols-outlined text-[22px]">verified</span>
+<span>Soumettre pour nouvelle modération</span>
+</button>
+<!-- Enregistrer comme brouillon -->
+<button class="w-full h-12 py-3 px-6 rounded-full bg-surface-container text-text-primary font-label-lg text-label-lg flex items-center justify-center gap-2 active:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px] text-text-secondary">save</span>
+<span>Enregistrer comme brouillon</span>
+</button>
+<p class="text-center font-label-sm text-label-sm text-text-secondary pb-4">
+        Conformité garantie selon la charte qualité AgriTech Cameroun.
+      </p>
+</div>
+</form>
+</div></main></body></html>

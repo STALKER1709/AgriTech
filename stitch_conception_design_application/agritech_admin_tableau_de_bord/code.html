@@ -1,0 +1,537 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"border-warm":"#E5E0D8","on-tertiary-fixed":"#251a00","secondary-fixed":"#ffdcc6","tertiary-fixed":"#ffdf94","status-success":"#2E7D32","text-primary":"#1F2421","surface-container-high":"#eae8e3","surface-container":"#f0eee9","surface-white":"#FFFFFF","surface-container-highest":"#e4e2dd","surface-container-low":"#f5f3ee","on-error-container":"#93000a","on-surface-variant":"#404940","primary-fixed":"#a5f4b6","on-secondary":"#ffffff","on-secondary-container":"#703500","tertiary":"#584300","on-secondary-fixed-variant":"#723600","secondary-fixed-dim":"#ffb786","error-container":"#ffdad6","on-tertiary-fixed-variant":"#594400","payment-orange":"#FF7900","outline":"#707a6f","tertiary-fixed-dim":"#f0c038","secondary-container":"#fe9b52","outline-variant":"#bfc9bd","payment-mtn":"#FFCC00","surface-container-lowest":"#ffffff","primary":"#005127","inverse-surface":"#30312e","on-primary-container":"#9ae9ab","on-tertiary":"#ffffff","surface-dim":"#dbdad5","on-surface":"#1b1c19","on-secondary-fixed":"#311400","status-warning":"#ED6C02","on-primary":"#ffffff","background":"#fbf9f4","surface-bright":"#fbf9f4","inverse-on-surface":"#f2f1ec","error":"#ba1a1a","primary-fixed-dim":"#8ad89c","surface-tint":"#1c6c3b","tertiary-container":"#755a00","surface":"#fbf9f4","secondary":"#954a00","text-secondary":"#555F58","surface-variant":"#e4e2dd","on-background":"#1b1c19","inverse-primary":"#8ad89c","primary-container":"#1b6b3a","on-primary-fixed-variant":"#005227","on-error":"#ffffff","on-primary-fixed":"#00210c","status-error":"#D32F2F","on-tertiary-container":"#ffd25c"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-sm":"0.5rem","margin-desktop":"2rem","space-2xl":"3rem","space-xs":"0.25rem","space-xl":"2rem","gutter-desktop":"1.5rem","space-lg":"1.5rem","margin":"1rem","space-md":"1rem","gutter":"1rem"},fontFamily:{"display-lg":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"label-sm":["Inter"],"price-tag":["Plus Jakarta Sans"],"body-md":["Inter"],"body-lg":["Inter"],"headline-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"label-lg":["Inter"],"headline-lg":["Plus Jakarta Sans"],"body-md-bold":["Inter"]},fontSize:{"display-lg":["40px",{lineHeight:"48px",fontWeight:"700"}],"headline-sm":["18px",{lineHeight:"24px",fontWeight:"600"}],"headline-lg-mobile":["24px",{lineHeight:"32px",fontWeight:"700"}],"label-sm":["12px",{lineHeight:"16px",fontWeight:"500"}],"price-tag":["18px",{lineHeight:"22px",fontWeight:"700"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"headline-md":["22px",{lineHeight:"28px",fontWeight:"600"}],"display-lg-mobile":["30px",{lineHeight:"38px",fontWeight:"700"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"600"}],"headline-lg":["32px",{lineHeight:"40px",fontWeight:"700"}],"body-md-bold":["16px",{lineHeight:"24px",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-text-primary antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col flex-1 overflow-y-auto"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="Logo AgriTech" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1V_BiyY3BdZotVy28gxpxXlGk349sp_wchjz_QSByM4GDQiGJdLLWQE-4_dxDfJ_Xu3UMGSTDch87Awddj6WFCyRi3r5omEMO17OH8yWo8O6tKp-qQf65TtAuU9SLznEYlVmvSTcSPMpK7g8oj6KcVkt6qhLCSVqv4SlXBxrAp1EhNwvRwa6R6W2Rmt9_znS_mlekW8fBi2lu1d0QZKeM_nlqj35R0ZlPkdY2_rOdtbhvd96LPFVGL5cfs"><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight leading-none truncate">AgriTech</span><span class="font-label-sm text-label-sm text-text-secondary truncate mt-1">Back-office Central</span></div></div><div class="px-space-md py-space-xs"><div class="px-space-sm py-1.5 rounded-lg bg-surface-container flex items-center justify-between"><span class="font-label-sm text-label-sm text-text-secondary">Région Cameroun</span><span class="inline-flex items-center gap-1 font-label-sm text-label-sm font-semibold text-primary"><span class="w-2 h-2 rounded-full bg-status-success"></span>+237</span></div></div><nav class="flex-1 px-space-sm py-space-sm space-y-1" data-active-classes="bg-primary-container text-on-primary font-body-md-bold shadow-[0_1px_4px_rgba(0,0,0,0.06)]"><a aria-current="page" class="flex items-center justify-between px-space-sm py-2.5 rounded-lg transition-all bg-primary-container text-on-primary font-body-md-bold shadow-[0_1px_4px_rgba(0,0,0,0.06)]" data-path="tableau-de-bord" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span class="font-label-lg text-label-lg">Tableau de bord</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="agriculteurs-a-valider" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">how_to_reg</span><span class="font-label-lg text-label-lg">Agriculteurs à valider</span></div><span class="inline-flex items-center justify-center h-5 min-w-[20px] px-1.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold">5</span></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="utilisateurs" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-label-lg text-label-lg">Utilisateurs</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="moderation" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">gavel</span><span class="font-label-lg text-label-lg">Modération</span></div><span class="inline-flex items-center justify-center h-5 min-w-[20px] px-1.5 rounded-full bg-error text-on-error font-label-sm text-label-sm font-bold">3</span></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="privileges" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="font-label-lg text-label-lg">Privilèges</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="journal-daudit" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span class="font-label-lg text-label-lg">Journal d'audit</span></div></a><a class="flex items-center justify-between px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-text-primary transition-all" data-path="parametres" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-label-lg text-label-lg">Paramètres</span></div></a></nav></div><div class="p-space-sm bg-surface-container-low"><div class="p-space-sm rounded-xl bg-surface-container flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm min-w-0"><div class="relative flex-shrink-0"><div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-sm text-[14px]">MN</div><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-status-success ring-2 ring-surface-white"></span></div><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-text-primary font-semibold truncate">Dr. Marcelle Ngono</span><span class="font-label-sm text-label-sm text-text-secondary truncate">Super Admin MINADER</span></div></div><a class="p-1.5 rounded-lg text-text-secondary hover:bg-surface-container-high hover:text-error transition-colors flex-shrink-0" data-path="connexion" href="#" title="Déconnexion"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="pl-64 flex flex-col min-h-screen"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-white/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md flex-1 max-w-2xl"><div class="relative w-full max-w-md"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">search</span><input class="w-full h-10 pl-10 pr-space-md rounded-full bg-surface-container-low text-text-primary font-body-md text-[14px] placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Rechercher un producteur, utilisateur, commande..." type="text"></div><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low text-text-secondary font-label-sm text-label-sm"><span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span><span class="">Réseau DLA/YDE Opérationnel</span></div></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center px-3 py-1 rounded-full bg-surface-container-low font-label-sm text-label-sm font-semibold text-text-secondary">FCFA (XAF)</div><button class="relative p-2 rounded-full text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-payment-orange ring-2 ring-surface-white"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface flex-1 px-space-lg py-space-lg"><div class="flex flex-col w-full gap-space-lg pb-12">
+<!-- Page Header & Action Controls -->
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-status-success animate-ping"></span>
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-primary">Plateforme Nationale Active</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">Tableau de bord d'administration</h1>
+<p class="font-body-md text-text-secondary">Supervision globale de l'écosystème agropastoral au Cameroun • Données consolidées en direct</p>
+</div>
+<!-- Filters and Actions Toolbar -->
+<div class="flex flex-wrap items-center gap-3"><!-- Filtre Région Cameroun --><div class="relative flex items-center bg-surface-white rounded-full shadow-sm px-3 py-1.5 border-warm"><span class="material-symbols-outlined text-[18px] text-primary mr-1.5">location_on</span><select class="bg-transparent font-label-sm text-label-sm text-text-primary font-semibold focus:outline-none cursor-pointer pr-1"><option selected="">Toutes les régions (10)</option><option>Ouest (Bafoussam, Foumbot)</option><option>Littoral (Douala, Mbanga)</option><option>Centre (Yaoundé, Obala)</option><option>Nord-Ouest (Bamenda)</option><option>Adamaoua (Ngaoundéré)</option><option>Nord &amp; Extrême-Nord (Garoua, Maroua)</option><option>Sud &amp; Sud-Ouest</option></select></div><!-- Period Selector Segment --><div class="inline-flex p-1 rounded-full bg-surface-container-high shadow-inner" id="period-switcher"><button class="px-4 py-1.5 rounded-full font-label-sm text-label-sm font-semibold bg-surface-white text-text-primary shadow-sm transition-all" type="button">30 derniers jours</button><button class="px-4 py-1.5 rounded-full font-label-sm text-label-sm font-semibold text-text-secondary hover:text-text-primary transition-all" type="button">Aujourd'hui</button><button class="px-4 py-1.5 rounded-full font-label-sm text-label-sm font-semibold text-text-secondary hover:text-text-primary transition-all" type="button">Ce trimestre</button></div><!-- Action Button: Refresh --><button class="flex items-center gap-2 h-11 px-4 rounded-full bg-surface-white hover:bg-surface-container text-text-primary font-label-lg text-label-lg shadow-sm transition-all" title="Synchroniser" type="button"><span class="material-symbols-outlined text-[20px] text-text-secondary">sync</span><span class="hidden sm:inline">Actualiser</span></button><!-- Action Button: Export Dropdown Menu enrichi --><div class="relative group"><button class="flex items-center gap-2 h-11 px-5 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:shadow-lg transition-all" id="btn-open-export-modal" onclick="document.getElementById('export-modal').classList.remove('hidden')" type="button"><span class="material-symbols-outlined text-[20px]">download</span><span class="">Exporter</span><span class="material-symbols-outlined text-[18px]">expand_more</span></button><div class="absolute right-0 top-full mt-2 w-64 bg-surface-white rounded-xl shadow-xl p-2 hidden group-hover:block z-30 border-warm"><div class="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-text-secondary">Rapports téléchargeables</div><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-text-primary hover:bg-surface-container font-label-sm text-label-sm transition-colors" href="#"><span class="material-symbols-outlined text-status-error text-[18px]">picture_as_pdf</span><div><span class="font-semibold block">Export consolidé (PDF officiel)</span><span class="text-[11px] text-text-secondary">Tampon et visa MINADER</span></div></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-text-primary hover:bg-surface-container font-label-sm text-label-sm transition-colors" href="#"><span class="material-symbols-outlined text-status-success text-[18px]">table_chart</span><div><span class="font-semibold block">Rapport financier trimestriel</span><span class="text-[11px] text-text-secondary">Format Excel (.xlsx) / CSV</span></div></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-text-primary hover:bg-surface-container font-label-sm text-label-sm transition-colors" href="#"><span class="material-symbols-outlined text-secondary text-[18px]">receipt_long</span><div><span class="font-semibold block">Bordereau fiscal de compensation</span><span class="text-[11px] text-text-secondary">Taxes de transport &amp; TVA locale</span></div></a><div class="my-1 border-t border-warm"></div><button class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-primary hover:bg-primary/10 font-label-sm text-label-sm font-semibold transition-colors text-left" onclick="document.getElementById('export-modal').classList.remove('hidden')" type="button"><span class="material-symbols-outlined text-[18px]">tune</span>Configurer un export sur-mesure</button></div></div></div>
+</div>
+<!-- KPI Cards Grid (6 cards) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-space-md">
+<!-- KPI 1: Utilisateurs inscrits -->
+<div class="relative overflow-hidden rounded-xl bg-surface-white p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase text-text-secondary">Utilisateurs</span>
+<span class="p-2.5 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">group</span>
+</span>
+</div>
+<div class="mt-4">
+<div class="font-headline-lg text-headline-lg text-text-primary tracking-tight">14 820</div>
+<div class="flex items-center gap-1.5 mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-status-success/10 text-status-success font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+            +12.4%
+          </span>
+<span class="font-label-sm text-label-sm text-text-secondary">vs m-1</span>
+</div>
+</div>
+</div>
+<!-- KPI 2: Agriculteurs certifiés -->
+<div class="relative overflow-hidden rounded-xl bg-surface-white p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase text-text-secondary">Agriculteurs</span>
+<span class="p-2.5 rounded-xl bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">nature_people</span>
+</span>
+</div>
+<div class="mt-4">
+<div class="font-headline-lg text-headline-lg text-text-primary tracking-tight">1 248</div>
+<div class="flex items-center gap-1.5 mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-status-success/10 text-status-success font-label-sm text-label-sm font-bold">
+            +18 certifiés
+          </span>
+<span class="font-label-sm text-label-sm text-text-secondary">ce mois</span>
+</div>
+</div>
+</div>
+<!-- KPI 3: Dossiers en attente -->
+<div class="relative overflow-hidden rounded-xl bg-surface-white p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase text-text-secondary">Dossiers CNI/GIC</span>
+<span class="p-2.5 rounded-xl bg-payment-orange/15 text-payment-orange flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">assignment_turned_in</span>
+</span>
+</div>
+<div class="mt-4">
+<div class="font-headline-lg text-headline-lg text-text-primary tracking-tight">19</div>
+<div class="flex items-center gap-1.5 mt-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-status-warning/15 text-status-warning font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning"></span>
+            Action requise
+          </span>
+</div>
+</div>
+</div>
+<!-- KPI 4: Commandes du mois -->
+<div class="relative overflow-hidden rounded-xl bg-surface-white p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase text-text-secondary">Commandes</span>
+<span class="p-2.5 rounded-xl bg-surface-container-high text-text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">local_shipping</span>
+</span>
+</div>
+<div class="mt-4">
+<div class="font-headline-lg text-headline-lg text-text-primary tracking-tight">3 840</div>
+<div class="flex items-center gap-1.5 mt-2">
+<span class="font-label-sm text-label-sm font-semibold text-status-success">96.8%</span>
+<span class="font-label-sm text-label-sm text-text-secondary">livrées à temps</span>
+</div>
+</div>
+</div>
+<!-- KPI 5: Volume d'affaires (GMV) -->
+<div class="relative overflow-hidden rounded-xl bg-surface-white p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase text-text-secondary">Volume (GMV)</span>
+<span class="p-2.5 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">payments</span>
+</span>
+</div>
+<div class="mt-4">
+<div class="font-headline-sm text-headline-sm font-bold text-text-primary tracking-tight">84.65M <span class="text-[13px] font-normal text-text-secondary">FCFA</span></div>
+<div class="flex items-center gap-1.5 mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-status-success/10 text-status-success font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+            +24.5%
+          </span>
+</div>
+</div>
+</div>
+<!-- KPI 6: Publications à modérer -->
+<div class="relative overflow-hidden rounded-xl bg-surface-white p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase text-text-secondary">À Modérer</span>
+<span class="p-2.5 rounded-xl bg-status-error/10 text-status-error flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">policy</span>
+</span>
+</div>
+<div class="mt-4">
+<div class="font-headline-lg text-headline-lg text-text-primary tracking-tight">14</div>
+<div class="flex items-center gap-2 mt-2 font-label-sm text-label-sm text-text-secondary">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container font-semibold text-text-primary">9 récoltes</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container font-semibold text-text-primary">5 form.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Asymmetric Dashboard Grid (8 cols + 4 cols) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- Left Column (8 cols): Charts and Real-time Activity Feed -->
+<div class="xl:col-span-8 flex flex-col gap-space-lg min-w-0">
+<!-- Chart Card: Revenue & Harvest Volumes Evolution -->
+<div class="rounded-xl bg-surface-white p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-text-secondary">Métriques Financières Consolidées</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-text-primary font-semibold">Semestriel</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-text-primary tracking-tight mt-0.5">Évolution des transactions et volumes de récoltes</h2>
+</div>
+<!-- Dual metric legend -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-3.5 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm text-text-secondary">Récoltes fraîches</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-3.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-text-secondary">Formations &amp; Pass</span>
+</div>
+</div>
+</div>
+<!-- Custom SVG Chart Visualization with Peak Indicator -->
+<div class="relative w-full h-72 pt-4 flex flex-col justify-end">
+<!-- Peak Callout Badge -->
+<div class="absolute right-12 top-2 bg-surface-container-lowest px-3 py-1.5 rounded-xl shadow-md flex items-center gap-2 pointer-events-none z-10">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<div>
+<div class="font-label-sm text-label-sm text-text-secondary leading-none">Pic Mars 2025</div>
+<div class="font-label-lg text-label-lg font-bold text-primary leading-tight">84 650 000 FCFA</div>
+</div>
+</div>
+<!-- The SVG Graphic -->
+<svg class="w-full h-56 overflow-visible" preserveAspectRatio="none" viewBox="0 0 700 200">
+<defs>
+<linearGradient id="gradient-primary" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#005127" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#005127" stop-opacity="0.0"></stop>
+</linearGradient>
+<linearGradient id="gradient-secondary" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#954a00" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#954a00" stop-opacity="0.0"></stop>
+</linearGradient>
+</defs>
+<!-- Horizontal Grid lines -->
+<line stroke="#f0eee9" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="700" y1="20" y2="20"></line>
+<line stroke="#f0eee9" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="700" y1="70" y2="70"></line>
+<line stroke="#f0eee9" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="700" y1="120" y2="120"></line>
+<line stroke="#f0eee9" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="700" y1="170" y2="170"></line>
+<!-- Secondary Area & Curve (Formations/Abonnements) -->
+<path d="M 30,165 Q 150,150 260,135 T 450,110 T 570,85 T 670,60 L 670,185 L 30,185 Z" fill="url(#gradient-secondary)"></path>
+<path d="M 30,165 Q 150,150 260,135 T 450,110 T 570,85 T 670,60" fill="none" stroke="#954a00" stroke-linecap="round" stroke-width="3"></path>
+<!-- Primary Area & Curve (Récoltes Fraîches GMV) -->
+<path d="M 30,140 Q 150,120 260,95 T 450,70 T 570,45 T 670,25 L 670,185 L 30,185 Z" fill="url(#gradient-primary)"></path>
+<path d="M 30,140 Q 150,120 260,95 T 450,70 T 570,45 T 670,25" fill="none" stroke="#005127" stroke-linecap="round" stroke-width="3.5"></path>
+<!-- Highlight interactive dots -->
+<circle class="hover:r-7 transition-all cursor-pointer" cx="30" cy="140" fill="#005127" r="5"></circle>
+<circle class="hover:r-7 transition-all cursor-pointer" cx="150" cy="122" fill="#005127" r="5"></circle>
+<circle class="hover:r-7 transition-all cursor-pointer" cx="260" cy="95" fill="#005127" r="5"></circle>
+<circle class="hover:r-7 transition-all cursor-pointer" cx="380" cy="80" fill="#005127" r="5"></circle>
+<circle class="hover:r-7 transition-all cursor-pointer" cx="500" cy="55" fill="#005127" r="5"></circle>
+<circle class="cursor-pointer" cx="670" cy="25" fill="#005127" r="7" stroke="#ffffff" stroke-width="2"></circle>
+<circle class="cursor-pointer" cx="670" cy="60" fill="#954a00" r="6" stroke="#ffffff" stroke-width="2"></circle>
+</svg>
+<!-- X-Axis Labels -->
+<div class="flex justify-between items-center px-4 pt-2 text-text-secondary font-label-sm text-label-sm">
+<span class="">Octobre</span>
+<span class="">Novembre</span>
+<span class="">Décembre</span>
+<span class="">Janvier</span>
+<span class="">Février</span>
+<span class="font-bold text-primary">Mars (En cours)</span>
+</div>
+</div>
+<!-- Metric summaries footer bar -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 bg-surface-container-low rounded-xl p-4">
+<div>
+<div class="font-label-sm text-label-sm text-text-secondary">Panier moyen par commande</div>
+<div class="font-headline-sm text-headline-sm text-text-primary font-bold mt-0.5">22 050 FCFA</div>
+<span class="font-label-sm text-label-sm text-status-success font-medium">+8% vs m-1</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-text-secondary">Taux de conversion marketplace</div>
+<div class="font-headline-sm text-headline-sm text-text-primary font-bold mt-0.5">18.4%</div>
+<span class="font-label-sm text-label-sm text-status-success font-medium">+2.1 pts</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-text-secondary">Abonnements Pass Formations</div>
+<div class="font-headline-sm text-headline-sm text-text-primary font-bold mt-0.5">620 actifs</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium">+42 cette semaine</span>
+</div>
+</div>
+</div>
+<!-- Recent Key Platform Activity Feed / Table -->
+<div class="rounded-xl bg-surface-white p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+<div>
+<h2 class="font-headline-md text-headline-md text-text-primary tracking-tight">Dernières opérations vitales</h2>
+<p class="font-label-sm text-label-sm text-text-secondary">Flux audité en direct sur l'ensemble du territoire</p>
+</div>
+<a class="inline-flex items-center gap-1 font-label-sm text-label-sm font-semibold text-primary hover:underline" href="#">
+            Voir le journal d'audit complet
+            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<!-- Activity Feed Items -->
+<div class="space-y-3">
+<!-- Item 1: Commande Interurbaine -->
+<div class="p-4 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-[15px] text-text-primary font-bold">Commande groupée #CMD-2025-0495</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-white font-label-sm text-label-sm font-bold text-primary">20 500 FCFA</span>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-text-secondary mt-1">
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">pin_drop</span>
+                    Bafoussam (Ouest) → Yaoundé (Mvan)
+                  </span>
+<span class="">•</span>
+<span class="">Transporteur: Danpullo Agro Logistics</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 justify-between md:justify-end">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-status-warning/15 text-status-warning font-label-sm text-label-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-status-warning animate-pulse"></span>
+                En transit (RN4)
+              </span>
+<button class="p-1.5 rounded-lg text-text-secondary hover:bg-surface-white hover:text-text-primary" title="Inspecter le bon d'expédition" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Item 2: Modération Produit Rejeté -->
+<div class="p-4 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-status-error/15 text-status-error flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-[15px] text-text-primary font-bold">Lot rejeté: "Piment rouge doux de Foumbot"</span>
+<span class="px-2 py-0.5 rounded-full bg-status-error/15 font-label-sm text-label-sm font-bold text-status-error">Non conforme</span>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-text-secondary mt-1">
+<span class="">Rejeté par auditeur: Inspecteur K. Biya (Antenne Ouest)</span>
+<span class="">•</span>
+<span class="">Motif: Photos floues et absence de certification phytosanitaire</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 justify-between md:justify-end">
+<span class="font-label-sm text-label-sm text-text-secondary">Il y a 22 min</span>
+<button class="p-1.5 rounded-lg text-text-secondary hover:bg-surface-white hover:text-text-primary" title="Consulter la fiche" type="button">
+<span class="material-symbols-outlined text-[20px]">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- Item 3: Abonnement Pass Formations -->
+<div class="p-4 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">workspace_premium</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-[15px] text-text-primary font-bold">Nouvel abonnement: Pass Formations Agropastorales</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-white font-label-sm text-label-sm font-bold text-secondary">45 000 FCFA</span>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-text-secondary mt-1">
+<span class="inline-flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-payment-orange"></span>
+                    Orange Money Cameroun (#OM-8839210)
+                  </span>
+<span class="">•</span>
+<span class="">Bénéficiaire: Coopérative des Éleveurs de Garoua</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 justify-between md:justify-end">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-status-success/15 text-status-success font-label-sm text-label-sm font-semibold">
+                Actif (1 an)
+              </span>
+<span class="font-label-sm text-label-sm text-text-secondary">Il y a 1h</span>
+</div>
+</div>
+<!-- Item 4: Inscription GIC / Ferme -->
+<div class="p-4 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">agriculture</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-[15px] text-text-primary font-bold">GIC Agropastoral des Hauts Plateaux (Ferme Papa Tagne)</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-white font-label-sm text-label-sm text-text-secondary font-semibold">Baham, Ouest</span>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-text-secondary mt-1">
+<span class="">Spécialité: Aviculture &amp; Maïs blanc • 12 hectares enregistrés</span>
+<span class="">•</span>
+<span class="">Pièces MINADER jointes</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 justify-between md:justify-end">
+<button class="px-3.5 py-1.5 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold transition-colors" type="button">
+                Examiner
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (4 cols): Regional Distribution, System Health, Admin Shortcuts -->
+<div class="xl:col-span-4 flex flex-col gap-space-lg min-w-0">
+<!-- Geographic Distribution Card -->
+<div class="rounded-xl bg-surface-white p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Répartition des récoltes</h2>
+<p class="font-label-sm text-label-sm text-text-secondary">Volumes collectés par région agricole</p>
+</div>
+<span class="material-symbols-outlined text-primary text-[24px]">travel_explore</span>
+</div>
+<!-- Visual Progress Bars for Regions -->
+<div class="space-y-3.5 pt-2">
+<!-- Region 1: Ouest -->
+<div>
+<div class="flex justify-between items-center font-label-sm text-label-sm mb-1">
+<span class="font-semibold text-text-primary">Ouest (Bafoussam, Foumbot, Dschang)</span>
+<span class="font-bold text-primary">38% <span class="font-normal text-text-secondary">(474 agri.)</span></span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full rounded-full bg-primary" style="width: 38%"></div>
+</div>
+</div>
+<!-- Region 2: Littoral -->
+<div>
+<div class="flex justify-between items-center font-label-sm text-label-sm mb-1">
+<span class="font-semibold text-text-primary">Littoral (Moungo, Douala, Mbanga)</span>
+<span class="font-bold text-primary">24% <span class="font-normal text-text-secondary">(300 agri.)</span></span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full rounded-full bg-primary" style="width: 24%"></div>
+</div>
+</div>
+<!-- Region 3: Centre -->
+<div>
+<div class="flex justify-between items-center font-label-sm text-label-sm mb-1">
+<span class="font-semibold text-text-primary">Centre (Mbam-et-Inoubou, Obala)</span>
+<span class="font-bold text-primary">22% <span class="font-normal text-text-secondary">(275 agri.)</span></span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full rounded-full bg-primary" style="width: 22%"></div>
+</div>
+</div>
+<!-- Region 4: Nord-Ouest -->
+<div>
+<div class="flex justify-between items-center font-label-sm text-label-sm mb-1">
+<span class="font-semibold text-text-primary">Nord-Ouest (Bamenda, Ndop)</span>
+<span class="font-bold text-primary">10% <span class="font-normal text-text-secondary">(125 agri.)</span></span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full rounded-full bg-secondary" style="width: 10%"></div>
+</div>
+</div>
+<!-- Region 5: Adamaoua & Autres -->
+<div>
+<div class="flex justify-between items-center font-label-sm text-label-sm mb-1">
+<span class="font-semibold text-text-primary">Adamaoua, Sud &amp; Autres</span>
+<span class="font-bold text-primary">6% <span class="font-normal text-text-secondary">(74 agri.)</span></span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full rounded-full bg-secondary" style="width: 6%"></div>
+</div>
+</div>
+</div>
+<!-- Regional highlight tag -->
+<div class="mt-2 p-3 rounded-xl bg-surface-container flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">verified</span>
+<p class="font-label-sm text-label-sm text-text-secondary leading-snug">
+            Le bassin maraîcher de <span class="font-bold text-text-primary">Foumbot</span> enregistre le plus fort rendement de tomates fraîches ce mois.
+          </p>
+</div>
+</div>
+<!-- System Health & Gateways Status Card -->
+<div class="rounded-xl bg-surface-white p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Santé de l'infrastructure</h2>
+<p class="font-label-sm text-label-sm text-text-secondary">Passerelles de paiement &amp; connectivité</p>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-status-success/15 text-status-success font-label-sm text-label-sm font-bold">100% stable</span>
+</div>
+<div class="space-y-3 pt-1">
+<!-- MTN MoMo Gateway -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-[#FFFDF0]">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-[#FFCC00] text-[#1F2421] font-bold text-[12px] flex items-center justify-center">
+                MoMo
+              </div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-bold text-text-primary">Passerelle MTN MoMo</span>
+<span class="font-label-sm text-[11px] text-text-secondary">API v2.4 CAMPOST Bridge</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm font-bold text-status-success">99.8%</span>
+<div class="font-label-sm text-[11px] text-text-secondary">Uptime</div>
+</div>
+</div>
+<!-- Orange Money Gateway -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-[#FFF7F0]">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-[#FF7900] text-on-primary font-bold text-[12px] flex items-center justify-center">
+                OM
+              </div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-bold text-text-primary">Passerelle Orange Money</span>
+<span class="font-label-sm text-[11px] text-text-secondary">Web Payment API Direct</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm font-bold text-status-success">99.4%</span>
+<div class="font-label-sm text-[11px] text-text-secondary">Uptime</div>
+</div>
+</div>
+<!-- Server Latency & SMS MINADER Gateway -->
+<div class="grid grid-cols-2 gap-3 pt-1">
+<div class="p-3 rounded-xl bg-surface-container-low">
+<div class="font-label-sm text-[11px] text-text-secondary uppercase">Cluster YDE/DLA</div>
+<div class="font-headline-sm text-[16px] font-bold text-text-primary mt-1">38 ms</div>
+<div class="flex items-center gap-1 font-label-sm text-[11px] text-status-success mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                Latence faible
+              </div>
+</div>
+<div class="p-3 rounded-xl bg-surface-container-low">
+<div class="font-label-sm text-[11px] text-text-secondary uppercase">SMS MINADER</div>
+<div class="font-headline-sm text-[16px] font-bold text-text-primary mt-1">Opérationnel</div>
+<div class="flex items-center gap-1 font-label-sm text-[11px] text-status-success mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                Alertes météo OK
+              </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Administrative Actions & Shortcuts Card -->
+<div class="rounded-xl bg-surface-white p-space-lg shadow-sm flex flex-col gap-space-md">
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Raccourcis administratifs</h2>
+<div class="flex flex-col gap-2.5">
+<!-- Shortcut 1: Valider les dossiers -->
+<a class="group flex items-center justify-between p-3.5 rounded-xl bg-surface-container hover:bg-primary-container hover:text-on-primary transition-all" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary text-[22px]">how_to_reg</span>
+<div>
+<div class="font-label-lg text-label-lg font-bold">Valider les 5 dossiers prioritaires</div>
+<div class="font-label-sm text-label-sm text-text-secondary group-hover:text-on-primary/80">CNI et agréments GIC en attente</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+<!-- Shortcut 2: Modération express -->
+<a class="group flex items-center justify-between p-3.5 rounded-xl bg-surface-container hover:bg-secondary hover:text-on-secondary transition-all" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-secondary text-[22px]">shield</span>
+<div>
+<div class="font-label-lg text-label-lg font-bold">Lancer modération express</div>
+<div class="font-label-sm text-label-sm text-text-secondary group-hover:text-on-secondary/80">14 publications en file d'attente</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+<!-- Shortcut 3: Télécharger rapport fiscal -->
+<a class="group flex items-center justify-between p-3.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-text-primary text-[22px]">receipt_long</span>
+<div>
+<div class="font-label-lg text-label-lg font-bold text-text-primary">Télécharger rapport fiscal mensuel</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Synthèse TVA &amp; taxes de transport</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-text-secondary">file_download</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple tab toggle interaction for period selector
+  document.querySelectorAll('#period-switcher button').forEach(button => {
+    button.addEventListener('click', function() {
+      document.querySelectorAll('#period-switcher button').forEach(b => {
+        b.classList.remove('bg-surface-white', 'text-text-primary', 'shadow-sm');
+        b.classList.add('text-text-secondary');
+      });
+      this.classList.add('bg-surface-white', 'text-text-primary', 'shadow-sm');
+      this.classList.remove('text-text-secondary');
+    });
+  });
+</script><!-- Modale contextuelle: Exporter un rapport d'activité certifié --><div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm hidden" id="export-modal"><div class="relative w-full max-w-2xl bg-surface-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-warm animate-fade-in"><!-- Modal Header --><div class="flex items-center justify-between px-6 py-4 bg-surface-container border-b border-warm"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-[22px]">summarize</span></div><div><div class="flex items-center gap-2"><h3 class="font-headline-sm text-headline-sm text-text-primary font-bold">Exporter un rapport d'activité</h3><span class="px-2 py-0.5 rounded-full bg-status-success/15 text-status-success font-label-sm text-[11px] font-bold">Officiel MINADER</span></div><p class="font-label-sm text-label-sm text-text-secondary mt-0.5">Agrégation des données agropastorales et flux transactionnels Cameroun</p></div></div><button class="p-1.5 rounded-lg text-text-secondary hover:bg-surface-container-high hover:text-text-primary transition-colors" onclick="document.getElementById('export-modal').classList.add('hidden')" title="Fermer" type="button"><span class="material-symbols-outlined text-[22px]">close</span></button></div><!-- Modal Body --><div class="p-6 space-y-5 overflow-y-auto max-h-[calc(85vh-130px)]"><!-- Format Selection --><div class="space-y-2"><label class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-text-secondary">1. Format du document</label><div class="grid grid-cols-3 gap-3"><label class="relative flex flex-col p-3 rounded-xl border-2 border-primary bg-primary/10 cursor-pointer transition-all"><input checked="" class="sr-only" name="export_format" type="radio" value="pdf"><div class="flex items-center justify-between"><span class="material-symbols-outlined text-status-error text-[24px]">picture_as_pdf</span><span class="w-4 h-4 rounded-full bg-primary flex items-center justify-center"><span class="w-1.5 h-1.5 rounded-full bg-surface-white"></span></span></div><span class="font-label-lg text-label-lg font-bold text-text-primary mt-2">PDF Certifié</span><span class="font-label-sm text-[11px] text-text-secondary">Avec cachet numérique d'État</span></label><label class="relative flex flex-col p-3 rounded-xl border border-warm bg-surface-container-low hover:bg-surface-container cursor-pointer transition-all"><input class="sr-only" name="export_format" type="radio" value="xlsx"><div class="flex items-center justify-between"><span class="material-symbols-outlined text-status-success text-[24px]">table_chart</span><span class="w-4 h-4 rounded-full border border-outline"></span></div><span class="font-label-lg text-label-lg font-bold text-text-primary mt-2">Excel (.xlsx)</span><span class="font-label-sm text-[11px] text-text-secondary">Tableaux dynamiques &amp; TCD</span></label><label class="relative flex flex-col p-3 rounded-xl border border-warm bg-surface-container-low hover:bg-surface-container cursor-pointer transition-all"><input class="sr-only" name="export_format" type="radio" value="csv"><div class="flex items-center justify-between"><span class="material-symbols-outlined text-text-secondary text-[24px]">csv</span><span class="w-4 h-4 rounded-full border border-outline"></span></div><span class="font-label-lg text-label-lg font-bold text-text-primary mt-2">Données CSV</span><span class="font-label-sm text-[11px] text-text-secondary">Export brut encodage UTF-8</span></label></div></div><!-- Date Range Selection --><div class="space-y-2"><label class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-text-secondary">2. Plage temporelle &amp; Territoire</label><div class="grid grid-cols-1 sm:grid-cols-2 gap-3"><div><span class="block font-label-sm text-[12px] text-text-secondary mb-1">Période d'audit</span><div class="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-low border border-warm"><span class="material-symbols-outlined text-[18px] text-text-secondary">date_range</span><select class="w-full bg-transparent font-label-sm text-label-sm text-text-primary focus:outline-none"><option selected="">1er au 31 Mars 2025 (Mois courant)</option><option>T1 2025 (Janvier - Mars)</option><option>Semestre consolidé (Oct 2024 - Mars 2025)</option><option>Exercice annuel 2024</option></select></div></div><div><span class="block font-label-sm text-[12px] text-text-secondary mb-1">Périmètre géographique</span><div class="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-low border border-warm"><span class="material-symbols-outlined text-[18px] text-text-secondary">public</span><select class="w-full bg-transparent font-label-sm text-label-sm text-text-primary focus:outline-none"><option selected="">Territoire National (10 Régions)</option><option>Zone Ouest &amp; Littoral (Bassin maraîcher)</option><option>Zone Centre &amp; Sud (Cacao &amp; Vivres)</option><option>Zone Septentrionale (Élevage Garoua)</option></select></div></div></div></div><!-- Metrics Checklist --><div class="space-y-2"><label class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-text-secondary">3. Métriques clés à inclure</label><div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"><label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors"><input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary" type="checkbox"><span class="font-label-sm text-label-sm text-text-primary font-medium">Volumes marchands &amp; GMV (FCFA)</span></label><label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors"><input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary" type="checkbox"><span class="font-label-sm text-label-sm text-text-primary font-medium">Commissions &amp; Prélèvements perçus</span></label><label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors"><input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary" type="checkbox"><span class="font-label-sm text-label-sm text-text-primary font-medium">Délais d'acheminement &amp; corridors RN</span></label><label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors"><input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary" type="checkbox"><span class="font-label-sm text-label-sm text-text-primary font-medium">Taux d'audit phytosanitaire &amp; rejets</span></label></div></div><div class="p-3 rounded-xl bg-primary/10 flex items-start gap-2.5 text-primary"><span class="material-symbols-outlined text-[20px] flex-shrink-0 mt-0.5">verified_user</span><p class="font-label-sm text-[12px] leading-snug">Le document produit comportera un QR code de vérification cryptographique certifié par le MINADER Cameroun conforme à la loi sur le commerce électronique agropastoral.</p></div></div><!-- Modal Footer --><div class="flex items-center justify-between px-6 py-4 bg-surface-container border-t border-warm"><button class="px-4 py-2 rounded-full font-label-sm text-label-sm font-semibold text-text-secondary hover:bg-surface-container-high transition-colors" onclick="document.getElementById('export-modal').classList.add('hidden')" type="button">Annuler</button><button class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold shadow-md hover:shadow-lg transition-all" onclick="alert('Génération du rapport MINADER en cours... Téléchargement imminent.'); document.getElementById('export-modal').classList.add('hidden');" type="button"><span class="material-symbols-outlined text-[20px]">download_for_offline</span>Générer et télécharger le rapport certifié</button></div></div></div></main></div>
+
+</body></html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-error-container": "#93000a", "inverse-primary": "#8ad89c", "text-secondary": "#555F58", "surface-tint": "#1c6c3b", "surface": "#fbf9f4", "inverse-on-surface": "#f2f1ec", "tertiary-container": "#755a00", "on-tertiary-container": "#ffd25c", "on-primary-fixed": "#00210c", "primary": "#005127", "secondary-container": "#fe9b52", "status-warning": "#ED6C02", "surface-container-low": "#f5f3ee", "surface-container": "#f0eee9", "surface-dim": "#dbdad5", "surface-container-lowest": "#ffffff", "surface-bright": "#fbf9f4", "tertiary-fixed-dim": "#f0c038", "on-tertiary-fixed-variant": "#594400", "secondary": "#954a00", "primary-container": "#1b6b3a", "error": "#ba1a1a", "primary-fixed-dim": "#8ad89c", "on-error": "#ffffff", "surface-container-high": "#eae8e3", "surface-white": "#FFFFFF", "secondary-fixed": "#ffdcc6", "on-secondary-container": "#703500", "inverse-surface": "#30312e", "primary-fixed": "#a5f4b6", "on-secondary-fixed-variant": "#723600", "on-secondary-fixed": "#311400", "payment-orange": "#FF7900", "on-tertiary": "#ffffff", "status-success": "#2E7D32", "border-warm": "#E5E0D8", "outline": "#707a6f", "text-primary": "#1F2421", "on-primary-fixed-variant": "#005227", "payment-mtn": "#FFCC00", "on-surface": "#1b1c19", "on-primary-container": "#9ae9ab", "error-container": "#ffdad6", "on-secondary": "#ffffff", "status-error": "#D32F2F", "on-background": "#1b1c19", "surface-container-highest": "#e4e2dd", "tertiary": "#584300", "secondary-fixed-dim": "#ffb786", "tertiary-fixed": "#ffdf94", "on-surface-variant": "#404940", "on-primary": "#ffffff", "on-tertiary-fixed": "#251a00", "surface-variant": "#e4e2dd", "outline-variant": "#bfc9bd", "background": "#fbf9f4" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-md": "1rem", "gutter-desktop": "1.5rem", "gutter": "1rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "margin": "1rem", "space-2xl": "3rem", "space-xl": "2rem", "space-xs": "0.25rem", "margin-desktop": "2rem" }, fontFamily: { "label-lg": ["Inter"], "label-sm": ["Inter"], "body-lg": ["Inter"], "body-md-bold": ["Inter"], "body-md": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "price-tag": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"] }, fontSize: { "label-lg": ["14px", { lineHeight: "20px", fontWeight: "600" }], "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }], "body-md-bold": ["16px", { lineHeight: "24px", fontWeight: "600" }], "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }], "display-lg-mobile": ["30px", { lineHeight: "38px", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "price-tag": ["18px", { lineHeight: "22px", fontWeight: "700" }], "display-lg": ["40px", { lineHeight: "48px", fontWeight: "700" }], "headline-md": ["22px", { lineHeight: "28px", fontWeight: "600" }], "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-text-primary min-h-screen flex flex-col antialiased selection:bg-primary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Modern minimalist logo wordmark for AgriTech featuring a stylized vibrant green sprout leaf forming an organic growth curve, paired with clean typography. Colors: deep green #1B6B3A, warm earth #C8702A and subtle gold touch. Clean flat vector on transparent background.. Design context: - Primary color: #1b6b3a - Font: plusJakartaSans - Mode: light - Roundness: rounded-md . The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1V_BiyY3BdZotVy28gxpxXlGk349sp_wchjz_QSByM4GDQiGJdLLWQE-4_dxDfJ_Xu3UMGSTDch87Awddj6WFCyRi3r5omEMO17OH8yWo8O6tKp-qQf65TtAuU9SLznEYlVmvSTcSPMpK7g8oj6KcVkt6qhLCSVqv4SlXBxrAp1EhNwvRwa6R6W2Rmt9_znS_mlekW8fBi2lu1d0QZKeM_nlqj35R0ZlPkdY2_rOdtbhvd96LPFVGL5cfs"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary truncate leading-tight">Mes Formations</span><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-[10px] uppercase tracking-wider flex-shrink-0">Vendeur</span></div><div class="flex items-center gap-1 text-text-secondary truncate"><span class="material-symbols-outlined text-[13px] text-secondary">agriculture</span><span class="font-label-sm text-label-sm truncate">Ferme Papa Tagne</span></div></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Notifications" class="w-11 h-11 rounded-full flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-container relative transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-20 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Interactive script for switching tabs and simulated interactions -->
+<script>
+    function switchTab(targetTab) {
+      const contents = ['cours', 'creer', 'questions'];
+      contents.forEach(id => {
+        const el = document.getElementById('tab-content-' + id);
+        const btn = document.getElementById('tab-btn-' + id);
+        if (id === targetTab) {
+          el.classList.remove('hidden');
+          btn.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+          btn.classList.remove('bg-surface-container', 'text-text-secondary');
+        } else {
+          el.classList.add('hidden');
+          btn.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+          btn.classList.add('bg-surface-container', 'text-text-secondary');
+        }
+      });
+    }
+
+    function togglePassSelection(switchId) {
+      const checkbox = document.getElementById(switchId);
+      const knob = document.getElementById(switchId + '-knob');
+      const track = document.getElementById(switchId + '-track');
+      if (checkbox.checked) {
+        checkbox.checked = false;
+        track.classList.remove('bg-primary');
+        track.classList.add('bg-surface-container-highest');
+        knob.classList.remove('translate-x-5');
+        knob.classList.add('translate-x-0');
+      } else {
+        checkbox.checked = true;
+        track.classList.add('bg-primary');
+        track.classList.remove('bg-surface-container-highest');
+        knob.classList.remove('translate-x-0');
+        knob.classList.add('translate-x-5');
+      }
+    }
+  </script>
+<!-- Hero Banner & Welcome Framing -->
+<section class="px-margin pt-space-md pb-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+        Formateur Référent Ouest
+      </span>
+<span class="text-text-secondary font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-status-success">trending_up</span>
+        +18% ce mois
+      </span>
+</div>
+<div class="flex flex-col gap-1">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-text-primary">
+        Espace Formateur &amp; Savoir-faire
+      </h1>
+<p class="font-body-md text-body-md text-text-secondary">
+        Monétisez vos compétences agricoles pratiques auprès de +4 000 agriculteurs au Cameroun.
+      </p>
+</div>
+</section>
+<!-- Key Metrics Bento Row -->
+<section class="px-margin py-space-xs">
+<div class="grid grid-cols-3 gap-2.5 bg-surface-container-low p-3 rounded-xl shadow-sm">
+<!-- Stat 1: Revenue -->
+<div class="flex flex-col gap-1 bg-surface-white p-2.5 rounded-lg shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[11px] text-text-secondary uppercase tracking-tight">Revenus T3</span>
+<span class="material-symbols-outlined text-primary text-[16px]">payments</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-primary leading-tight">185 000</span>
+<span class="font-label-sm text-[10px] text-text-secondary -mt-0.5">FCFA net perçu</span>
+</div>
+<!-- Stat 2: Students -->
+<div class="flex flex-col gap-1 bg-surface-white p-2.5 rounded-lg shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[11px] text-text-secondary uppercase tracking-tight">Élèves</span>
+<span class="material-symbols-outlined text-secondary text-[16px]">groups</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-text-primary leading-tight">74</span>
+<span class="font-label-sm text-[10px] text-text-secondary -mt-0.5">Apprenants formés</span>
+</div>
+<!-- Stat 3: Rating -->
+<div class="flex flex-col gap-1 bg-surface-white p-2.5 rounded-lg shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[11px] text-text-secondary uppercase tracking-tight">Qualité</span>
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-text-primary leading-tight">4.9 ★</span>
+<span class="font-label-sm text-[10px] text-text-secondary -mt-0.5">38 avis certifiés</span>
+</div>
+</div>
+</section>
+<!-- Quick Primary Action -->
+<section class="px-margin pt-space-xs pb-space-sm">
+<button class="w-full h-12 rounded-full bg-primary hover:bg-primary-container active:scale-[0.99] transition-all flex items-center justify-center gap-2 text-on-primary font-label-lg text-label-lg shadow-md shadow-primary/20" onclick="switchTab('creer')">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>Proposer une nouvelle formation</span>
+</button>
+</section>
+<!-- Segmented Navigation Chips -->
+<section class="px-margin py-space-xs sticky top-16 z-40 bg-surface/95 backdrop-blur-md">
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+<button class="px-4 py-2 rounded-full font-label-sm text-label-sm whitespace-nowrap transition-all bg-primary text-on-primary shadow-sm flex items-center gap-1.5 min-h-[40px]" id="tab-btn-cours" onclick="switchTab('cours')">
+<span class="material-symbols-outlined text-[17px]">video_library</span>
+<span>Mes cours publiés (2)</span>
+</button>
+<button class="px-4 py-2 rounded-full font-label-sm text-label-sm whitespace-nowrap transition-all bg-surface-container text-text-secondary hover:text-text-primary flex items-center gap-1.5 min-h-[40px]" id="tab-btn-creer" onclick="switchTab('creer')">
+<span class="material-symbols-outlined text-[17px]">post_add</span>
+<span>Créer un module</span>
+</button>
+<button class="px-4 py-2 rounded-full font-label-sm text-label-sm whitespace-nowrap transition-all bg-surface-container text-text-secondary hover:text-text-primary flex items-center gap-1.5 min-h-[40px] relative" id="tab-btn-questions" onclick="switchTab('questions')">
+<span class="material-symbols-outlined text-[17px]">chat</span>
+<span>Questions des élèves</span>
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-status-warning text-surface-white font-label-sm text-[10px] font-bold">4</span>
+</button>
+</div>
+</section>
+<!-- TAB 1: PUBLISHED COURSES -->
+<section class="px-margin pt-space-xs pb-space-lg flex flex-col gap-space-md" id="tab-content-cours">
+<!-- Course 1 -->
+<article class="bg-surface-white rounded-xl overflow-hidden shadow-sm flex flex-col">
+<!-- Media Header with Badge -->
+<div class="relative h-44 w-full bg-surface-dim">
+<img class="w-full h-full object-cover" data-alt="A Cameroonian senior farmer in a lush tomato plantation during harvest season, tying sturdy bamboo stakes under warm tropical sunlight, high detail agricultural photography with vibrant green leaves and ripe red tomatoes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHB5Bo16tHJ5_xiA_kj-LZ8SgUGiqK-JqSrEIiNdw2tkhpzCAwwKNeNy5BgV2G3KB_AW5H-Eqw4Kmv1Qbd1jm6ngN9Obv9QoDiyNmEkN9ekS4XytRqIYQZCnp2uhzQ-bXqExJF7Cd3cjzF336vOVqpKjFmefH0gC937qA3GP-3fa4F2Vvlj_wAoC76KwvLmAMkAK1lRRSrJ3DK0qi0d1ydTt_ZAg49U_saj1HdEp19bthOhtKdFfxM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-text-primary/80 via-transparent to-transparent"></div>
+<!-- Video badge -->
+<span class="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-white/95 text-text-primary font-label-sm text-[11px] shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-[15px] text-primary">play_circle</span>
+          8 modules vidéo • 3h 15m
+        </span>
+<!-- Price Pill -->
+<span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full bg-primary text-on-primary font-price-tag text-price-tag shadow-sm">
+          12 000 FCFA
+        </span>
+<div class="absolute bottom-3 left-3 right-3 text-surface-white">
+<h2 class="font-headline-sm text-headline-sm text-surface-white drop-shadow-sm leading-snug">
+            Techniques intensives de culture de la tomate hors-saison
+          </h2>
+</div>
+</div>
+<!-- Content Details -->
+<div class="p-space-md flex flex-col gap-space-sm">
+<!-- Pass Formations Toggle -->
+<div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between gap-2">
+<div class="flex items-start gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-primary text-[20px] flex-shrink-0 mt-0.5">verified_user</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-text-primary font-semibold truncate">
+                Pass Formations AgriTech actif
+              </span>
+<span class="font-label-sm text-[11px] text-text-secondary leading-tight">
+                Rémunération au visionnage : 450 FCFA / heure
+              </span>
+</div>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-[10px] font-bold">
+            Actif
+          </span>
+</div>
+<!-- Metrics Row -->
+<div class="flex items-center justify-between text-text-secondary font-label-sm text-label-sm py-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[17px] text-secondary">shopping_bag</span>
+<span>48 ventes</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[17px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-text-primary font-semibold">4.9</span>
+<span>(29 avis)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="font-body-md-bold text-label-sm text-primary">144 000 FCFA</span>
+</div>
+</div>
+<!-- Course Actions Buttons -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="h-11 px-3 rounded-full bg-surface-container hover:bg-surface-container-high active:scale-[0.99] text-text-primary font-label-sm text-label-sm flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px] text-primary">video_settings</span>
+<span class="truncate">Gérer les vidéos</span>
+</button>
+<button class="h-11 px-3 rounded-full bg-surface-container hover:bg-surface-container-high active:scale-[0.99] text-text-primary font-label-sm text-label-sm flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px] text-secondary">analytics</span>
+<span class="truncate">Statistiques</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Course 2 -->
+<article class="bg-surface-white rounded-xl overflow-hidden shadow-sm flex flex-col">
+<!-- Media Header with Badge -->
+<div class="relative h-44 w-full bg-surface-dim">
+<img class="w-full h-full object-cover" data-alt="Traditional pest management ingredients laid out cleanly on wooden table: neem leaves, crushed red chili peppers, garlic cloves, mortar and pestle in soft daylight, artisanal agricultural education guide background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBVVxxBPwI4rKT-DEWiP5x_U6YMI7S6S0WuqkgayM_1ONL23kHB5jgI2x-oATRKRcPSAGTSZDe4HF_lF14iI9qxyDMuA_B08M-plsygaVYVKQd-BHYqIxmBPPG5GC0vVGDpZUsVvKH5u3QzgWGWdK2wFKWr-VitXuYzyKxPpDUAg8SRESIlV-sc48ZeaROHmYcLwz4StGlVVFgLTLVDdbo_lNsV0uFJg7UdifXNZAT13JHtUaN5c-L"/>
+<div class="absolute inset-0 bg-gradient-to-t from-text-primary/80 via-transparent to-transparent"></div>
+<!-- Format badge -->
+<span class="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-white/95 text-text-primary font-label-sm text-[11px] shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-[15px] text-secondary">menu_book</span>
+          Guide PDF • 28 fiches recettes
+        </span>
+<!-- Price Pill -->
+<span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full bg-primary text-on-primary font-price-tag text-price-tag shadow-sm">
+          5 000 FCFA
+        </span>
+<div class="absolute bottom-3 left-3 right-3 text-surface-white">
+<h2 class="font-headline-sm text-headline-sm text-surface-white drop-shadow-sm leading-snug">
+            Préparation des biopesticides à base de feuilles de neem et piment
+          </h2>
+</div>
+</div>
+<!-- Content Details -->
+<div class="p-space-md flex flex-col gap-space-sm">
+<!-- Certification Badge -->
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center gap-2">
+<span class="material-symbols-outlined text-status-success text-[20px]">task_alt</span>
+<span class="font-label-sm text-label-sm text-status-success font-semibold">
+            Publiée et certifiée AgriTech ✓
+          </span>
+</div>
+<!-- Metrics Row -->
+<div class="flex items-center justify-between text-text-secondary font-label-sm text-label-sm py-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[17px] text-text-secondary">download</span>
+<span>26 téléchargements</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[17px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-text-primary font-semibold">4.8</span>
+<span>(9 avis)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="font-body-md-bold text-label-sm text-primary">41 000 FCFA</span>
+</div>
+</div>
+<!-- Single Action Button -->
+<button class="h-11 px-4 rounded-full bg-surface-container hover:bg-surface-container-high active:scale-[0.99] text-text-primary font-label-sm text-label-sm flex items-center justify-center gap-2 transition-colors w-full">
+<span class="material-symbols-outlined text-[18px] text-secondary">upload_file</span>
+<span>Mettre à jour le fichier PDF</span>
+</button>
+</div>
+</article>
+<!-- Delight Tip Card -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-start gap-3 shadow-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-secondary-fixed text-[20px]">lightbulb</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-body-md-bold text-body-md-bold text-text-primary">Astuce pédagogique de Papa Tagne</h3>
+<p class="font-body-md text-[13px] text-text-secondary leading-snug">
+          Les apprenants préfèrent les vidéos de moins de 10 minutes filmées directement en champ. Mentionnez toujours les coûts des intrants en monnaie locale.
+        </p>
+</div>
+</div>
+</section>
+<!-- TAB 2: PROPOSAL / CREATION FORM -->
+<section class="hidden px-margin pt-space-xs pb-space-lg flex flex-col gap-space-md" id="tab-content-creer">
+<div class="bg-surface-white p-space-md rounded-xl shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed-variant">
+<span class="material-symbols-outlined text-[22px]">school</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Publier un nouveau tutoriel</h2>
+<span class="font-label-sm text-label-sm text-text-secondary">Validation pédagogique sous 24h à 48h</span>
+</div>
+</div>
+<form class="flex flex-col gap-4" onsubmit="event.preventDefault(); alert('Votre module a été transmis au comité de validation AgriTech !');">
+<!-- Field 1: Title -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-primary" for="course-title">
+            Titre du cours / tutoriel
+          </label>
+<input class="h-12 px-4 rounded-xl bg-surface-container-low text-text-primary font-body-md text-body-md placeholder:text-text-secondary/60 focus:bg-surface-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" id="course-title" placeholder="Ex: Greffage de l'avocatier en période sèche" type="text"/>
+</div>
+<!-- Field 2: Category -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-primary" for="course-category">
+            Catégorie agricole
+          </label>
+<div class="relative">
+<select class="h-12 w-full px-4 rounded-xl bg-surface-container-low text-text-primary font-body-md text-body-md appearance-none focus:bg-surface-white focus:outline-none focus:ring-2 focus:ring-primary/20" id="course-category">
+<option value="maraichage">Maraîchage &amp; Cultures Vivrières</option>
+<option value="arboriculture">Arboriculture fruitière</option>
+<option value="elevage">Petit élevage &amp; Aviculture</option>
+<option value="protection">Protection biologique &amp; Sols</option>
+<option value="transformation">Transformation &amp; Conservation</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-3 text-text-secondary pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Field 3: Format selector -->
+<div class="flex flex-col gap-2">
+<span class="font-label-lg text-label-lg text-text-primary">Format principal</span>
+<div class="grid grid-cols-2 gap-2.5">
+<label class="p-3 rounded-xl bg-surface-container-low flex flex-col gap-2 cursor-pointer has-[:checked]:bg-primary-fixed/30 transition-all">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-[22px]">videocam</span>
+<input checked="" class="w-4 h-4 accent-primary" name="format-type" type="radio"/>
+</div>
+<span class="font-label-sm text-label-sm text-text-primary font-bold">Vidéo MP4</span>
+<span class="font-label-sm text-[11px] text-text-secondary">Découpage en modules courts</span>
+</label>
+<label class="p-3 rounded-xl bg-surface-container-low flex flex-col gap-2 cursor-pointer has-[:checked]:bg-primary-fixed/30 transition-all">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-secondary text-[22px]">picture_as_pdf</span>
+<input class="w-4 h-4 accent-primary" name="format-type" type="radio"/>
+</div>
+<span class="font-label-sm text-label-sm text-text-primary font-bold">Guide PDF</span>
+<span class="font-label-sm text-[11px] text-text-secondary">Fiches pratiques illustrées</span>
+</label>
+</div>
+</div>
+<!-- Field 4: Price -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-lg text-label-lg text-text-primary" for="course-price">
+            Prix de vente unitaire (FCFA)
+          </label>
+<div class="relative">
+<input class="h-12 w-full pl-4 pr-16 rounded-xl bg-surface-container-low text-text-primary font-price-tag text-price-tag placeholder:text-text-secondary/60 focus:bg-surface-white focus:outline-none focus:ring-2 focus:ring-primary/20" id="course-price" placeholder="8 000" step="500" type="number"/>
+<span class="absolute right-4 top-3 text-text-secondary font-label-sm text-label-sm font-bold">FCFA</span>
+</div>
+<span class="font-label-sm text-[11px] text-text-secondary">Montant recommandé pour les manuels de terrain : 3 000 à 15 000 FCFA.</span>
+</div>
+<!-- Switch Pass Formations -->
+<div class="p-3.5 rounded-xl bg-surface-container-low flex items-start gap-3 cursor-pointer select-none" onclick="togglePassSelection('pass-toggle')">
+<input checked="" class="sr-only" id="pass-toggle" type="checkbox"/>
+<div class="w-11 h-6 rounded-full bg-primary flex items-center p-0.5 transition-colors flex-shrink-0 mt-0.5" id="pass-toggle-track">
+<div class="w-5 h-5 rounded-full bg-surface-white shadow-sm transform translate-x-5 transition-transform" id="pass-toggle-knob"></div>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-primary font-semibold">
+              Accepter l'inclusion dans le Pass Formations AgriTech
+            </span>
+<span class="font-label-sm text-[11px] text-text-secondary leading-snug">
+              Gagnez des revenus récurrents calculés sur chaque abonné qui suit votre cours en streaming.
+            </span>
+</div>
+</div>
+<!-- Submit CTA -->
+<button class="mt-2 w-full h-12 rounded-full bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 active:scale-[0.99] shadow-md shadow-primary/20 transition-all" type="submit">
+<span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
+<span>Soumettre à l'agrément pédagogique</span>
+</button>
+</form>
+</div>
+</section>
+<!-- TAB 3: STUDENT QUESTIONS -->
+<section class="hidden px-margin pt-space-xs pb-space-lg flex flex-col gap-space-md" id="tab-content-questions">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-text-primary">Questions en attente</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-status-warning/15 text-status-warning font-label-sm text-label-sm font-bold">
+        4 non résolues
+      </span>
+</div>
+<!-- Question 1 (Featured in Prompt) -->
+<article class="bg-surface-white p-space-md rounded-xl shadow-sm flex flex-col gap-3">
+<!-- Student Info -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-on-secondary-fixed">
+            PK
+          </div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-primary font-bold">Paulin K.</span>
+<span class="font-label-sm text-[11px] text-text-secondary">Foumbot, Région de l'Ouest • Il y a 2h</span>
+</div>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-[10px] text-text-secondary">
+          Module Tomate
+        </span>
+</div>
+<!-- Question Text -->
+<div class="p-3 rounded-lg bg-surface-container-low">
+<p class="font-body-md text-body-md text-text-primary italic">
+          « Bonjour Papa Tagne, quel type de tuteurage en bambou conseillez-vous pour la saison des pluies à Foumbot ? »
+        </p>
+</div>
+<!-- Answer Actions -->
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center gap-2">
+<button class="flex-1 h-11 px-3 rounded-full bg-primary hover:bg-primary-container active:scale-[0.99] text-on-primary font-label-sm text-label-sm flex items-center justify-center gap-2 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">mic</span>
+<span>Répondre par note vocale</span>
+</button>
+<button class="w-11 h-11 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-text-primary transition-colors" title="Répondre via WhatsApp">
+<span class="material-symbols-outlined text-[20px] text-status-success">forum</span>
+</button>
+</div>
+<span class="text-center font-label-sm text-[11px] text-text-secondary">
+          Vos réponses sont automatiquement partagées dans la FAQ du cours.
+        </span>
+</div>
+</article>
+<!-- Question 2 -->
+<article class="bg-surface-white p-space-md rounded-xl shadow-sm flex flex-col gap-3 opacity-95">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-text-primary">
+            AM
+          </div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-primary font-bold">Aissatou M.</span>
+<span class="font-label-sm text-[11px] text-text-secondary">Garoua • Il y a 5h</span>
+</div>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-[10px] text-text-secondary">
+          Biopesticides
+        </span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low">
+<p class="font-body-md text-body-md text-text-primary italic">
+          « Est-ce que le purin de piment convient aussi aux jeunes pousses d'arachides sans risque de brûlure ? »
+        </p>
+</div>
+<button class="h-11 px-4 rounded-full bg-surface-container hover:bg-surface-container-high text-text-primary font-label-sm text-label-sm flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span>Répondre par texte</span>
+</button>
+</article>
+</section>
+<!-- Community Honor Roll / Producer Encouragement Bottom Card -->
+<section class="px-margin pt-space-xs pb-space-lg">
+<div class="p-4 rounded-2xl bg-gradient-to-r from-primary-fixed/40 via-surface-container-low to-secondary-fixed/40 flex items-center gap-3 shadow-sm">
+<div class="w-12 h-12 rounded-full bg-surface-white flex items-center justify-center shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-primary text-[26px]">emoji_events</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-[15px] text-text-primary">Label Maître-Formateur AgriTech</span>
+<p class="font-body-md text-[12px] text-text-secondary">
+          Plus que 26 élèves avant d'atteindre le palier 100 diplômés et d'obtenir le bonus pédagogique de 50 000 FCFA.
+        </p>
+</div>
+</div>
+</section>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-white/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(31,36,33,0.06)]" data-active-classes="text-primary font-bold"><div class="h-16 px-space-xs flex items-center justify-around"><a class="min-w-[48px] min-h-[48px] px-space-xs flex flex-col items-center justify-center gap-0.5 text-text-secondary hover:text-primary transition-colors" data-path="dashboard-vendeur" href="#"><span class="material-symbols-outlined text-[22px]">space_dashboard</span><span class="font-label-sm text-[11px] leading-tight">Bord</span></a><a class="min-w-[48px] min-h-[48px] px-space-xs flex flex-col items-center justify-center gap-0.5 text-text-secondary hover:text-primary transition-colors" data-path="mes-produits" href="#"><span class="material-symbols-outlined text-[22px]">inventory_2</span><span class="font-label-sm text-[11px] leading-tight">Produits</span></a><a class="min-w-[48px] min-h-[48px] px-space-xs flex flex-col items-center justify-center gap-0.5 text-text-secondary hover:text-primary transition-colors relative" data-path="commandes-recues" href="#"><div class="relative"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span class="absolute -top-1 -right-2 px-1 rounded-full bg-secondary text-on-secondary font-label-sm text-[9px] font-bold min-w-[15px] text-center leading-3 py-0.5">4</span></div><span class="font-label-sm text-[11px] leading-tight">Commandes</span></a><a aria-current="page" class="min-w-[48px] min-h-[48px] px-space-xs flex flex-col items-center justify-center gap-0.5 transition-colors text-primary font-bold" data-path="mes-formations" href="#"><span class="material-symbols-outlined text-[22px]">school</span><span class="font-label-sm text-[11px] leading-tight">Formations</span></a><a class="min-w-[48px] min-h-[48px] px-space-xs flex flex-col items-center justify-center gap-0.5 text-text-secondary hover:text-primary transition-colors" data-path="profil-exploitation" href="#"><span class="material-symbols-outlined text-[22px]">settings_account_box</span><span class="font-label-sm text-[11px] leading-tight">Compte</span></a></div></nav></body></html>
