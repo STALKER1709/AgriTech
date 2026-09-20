@@ -11,57 +11,60 @@
 /*
 | AgriTech design system — stitch_conception_design_application/agritech_design_system
 |
-| Palette enracinée dans le cycle vivant de l'agriculture : vert forêt
-| (#1B6B3A) pour les actions principales, terre cuite (#C8702A) pour les
-| accents "formation" et le panier, or (#E8B931) pour les micro-interactions
-| de valeur (abonnement, badges). Toile ivoire chaude (#FAF8F3) plutôt que
-| blanc pur, pensée pour un usage en plein soleil.
+| Chaque valeur ci-dessous provient de DESIGN.md : ivoire chaud (#FBF9F4) plutôt
+| que blanc pur, vert forêt (#1B6B3A) pour l'action, terre cuite (#C8702A) pour
+| les accents formation et panier, or (#E8B931) pour la valeur (abonnement,
+| badges). Les rayons sont hybrides : 14px pour les cartes, pilule pour les
+| actions. Les ombres portent une trace du quasi-noir chaud #1F2421.
 */
 @theme {
+    /* Typographie : Plus Jakarta Sans (titres, prix), Inter (corps, labels) */
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-    /* Neutres chauds du design system */
-    --color-zinc-50: #faf8f3;
-    --color-zinc-100: #f5f3ee;
-    --color-zinc-200: #e5e0d8;
-    --color-zinc-300: #cfc9bd;
-    --color-zinc-400: #a8a296;
-    --color-zinc-500: #555f58;
-    --color-zinc-600: #46504a;
-    --color-zinc-700: #404940;
-    --color-zinc-800: #1f2421;
-    --color-zinc-900: #1b1c19;
-    --color-zinc-950: #121310;
+    /* Canvas et surfaces (échelle Stitch) */
+    --color-stitch-surface: #fbf9f4;
+    --color-stitch-card: #ffffff;
+    --color-stitch-low: #f5f3ee;
+    --color-stitch-container: #f0eee9;
+    --color-stitch-high: #eae8e3;
+    --color-stitch-highest: #e4e2dd;
+    --color-stitch-border: #e5e0d8;
+    --color-stitch-ink: #1f2421;
+    --color-stitch-muted: #555f58;
 
-    /* Primaire : vert forêt */
-    --color-accent: #1b6b3a;
-    --color-accent-hover: #15542e;
-    --color-accent-content: #1b6b3a;
-    --color-accent-foreground: #ffffff;
+    /* Couleurs de marque */
+    --color-stitch-primary: #1b6b3a;
+    --color-stitch-primary-dark: #15542e;
+    --color-stitch-primary-fixed: #a5f4b6;
+    --color-stitch-primary-fixed-ink: #00210c;
+    --color-stitch-terra: #c8702a;
+    --color-stitch-terra-soft: #ffdcc6;
+    --color-stitch-terra-ink: #311400;
+    --color-stitch-gold: #e8b931;
+    --color-stitch-gold-soft: #ffdf94;
+    --color-stitch-gold-ink: #251a00;
 
-    /* Sémantique du design system */
-    --color-agri-success: #2e7d32;
-    --color-agri-warning: #ed6c02;
-    --color-agri-error: #ba1a1a;
-    --color-agri-gold: #e8b931;
-    --color-agri-terracotta: #c8702a;
+    /* Sémantique */
+    --color-stitch-success: #2e7d32;
+    --color-stitch-success-soft: #e8f5e9;
+    --color-stitch-warning: #ed6c02;
+    --color-stitch-warning-soft: #fff3e0;
+    --color-stitch-danger: #d32f2f;
+    --color-stitch-danger-soft: #ffebee;
 
-    /* Rayons : cartes 14px, actions en pilule */
+    /* Paiement : identité opérateurs */
+    --color-stitch-mtn: #ffcc00;
+    --color-stitch-orange: #ff7900;
+
+    /* Rayons du design system : cartes 14px, pilules pour les actions */
     --radius-xl: 0.875rem;
+    --radius-2xl: 1rem;
 
-    /* Ombres teintées du quasi-noir chaud, jamais d'un gris froid */
+    /* Ombres chaudes (jamais de gris froid) */
     --shadow-card: 0 2px 8px rgb(31 36 33 / 0.04);
     --shadow-raised: 0 6px 16px rgb(31 36 33 / 0.08);
-}
-
-@layer theme {
-    .dark {
-        --color-accent: #9ae9ab;
-        --color-accent-hover: #8ad89c;
-        --color-accent-content: #9ae9ab;
-        --color-accent-foreground: #00210c;
-    }
+    --shadow-float: 0 12px 28px rgb(31 36 33 / 0.12);
 }
 
 @layer base {
@@ -71,11 +74,13 @@
     ::before,
     ::backdrop,
     ::file-selector-button {
-        border-color: var(--color-zinc-200);
+        border-color: var(--color-stitch-border);
     }
 
     body {
         font-family: var(--font-sans);
+        color: var(--color-stitch-ink);
+        background-color: var(--color-stitch-surface);
     }
 
     /* Les titres portent la police display du design system. */
@@ -83,8 +88,58 @@
         font-family: var(--font-display);
         letter-spacing: -0.01em;
     }
+
+    /* Zone tactile : cible de 44px minimum sur mobile (design system). */
+    html {
+        -webkit-tap-highlight-color: transparent;
+    }
 }
 
+/*
+| Composants utilitaires du design system. Les écrans Stitch combinent
+| surface blanche + bordure chaude + ombre douce ; les boutons et filtres
+| sont des pilules ; les badges reprennent les teintes sémantiques.
+*/
+@layer components {
+    .stitch-card {
+        @apply rounded-xl border border-stitch-border bg-white shadow-card;
+    }
+
+    .stitch-chip {
+        @apply inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-stitch-border bg-white px-3.5 font-medium text-stitch-muted shadow-card transition-colors hover:text-stitch-ink;
+    }
+
+    .stitch-chip-active {
+        @apply border-transparent bg-stitch-primary text-white font-semibold hover:text-white;
+    }
+
+    .stitch-badge-success {
+        @apply inline-flex items-center gap-1 rounded-full bg-stitch-success-soft px-2.5 py-0.5 text-xs font-semibold text-stitch-success;
+    }
+
+    .stitch-badge-warning {
+        @apply inline-flex items-center gap-1 rounded-full bg-stitch-warning-soft px-2.5 py-0.5 text-xs font-semibold text-stitch-warning;
+    }
+
+    .stitch-badge-danger {
+        @apply inline-flex items-center gap-1 rounded-full bg-stitch-danger-soft px-2.5 py-0.5 text-xs font-semibold text-stitch-danger;
+    }
+
+    .stitch-badge-gold {
+        @apply inline-flex items-center gap-1 rounded-full border border-stitch-gold bg-[#fef9e7] px-2.5 py-0.5 text-xs font-semibold text-[#8d6b00];
+    }
+
+    .stitch-price {
+        font-family: var(--font-display);
+        @apply font-bold text-stitch-primary;
+    }
+}
+
+/*
+| Flux : les composants reprennent la marque par la variable d'accent
+| (--color-accent) déjà définie dans flux.css ; on l'aligne sur le vert
+| forêt et on rend les boutons principaux pilulaires.
+*/
 [data-flux-field]:not(ui-radio, ui-checkbox) {
     @apply grid gap-2;
 }
@@ -96,9 +151,27 @@
 input:focus[data-flux-control],
 textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
-    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+    @apply outline-hidden ring-2 ring-stitch-primary/25;
 }
 
-/* \[:where(&)\]:size-4 {
-    @apply size-4;
-} */
+/* Boutons Flux : pilule du design system (12-16px → full pour les actions). */
+ui-button[data-variant='primary'],
+ui-button[data-variant='secondary'] {
+    border-radius: calc(infinity * 1px);
+}
+
+/* Champs Flux : rayon 12px et bordure chaude 1.5px, focus vert forêt. */
+ui-input input,
+ui-textarea textarea,
+ui-select select,
+ui-select button {
+    border-radius: var(--radius-xl);
+}
+
+/* Pastilles de pagination harmonisées au design system. */
+nav[aria-label=''] a,
+.Pagination a,
+nav [rel='prev'],
+nav [rel='next'] {
+    border-radius: calc(infinity * 1px);
+}

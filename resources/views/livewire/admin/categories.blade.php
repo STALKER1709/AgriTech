@@ -1,10 +1,16 @@
-<div class="flex w-full max-w-2xl flex-1 flex-col gap-6">
-    <div>
-        <flux:heading size="xl" level="1">{{ __('Catégories') }}</flux:heading>
-        <flux:text class="mt-2">{{ __('Elles structurent le catalogue et ses filtres.') }}</flux:text>
+<div class="flex w-full max-w-2xl flex-1 flex-col gap-5">
+    {{-- En-tête avec pastille, cohérent avec les autres écrans d'administration --}}
+    <div class="flex items-center gap-3">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-primary/10 text-stitch-primary">
+            <flux:icon.tag class="size-5" />
+        </span>
+        <div>
+            <h1 class="text-xl font-bold">{{ __('Catégories') }}</h1>
+            <p class="text-sm text-stitch-muted">{{ __('Elles structurent le catalogue et ses filtres.') }}</p>
+        </div>
     </div>
 
-    <form wire:submit="create" class="flex flex-col gap-3 rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+    <form wire:submit="create" class="stitch-card flex flex-col gap-3 p-4">
         <flux:input wire:model="newName" :label="__('Nouvelle catégorie')" type="text" required />
         <div>
             <flux:button variant="primary" type="submit" data-test="create-category">{{ __('Ajouter') }}</flux:button>
@@ -13,7 +19,7 @@
 
     <div class="flex flex-col gap-2">
         @foreach ($categories as $category)
-            <div class="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-neutral-200 p-3 dark:border-neutral-700">
+            <div class="flex flex-wrap items-center justify-between gap-3 stitch-card p-3">
                 @if ($editing === $category->id)
                     <form wire:submit="rename" class="flex w-full flex-col gap-2 sm:flex-row sm:items-end">
                         <flux:input wire:model="editedName" :label="__('Nom')" type="text" class="sm:flex-1" required />

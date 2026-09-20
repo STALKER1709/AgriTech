@@ -16,7 +16,6 @@ use App\Models\TrainingPurchase;
 use App\Models\User;
 use App\Services\Trainings\TrainingPaymentService;
 use App\Support\PhoneNumber;
-use DomainException;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 

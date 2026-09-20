@@ -81,7 +81,7 @@
             </div>
         </form>
 
-        <div class="flex flex-col gap-1 text-sm text-center text-zinc-600 dark:text-zinc-400">
+        <div class="flex flex-col gap-1 text-sm text-center text-stitch-muted ">
             <div class="space-x-1 rtl:space-x-reverse">
                 <span>{{ __('Vous avez déjà un compte ?') }}</span>
                 <flux:link :href="route('login')" wire:navigate>{{ __('Se connecter') }}</flux:link>

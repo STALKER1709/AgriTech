@@ -1,24 +1,30 @@
-<div class="flex w-full flex-1 flex-col gap-6">
-    <div>
-        <flux:heading size="xl" level="1">{{ __('Publications à modérer') }}</flux:heading>
-        <flux:text class="mt-2">{{ __('Produits et formations soumis par les agriculteurs.') }}</flux:text>
+<div class="flex w-full flex-1 flex-col gap-5">
+    {{-- En-tête façon « File de modération des contenus » Stitch --}}
+    <div class="flex items-center gap-3">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-terra-soft text-stitch-terra">
+            <flux:icon.scale class="size-5" />
+        </span>
+        <div>
+            <h1 class="text-xl font-bold">{{ __('Publications à modérer') }}</h1>
+            <p class="text-sm text-stitch-muted">{{ __('Produits et formations soumis par les agriculteurs.') }}</p>
+        </div>
     </div>
 
     @php($total = $products->count() + $trainings->count())
 
     @if ($total === 0)
-        <flux:callout icon="check-circle">
-            <flux:callout.text>{{ __('Aucune publication en attente.') }}</flux:callout.text>
-        </flux:callout>
+        <div class="flex items-center gap-3 rounded-xl border border-stitch-border bg-stitch-success-soft px-4 py-3">
+            <flux:icon.check-circle class="size-5 shrink-0 text-stitch-success" />
+            <p class="text-sm font-medium text-stitch-success">{{ __('Aucune publication en attente.') }}</p>
+        </div>
     @endif
 
-    @foreach ([['product', $products], ['training', $trainings]] as [$type, $items])
-        @foreach ($items as $item)
-            <div class="flex flex-col gap-3 rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+    @foreach ([['product', $products], ['training', $trainings]] as [$type, $items])        @foreach ($items as $item)
+            <div class="stitch-card flex flex-col gap-3 p-4">
                 <div class="flex flex-wrap items-start justify-between gap-3">
                     <div class="flex min-w-0 gap-3">
                         @if ($type === 'product')
-                            <div class="size-16 shrink-0 overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                            <div class="size-16 shrink-0 overflow-hidden rounded-lg bg-stitch-container ">
                                 @if ($item->images->isNotEmpty())
                                     <img src="{{ $item->images->first()->url() }}" alt="" class="size-full object-cover" />
                                 @endif
@@ -40,13 +46,13 @@
                         </div>
                     </div>
 
-                    <flux:badge>{{ $type === 'product' ? __('Produit') : __('Formation') }}</flux:badge>
+                    <span class="{{ $type === 'product' ? 'stitch-badge-success' : 'stitch-badge-warning' }}">
+                    {{ $type === 'product' ? __('Produit') : __('Formation') }}
+                </span>
                 </div>
 
-                <flux:text class="whitespace-pre-line text-sm">{{ Str::limit($item->description, 400) }}</flux:text>
-
-                @if ($rejectingType === $type && $rejectingId === $item->id)
-                    <form wire:submit="reject" class="flex flex-col gap-3 rounded-lg bg-zinc-50 p-3 dark:bg-zinc-900">
+                <flux:text class="whitespace-pre-line text-sm">{{ Str::limit($item->description, 400) }}</flux:text>                @if ($rejectingType === $type && $rejectingId === $item->id)
+                    <form wire:submit="reject" class="flex flex-col gap-3 rounded-xl border border-stitch-danger/30 bg-stitch-danger-soft p-3">
                         <flux:textarea
                             wire:model="reason"
                             :label="__('Motif du refus')"

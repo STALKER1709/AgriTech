@@ -1,34 +1,65 @@
-<div class="flex w-full flex-1 flex-col gap-6">
-    <flux:breadcrumbs>
-        <flux:breadcrumbs.item :href="route('farmer.messages')" wire:navigate>{{ __('Messages reçus') }}</flux:breadcrumbs.item>
-        <flux:breadcrumbs.item>{{ $conversation->client->name }}</flux:breadcrumbs.item>
-    </flux:breadcrumbs>
+<div class="flex w-full flex-1 flex-col gap-4">
+    {{-- En-tête conversation façon écran Stitch : retour + avatar + nom --}}
+    <div class="flex items-center gap-3">
+        <a href="{{ route('farmer.messages') }}" wire:navigate
+           class="grid size-10 shrink-0 place-items-center rounded-full border border-stitch-border bg-white shadow-card transition hover:bg-stitch-low"
+           aria-label="{{ __('Retour aux messages') }}">
+            <flux:icon.arrow-left class="size-5" />
+        </a>
 
-    <div class="flex flex-col gap-3" wire:poll.5s>
+        <span class="grid size-10 shrink-0 place-items-center rounded-full bg-stitch-terra-soft font-display text-sm font-bold text-stitch-terra">
+            {{ mb_strtoupper(mb_substr($conversation->client->name, 0, 2)) }}
+        </span>
+
+        <div class="min-w-0">
+            <h1 class="truncate text-base font-bold">{{ $conversation->client->name }}</h1>
+            <p class="text-xs text-stitch-muted">{{ __('Conversation directe') }}</p>
+        </div>
+    </div>
+
+    {{-- Fil de messages : bulles stitch (miennes vert forêt, autres blanches) --}}
+    <div class="flex flex-col gap-2.5" wire:poll.5s>
         @foreach ($this->messages() as $message)
-            <div class="flex {{ $message->sender_id === auth()->id() ? 'justify-end' : 'justify-start' }}">
-                <div class="max-w-[80%] rounded-xl border px-4 py-2
-                            {{ $message->sender_id === auth()->id()
-                                ? 'border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800'
-                                : 'border-neutral-200 dark:border-neutral-700' }}">
-                    <flux:text class="whitespace-pre-line">{{ $message->content }}</flux:text>
-                    <flux:text class="mt-1 block text-right text-xs text-zinc-500">
+            @php($mine = $message->sender_id === auth()->id())
+            <div class="flex {{ $mine ? 'justify-end' : 'justify-start' }}">
+                <div class="max-w-[85%] px-4 py-2.5 shadow-card
+                            {{ $mine
+                                ? 'rounded-2xl rounded-br-md bg-stitch-primary text-white'
+                                : 'rounded-2xl rounded-bl-md border border-stitch-border bg-white text-stitch-ink' }}">
+                    <p class="whitespace-pre-line text-sm leading-relaxed">{{ $message->content }}</p>
+                    <p class="mt-1 text-right text-[11px] {{ $mine ? 'text-white/70' : 'text-stitch-muted' }}">
                         {{ $message->created_at->timezone(config('app.timezone'))->format('H:i') }}
-                        @if ($message->sender_id === auth()->id() && $message->isRead())
+                        @if ($mine && $message->isRead())
                             · {{ __('lu') }}
                         @endif
-                    </flux:text>
+                    </p>
                 </div>
             </div>
         @endforeach
     </div>
 
-    <form wire:submit="send" class="flex items-end gap-2">
-        <flux:textarea wire:model="content" :label="__('Votre réponse')" rows="2" class="flex-1" data-test="message-content" />
+    {{-- Composer pilule, identique au côté client --}}
+    <form wire:submit="send"
+          class="sticky bottom-24 z-30 flex items-end gap-2 rounded-3xl border border-stitch-border bg-white p-2 shadow-raised lg:bottom-6">
+        <flux:textarea
+            wire:model="content"
+            :placeholder="__('Votre réponse…')"
+            rows="1"
+            class="flex-1 [&_textarea]:!min-h-11 [&_textarea]:!rounded-full [&_textarea]:!border-none [&_textarea]:bg-stitch-low [&_textarea]:px-4 [&_textarea]:py-2.5 [&_textarea]:focus:!ring-0"
+            data-test="message-content"
+        />
 
-        <flux:button type="submit" variant="primary" wire:loading.attr="disabled" data-test="send-message">
-            <span wire:loading.remove wire:target="send">{{ __('Envoyer') }}</span>
-            <span wire:loading wire:target="send">{{ __('Envoi…') }}</span>
-        </flux:button>
+        <button type="submit"
+                wire:loading.attr="disabled"
+                data-test="send-message"
+                class="grid size-11 shrink-0 place-items-center rounded-full bg-stitch-primary text-white shadow-card transition hover:bg-stitch-primary-dark"
+                aria-label="{{ __('Envoyer') }}">
+            <span wire:loading.remove wire:target="send">
+                <flux:icon.paper-airplane class="size-5" />
+            </span>
+            <span wire:loading wire:target="send">
+                <flux:icon.loading class="size-5 animate-spin" />
+            </span>
+        </button>
     </form>
 </div>

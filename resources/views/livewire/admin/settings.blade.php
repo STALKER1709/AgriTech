@@ -1,14 +1,20 @@
-<div class="flex w-full max-w-3xl flex-1 flex-col gap-6">
-    <div>
-        <flux:heading size="xl" level="1">{{ __('Paramètres de la plateforme') }}</flux:heading>
-        <flux:text class="mt-2">
-            {{ __('Ces valeurs s\'appliquent immédiatement. Les montants déjà figés sur une commande ne changent pas.') }}
-        </flux:text>
+<div class="flex w-full max-w-3xl flex-1 flex-col gap-5">
+    {{-- En-tête façon « Paramètres généraux de la plateforme » Stitch --}}
+    <div class="flex items-center gap-3">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-primary/10 text-stitch-primary">
+            <flux:icon.adjustments-horizontal class="size-5" />
+        </span>
+        <div>
+            <h1 class="text-xl font-bold">{{ __('Paramètres de la plateforme') }}</h1>
+            <p class="text-sm text-stitch-muted">
+                {{ __('Ces valeurs s\'appliquent immédiatement. Les montants déjà figés sur une commande ne changent pas.') }}
+            </p>
+        </div>
     </div>
 
     <form wire:submit="save" class="flex flex-col gap-5">
         @foreach ($settings as $setting)
-            <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+            <div class="stitch-card p-4">
                 @if ($setting->type === \App\Enums\SettingType::Boolean)
                     <flux:switch
                         wire:model="values.{{ $setting->key }}"

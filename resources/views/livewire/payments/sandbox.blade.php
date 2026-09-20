@@ -1,29 +1,38 @@
-<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-5">
     {{-- Bandeau volontairement voyant : cette page n'existe pas en production. --}}
-    <div class="rounded-lg border-2 border-dashed border-amber-500 bg-amber-50 p-4 text-center dark:bg-amber-950/40">
-        <flux:heading size="lg" class="text-amber-800 dark:text-amber-200">
-            {{ __('Environnement de test') }}
-        </flux:heading>
-        <flux:text class="mt-1 text-amber-800 dark:text-amber-200">
-            {{ __('Aucun opérateur Mobile Money réel n\'est contacté. Aucun argent ne circule.') }}
-        </flux:text>
+    <div class="flex items-start gap-3 rounded-xl border-2 border-dashed border-amber-400 bg-amber-50 p-4">
+        <flux:icon.exclamation-triangle class="mt-0.5 size-5 shrink-0 text-amber-600" />
+        <div>
+            <p class="font-display text-sm font-bold text-amber-700">{{ __('Environnement de test') }}</p>
+            <p class="text-sm text-amber-700">
+                {{ __('Aucun opérateur Mobile Money réel n\'est contacté. Aucun argent ne circule.') }}
+            </p>
+        </div>
     </div>
 
-    <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
-        <flux:text>{{ __('Montant à payer') }}</flux:text>
-        <flux:heading size="xl" level="1" class="mt-1">{{ $payment->amount->format() }}</flux:heading>
+    {{-- Carte montant, façon écran « Choix du moyen de paiement » --}}
+    <div class="stitch-card flex flex-col gap-4 p-5 sm:p-6">
+        <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2 text-sm text-stitch-muted">
+                <flux:icon.lock-closed class="size-4 text-stitch-primary" />
+                {{ __('Montant à payer') }}
+            </div>
+            @if ($payment->method === \App\Enums\PaymentMethod::MtnMomo)
+                <span class="grid h-8 place-items-center rounded-lg bg-stitch-mtn px-3 text-[10px] font-black text-black">MTN MoMo</span>
+            @else
+                <span class="grid h-8 place-items-center rounded-lg bg-stitch-orange px-3 text-[10px] font-black text-white">Orange Money</span>
+            @endif
+        </div>
 
-        <dl class="mt-4 grid gap-2 text-sm">
-            <div class="flex justify-between gap-4">
-                <dt class="text-zinc-600 dark:text-zinc-400">{{ __('Opérateur') }}</dt>
-                <dd>{{ $payment->method->label() }}</dd>
+        <p class="stitch-price text-center text-4xl">{{ $payment->amount->format() }}</p>
+
+        <dl class="grid gap-2 text-sm">
+            <div class="flex justify-between gap-4 border-t border-stitch-high pt-2">
+                <dt class="text-stitch-muted">{{ __('Objet') }}</dt>
+                <dd class="font-medium">{{ $payment->purpose->label() }}</dd>
             </div>
             <div class="flex justify-between gap-4">
-                <dt class="text-zinc-600 dark:text-zinc-400">{{ __('Objet') }}</dt>
-                <dd>{{ $payment->purpose->label() }}</dd>
-            </div>
-            <div class="flex justify-between gap-4">
-                <dt class="text-zinc-600 dark:text-zinc-400">{{ __('Référence') }}</dt>
+                <dt class="text-stitch-muted">{{ __('Référence') }}</dt>
                 <dd class="font-mono text-xs">{{ $payment->provider_reference }}</dd>
             </div>
         </dl>

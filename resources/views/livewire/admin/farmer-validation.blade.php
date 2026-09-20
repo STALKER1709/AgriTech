@@ -1,46 +1,48 @@
-<div class="flex w-full flex-1 flex-col gap-6">
-    <div>
-        <flux:heading size="xl" level="1">{{ __('Comptes agriculteurs à valider') }}</flux:heading>
-        <flux:text class="mt-2">
-            {{ __('Ces agriculteurs ont réglé leurs frais d\'inscription et attendent une décision.') }}
-        </flux:text>
-    </div>
-
-    @forelse ($farmers as $farmer)
-        <div class="flex flex-col gap-3 rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+<div class="flex w-full flex-1 flex-col gap-5">
+    {{-- En-tête façon écran « Validation des dossiers agriculteurs » Stitch --}}
+    <div class="flex items-center gap-3">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-warning-soft text-stitch-warning">
+            <flux:icon.clipboard-document-check class="size-5" />
+        </span>
+        <div>
+            <h1 class="text-xl font-bold">{{ __('Comptes agriculteurs à valider') }}</h1>
+            <p class="text-sm text-stitch-muted">
+                {{ __('Ces agriculteurs ont réglé leurs frais d\'inscription et attendent une décision.') }}
+            </p>
+        </div>
+    </div>    @forelse ($farmers as $farmer)
+        <div class="stitch-card flex flex-col gap-3 p-4">
             <div class="flex flex-wrap items-start justify-between gap-2">
-                <div>
+                <div class="min-w-0">
                     <flux:heading size="lg">{{ $farmer->farmerProfile?->farm_name ?? __('Exploitation non renseignée') }}</flux:heading>
                     <flux:text class="mt-1">{{ $farmer->name }}</flux:text>
                 </div>
-                <flux:badge>{{ $farmer->status->label() }}</flux:badge>
+                <span class="stitch-badge-warning">{{ $farmer->status->label() }}</span>
             </div>
 
             <dl class="grid gap-1 text-sm sm:grid-cols-2">
                 <div class="flex gap-2">
-                    <dt class="text-zinc-600 dark:text-zinc-400">{{ __('Région') }}</dt>
+                    <dt class="text-stitch-muted ">{{ __('Région') }}</dt>
                     <dd>{{ $farmer->farmerProfile?->region ?? '—' }}</dd>
                 </div>
                 <div class="flex gap-2">
-                    <dt class="text-zinc-600 dark:text-zinc-400">{{ __('Ville') }}</dt>
+                    <dt class="text-stitch-muted ">{{ __('Ville') }}</dt>
                     <dd>{{ $farmer->farmerProfile?->city ?? '—' }}</dd>
                 </div>
                 <div class="flex gap-2">
-                    <dt class="text-zinc-600 dark:text-zinc-400">{{ __('E-mail') }}</dt>
+                    <dt class="text-stitch-muted ">{{ __('E-mail') }}</dt>
                     <dd class="truncate">{{ $farmer->email }}</dd>
                 </div>
                 <div class="flex gap-2">
-                    <dt class="text-zinc-600 dark:text-zinc-400">{{ __('Téléphone') }}</dt>
+                    <dt class="text-stitch-muted ">{{ __('Téléphone') }}</dt>
                     <dd>{{ $farmer->phone }}</dd>
                 </div>
             </dl>
 
             @if ($farmer->farmerProfile?->description)
                 <flux:text class="text-sm">{{ $farmer->farmerProfile->description }}</flux:text>
-            @endif
-
-            @if ($rejecting === $farmer->id)
-                <form wire:submit="reject" class="flex flex-col gap-3 rounded-lg bg-zinc-50 p-3 dark:bg-zinc-900">
+            @endif            @if ($rejecting === $farmer->id)
+                <form wire:submit="reject" class="flex flex-col gap-3 rounded-xl border border-stitch-danger/30 bg-stitch-danger-soft p-3">
                     <flux:textarea
                         wire:model="reason"
                         :label="__('Motif du refus')"

@@ -1,20 +1,26 @@
-<div class="flex w-full flex-1 flex-col gap-6">
-    <div>
-        <flux:heading size="xl" level="1">{{ __('Privilèges') }}</flux:heading>
-        <flux:text class="mt-2">
-            {{ __('Le rôle administrateur ouvre cet espace ; ce sont ces privilèges qui autorisent chaque action.') }}
-        </flux:text>
+<div class="flex w-full flex-1 flex-col gap-5">
+    {{-- En-tête façon « Gouvernance & Sécurité IAM » Stitch --}}
+    <div class="flex items-center gap-3">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-primary/10 text-stitch-primary">
+            <flux:icon.shield-check class="size-5" />
+        </span>
+        <div>
+            <h1 class="text-xl font-bold">{{ __('Privilèges') }}</h1>
+            <p class="text-sm text-stitch-muted">
+                {{ __('Le rôle administrateur ouvre cet espace ; ce sont ces privilèges qui autorisent chaque action.') }}
+            </p>
+        </div>
     </div>
 
     @foreach ($admins as $admin)
-        <div class="flex flex-col gap-3 rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+        <div class="stitch-card flex flex-col gap-3 p-4">
             <div class="flex flex-wrap items-start justify-between gap-2">
                 <div class="min-w-0">
                     <flux:heading>{{ $admin->name }}</flux:heading>
                     <flux:text class="mt-1 truncate text-sm">{{ $admin->email }}</flux:text>
                 </div>
                 @if ($admin->is(auth()->user()))
-                    <flux:badge>{{ __('Vous') }}</flux:badge>
+                    <span class="stitch-badge-success">{{ __('Vous') }}</span>
                 @endif
             </div>
 
@@ -34,7 +40,7 @@
             @else
                 <div class="flex flex-wrap gap-1">
                     @forelse ($admin->privileges as $privilege)
-                        <flux:badge size="sm">{{ $privilege->label }}</flux:badge>
+                        <span class="stitch-badge-warning">{{ $privilege->label }}</span>
                     @empty
                         <flux:text class="text-sm">{{ __('Aucun privilège accordé.') }}</flux:text>
                     @endforelse

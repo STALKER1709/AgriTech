@@ -111,7 +111,7 @@
         </flux:button>
     </form>
 
-    <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">
+    <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-stitch-muted ">
         <span>{{ __('Vous avez déjà un compte ?') }}</span>
         <flux:link :href="route('login')" wire:navigate>{{ __('Se connecter') }}</flux:link>
     </div>

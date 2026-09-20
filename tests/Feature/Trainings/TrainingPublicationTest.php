@@ -11,7 +11,6 @@ use App\Models\User;
 use App\Services\Catalog\PublicationService;
 use App\Services\Trainings\TrainingService;
 use Database\Seeders\SettingSeeder;
-use DomainException;
 use Livewire\Livewire;
 
 /**

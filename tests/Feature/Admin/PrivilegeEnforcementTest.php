@@ -22,17 +22,6 @@ beforeEach(function () {
     $this->seed(PrivilegeSeeder::class);
 });
 
-function adminWith(string ...$codes): User
-{
-    $admin = User::factory()->admin()->create();
-
-    $admin->privileges()->attach(
-        Privilege::query()->whereIn('code', $codes)->pluck('id'),
-    );
-
-    return $admin->load('privileges');
-}
-
 function farmerAwaitingDecision(): User
 {
     $farmer = User::factory()->awaitingValidation()->create();

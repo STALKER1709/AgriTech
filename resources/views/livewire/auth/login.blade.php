@@ -50,7 +50,7 @@
             </div>
         </form>
 
-        <div class="flex flex-col gap-1 text-sm text-center text-zinc-600 dark:text-zinc-400">
+        <div class="flex flex-col gap-1 text-sm text-center text-stitch-muted ">
             <div class="space-x-1 rtl:space-x-reverse">
                 <span>{{ __('Vous n\'avez pas de compte ?') }}</span>
                 <flux:link :href="route('register')" wire:navigate>{{ __('Créer un compte client') }}</flux:link>
