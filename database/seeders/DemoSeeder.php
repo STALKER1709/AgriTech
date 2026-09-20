@@ -52,6 +52,8 @@ class DemoSeeder extends Seeder
 {
     public const string PASSWORD = 'password';
 
+    private bool $gdWarned = false;
+
     public function run(): void
     {
         $commissionRate = Setting::query()
@@ -354,6 +356,21 @@ class DemoSeeder extends Seeder
     private function attachPlaceholderImage(Product $product): void
     {
         if ($product->images()->exists()) {
+            return;
+        }
+
+        // Without GD the catalogue still works — the cards just fall back to
+        // their empty-image placeholder. Seeding must never hang on a demo
+        // nicety; the extension is listed as required in the README.
+        if (! PlaceholderImage::isSupported()) {
+            if (! $this->gdWarned) {
+                $this->command->warn(
+                    "L'extension PHP GD n'est pas activée : les images de démonstration sont ignorées.\n".
+                    '   Décommentez "extension=gd" dans php.ini, redémarrez, puis relancez php artisan migrate:fresh --seed.',
+                );
+                $this->gdWarned = true;
+            }
+
             return;
         }
 

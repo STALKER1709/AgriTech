@@ -18,10 +18,28 @@ use RuntimeException;
 final class PlaceholderImage
 {
     /**
+     * Whether the machine can draw a placeholder at all.
+     *
+     * GD is a required extension, but a missing one should be reported as
+     * such — not surface as "call to undefined function" from the middle of
+     * a seeder.
+     */
+    public static function isSupported(): bool
+    {
+        return extension_loaded('gd');
+    }
+
+    /**
      * @param  array{0: int, 1: int, 2: int}  $rgb
      */
     public static function png(string $label, array $rgb, int $width = 800, int $height = 600): string
     {
+        if (! self::isSupported()) {
+            throw new RuntimeException(
+                'L\'extension PHP GD n\'est pas activée : décommentez "extension=gd" dans php.ini puis redémarrez.',
+            );
+        }
+
         if ($width < 1 || $height < 1) {
             throw new InvalidArgumentException('The placeholder size must be at least one pixel on each side.');
         }
