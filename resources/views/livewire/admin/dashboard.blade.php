@@ -39,5 +39,28 @@
             <flux:text>{{ __('Encaissé aujourd\'hui') }}</flux:text>
             <flux:heading size="xl" class="mt-1">{{ $this->collectedToday()->format() }}</flux:heading>
         </div>
+
+        <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+            <flux:text>{{ __('Commandes à payer') }}</flux:text>
+            <flux:heading size="xl" class="mt-1">{{ $this->ordersPendingPayment() }}</flux:heading>
+            <flux:text class="mt-1 text-xs">{{ __('Placées mais pas encore payées') }}</flux:text>
+        </div>
+
+        <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+            <flux:text>{{ __('Commandes livrées') }}</flux:text>
+            <flux:heading size="xl" class="mt-1">{{ $this->ordersDelivered() }}</flux:heading>
+        </div>
+
+        <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+            <flux:text>{{ __('Encaissé total') }}</flux:text>
+            <flux:heading size="xl" class="mt-1">{{ $this->commissionTotal()->format() }}</flux:heading>
+            <flux:text class="mt-1 text-xs">{{ __('tous paiements confirmés confondus') }}</flux:text>
+        </div>
+
+        <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+            <flux:text>{{ __('Abonnements actifs') }}</flux:text>
+            <flux:heading size="xl" class="mt-1">{{ $this->activeSubscriptions() }}</flux:heading>
+            <flux:text class="mt-1 text-xs">{{ __('termes en cours') }}</flux:text>
+        </div>
     </div>
 </div>

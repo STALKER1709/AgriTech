@@ -6,6 +6,7 @@ namespace App\Livewire\Catalog;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Services\Messaging\MessagingService;
 use App\Services\Orders\CartService;
 use App\Support\Quantity;
 use DomainException;
@@ -82,6 +83,28 @@ class ProductPage extends Component
         }
 
         Flux::toast(variant: 'success', text: __('Produit ajouté au panier.'));
+    }
+
+    /**
+     * Open (or find) the thread with the farmer behind this product.
+     */
+    public function contactFarmer(MessagingService $messaging): void
+    {
+        $user = Auth::user();
+
+        if (! $user instanceof User) {
+            session(['url.intended' => route('catalog.product', ['product' => $this->product->slug])]);
+
+            $this->redirectRoute('login', navigate: true);
+
+            return;
+        }
+
+        abort_unless($user->isClient() && $user->isActive(), 403);
+
+        $conversation = $messaging->conversationAboutProduct($this->product, $user);
+
+        $this->redirectRoute('client.messages.show', ['conversation' => $conversation->id], navigate: true);
     }
 
     public function title(): string

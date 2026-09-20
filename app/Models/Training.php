@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * @property int $id
@@ -65,6 +66,12 @@ class Training extends Model
     public function purchases(): HasMany
     {
         return $this->hasMany(TrainingPurchase::class);
+    }
+
+    /** @return MorphMany<Payment, $this> */
+    public function payments(): MorphMany
+    {
+        return $this->morphMany(Payment::class, 'payable');
     }
 
     public function getRouteKeyName(): string

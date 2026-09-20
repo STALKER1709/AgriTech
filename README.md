@@ -430,17 +430,57 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 | Inscription client | `/register` |
 | **Inscription agriculteur** | `/inscription/agriculteur` |
 | Statut d'un compte non actif | `/mon-compte/statut` |
+| Catalogue public | `/catalogue` |
+| **Formations publiques** | `/formations` |
 | Espace client | `/client/tableau-de-bord` |
 | **Panier** | `/client/panier` |
 | **Mes commandes** | `/client/commandes` |
+| **Mes formations** | `/client/formations` |
+| **Abonnement** | `/client/abonnement` |
+| **Messagerie client** | `/client/messages` |
 | Espace agriculteur | `/agriculteur/tableau-de-bord` |
+| **Mes produits** | `/agriculteur/produits` |
+| **Mes formations** | `/agriculteur/formations` |
 | **Commandes reçues** | `/agriculteur/commandes` |
+| **Messagerie agriculteur** | `/agriculteur/messages` |
 | Administration | `/admin/tableau-de-bord` |
 | Comptes agriculteurs à valider | `/admin/agriculteurs-a-valider` |
 | Utilisateurs | `/admin/utilisateurs` |
 | Privilèges | `/admin/privileges` |
 | Paramètres de la plateforme | `/admin/parametres` |
 | Journal d'audit | `/admin/journal-audit` |
+
+### Parcours formations et abonnement
+
+Connectez-vous avec `client@agritech.local` : il a **acheté** la formation
+« Composter ses déchets agricoles ». Ouvrez-la depuis **Mes formations** : le
+bouton **Ouvrir** sert le fichier. Un visiteur, ou un client sans achat, voit
+les mêmes titres de modules — mais verrouillés.
+
+Connectez-vous avec `client2@agritech.local` : il a un **abonnement
+trimestriel actif**. Les formations marquées « incluse dans l'abonnement »
+(`Irrigation goutte à goutte`, `Entretenir une cacaoyère`, `Conserver les
+récoltes`) sont ouvertes sans achat.
+
+Pour acheter une formation de bout en bout : `/formations` → choisissez une
+formation → **Acheter** (opérateur + numéro) → la page de test → **Paiement
+réussi** → le callback arrive quelques secondes plus tard (`queue:work` doit
+tourner) → l'accès s'ouvre. Le contenu est ensuite servi par le contrôleur,
+uniquement aux ayants droit — l'URL directe du fichier ne fonctionne pas, et
+le chemin n'apparaît nulle part côté client.
+
+Pour souscrire : **Abonnement** → **Choisir un plan** → payer. Le terme ne
+démarre qu'à la confirmation du paiement ; un abonnement en cours bloque toute
+nouvelle souscription jusqu'à son expiration (tâche planifiée toutes les cinq
+minutes, ou `php artisan agritech:subscriptions:expire`).
+
+### Messagerie
+
+Depuis une fiche produit, le bouton **Contacter l'agriculteur** ouvre (ou
+retrouve) le fil avec la ferme qui vend. Un fil par paire client ↔ agriculteur,
+un badge de messages non lus dans la navigation, un rafraîchissement toutes les
+cinq secondes. Les notifications arrivent en base et par e-mail — visible dans
+`storage/logs/laravel.log` avec le mailer `log`.
 
 Connectez-vous avec `agriculteur-impaye@agritech.local` pour dérouler le
 paiement des frais d'inscription de bout en bout — voir le § 5. Le parcours
@@ -493,6 +533,12 @@ php artisan agritech:payment:simulate PAY-XXXXXXXXXXXXXXXX succeeded --duplicate
 # Clôturer les paiements restés sans réponse
 php artisan agritech:payments:reconcile
 php artisan agritech:payments:reconcile --minutes=1
+
+# Expirer les abonnements dont le terme est passé (sinon planifié toutes les 5 min)
+php artisan agritech:subscriptions:expire
+
+# Remettre le jeu de démonstration à neuf
+php artisan agritech:reset-demo --force
 ```
 
 ### Essayer le parcours complet

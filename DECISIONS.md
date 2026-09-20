@@ -1022,3 +1022,127 @@ plus tard.
 sous-commande annulée l'a donc toujours été **avant** paiement. Elle n'a jamais
 représenté du travail pour l'agriculteur, et l'afficher ne ferait qu'encombrer
 l'écran de commandes qui n'ont jamais existé pour lui.
+
+---
+
+## Phases 7 à 11 — Formations, abonnements, messagerie, dashboards, finalisation
+
+### 2026-09-20 — L'accès au contenu d'une formation est un contrôleur, pas une URL
+
+**Décision.** Les fichiers de formation (MP4/WebM/PDF) vivent sur le disque
+privé et sont servis par `TrainingContentController`, qui vérifie l'entitlement
+(RG05) avant d'envoyer le premier octet. Le chemin est masqué à la
+sérialisation (`#[Hidden]` sur `TrainingContent`), et la fiche publique ne
+montre que les titres des modules.
+
+**Justification.** Même architecture que les images produits, mais avec un
+droit à vérifier : le contenu d'une formation est payant, une URL directe
+en ferait une ressource publique dès que quelqu'un la partage.
+
+**Alternative écartée.** URLs signées à expiration : introduit une horloge
+supplémentaire et une dépendance au lien de signature, pour un bénéfice nul en
+local où le contrôleur suffit.
+
+---
+
+### 2026-09-20 — Un achat de formation est unique par contrainte de base
+
+**Décision.** La table `training_purchases` porte une contrainte d'unicité sur
+`(client_id, training_id)`, et `TrainingAccessService::recordPurchase()` rend
+la ligne existante plutôt que d'en créer une seconde.
+
+**Justification.** Le callback d'un paiement rejoué, ou deux paiements
+simultanés sur la même formation, ne doivent jamais produire deux achats. La
+base tranche, pas un `if`. C'est le même raisonnement que
+`payment_callbacks.event_id`.
+
+---
+
+### 2026-09-20 — Pas de chevauchement d'abonnements
+
+**Décision.** `SubscriptionService::start()` refuse toute nouvelle souscription
+tant qu'un terme est en cours. Changer de plan se fait une fois le terme passé.
+
+**Justification.** Gérer le chevauchement obligerait à inventer un remboursement
+au prorata ou une extension automatique : deux comportements que personne
+n'a demandés, et le prorata contredit la règle qui a fait écarter la livraison
+partielle (pas de remboursement au prorata inventé). Le refus est honnête, le
+message explique quoi faire.
+
+**Conséquence assumée.** Un client qui veut passer à un plan supérieur attend
+la fin de son terme. Pour un prototype local, la simplicité vérifiable vaut
+mieux qu'une proration speculative.
+
+---
+
+### 2026-09-20 — Le registre des effets métier est un `match` exhaustif
+
+**Décision.** `OutcomeRegistry::for()` est devenu un `match` sur
+`PaymentPurpose`, sans tableau ni `??` ni `isset()`.
+
+**Justification.** Les quatre purposes existent désormais toutes. Un `match`
+exhaustif fait de « ajouter un purpose sans son handler » une `TypeError` au
+premier passage, plutôt qu'une exception à l'exécution — le compilateur
+statique vérifie l'exhaustivité. C'est la fin de la trajectoire voulue en
+phase 3 : le registre n'a jamais eu vocation à rester incomplet silencieusement.
+
+---
+
+### 2026-09-20 — Messagerie par polling, pas par WebSocket
+
+**Décision.** Les fils de discussion se rafraîchissent par `wire:poll.5s`.
+
+**Justification.** La contrainte « 100 % local, sans service externe » écarte
+Reverb et tout serveur WebSocket dédié, comme décidé en phase 0. Le polling
+Livewire couvre le besoin de démonstration sans infrastructure supplémentaire.
+
+---
+
+### 2026-09-20 — La sous-commande annulée n'entre dans aucun total
+
+**Décision.** Le tableau de bord agriculteur ne somme que les sous-commandes
+`paid`, `preparing` et `delivered`.
+
+**Justification.** Cohérence avec l'écran des commandes : une sous-commande
+annulée a toujours été annulée avant paiement, elle n'a jamais été du travail.
+Un chiffre d'affaires qui la compterait mentirait à son premier regard.
+
+---
+
+### 2026-09-20 — Design system Stitch appliqué au thème global
+
+**Décision.** Les tokens du design system livré dans
+`stitch_conception_design_application/agritech_design_system/DESIGN.md` sont
+portés dans `resources/css/app.css` (palette, polices, rayons, ombres) et
+`vite.config.js` (Plus Jakarta Sans pour les titres, Inter pour le corps).
+
+**Justification.** Le design existait dans le dépôt sans être branché ; le
+reprendre tel quel aligne l'interface sur la conception validée au lieu
+d'improviser une palette. Les neutres ont été mappés sur l'échelle `zinc` de
+Tailwind pour teinter l'ensemble des composants Flux existants sans les
+réécrire, l'accent devient le vert forêt `#1B6B3A`, et le mode sombre utilise
+le vert clair `#9AE9AB` prévu par le design system.
+
+**Limites assumées.** Les composants Flux imposent leur structure ; la palette
+et la typographie sont appliquées globalement, pas écran par écran. Les cartes
+« méthode de paiement » teintées MTN/Orange du design system restent à faire
+écran par écran si elles deviennent souhaitables.
+
+---
+
+### 2026-09-20 — La suite de tests rendue insensible à l'environnement du shell
+
+**Décision.** `phpunit.xml` force ses variables (`force="true"`) et
+`Tests\TestCase` promeut `$_ENV` vers `$_SERVER` avant le démarrage de
+l'application.
+
+**Justification.** Sur un poste où le shell exporte déjà `APP_ENV`, `DB_DATABASE`,
+`SESSION_DRIVER`…, phpdotenv lisait `$_SERVER` en priorité et les valeurs du
+shell écrasaient celles de la suite : les POST répondaient 419 (CSRF actif hors
+« testing »), la file ne tournait plus en `sync`, et 37 tests échouaient sans
+rien dire sur le code. `force="true"` couvre le cas `getenv()`/`putenv()`, la
+promotion couvre la lecture `$_SERVER` de phpdotenv v5. Le correctif est
+multiplateforme — le développeur Windows n'a pas `env -u`.
+
+**Vérifié.** Les 37 échecs disparaissent avec le seul changement de ces deux
+fichiers ; aucun code applicatif n'était en cause.

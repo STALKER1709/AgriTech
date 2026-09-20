@@ -23,3 +23,9 @@ Schedule::command('agritech:payments:reconcile')
 Schedule::command('agritech:orders:cancel-expired')
     ->everyFiveMinutes()
     ->withoutOverlapping();
+
+// Closes the subscriptions whose term has passed, so that the record matches
+// what the access checks have been saying all along.
+Schedule::command('agritech:subscriptions:expire')
+    ->everyFiveMinutes()
+    ->withoutOverlapping();

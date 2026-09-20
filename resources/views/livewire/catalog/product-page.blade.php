@@ -43,6 +43,13 @@
                 <flux:text class="mt-1 text-sm">
                     {{ $product->farmer->farmerProfile?->city }}, {{ $product->farmer->farmerProfile?->region }}
                 </flux:text>
+
+                @if ($this->canAddToCart())
+                    <flux:button size="sm" variant="ghost" icon="chat-bubble-left-right" class="mt-2"
+                                 wire:click="contactFarmer">
+                        {{ __('Contacter l\'agriculteur') }}
+                    </flux:button>
+                @endif
             </div>
 
             <div>

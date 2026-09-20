@@ -7,6 +7,8 @@ namespace App\Livewire\Payments;
 use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Subscription;
+use App\Models\Training;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -62,9 +64,19 @@ class Pending extends Component
     {
         $payable = $this->payment->payable;
 
-        return $payable instanceof Order
-            ? route('client.orders.show', ['order' => $payable->reference])
-            : route('account.status');
+        if ($payable instanceof Order) {
+            return route('client.orders.show', ['order' => $payable->reference]);
+        }
+
+        if ($payable instanceof Training) {
+            return route('trainings.show', ['training' => $payable->slug]);
+        }
+
+        if ($payable instanceof Subscription) {
+            return route('client.subscriptions');
+        }
+
+        return route('account.status');
     }
 
     public function render(): mixed

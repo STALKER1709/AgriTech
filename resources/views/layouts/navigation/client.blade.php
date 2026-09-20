@@ -7,6 +7,23 @@
         {{ __('Catalogue') }}
     </flux:sidebar.item>
 
+    <flux:sidebar.item icon="academic-cap" :href="route('trainings.index')" :current="request()->routeIs('trainings.*')" wire:navigate>
+        {{ __('Formations') }}
+    </flux:sidebar.item>
+
+    <flux:sidebar.item icon="bookmark" :href="route('client.trainings')" :current="request()->routeIs('client.trainings')" wire:navigate>
+        {{ __('Mes formations') }}
+    </flux:sidebar.item>
+
+    <flux:sidebar.item icon="sparkles" :href="route('client.subscriptions')" :current="request()->routeIs('client.subscriptions')" wire:navigate>
+        {{ __('Abonnement') }}
+    </flux:sidebar.item>
+
+    <flux:sidebar.item icon="chat-bubble-left-right" :href="route('client.messages')" :current="request()->routeIs('client.messages*')" wire:navigate
+                       :badge="app(\App\Services\Messaging\MessagingService::class)->unreadTotalFor(auth()->user()) ?: null">
+        {{ __('Messages') }}
+    </flux:sidebar.item>
+
     <flux:sidebar.item icon="shopping-cart" :href="route('client.cart')" :current="request()->routeIs('client.cart')" wire:navigate
                        :badge="auth()->user()?->cartItemCount() ?: null">
         {{ __('Mon panier') }}

@@ -16,6 +16,10 @@
                     {{ __('Parcourir le catalogue') }}
                 </flux:button>
 
+                <flux:button variant="outline" :href="route('trainings.index')" wire:navigate>
+                    {{ __('Voir les formations') }}
+                </flux:button>
+
                 @guest
                     <flux:button variant="ghost" :href="route('register.farmer')" wire:navigate>
                         {{ __('Vendre mes produits') }}

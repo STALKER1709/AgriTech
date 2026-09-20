@@ -23,25 +23,29 @@
         </include>
     </source>
     <php>
-        <env name="APP_ENV" value="testing"/>
-        <env name="APP_MAINTENANCE_DRIVER" value="file"/>
-        <env name="BCRYPT_ROUNDS" value="4"/>
-        <env name="BROADCAST_CONNECTION" value="null"/>
-        <env name="CACHE_STORE" value="array"/>
+        <!-- force="true" : ces valeurs doivent prévaloir sur toute variable
+             du même nom déjà exportée par le shell. Sans lui, un APP_ENV=local
+             exporté par l'environnement ferait tourner la suite en mode local
+             (CSRF actif, échec 419 sur chaque requête POST). -->
+        <env name="APP_ENV" value="testing" force="true"/>
+        <env name="APP_MAINTENANCE_DRIVER" value="file" force="true"/>
+        <env name="BCRYPT_ROUNDS" value="4" force="true"/>
+        <env name="BROADCAST_CONNECTION" value="null" force="true"/>
+        <env name="CACHE_STORE" value="array" force="true"/>
         <!-- Base dédiée aux tests : moteur réel (MySQL/MariaDB) afin que les
              tests de transactions et de verrouillage (RG04) reflètent la production. -->
-        <env name="DB_CONNECTION" value="mysql"/>
-        <env name="DB_DATABASE" value="agritech_test"/>
-        <env name="DB_URL" value=""/>
-        <env name="MAIL_MAILER" value="array"/>
-        <env name="QUEUE_CONNECTION" value="sync"/>
-        <env name="PAYMENT_GATEWAY" value="fake"/>
-        <env name="PAYMENT_WEBHOOK_SECRET" value="testing-webhook-secret"/>
-        <env name="PAYMENT_CALLBACK_DELAY_SECONDS" value="0"/>
-        <env name="PAYMENT_EXPIRATION_MINUTES" value="15"/>
-        <env name="SESSION_DRIVER" value="array"/>
-        <env name="PULSE_ENABLED" value="false"/>
-        <env name="TELESCOPE_ENABLED" value="false"/>
-        <env name="NIGHTWATCH_ENABLED" value="false"/>
+        <env name="DB_CONNECTION" value="mysql" force="true"/>
+        <env name="DB_DATABASE" value="agritech_test" force="true"/>
+        <env name="DB_URL" value="" force="true"/>
+        <env name="MAIL_MAILER" value="array" force="true"/>
+        <env name="QUEUE_CONNECTION" value="sync" force="true"/>
+        <env name="PAYMENT_GATEWAY" value="fake" force="true"/>
+        <env name="PAYMENT_WEBHOOK_SECRET" value="testing-webhook-secret" force="true"/>
+        <env name="PAYMENT_CALLBACK_DELAY_SECONDS" value="0" force="true"/>
+        <env name="PAYMENT_EXPIRATION_MINUTES" value="15" force="true"/>
+        <env name="SESSION_DRIVER" value="array" force="true"/>
+        <env name="PULSE_ENABLED" value="false" force="true"/>
+        <env name="TELESCOPE_ENABLED" value="false" force="true"/>
+        <env name="NIGHTWATCH_ENABLED" value="false" force="true"/>
     </php>
 </phpunit>

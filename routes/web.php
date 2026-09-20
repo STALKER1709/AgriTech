@@ -3,6 +3,7 @@
 use App\Http\Controllers\Catalog\ProductImageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Payments\WebhookController;
+use App\Http\Controllers\Trainings\TrainingContentController;
 use App\Livewire\Account\Status as AccountStatus;
 use App\Livewire\Admin\AuditTrail;
 use App\Livewire\Admin\Categories as AdminCategories;
@@ -16,13 +17,24 @@ use App\Livewire\Auth\RegisterFarmer;
 use App\Livewire\Catalog\Browse;
 use App\Livewire\Catalog\ProductPage;
 use App\Livewire\Client\CartPage;
+use App\Livewire\Client\Messages as ClientMessages;
+use App\Livewire\Client\MessageThread as ClientMessageThread;
+use App\Livewire\Client\MyTrainings as ClientMyTrainings;
 use App\Livewire\Client\OrderList as ClientOrderList;
 use App\Livewire\Client\OrderPage as ClientOrderPage;
+use App\Livewire\Client\Subscriptions as ClientSubscriptions;
+use App\Livewire\Farmer\Dashboard as FarmerDashboard;
+use App\Livewire\Farmer\Messages as FarmerMessages;
+use App\Livewire\Farmer\MessageThread as FarmerMessageThread;
 use App\Livewire\Farmer\OrderList as FarmerOrderList;
 use App\Livewire\Farmer\ProductForm;
 use App\Livewire\Farmer\ProductList;
+use App\Livewire\Farmer\TrainingForm as FarmerTrainingForm;
+use App\Livewire\Farmer\TrainingList as FarmerTrainingList;
 use App\Livewire\Payments\Pending as PaymentPending;
 use App\Livewire\Payments\Sandbox as PaymentSandbox;
+use App\Livewire\Trainings\Index as TrainingsIndex;
+use App\Livewire\Trainings\Page as TrainingPage;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -41,6 +53,23 @@ Route::view('/', 'welcome')->name('home');
 Route::get('catalogue', Browse::class)->name('catalog.browse');
 Route::get('produits/{product:slug}', ProductPage::class)->name('catalog.product');
 Route::get('images/produits/{image}', ProductImageController::class)->name('catalog.image');
+Route::get('formations', TrainingsIndex::class)->name('trainings.index');
+Route::get('formations/{training:slug}', TrainingPage::class)->name('trainings.show');
+
+/*
+|--------------------------------------------------------------------------
+| Contenu de formation
+|--------------------------------------------------------------------------
+|
+| The file is streamed by a controller that checks the entitlement (business
+| rule RG05); it never sits behind a public file URL. The route itself is
+| open — the 403 for someone without the right is what makes the gate real.
+|
+*/
+
+Route::get('contenus/formation/{content}', TrainingContentController::class)
+    ->middleware('auth')
+    ->name('trainings.content');
 
 /*
 |--------------------------------------------------------------------------
@@ -102,17 +131,26 @@ Route::middleware(['auth', 'role:client'])
         Route::get('panier', CartPage::class)->name('cart');
         Route::get('commandes', ClientOrderList::class)->name('orders');
         Route::get('commandes/{order:reference}', ClientOrderPage::class)->name('orders.show');
+        Route::get('formations', ClientMyTrainings::class)->name('trainings');
+        Route::get('abonnement', ClientSubscriptions::class)->name('subscriptions');
+        Route::get('messages', ClientMessages::class)->name('messages');
+        Route::get('messages/{conversation}', ClientMessageThread::class)->name('messages.show');
     });
 
 Route::middleware(['auth', 'role:farmer', 'account.active'])
     ->prefix('agriculteur')
     ->name('farmer.')
     ->group(function (): void {
-        Route::view('tableau-de-bord', 'farmer.dashboard')->name('dashboard');
+        Route::get('tableau-de-bord', FarmerDashboard::class)->name('dashboard');
         Route::get('produits', ProductList::class)->name('products');
         Route::get('produits/nouveau', ProductForm::class)->name('products.create');
         Route::get('produits/{product:slug}/modifier', ProductForm::class)->name('products.edit');
+        Route::get('formations', FarmerTrainingList::class)->name('trainings');
+        Route::get('formations/nouvelle', FarmerTrainingForm::class)->name('trainings.create');
+        Route::get('formations/{training:slug}/modifier', FarmerTrainingForm::class)->name('trainings.edit');
         Route::get('commandes', FarmerOrderList::class)->name('orders');
+        Route::get('messages', FarmerMessages::class)->name('messages');
+        Route::get('messages/{conversation}', FarmerMessageThread::class)->name('messages.show');
     });
 
 /*
