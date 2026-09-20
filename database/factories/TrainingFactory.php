@@ -49,6 +49,14 @@ class TrainingFactory extends Factory
         ]);
     }
 
+    public function rejected(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => PublicationStatus::Rejected,
+            'rejection_reason' => 'Contenu insuffisant pour une formation complète.',
+        ]);
+    }
+
     public function published(): static
     {
         return $this->state(fn (array $attributes): array => [

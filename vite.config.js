@@ -12,8 +12,13 @@ export default defineConfig({
             ],
             refresh: true,
             fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
+                // AgriTech design system (stitch_conception_design_application):
+                // Plus Jakarta Sans for headings, Inter for body and labels.
+                bunny('Plus Jakarta Sans', {
+                    weights: [400, 500, 600, 700],
+                }),
+                bunny('Inter', {
+                    weights: [400, 500, 600, 700],
                 }),
             ],
         }),

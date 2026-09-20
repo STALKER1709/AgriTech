@@ -191,51 +191,92 @@ callback rejoué sans double décrément · `composer test` intégralement propr
 
 ---
 
-## Phase 7 — Formations ⬜
+## Phase 7 — Formations ✅
 
-- [ ] Publication et upload des contenus (vidéo, PDF)
-- [ ] Achat d'une formation
-- [ ] Accès protégé par contrôleur (jamais d'URL publique directe)
-- [ ] Espace « Mes formations »
+- [x] CRUD formations côté agriculteur : liste, création, modification, soumission, archivage
+- [x] Upload des contenus (vidéo MP4/WebM, PDF) : type MIME réel vérifié, renommage ULID, disque privé
+- [x] Achat d'une formation : montant lu sur la fiche, jamais reçu du formulaire ; second clic renvoyé vers le paiement en cours
+- [x] Effet métier `TrainingOutcome` : achat enregistré dans la transaction qui confirme le paiement
+- [x] Accès au contenu par contrôleur vérifiant l'entitlement (RG05) — jamais d'URL publique directe
+- [x] Pages publiques : liste avec recherche et filtre par format, fiche avec modules (titres visibles, fichiers verrouillés)
+- [x] Espace client « Mes formations » : achats + formations ouvertes par l'abonnement
+- [x] Continuation de paiement : la page « vérification » renvoie vers la formation payée
+- [x] 43 tests ajoutés
 
-**Acceptation :** RG05 testée ; aucun contenu payant accessible sans droit.
-
----
-
-## Phase 8 — Abonnements ⬜
-
-- [ ] Plans d'abonnement
-- [ ] Souscription et paiement simulé
-- [ ] Accès aux formations incluses
-- [ ] Expiration automatique (tâche planifiée)
-
----
-
-## Phase 9 — Messagerie et notifications ⬜
-
-- [ ] Conversations client ↔ agriculteur
-- [ ] Compteur de messages non lus
-- [ ] Notifications en base et par e-mail (visibles en local)
+**Acceptation :** **RG05** — fichier servi uniquement à l'acheteur ou à l'abonné actif
+(formation incluse), visiteur en redirection, étranger en 403, terme expiré en
+403, fichier disparu en 404, chemin jamais exposé dans les vues · **RG06** —
+aucun accès accordé avant le callback vérifié, callback rejoué absorbé par
+l'unicité de l'achat · **RG09** — passage par `in_review`, ou publication
+directe si la modération a priori est désactivée · `composer test` intégralement
+propre (Pint, Larastan niveau 7, 469 tests à l'issue de cette phase).
 
 ---
 
-## Phase 10 — Tableaux de bord ⬜
+## Phase 8 — Abonnements ✅
 
-- [ ] Statistiques de ventes pour l'agriculteur
-- [ ] Activité globale pour l'administrateur
+- [x] Écran client : plan en cours, plans disponibles, souscription avec paiement simulé
+- [x] Montant lu sur le plan, jamais reçu du formulaire ; second clic renvoyé vers le paiement en vol
+- [x] Pas de chevauchement : un terme en cours bloque toute nouvelle souscription (décision DECISIONS.md)
+- [x] Effet métier `SubscriptionOutcome` : activation dans la transaction qui confirme, horloge démarrant à la confirmation
+- [x] `agritech:subscriptions:expire` planifiée toutes les cinq minutes
+- [x] Accès aux formations incluses piloté par RG05 (statut + terme)
+- [x] Registre des effets métier complété : `match` exhaustif, tout purpose a son handler
+- [x] 16 tests ajoutés
+
+**Acceptation :** le terme ne s'ouvre qu'à la confirmation vérifiée · abonnement
+actif ouvre les formations incluses, terme expiré les ferme · renouvellement
+possible dès que le terme est passé · écran refusé aux non-clients ·
+`composer test` intégralement propre (Pint, Larastan niveau 7, 469 tests).
 
 ---
 
-## Phase 11 — Finalisation locale ⬜
+## Phase 9 — Messagerie et notifications ✅
 
-- [ ] Revue de sécurité
-- [ ] Performances : pagination, eager loading, images
-- [ ] Accessibilité
-- [ ] Suite de tests complète
-- [ ] `README.md` d'installation pas à pas sous Windows, à partir de zéro
-- [ ] Liste des comptes de démonstration (un par rôle)
-- [ ] Guide de test manuel couvrant chaque cas d'utilisation, paiements réussis, échoués et expirés inclus
-- [ ] Commande `agritech:reset-demo`
+- [x] Conversations client ↔ agriculteur, un fil par paire, créé à la première demande
+- [x] Bouton « Contacter l'agriculteur » sur la fiche produit (service résout le fil depuis le produit)
+- [x] Envoi vérifié : appartenance au fil, longueur 1–5000, `last_message_at` mis à jour
+- [x] Compteur de messages non lus par fil et global (badge de navigation), remis à zéro à l'ouverture
+- [x] Rafraîchissement par polling Livewire (5 s), sans WebSocket — contrainte 100 % local
+- [x] Notification `NewMessage` : base (badge) + e-mail (log local)
+- [x] 14 tests ajoutés
 
-**Acceptation :** une personne qui découvre le projet peut l'installer et tester
-tous les parcours en suivant uniquement le `README.md`.
+**Acceptation :** un fil par paire, réutilisé · l'ouverture du fil ne marque lus
+que les messages de l'autre partie · compteurs exacts de part et d'autre ·
+intrus en 403 (écran et service) · notification envoyée au destinataire actif.
+
+---
+
+## Phase 10 — Tableaux de bord ✅
+
+- [x] Tableau de bord agriculteur : chiffre d'affaires payé, commission plateforme, à préparer, catalogue publié, messages non lus, files de sous-commandes en attente
+- [x] Les sous-commandes annulées ou impayées n'entrent dans aucun total : une sous-commande annulée n'a jamais été du travail
+- [x] Tableau de bord administrateur : comptes à valider, publications à modérer, paiements en vol, commandes à payer / livrées, encaissé du jour et total, abonnements actifs
+- [x] Chaque tuile = une requête agrégée ; les dashboards se protègent eux-mêmes (rôle vérifié au montage)
+- [x] 6 tests ajoutés
+
+**Acceptation :** les totaux ne comptent que le travail réellement payé ·
+l'écran agriculteur refuse client et suspendu, l'écran admin refuse tout non-admin.
+
+---
+
+## Phase 11 — Finalisation locale ✅
+
+- [x] Revue de sécurité : toute écriture sensible passe par les services, autorisations serveur (policies + middleware + vérifications au montage des composants)
+- [x] Performances : pagination partout, eager loading systématique, comptage de requêtes testé sur les grilles
+- [x] Design system Stitch appliqué (palette, polices Plus Jakarta Sans / Inter, rayons, ombres teintées) — voir DECISIONS.md
+- [x] Suite de tests complète : 491 tests (unitaires, fonctionnels, concurrence à deux processus)
+- [x] `README.md` d'installation pas à pas sous Windows, à partir de zéro
+- [x] Liste des comptes de démonstration (§ 4 du README)
+- [x] Guide de test manuel couvrant chaque parcours, paiements réussis, échoués et expirés inclus (§ 5 et § 8 du README)
+- [x] Commande `agritech:reset-demo`
+
+**Acceptation :** `composer test` intégralement propre — Pint (267 fichiers),
+Larastan niveau 7, **491 tests**. Une personne qui découvre le projet peut
+l'installer et tester tous les parcours en suivant uniquement le `README.md`.
+
+> **Environnement d'exécution des tests :** la suite a été exécutée sous Linux
+> (PHP 8.4.25, MariaDB 10.6). Les variables exportées par certains environnements
+> de développement écrasaient celles de `phpunit.xml` (voir DECISIONS.md) ; le
+> correctif (`force="true"` + promotion `$_ENV` → `$_SERVER`) rend la suite
+> insensible à l'environnement du shell, sous Windows comme sous Linux.

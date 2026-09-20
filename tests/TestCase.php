@@ -18,6 +18,20 @@ abstract class TestCase extends BaseTestCase
      */
     protected function setUp(): void
     {
+        /*
+         * PHPUnit écrit les variables du bloc <env> de phpunit.xml dans $_ENV
+         * (et putenv), mais phpdotenv lit $_SERVER EN PRIORITÉ. Sur une machine
+         * où l'environnement du shell exporte déjà APP_ENV, SESSION_DRIVER,
+         * DB_DATABASE…, ces valeurs du shell écrasent donc celles de la suite
+         * de tests : les POST répondaient 419 (CSRF actif hors « testing ») et
+         * la file ne tournait plus en sync. On promeut donc les valeurs de
+         * phpunit.xml dans $_SERVER avant que l'application ne démarre ; ailleurs,
+         * la copie est un simple non-op, les deux tableaux coïncident déjà.
+         */
+        foreach ($_ENV as $key => $value) {
+            $_SERVER[$key] = $value;
+        }
+
         parent::setUp();
 
         $this->withoutVite();
