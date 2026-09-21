@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Catalog\ProductImageController;
+use App\Http\Controllers\Catalog\TrainingCoverController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Payments\WebhookController;
 use App\Http\Controllers\Trainings\TrainingContentController;
@@ -54,6 +55,7 @@ Route::get('catalogue', Browse::class)->name('catalog.browse');
 Route::get('produits/{product:slug}', ProductPage::class)->name('catalog.product');
 Route::get('images/produits/{image}', ProductImageController::class)->name('catalog.image');
 Route::get('formations', TrainingsIndex::class)->name('trainings.index');
+Route::get('images/formations/{training:slug}/couverture', TrainingCoverController::class)->name('trainings.cover');
 Route::get('formations/{training:slug}', TrainingPage::class)->name('trainings.show');
 
 /*
