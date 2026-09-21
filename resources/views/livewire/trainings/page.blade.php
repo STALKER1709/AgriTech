@@ -1,76 +1,113 @@
-<div class="flex w-full flex-col gap-6 py-6">
-    <flux:breadcrumbs>
-        <flux:breadcrumbs.item :href="route('trainings.index')" wire:navigate>{{ __('Formations') }}</flux:breadcrumbs.item>
-        <flux:breadcrumbs.item>{{ $training->title }}</flux:breadcrumbs.item>
-    </flux:breadcrumbs>
+<div class="flex w-full flex-col gap-5 py-2">
+    {{-- Breadcrumb row --}}
+    <div class="flex items-center justify-between gap-2">
+        <a href="{{ route('trainings.index') }}" wire:navigate
+           class="inline-flex items-center gap-1.5 rounded-full py-1.5 text-sm font-semibold text-stitch-primary transition-opacity hover:opacity-80">
+            <flux:icon.arrow-left class="size-4" />
+            {{ __('Retour aux formations') }}
+        </a>
+    </div>
 
-    <div class="grid gap-6 lg:grid-cols-2">
+    <div class="grid gap-6 lg:grid-cols-2 lg:gap-10">
+        {{-- Video preview area, gradient like the Stitch screen. --}}
         <div class="flex flex-col gap-3">
-            <div class="flex aspect-video w-full items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
-                <flux:icon.academic-cap class="size-12 text-zinc-400" />
+            <div class="relative aspect-video w-full overflow-hidden rounded-2xl bg-gradient-to-br from-stitch-primary/20 via-stitch-gold-soft/25 to-stitch-terra-soft/40 shadow-raised">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" aria-hidden="true"></div>
+
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="flex size-16 items-center justify-center rounded-full bg-stitch-primary/90 text-white shadow-float backdrop-blur-sm">
+                        <flux:icon.play class="size-7" />
+                    </span>
+                </div>
+
+                <span class="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-md">
+                    @if ($training->format->value === 'pdf')
+                        <flux:icon.document-text class="size-3.5 text-stitch-gold-soft" />
+                    @else
+                        <flux:icon.video-camera class="size-3.5 text-stitch-gold-soft" />
+                    @endif
+                    {{ $training->format->label() }}
+                </span>
+
+                @if ($training->included_in_subscription)
+                    <span class="stitch-badge-gold absolute bottom-3 left-3 shadow-sm">
+                        {{ __('Incluse dans l\'abonnement') }}
+                    </span>
+                @endif
             </div>
 
-            <div class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
-                <flux:text class="text-sm">{{ __('Proposée par') }}</flux:text>
-                <flux:heading size="sm" class="mt-1">{{ $training->farmer->farmerProfile?->farm_name }}</flux:heading>
-                <flux:text class="mt-1 text-sm">
-                    {{ $training->farmer->farmerProfile?->city }}, {{ $training->farmer->farmerProfile?->region }}
-                </flux:text>
+            {{-- Instructor card --}}
+            <div class="rounded-2xl bg-stitch-low p-4 shadow-card">
+                <div class="flex items-center gap-3">
+                    <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-stitch-primary text-white shadow-card">
+                        <flux:icon.leaf class="size-5" />
+                    </span>
+                    <div class="min-w-0">
+                        <flux:heading size="sm" class="truncate">{{ $training->farmer->farmerProfile?->farm_name }}</flux:heading>
+                        <p class="flex items-center gap-1 truncate text-xs text-stitch-muted">
+                            <flux:icon.map-pin class="size-3.5 shrink-0" />
+                            {{ $training->farmer->farmerProfile?->city }}, {{ $training->farmer->farmerProfile?->region }}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
+        {{-- Detail column --}}
         <div class="flex flex-col gap-4">
-            <div>
-                <div class="flex flex-wrap items-center gap-2">
-                    <flux:badge size="sm">{{ $training->format->label() }}</flux:badge>
+            <div class="flex flex-col gap-1">
+                <h1 class="font-display text-2xl font-bold tracking-tight text-stitch-ink sm:text-3xl">
+                    {{ $training->title }}
+                </h1>
 
+                <div class="mt-2 flex items-baseline justify-between gap-3 rounded-2xl bg-stitch-low p-3">
+                    <span class="stitch-price text-2xl sm:text-3xl" data-test="training-price">
+                        {{ $training->price->format() }}
+                    </span>
                     @if ($training->included_in_subscription)
-                        <flux:badge size="sm" variant="lime">{{ __('Incluse dans l\'abonnement') }}</flux:badge>
+                        <span class="stitch-badge-gold">{{ __('Abonnement') }}</span>
                     @endif
                 </div>
-
-                <flux:heading size="xl" level="1" class="mt-2">{{ $training->title }}</flux:heading>
             </div>
-
-            <flux:heading size="xl" data-test="training-price">{{ $training->price->format() }}</flux:heading>
 
             <div>
                 <flux:heading size="sm">{{ __('Description') }}</flux:heading>
-                <flux:text class="mt-2 whitespace-pre-line">{{ $training->description }}</flux:text>
+                <flux:text class="mt-2 whitespace-pre-line leading-relaxed">{{ $training->description }}</flux:text>
             </div>
 
             <flux:separator />
 
             {{-- The module titles are shown to everyone; the files behind them
                  are only ever served by the entitlement-checked controller. --}}
-            <div>
+            <div class="flex flex-col gap-2">
                 <flux:heading size="sm">{{ __('Contenu de la formation') }}</flux:heading>
 
-                <div class="mt-2 flex flex-col gap-2">
-                    @forelse ($training->contents as $content)
-                        <div class="flex items-center justify-between gap-3 rounded-lg border border-neutral-200 px-3 py-2 dark:border-neutral-700">
-                            <div class="flex min-w-0 items-center gap-2">
+                @forelse ($training->contents as $content)
+                    <div class="flex items-center justify-between gap-3 rounded-xl border border-stitch-border bg-white px-3.5 py-2.5 shadow-card">
+                        <div class="flex min-w-0 items-center gap-2.5">
+                            <span class="flex size-9 shrink-0 items-center justify-center rounded-full {{ $content->type->value === 'pdf' ? 'bg-stitch-terra-soft text-stitch-terra-ink' : 'bg-stitch-primary/10 text-stitch-primary' }}">
                                 @if ($content->type->value === 'pdf')
-                                    <flux:icon.document-text class="size-5 shrink-0 text-zinc-400" />
+                                    <flux:icon.document-text class="size-4" />
                                 @else
-                                    <flux:icon.video-camera class="size-5 shrink-0 text-zinc-400" />
+                                    <flux:icon.video-camera class="size-4" />
                                 @endif
-
-                                <flux:text class="min-w-0 truncate">{{ $content->title }}</flux:text>
-                            </div>
-
-                            @if ($this->hasAccess())
-                                <flux:button size="xs" variant="primary" :href="route('trainings.content', ['content' => $content->id])" target="_blank">
-                                    {{ __('Ouvrir') }}
-                                </flux:button>
-                            @else
-                                <flux:icon.lock-closed class="size-4 shrink-0 text-zinc-400" />
-                            @endif
+                            </span>
+                            <flux:text class="min-w-0 truncate font-medium">{{ $content->title }}</flux:text>
                         </div>
-                    @empty
-                        <flux:text class="text-sm text-zinc-500">{{ __('Le contenu sera publié prochainement.') }}</flux:text>
-                    @endforelse
-                </div>
+
+                        @if ($this->hasAccess())
+                            <flux:button size="xs" variant="primary" class="rounded-full" :href="route('trainings.content', ['content' => $content->id])" target="_blank">
+                                {{ __('Ouvrir') }}
+                            </flux:button>
+                        @else
+                            <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-stitch-low text-stitch-muted">
+                                <flux:icon.lock-closed class="size-4" />
+                            </span>
+                        @endif
+                    </div>
+                @empty
+                    <flux:text class="text-sm text-stitch-muted">{{ __('Le contenu sera publié prochainement.') }}</flux:text>
+                @endforelse
             </div>
 
             @if ($this->hasAccess())
@@ -78,7 +115,7 @@
                     <flux:callout.text>{{ __('Vous avez accès à cette formation.') }}</flux:callout.text>
                 </flux:callout>
             @elseif ($this->canBuy())
-                <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+                <div class="flex flex-col gap-4 rounded-2xl border border-stitch-border bg-white p-4 shadow-card">
                     <div>
                         <flux:heading size="sm">{{ __('Acheter la formation') }}</flux:heading>
                         <flux:text class="mt-1 text-sm">
@@ -93,31 +130,32 @@
                             @endforeach
                         </flux:select>
 
-                        <flux:input wire:model="phone" :label="__('Numéro de téléphone')" placeholder="+237 6XX XX XX XX" data-test="phone" />
+                        <flux:input wire:model="phone" :label="__('Numéro de téléphone')" placeholder="6XX XX XX XX" data-test="phone" />
 
-                        <flux:button type="submit" variant="primary" icon="credit-card" wire:loading.attr="disabled" data-test="buy">
+                        <button type="submit"
+                                class="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-stitch-terra text-base font-bold text-white shadow-raised transition-colors hover:bg-[#a85c1f] active:scale-[0.99]"
+                                data-test="buy">
+                            <flux:icon.credit-card class="size-5" />
                             {{ __('Acheter :amount', ['amount' => $training->price->format()]) }}
-                        </flux:button>
+                        </button>
                     </form>
                 </div>
             @elseif ($this->isVisitor())
-                <flux:callout icon="academic-cap">
-                    <flux:callout.text>
+                <div class="rounded-2xl bg-stitch-low p-4 text-center">
+                    <flux:text class="text-sm">
                         {{ __('Connectez-vous avec un compte client pour acheter cette formation.') }}
-                    </flux:callout.text>
-                    <x-slot name="actions">
-                        <flux:button size="sm" variant="primary" :href="route('login')">
-                            {{ __('Se connecter') }}
-                        </flux:button>
-                    </x-slot>
-                </flux:callout>
+                    </flux:text>
+                    <flux:button size="sm" variant="primary" :href="route('login')" class="mt-3 rounded-full">
+                        {{ __('Se connecter') }}
+                    </flux:button>
+                </div>
             @elseif (! auth()->user()?->hasActiveSubscription() && $training->included_in_subscription)
-                <flux:callout icon="sparkles">
+                <flux:callout icon="sparkles" variant="warning">
                     <flux:callout.text>
                         {{ __('Cette formation est incluse dans l\'abonnement : souscrivez pour y accéder sans l\'acheter.') }}
                     </flux:callout.text>
                     <x-slot name="actions">
-                        <flux:button size="sm" variant="primary" :href="route('client.subscriptions')">
+                        <flux:button size="sm" variant="primary" :href="route('client.subscriptions')" class="rounded-full">
                             {{ __('Voir l\'abonnement') }}
                         </flux:button>
                     </x-slot>

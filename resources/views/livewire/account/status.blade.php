@@ -1,9 +1,15 @@
-<div class="flex w-full max-w-2xl flex-1 flex-col gap-6">
-    <div>
-        <flux:heading size="xl" level="1">{{ __('Statut de mon compte') }}</flux:heading>
-        <flux:text class="mt-2">
-            {{ __('Compte de :name — :status', ['name' => $this->user()->name, 'status' => $this->user()->status->label()]) }}
-        </flux:text>
+<div class="flex w-full max-w-2xl flex-1 flex-col gap-5">
+    {{-- En-tête façon écran « Compte en attente de validation » Stitch --}}
+    <div class="flex items-center gap-3">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-gold-soft text-[#8d6b00]">
+            <flux:icon.clock class="size-5" />
+        </span>
+        <div>
+            <h1 class="text-xl font-bold">{{ __('Statut de mon compte') }}</h1>
+            <p class="text-sm text-stitch-muted">
+                {{ __('Compte de :name — :status', ['name' => $this->user()->name, 'status' => $this->user()->status->label()]) }}
+            </p>
+        </div>
     </div>
 
     @if ($this->awaitsPayment())
@@ -14,7 +20,7 @@
             </flux:callout.text>
         </flux:callout>
 
-        <form wire:submit="payRegistrationFee" class="flex flex-col gap-4 rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+        <form wire:submit="payRegistrationFee" class="stitch-card flex flex-col gap-4 p-4">
             <flux:heading size="lg">{{ __('Régler les frais d\'inscription') }}</flux:heading>
 
             <flux:radio.group wire:model="method" :label="__('Opérateur')" variant="segmented">

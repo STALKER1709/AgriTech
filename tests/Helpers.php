@@ -8,6 +8,7 @@ use App\Enums\ProductUnit;
 use App\Models\FarmerProfile;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Privilege;
 use App\Models\Product;
 use App\Models\User;
 use App\Payments\Gateways\FakeMobileMoneyGateway;
@@ -107,4 +108,20 @@ function deliverOrderCallback(Payment $payment, PaymentStatus $status, ?string $
         ],
         content: $body,
     );
+}
+
+/**
+ * An administrator holding exactly the given privileges: the RG07 test
+ * fixture. Shared here because several admin test files use it, and in
+ * parallel runs each process loads helpers independently of file order.
+ */
+function adminWith(string ...$codes): User
+{
+    $admin = User::factory()->admin()->create();
+
+    $admin->privileges()->attach(
+        Privilege::query()->whereIn('code', $codes)->pluck('id'),
+    );
+
+    return $admin;
 }

@@ -1,14 +1,22 @@
-<div class="flex w-full max-w-2xl flex-1 flex-col gap-6">
-    <div>
-        <flux:heading size="xl" level="1">
-            {{ $training?->exists ? __('Modifier la formation') : __('Nouvelle formation') }}
-        </flux:heading>
-        <flux:text class="mt-2">
-            {{ __('La formation est enregistrée en brouillon. Vous la soumettrez à publication depuis la liste.') }}
-        </flux:text>
+<div class="flex w-full max-w-2xl flex-1 flex-col gap-5">
+    {{-- En-tête avec retour, symétrique au formulaire produit --}}
+    <div class="flex items-center gap-3">
+        <a href="{{ route('farmer.trainings') }}" wire:navigate
+           class="grid size-10 shrink-0 place-items-center rounded-full border border-stitch-border bg-white shadow-card transition hover:bg-stitch-low"
+           aria-label="{{ __('Retour aux formations') }}">
+            <flux:icon.arrow-left class="size-5" />
+        </a>
+        <div>
+            <h1 class="text-xl font-bold">
+                {{ $training?->exists ? __('Modifier la formation') : __('Nouvelle formation') }}
+            </h1>
+            <p class="text-sm text-stitch-muted">
+                {{ __('La formation est enregistrée en brouillon. Vous la soumettrez à publication depuis la liste.') }}
+            </p>
+        </div>
     </div>
 
-    <form wire:submit="save" class="flex flex-col gap-4">
+    <form wire:submit="save" class="stitch-card flex flex-col gap-4 p-4 sm:p-5">
         <flux:input wire:model="title" :label="__('Titre de la formation')" type="text" required autofocus />
 
         <flux:textarea
@@ -38,7 +46,7 @@
 
         <flux:checkbox wire:model="included_in_subscription" :label="__('Inclure dans l\'abonnement')" :description="__('Les abonnés actifs y accèdent sans achat supplémentaire.')" />
 
-        <div class="flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2 border-t border-stitch-high pt-4">
             <flux:button variant="primary" type="submit" data-test="save-training">
                 <span wire:loading.remove wire:target="save">{{ __('Enregistrer') }}</span>
                 <span wire:loading wire:target="save">{{ __('Enregistrement…') }}</span>
@@ -61,17 +69,17 @@
 
             <div class="flex flex-col gap-2">
                 @forelse ($this->contents() as $content)
-                    <div class="flex items-center justify-between gap-3 rounded-lg border border-neutral-200 px-3 py-2 dark:border-neutral-700">
+                    <div class="flex items-center justify-between gap-3 rounded-xl border border-stitch-border bg-white px-3 py-2 shadow-card">
                         <div class="flex min-w-0 items-center gap-2">
                             @if ($content->type->value === 'pdf')
-                                <flux:icon.document-text class="size-5 shrink-0 text-zinc-400" />
+                                <flux:icon.document-text class="size-5 shrink-0 text-stitch-muted/70" />
                             @else
-                                <flux:icon.video-camera class="size-5 shrink-0 text-zinc-400" />
+                                <flux:icon.video-camera class="size-5 shrink-0 text-stitch-muted/70" />
                             @endif
 
                             <div class="min-w-0">
                                 <flux:text class="truncate">{{ $content->title }}</flux:text>
-                                <flux:text class="text-xs text-zinc-500">{{ $content->type->label() }}</flux:text>
+                                <flux:text class="text-xs text-stitch-muted">{{ $content->type->label() }}</flux:text>
                             </div>
                         </div>
 
@@ -85,11 +93,11 @@
                         </flux:button>
                     </div>
                 @empty
-                    <flux:text class="text-sm text-zinc-500">{{ __('Aucun contenu déposé pour l\'instant.') }}</flux:text>
+                    <flux:text class="text-sm text-stitch-muted">{{ __('Aucun contenu déposé pour l\'instant.') }}</flux:text>
                 @endforelse
             </div>
 
-            <form wire:submit="addContent" class="flex flex-col gap-3 rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+            <form wire:submit="addContent" class="flex flex-col gap-3 rounded-xl border-2 border-dashed border-stitch-border bg-stitch-low/50 p-4">
                 <flux:input wire:model="content_title" :label="__('Titre du module')" type="text" required />
 
                 <flux:select wire:model="content_type" :label="__('Type de contenu')" required>

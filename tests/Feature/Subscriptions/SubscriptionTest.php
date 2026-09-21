@@ -15,7 +15,6 @@ use App\Models\User;
 use App\Services\Subscriptions\ExpireSubscriptions;
 use App\Services\Subscriptions\SubscriptionService;
 use App\Support\PhoneNumber;
-use DomainException;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
