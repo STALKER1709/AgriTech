@@ -15,7 +15,7 @@
             {{ __('Formations agricoles & élevage') }}
         </h1>
         <p class="text-base text-stitch-muted">
-            {{ __('Apprenez les meilleures techniques auprès d\'agriculteurs camerounais : vidéos et guides orientés pratique.') }}
+            {{ __('Apprenez les meilleures techniques agronomiques auprès d\'experts camerounais.') }}
         </p>
     </section>
 
@@ -56,7 +56,7 @@
         @endif
     </div>
 
-    {{-- Subscription promotion banner --}}
+    {{-- Subscription promotion banner, textes de l'écran Stitch --}}
     <section class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-stitch-primary via-[#165a31] to-[#0d3f20] p-5 text-white shadow-raised">
         <span class="absolute -bottom-8 -right-8 size-36 rounded-full bg-stitch-gold-soft/15 blur-2xl" aria-hidden="true"></span>
         <span class="absolute right-4 top-2 text-6xl text-stitch-gold-soft/15" aria-hidden="true">
@@ -64,16 +64,25 @@
         </span>
 
         <div class="relative z-10 flex flex-col gap-2">
-            <span class="stitch-badge-gold w-fit">{{ __('Pass Formations') }}</span>
+            <span class="stitch-badge-gold w-fit">
+                <flux:icon.sparkles class="size-3.5" />
+                {{ __('Pass Formations Illimité') }}
+            </span>
             <h2 class="font-display text-lg font-bold leading-snug sm:text-xl">
-                {{ __('Accédez aux formations incluses sans les acheter, une à une.') }}
+                {{ __('Accédez à plus de :count formations', ['count' => $this->includedCount()]) }}
             </h2>
-            <div class="flex flex-wrap gap-2 pt-1">
+            <p class="max-w-sm text-sm text-white/90">
+                {{ __('Pour seulement') }}
+                <span class="font-bold text-stitch-gold">5 000 FCFA / mois</span>
+                {{ __('sans engagement.') }}
+            </p>
+            <div class="flex flex-wrap items-center gap-3 pt-1">
                 <a href="{{ route('client.subscriptions') }}" wire:navigate
-                   class="inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-bold text-stitch-primary shadow-card hover:bg-white/90">
-                    {{ __('Voir les abonnements') }}
+                   class="inline-flex h-11 items-center gap-2 rounded-full bg-stitch-terra px-5 text-sm font-bold text-white shadow-card transition hover:bg-stitch-terra/90">
+                    {{ __("Découvrir l'abonnement") }}
                     <flux:icon.arrow-right class="size-4" />
                 </a>
+                <span class="text-xs font-semibold text-white/80">{{ __('30 jours offerts') }}</span>
                 @auth
                     <a href="{{ route('client.trainings') }}" wire:navigate
                        class="inline-flex h-10 items-center gap-2 rounded-full border border-white/40 px-4 text-sm font-semibold text-white hover:bg-white/10">
@@ -83,6 +92,12 @@
             </div>
         </div>
     </section>
+
+    {{-- En-tête du flux, façon écran Stitch --}}
+    <div class="flex items-center justify-between">
+        <h2 class="font-display text-base font-bold">{{ __('Formations disponibles') }}</h2>
+        <span class="text-xs text-stitch-muted">{{ trans_choice(':count résultat affiché|:count résultats affichés', $trainings->total(), ['count' => $trainings->total()]) }}</span>
+    </div>
 
     @if ($trainings->isEmpty())
         <div class="stitch-card flex flex-col items-center gap-2 p-8 text-center">
@@ -123,7 +138,8 @@
 
                         @if ($training->included_in_subscription)
                             <span class="stitch-badge-gold absolute bottom-2 left-2 text-[10px] shadow-sm">
-                                {{ __('Incluse dans l\'abonnement') }}
+                                <flux:icon.star class="size-3" />
+                                {{ __('Incluse avec abonnement') }}
                             </span>
                         @endif
                     </div>

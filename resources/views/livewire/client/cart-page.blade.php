@@ -1,16 +1,42 @@
 <div class="flex w-full flex-1 flex-col gap-5">
+    {{-- Bandeau fidélité façon écran Stitch : progression vers un cadeau
+         terroir. Objectif purement présentationnel (30 000 FCFA) : aucune
+         règle métier de remise n'existe côté serveur, donc pas d'engagement
+         affiché ici qui ne serait pas honoré à la caisse. --}}
+    @php($goal = 30000)
+    @php($totalAmount = $this->cart()->total()->amount)
+    @php($progress = min(100, (int) floor($totalAmount * 100 / $goal)))
+    @php($remaining = max(0, $goal - $totalAmount))
+    <div class="rounded-2xl bg-stitch-low p-4 shadow-card">
+        <div class="mb-2 flex items-center justify-between gap-3">
+            <p class="flex min-w-0 items-center gap-2 truncate text-sm">
+                <flux:icon.leaf class="size-5 shrink-0 text-stitch-terra" />
+                @if ($remaining > 0)
+                    {{ __('Plus que') }}
+                    <span class="font-bold text-stitch-terra">{{ \App\Support\Money::fromInteger($remaining)->format() }}</span>
+                    {{ __('pour un cadeau terroir !') }}
+                @else
+                    <span class="font-bold text-stitch-success">{{ __('Bravo, seuil cadeau terroir atteint !') }}</span>
+                @endif
+            </p>
+            <span class="shrink-0 text-xs text-stitch-muted">{{ $progress }}%</span>
+        </div>
+        <div class="h-2 w-full overflow-hidden rounded-full bg-stitch-container">
+            <div class="h-full rounded-full bg-stitch-terra transition-all duration-500" style="width: {{ $progress }}%;"></div>
+        </div>
+        <p class="mt-2 flex items-center gap-1 text-xs text-stitch-muted">
+            <flux:icon.gift class="size-4 text-stitch-gold" />
+            {{ __('Circuit court : la juste valeur va au producteur, sans commission cachée.') }}
+        </p>
+    </div>
+
     {{-- En-tête : titre + compteur + action vider (écran Stitch « Panier ») --}}
     <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-terra-soft text-stitch-terra">
-                <flux:icon.shopping-bag class="size-5" />
+            <h1 class="font-display text-xl font-bold tracking-tight">{{ __('Mon panier') }}</h1>
+            <span class="inline-flex items-center rounded-full bg-stitch-primary/10 px-2.5 py-0.5 text-xs font-semibold text-stitch-primary">
+                {{ trans_choice('{0}0 article|{1}:count article|[2,*]:count articles', $this->cart()->items->count()) }}
             </span>
-            <div>
-                <h1 class="text-xl font-bold">{{ __('Mon panier') }}</h1>
-                <p class="text-sm text-stitch-muted">
-                    {{ __(':count article(s) — regroupés par ferme', ['count' => $this->cart()->items->count()]) }}
-                </p>
-            </div>
         </div>
 
         @if (! $this->cart()->isEmpty())
@@ -19,7 +45,7 @@
                 wire:click="clear"
                 wire:confirm="{{ __('Vider tout le panier ?') }}"
                 data-test="clear-cart"
-                class="inline-flex items-center gap-1.5 rounded-full border border-stitch-border bg-white px-3.5 py-2 text-sm font-semibold text-stitch-danger shadow-card transition hover:bg-stitch-danger-soft"
+                class="inline-flex items-center gap-1 text-sm font-semibold text-stitch-muted transition hover:text-stitch-danger"
             >
                 <flux:icon.trash class="size-4" />
                 {{ __('Vider') }}
@@ -31,12 +57,10 @@
         @php($farmer = $items->first()->product->farmer)
 
         <div class="stitch-card overflow-hidden">
-            {{-- En-tête de ferme : pastille verte + localisation, comme l'écran Stitch --}}
+            {{-- En-tête de ferme : badge vérifié + localisation + pilule « Direct champ » --}}
             <div class="flex items-center justify-between gap-3 bg-stitch-low px-4 py-3">
                 <div class="flex min-w-0 items-center gap-2.5">
-                    <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-stitch-primary text-white">
-                        <flux:icon.building-storefront class="size-4" />
-                    </span>
+                    <flux:icon.shield-check class="size-5 shrink-0 text-stitch-primary" />
                     <div class="min-w-0">
                         <p class="truncate text-sm font-bold">
                             {{ $farmer->farmerProfile?->farm_name ?? $farmer->name }}
@@ -48,9 +72,9 @@
                     </div>
                 </div>
 
-                <flux:text class="shrink-0 text-xs font-semibold text-stitch-muted">
-                    {{ __(':count produit(s)', ['count' => $items->count()]) }}
-                </flux:text>
+                <span class="shrink-0 rounded-full bg-stitch-container px-2 py-0.5 text-xs font-bold text-stitch-primary">
+                    {{ __('Direct champ') }}
+                </span>
             </div>
 
             <div class="divide-y divide-stitch-high">
@@ -83,11 +107,22 @@
                         @endunless
 
                         <div class="flex flex-wrap items-center gap-2">
-                            {{-- Stepper quantité façon Stitch : moins / champ / plus --}}
-                            <div class="flex h-11 items-center overflow-hidden rounded-full border border-stitch-border bg-white shadow-card">
+                            {{-- Stepper quantité façon Stitch : moins / champ / plus.
+                                 Purement présentationnel (Alpine met à jour le champ et
+                                 déclenche l'événement input que wire:model écoute) ; la
+                                 valeur n'est persistée que par « Mettre à jour », qui
+                                 passe par le service et ses règles de stock. --}}
+                            <div class="flex h-11 items-center overflow-hidden rounded-full border border-stitch-border bg-white shadow-card"
+                                 x-data="{
+                                     step(delta) {
+                                         const input = $root.querySelector('input');
+                                         const value = parseFloat(String(input.value).replace(',', '.')) || 0;
+                                         input.value = String(Math.max(0, value + delta));
+                                         input.dispatchEvent(new Event('input'));
+                                     },
+                                 }">
                                 <button type="button"
-                                        wire:click="updateQuantity({{ $item->id }})"
-                                        wire:loading.attr="disabled"
+                                        x-on:click="step(-1)"
                                         data-test="quantity-decrement-{{ $item->id }}"
                                         class="grid h-full w-10 place-items-center text-stitch-muted transition hover:text-stitch-primary">
                                     −
@@ -102,8 +137,7 @@
                                 />
 
                                 <button type="button"
-                                        x-data="{ step() { const input = this.$root.parentElement.querySelector('input'); input.value = (parseFloat(String(input.value).replace(',', '.')) || 0) + 1; input.dispatchEvent(new Event('input')); } }"
-                                        x-on:click="step()"
+                                        x-on:click="step(1)"
                                         class="grid h-full w-10 place-items-center text-stitch-muted transition hover:text-stitch-primary">
                                     +
                                 </button>
@@ -129,7 +163,9 @@
 
                 {{-- Sous-total du groupe de ferme --}}
                 <div class="flex items-center justify-between gap-3 bg-stitch-low/60 px-4 py-2.5">
-                    <span class="text-xs font-semibold text-stitch-muted">{{ __('Sous-total ferme') }}</span>
+                    <span class="text-xs font-semibold text-stitch-muted">
+                        {{ __('Sous-total récoltes :region', ['region' => $farmer->farmerProfile?->region ?? __('Cameroun')]) }}
+                    </span>
                     <span class="text-sm font-bold">{{ \App\Support\Money::fromInteger($items->sum(fn ($i) => $i->lineTotal()->amount))->format() }}</span>
                 </div>
             </div>
@@ -149,10 +185,32 @@
 
     {{-- Récapitulatif façon carte « Détail de la commande » Stitch --}}
     @unless ($this->cart()->isEmpty())
-        <div class="stitch-card sticky bottom-24 z-30 flex flex-col gap-3 p-4 lg:bottom-6">
+        <div class="stitch-card flex flex-col gap-3 p-4">
             <div class="flex items-center gap-2">
-                <flux:icon.receipt-percent class="size-5 text-stitch-terra" />
+                <flux:icon.receipt-percent class="size-5 text-stitch-primary" />
                 <h2 class="font-display text-sm font-bold">{{ __('Détail de la commande') }}</h2>
+            </div>
+
+            <div class="flex flex-col gap-1 text-sm text-stitch-muted">
+                <div class="flex items-center justify-between py-0.5">
+                    <span>{{ __('Sous-total récoltes (:count articles)', ['count' => $this->cart()->items->count()]) }}</span>
+                    <span class="font-bold text-stitch-ink">{{ $this->cart()->total()->format() }}</span>
+                </div>
+                <div class="flex items-center justify-between py-0.5">
+                    <span class="flex items-center gap-1">
+                        {{ __('Frais logistique groupée') }}
+                        <flux:icon.question-mark-circle class="size-3.5 text-stitch-success" />
+                    </span>
+                    <span class="font-bold text-stitch-success">{{ __('Offerts (0 FCFA)') }}</span>
+                </div>
+                <div class="my-1 h-px w-full bg-stitch-container"></div>
+                <div class="flex items-baseline justify-between pt-0.5">
+                    <div>
+                        <span class="font-display text-sm font-bold text-stitch-ink">{{ __('Total à payer') }}</span>
+                        <span class="block text-xs text-stitch-muted">{{ __('Toutes taxes comprises (TTC)') }}</span>
+                    </div>
+                    <span class="stitch-price text-2xl" data-test="cart-total">{{ $this->cart()->total()->format() }}</span>
+                </div>
             </div>
 
             @unless ($this->cart()->isOrderable())
@@ -162,9 +220,15 @@
                 </div>
             @endunless
 
-            <div class="flex items-end justify-between gap-3">
-                <span class="text-sm text-stitch-muted">{{ __('Total à payer') }}</span>
-                <span class="stitch-price text-2xl" data-test="cart-total">{{ $this->cart()->total()->format() }}</span>
+            {{-- Rassurances façon écran Stitch --}}
+            <div class="flex items-start gap-3 rounded-xl bg-stitch-low p-3">
+                <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-primary/10 text-stitch-primary">
+                    <flux:icon.shield-check class="size-5" />
+                </span>
+                <p class="text-xs text-stitch-muted">
+                    <span class="block text-sm font-bold text-stitch-ink">{{ __('Paiement Mobile Money Garanti') }}</span>
+                    {{ __('Le paiement se fait à l\'étape suivante. Votre stock n\'est réservé qu\'une fois le paiement confirmé.') }}
+                </p>
             </div>
 
             <flux:button
@@ -176,10 +240,6 @@
                 data-test="place-order">
                 {{ __('Commander') }}
             </flux:button>
-
-            <p class="text-center text-xs text-stitch-muted">
-                {{ __('Le paiement se fait à l\'étape suivante. Votre stock n\'est réservé qu\'une fois le paiement confirmé.') }}
-            </p>
         </div>
     @endunless
 </div>

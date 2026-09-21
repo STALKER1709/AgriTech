@@ -1,21 +1,41 @@
 <div class="flex w-full flex-1 flex-col gap-5">
-    {{-- En-tête façon écran Stitch « Messages » --}}
-    <div class="flex items-center gap-3">
-        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-primary/10 text-stitch-primary">
-            <flux:icon.chat-bubble-left-right class="size-5" />
-        </span>
-        <div>
-            <h1 class="text-xl font-bold">{{ __('Mes messages') }}</h1>
-            <p class="text-sm text-stitch-muted">{{ __('Vos échanges avec les agriculteurs.') }}</p>
+    {{-- En-tête façon écran Stitch « Messages » avec onglets de fil --}}
+    <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-primary/10 text-stitch-primary">
+                <flux:icon.chat-bubble-left-right class="size-5" />
+            </span>
+            <div>
+                <h1 class="text-xl font-bold">{{ __('Mes messages') }}</h1>
+                <p class="text-sm text-stitch-muted">
+                    {{ __('Vente directe de la terre à votre table, sans intermédiaire.') }}
+                </p>
+            </div>
+        </div>
+
+        {{-- Onglets de fil façon Stitch : « Tous (n) » et « Non lus (n) ». --}}
+        <div class="flex items-center gap-2">
+            <button type="button" wire:click="$set('filter', '')"
+                    @class(['stitch-chip', 'stitch-chip-active' => $filter === ''])>
+                {{ __('Tous') }}
+                <span class="font-bold">({{ $this->conversations()->total() }})</span>
+            </button>
+            <button type="button" wire:click="$set('filter', 'unread')"
+                    @class(['stitch-chip', 'stitch-chip-active' => $filter === 'unread'])>
+                {{ __('Non lus') }}
+                @if ($this->unreadTotal() > 0)
+                    <span class="font-bold">({{ $this->unreadTotal() }})</span>
+                @endif
+            </button>
         </div>
     </div>
 
     <div class="flex flex-col gap-2.5">
-        @forelse ($conversations as $conversation)
+        @forelse ($this->visibleConversations() as $conversation)
             @php
                 $farmer = $conversation->farmer;
                 $last = $conversation->messages->first();
-                $unread = $conversation->unreadCountFor(auth()->user() ?? \Illuminate\Support\Facades\Auth::user());
+                $unread = $conversation->unreadCountFor(auth()->user());
             @endphp
 
             <a href="{{ route('client.messages.show', ['conversation' => $conversation->id]) }}"
@@ -57,7 +77,11 @@
                 </span>
                 <h2 class="font-display text-lg font-bold">{{ __('Aucune conversation') }}</h2>
                 <p class="max-w-xs text-sm text-stitch-muted">
-                    {{ __('Contactez un agriculteur depuis une fiche produit pour démarrer un échange.') }}
+                    @if ($filter === 'unread')
+                        {{ __('Tout est lu. Vos conversations récentes restent actives sur l\'onglet « Tous ».') }}
+                    @else
+                        {{ __('Contactez un agriculteur depuis une fiche produit pour démarrer un échange.') }}
+                    @endif
                 </p>
             </div>
         @endforelse

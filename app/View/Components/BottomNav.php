@@ -88,12 +88,15 @@ class BottomNav extends Component
      */
     private function clientTabs(User $user): array
     {
+        // The five tabs of the Stitch bottom bar: Accueil, Catalogue,
+        // Formations, Messages, Compte. The cart keeps its badge on the
+        // header instead, like the shell's cart icon button.
         return [
             ['label' => __('Accueil'), 'href' => route('client.dashboard'), 'icon' => 'home', 'current' => request()->routeIs('client.dashboard'), 'badge' => null],
             ['label' => __('Catalogue'), 'href' => route('catalog.browse'), 'icon' => 'building-storefront', 'current' => request()->routeIs('catalog.*'), 'badge' => null],
             ['label' => __('Formations'), 'href' => route('client.trainings'), 'icon' => 'academic-cap', 'current' => request()->routeIs('client.trainings'), 'badge' => null],
-            ['label' => __('Panier'), 'href' => route('client.cart'), 'icon' => 'shopping-cart', 'current' => request()->routeIs('client.cart'), 'badge' => $user->cartItemCount() ?: null],
             ['label' => __('Messages'), 'href' => route('client.messages'), 'icon' => 'chat-bubble-left-right', 'current' => request()->routeIs('client.messages*'), 'badge' => $this->unreadCount($user)],
+            ['label' => __('Compte'), 'href' => route('profile.edit'), 'icon' => 'user-circle', 'current' => request()->routeIs('profile.edit'), 'badge' => null],
         ];
     }
 
@@ -108,6 +111,7 @@ class BottomNav extends Component
             ['label' => __('Formations'), 'href' => route('farmer.trainings'), 'icon' => 'academic-cap', 'current' => request()->routeIs('farmer.trainings*'), 'badge' => null],
             ['label' => __('Commandes'), 'href' => route('farmer.orders'), 'icon' => 'truck', 'current' => request()->routeIs('farmer.orders*'), 'badge' => null],
             ['label' => __('Messages'), 'href' => route('farmer.messages'), 'icon' => 'chat-bubble-left-right', 'current' => request()->routeIs('farmer.messages*'), 'badge' => $this->unreadCount(auth()->user())],
+            ['label' => __('Compte'), 'href' => route('profile.edit'), 'icon' => 'user-circle', 'current' => request()->routeIs('profile.edit'), 'badge' => null],
         ];
     }
 

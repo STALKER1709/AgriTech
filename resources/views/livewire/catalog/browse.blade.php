@@ -57,7 +57,7 @@
         @endforeach
     </div>
 
-    {{-- Sort + reset row --}}
+    {{-- Sort + reset row, with the Stitch results counter line. --}}
     <div class="flex flex-wrap items-center justify-between gap-2">
         <flux:select wire:model.live="sort" class="max-w-44" :label="__('Trier par')" data-test="sort">
             <flux:select.option value="recent">{{ __('Les plus récents') }}</flux:select.option>
@@ -77,6 +77,17 @@
                 </flux:button>
             @endif
         </div>
+    </div>
+
+    {{-- Results counter summary: bold count + green short-circuit tag. --}}
+    <div class="flex items-center justify-between">
+        <span class="text-xs font-semibold text-stitch-ink">
+            {{ trans_choice('{0}Aucun produit disponible au Cameroun|{1}:count produit disponible au Cameroun|[2,*]:count produits disponibles au Cameroun', $products->total(), ['count' => $products->total()]) }}
+        </span>
+        <span class="flex items-center gap-1 text-xs text-stitch-muted">
+            <flux:icon.leaf class="size-3.5 text-stitch-success" />
+            {{ __('Circuits courts') }}
+        </span>
     </div>
 
     @if ($products->isEmpty())
