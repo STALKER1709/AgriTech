@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property int $id
@@ -77,6 +78,26 @@ class Training extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /**
+     * Whether an illustrated cover file exists on the private disk. Views use
+     * this to fall back to the gradient hero when the seeder did not draw one
+     * (for instance on a machine without GD).
+     */
+    public function hasCover(): bool
+    {
+        return Storage::disk((string) config('catalog.images.disk', 'local'))
+            ->exists('training-covers/'.$this->slug.'.png');
+    }
+
+    /**
+     * The public URL of the cover, served through the controller like product
+     * images are. Only meaningful when hasCover() is true.
+     */
+    public function coverUrl(): string
+    {
+        return route('trainings.cover', ['training' => $this->slug]);
     }
 
     /**

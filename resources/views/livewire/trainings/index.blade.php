@@ -102,9 +102,15 @@
                    data-test="training-card">
                     {{-- 16:9 thumbnail with the format chip overlaid. --}}
                     <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-gradient-to-br from-stitch-primary/15 to-stitch-terra-soft/40">
-                        <div class="flex size-full items-center justify-center text-stitch-primary/40 transition-transform duration-300 group-hover:scale-105">
-                            <flux:icon.academic-cap class="size-10" />
-                        </div>
+                        @if ($training->hasCover())
+                            <img src="{{ $training->coverUrl() }}" alt="{{ $training->title }}"
+                                 loading="lazy"
+                                 class="size-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                        @else
+                            <div class="flex size-full items-center justify-center text-stitch-primary/40 transition-transform duration-300 group-hover:scale-105">
+                                <flux:icon.academic-cap class="size-10" />
+                            </div>
+                        @endif
 
                         <span class="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-bold text-stitch-ink shadow-sm backdrop-blur-sm">
                             @if ($training->format->value === 'pdf')

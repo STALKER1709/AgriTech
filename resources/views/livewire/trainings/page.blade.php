@@ -12,7 +12,12 @@
         {{-- Video preview area, gradient like the Stitch screen. --}}
         <div class="flex flex-col gap-3">
             <div class="relative aspect-video w-full overflow-hidden rounded-2xl bg-gradient-to-br from-stitch-primary/20 via-stitch-gold-soft/25 to-stitch-terra-soft/40 shadow-raised">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" aria-hidden="true"></div>
+                @if ($training->hasCover())
+                    <img src="{{ $training->coverUrl() }}" alt="{{ $training->title }}" class="absolute inset-0 size-full object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25" aria-hidden="true"></div>
+                @else
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" aria-hidden="true"></div>
+                @endif
 
                 <div class="absolute inset-0 flex items-center justify-center">
                     <span class="flex size-16 items-center justify-center rounded-full bg-stitch-primary/90 text-white shadow-float backdrop-blur-sm">

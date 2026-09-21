@@ -323,8 +323,19 @@ class DemoSeeder extends Seeder
             );
         }
 
-        foreach ($products as $product) {
-            $this->attachPlaceholderImage($product);
+        // Scènes thématiques : chaque produit reçoit une illustration qui le
+        // représente, pas un simple aplat de couleur.
+        $scenes = [
+            'plantain' => 'plantain',
+            'manioc' => 'manioc',
+            'tomate' => 'tomate',
+            'cafe' => 'cafe',
+            'miel' => 'miel',
+            'poulet' => 'poulet',
+        ];
+
+        foreach ($products as $key => $product) {
+            $this->attachPlaceholderImage($product, $scenes[$key]);
         }
 
         // One product still waiting on moderation, so the admin screen has
@@ -347,13 +358,18 @@ class DemoSeeder extends Seeder
     }
 
     /**
-     * Give a product one generated image, so the catalogue looks like a
-     * catalogue rather than a grid of empty boxes.
+     * Give a product a small gallery of generated illustrations, so the
+     * catalogue and the product page look like a market rather than a grid
+     * of empty boxes.
      *
-     * Skipped when the product already has one, which keeps the seeder
+     * The first image is the product's themed scene; the two extras are the
+     * generic field scene in varying canvas tints, which the product page
+     * shows as secondary gallery thumbnails.
+     *
+     * Skipped when the product already has images, which keeps the seeder
      * rerunnable.
      */
-    private function attachPlaceholderImage(Product $product): void
+    private function attachPlaceholderImage(Product $product, string $scene = 'generic'): void
     {
         if ($product->images()->exists()) {
             return;
@@ -374,23 +390,53 @@ class DemoSeeder extends Seeder
             return;
         }
 
-        $palette = [
-            [34, 110, 62], [176, 122, 32], [140, 54, 42],
-            [42, 96, 140], [104, 64, 128], [64, 120, 96],
+        $disk = Storage::disk((string) config('catalog.images.disk', 'local'));
+
+        // One themed scene plus two tinted companions: the detail page gets
+        // a real gallery to flip through.
+        $tints = [
+            [34, 110, 62],
+            [176, 122, 32],
+            [64, 120, 96],
         ];
 
-        $path = 'products/'.$product->id.'/'.Str::ulid()->toString().'.png';
+        foreach ($tints as $index => $tint) {
+            $sceneKey = $index === 0 ? $scene : 'generic';
 
-        Storage::disk((string) config('catalog.images.disk', 'local'))->put(
-            $path,
-            PlaceholderImage::png($product->name, $palette[$product->id % count($palette)]),
-        );
+            $path = 'products/'.$product->id.'/'.Str::ulid()->toString().'.png';
 
-        ProductImage::create([
-            'product_id' => $product->id,
-            'path' => $path,
-            'position' => 1,
-        ]);
+            $disk->put($path, PlaceholderImage::png($sceneKey, $tint));
+
+            ProductImage::create([
+                'product_id' => $product->id,
+                'path' => $path,
+                'position' => $index + 1,
+            ]);
+        }
+    }
+
+    /**
+     * Give a training an illustrated 16:9 cover, drawn on the private disk
+     * and streamed by the cover controller like product images are. There is
+     * no cover column on the model: the file is keyed by the training slug,
+     * and the public screens fall back to the gradient hero when it is
+     * absent (for instance after a seed without GD).
+     *
+     * Skipped when the cover already exists, which keeps the seeder
+     * rerunnable.
+     */
+    private function attachTrainingCover(Training $training, string $scene): void
+    {
+        if (! PlaceholderImage::isSupported()) {
+            return;
+        }
+
+        $path = 'training-covers/'.$training->slug.'.png';
+        $disk = Storage::disk((string) config('catalog.images.disk', 'local'));
+
+        if (! $disk->exists($path)) {
+            $disk->put($path, PlaceholderImage::cover($scene));
+        }
     }
 
     /**
@@ -420,6 +466,18 @@ class DemoSeeder extends Seeder
                     'status' => PublicationStatus::Published,
                 ],
             );
+        }
+
+        // Couvertures illustrées 16:9, une scène par formation.
+        $coverScenes = [
+            'compostage' => 'formation-compostage',
+            'irrigation' => 'formation-irrigation',
+            'cacao' => 'formation-cacao',
+            'conservation' => 'formation-conservation',
+        ];
+
+        foreach ($trainings as $key => $training) {
+            $this->attachTrainingCover($training, $coverScenes[$key]);
         }
 
         return $trainings;
