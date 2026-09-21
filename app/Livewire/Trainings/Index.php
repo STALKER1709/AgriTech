@@ -71,6 +71,18 @@ class Index extends Component
         return TrainingFormat::cases();
     }
 
+    /**
+     * How many trainings the Pass unlocks: the banner quotes a real number,
+     * not a hardcoded marketing claim.
+     */
+    public function includedCount(): int
+    {
+        return Training::query()
+            ->visibleToPublic()
+            ->where('included_in_subscription', true)
+            ->count();
+    }
+
     public function resetFilters(): void
     {
         $this->search = '';

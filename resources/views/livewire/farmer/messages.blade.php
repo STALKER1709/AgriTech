@@ -1,17 +1,35 @@
 <div class="flex w-full flex-1 flex-col gap-5">
     {{-- En-tête façon écran Stitch « Messages » (côté agriculteur) --}}
-    <div class="flex items-center gap-3">
-        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-primary/10 text-stitch-primary">
-            <flux:icon.chat-bubble-left-right class="size-5" />
-        </span>
-        <div>
-            <h1 class="text-xl font-bold">{{ __('Messages reçus') }}</h1>
-            <p class="text-sm text-stitch-muted">{{ __('Vos échanges avec vos clients.') }}</p>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-primary/10 text-stitch-primary">
+                <flux:icon.chat-bubble-left-right class="size-5" />
+            </span>
+            <div>
+                <h1 class="text-xl font-bold">{{ __('Messages reçus') }}</h1>
+                <p class="text-sm text-stitch-muted">{{ __('Vos échanges avec vos clients.') }}</p>
+            </div>
+        </div>
+
+        {{-- Onglets de fil façon Stitch : « Tous (n) » et « Non lus (n) ». --}}
+        <div class="flex items-center gap-2">
+            <button type="button" wire:click="$set('filter', '')"
+                    @class(['stitch-chip', 'stitch-chip-active' => $filter === ''])>
+                {{ __('Tous') }}
+                <span class="font-bold">({{ $this->conversations()->total() }})</span>
+            </button>
+            <button type="button" wire:click="$set('filter', 'unread')"
+                    @class(['stitch-chip', 'stitch-chip-active' => $filter === 'unread'])>
+                {{ __('Non lus') }}
+                @if ($this->unreadTotal() > 0)
+                    <span class="font-bold">({{ $this->unreadTotal() }})</span>
+                @endif
+            </button>
         </div>
     </div>
 
     <div class="flex flex-col gap-2.5">
-        @forelse ($conversations as $conversation)
+        @forelse ($this->visibleConversations() as $conversation)
             @php
                 $client = $conversation->client;
                 $last = $conversation->messages->first();
@@ -55,7 +73,11 @@
                 </span>
                 <h2 class="font-display text-lg font-bold">{{ __('Aucune conversation') }}</h2>
                 <p class="max-w-xs text-sm text-stitch-muted">
-                    {{ __('Vos clients vous écriront depuis vos fiches produits et formations.') }}
+                    @if ($filter === 'unread')
+                        {{ __('Tout est lu. Vos conversations récentes restent actives sur l\'onglet « Tous ».') }}
+                    @else
+                        {{ __('Vos clients vous écriront depuis vos fiches produits et formations.') }}
+                    @endif
                 </p>
             </div>
         @endforelse

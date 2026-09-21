@@ -99,6 +99,52 @@
         </div>
     @endif
 
+    {{-- Timeline de suivi, fidèle à l'écran « Détail De Commande » Stitch :
+         5 étapes verticales dont les passées portent un médaillon vert. --}}
+    @php($steps = [
+        ['created', __('Commande créée'), __('Panier validé par l\'acheteur'), true],
+        ['paid', __('Paiement confirmé'), __('Paiement :amount', ['amount' => $order->total_amount->format()]), $order->status->value !== 'pending_payment'],
+        ['preparing', __('En préparation chez le producteur'), __('Chaque ferme prépare sa part'), in_array($order->status->value, ['preparing', 'delivered'])],
+        ['transit', __('En transit vers votre ville'), __('Livraison groupée AgriTech'), $order->status->value === 'delivered'],
+        ['delivered', __('Livrée au destinataire'), __('Commande réceptionnée'), $order->status->value === 'delivered'],
+    ])
+    @if ($order->status->value !== 'cancelled')
+        <div class="stitch-card p-4 sm:p-5">
+            <div class="mb-3 flex items-center gap-2">
+                <flux:icon.truck class="size-5 text-stitch-primary" />
+                <h2 class="font-display text-sm font-bold">{{ __('Suivi de l\'acheminement') }}</h2>
+            </div>
+
+            <ol class="flex flex-col">
+                @foreach ($steps as $index => [$key, $title, $detail, $done])
+                    <li class="flex gap-3">
+                        {{-- Rails --}}
+                        <span class="flex flex-col items-center">
+                            <span class="grid size-7 shrink-0 place-items-center rounded-full {{ $done ? 'bg-stitch-primary text-white' : 'border-2 border-stitch-highest bg-white text-stitch-highest' }}">
+                                @if ($done)
+                                    <flux:icon.check class="size-4" />
+                                @endif
+                            </span>
+                            @if (! $loop->last)
+                                <span class="w-0.5 flex-1 {{ $done ? 'bg-stitch-primary/40' : 'bg-stitch-high' }}" style="min-height: 26px;"></span>
+                            @endif
+                        </span>
+
+                        <span class="min-w-0 pb-4">
+                            <span class="block text-sm font-bold {{ $done ? 'text-stitch-ink' : 'text-stitch-muted' }}">{{ $title }}</span>
+                            <span class="block truncate text-xs text-stitch-muted">{{ $detail }}</span>
+                        </span>
+                    </li>
+                @endforeach
+            </ol>
+        </div>
+    @else
+        <div class="flex items-center gap-3 rounded-xl border border-stitch-border bg-stitch-danger-soft px-4 py-3">
+            <flux:icon.x-circle class="size-5 shrink-0 text-stitch-danger" />
+            <p class="text-sm font-medium text-stitch-danger">{{ __('Cette commande a été annulée. Aucun montant n\'a été débité.') }}</p>
+        </div>
+    @endif
+
     {{-- Sous-commandes : une carte par ferme, comme le panier --}}
     @foreach ($order->subOrders as $subOrder)
         <div class="stitch-card overflow-hidden">
