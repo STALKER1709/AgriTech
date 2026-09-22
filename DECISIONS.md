@@ -1201,3 +1201,24 @@ couverture à tenir à jour — et les deux sources coexistent sans que l'écran
 Au passage : une photographie l'emporte sur un dessin laissé par un amorçage
 précédent. `migrate:fresh` vide la base, pas le disque ; sans cela, une machine
 déjà amorcée aurait gardé ses illustrations pour toujours.
+
+---
+
+### 2026-09-22 — La légende des illustrations GD est repliée en ASCII
+
+**Symptôme.** Sur les images générées, « Régime de plantain » s'affichait
+`RÃ‰GIME DE PLANTAIN`, et le texte était décentré d'un cran par accent.
+
+**Cause.** `imagestring()` et les polices bitmap intégrées à GD travaillent
+**octet par octet**. Un « É » en UTF-8 occupe deux octets et se dessine donc
+comme deux glyphes faux ; et la largeur, mesurée en caractères avec
+`mb_strlen()`, ne correspondait plus à l'avance réelle, en octets.
+
+**Décision.** La légende est repliée en ASCII (`É` → `E`, `œ` → `oe`, les
+apostrophes typographiques → `'`), puis mesurée avec `strlen()`. Les polices
+intégrées de GD n'ont de toute façon aucun glyphe accentué à proposer :
+retirer l'accent est plus honnête que le rendre faux.
+
+**Portée.** Ces illustrations ne sont que le repli des photographies. Le
+symptôme n'apparaît que sur une machine sans photographies amorcées, ou sans
+l'extension GD — mais il n'avait aucune raison de rester.

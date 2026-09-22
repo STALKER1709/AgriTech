@@ -489,9 +489,11 @@ final class PlaceholderImage
         $w = imagesx($this->canvas);
         $h = imagesy($this->canvas);
 
-        $text = mb_strtoupper(mb_substr($label, 0, 24));
+        $text = self::toAscii(mb_strtoupper(mb_substr($label, 0, 24)));
         $font = 5;
-        $textWidth = imagefontwidth($font) * mb_strlen($text);
+        // Measured in bytes, because that is how imagestring() advances. The
+        // caption is pure ASCII by then, so the two agree.
+        $textWidth = imagefontwidth($font) * strlen($text);
         $textHeight = imagefontheight($font);
         $padX = 10;
 
@@ -514,6 +516,33 @@ final class PlaceholderImage
             $text,
             $this->color(255, 255, 255),
         );
+    }
+
+    /**
+     * Fold a French caption down to ASCII.
+     *
+     * GD's built-in bitmap fonts are single-byte: handed UTF-8, they draw
+     * each byte of an accented letter as its own glyph — "RÉGIME" comes out
+     * as "RÃ‰GIME" — and the centring, counted in characters, drifts by one
+     * position per accent. Since those fonts have no accented glyph to offer
+     * anyway, the honest move is to drop the accent rather than to mangle it.
+     */
+    private static function toAscii(string $text): string
+    {
+        $folded = strtr($text, [
+            'À' => 'A', 'Â' => 'A', 'Ä' => 'A', 'Æ' => 'AE', 'Ç' => 'C',
+            'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Î' => 'I',
+            'Ï' => 'I', 'Ô' => 'O', 'Œ' => 'OE', 'Ö' => 'O', 'Ù' => 'U',
+            'Û' => 'U', 'Ü' => 'U', 'Ÿ' => 'Y',
+            'à' => 'a', 'â' => 'a', 'ä' => 'a', 'æ' => 'ae', 'ç' => 'c',
+            'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'î' => 'i',
+            'ï' => 'i', 'ô' => 'o', 'œ' => 'oe', 'ö' => 'o', 'ù' => 'u',
+            'û' => 'u', 'ü' => 'u', 'ÿ' => 'y',
+            '’' => "'", '‘' => "'", '“' => '"', '”' => '"', '–' => '-', '—' => '-',
+        ]);
+
+        // Anything still outside ASCII would draw as noise: drop it.
+        return (string) preg_replace('/[^\x20-\x7E]/', '', $folded);
     }
 
     /**

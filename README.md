@@ -192,6 +192,16 @@ php artisan migrate
 npm run build
 ```
 
+> **`npm install` n'est pas facultatif.** Une dépendance ajoutée entre deux
+> `git pull` — la police d'icônes Material Symbols, par exemple — fait échouer
+> `npm run build` si elle manque. Et quand la compilation échoue, l'application
+> s'affiche **sans aucun style, avec les icônes écrites en toutes lettres**.
+> Si l'écran ressemble à une page HTML nue, c'est presque toujours cela.
+
+> Les photographies du jeu de démonstration sont posées à l'amorçage :
+> `php artisan migrate:fresh --seed` est nécessaire pour les voir apparaître à
+> la place des illustrations générées.
+
 ### Récapitulatif des pièges connus
 
 | Symptôme | Cause | Solution |
@@ -200,6 +210,8 @@ npm run build
 | `Unknown database 'agritech'` | Bases non créées | Étape 4 |
 | `Connection refused` sur le port 3306 | MySQL arrêté | Étape 2 |
 | `Vite manifest not found` | Assets non compilés | `npm run build` (étape 5) |
+| **Page sans aucun style, icônes affichées en toutes lettres (`storefront`, `search`, `eco`)** | La feuille de style n'est pas chargée : soit `npm install` n'a pas été relancé après un `git pull` et `npm run build` a échoué, soit `npm run dev` a été lancé puis arrêté et le fichier `public/hot` est resté | `npm install` puis `npm run build`. Si le symptôme persiste, supprimer `public\hot` et rebâtir |
+| Les produits affichent des rectangles colorés au lieu de photos | La base n'a pas été ré-amorcée depuis l'ajout des photographies | `php artisan migrate:fresh --seed` |
 | Un paiement reste bloqué sur « vérification » | `queue:work` ne tourne pas | Terminal 3 |
 | `Cannot create symlink` | Droits Windows | Étape 7 |
 | `Access denied ... agritech_test_test_1` | L'utilisateur MySQL ne peut pas créer de bases | Utiliser `root`, ou accorder les droits sur `agritech_test%` |
@@ -775,6 +787,8 @@ Documents de référence à la racine :
 | Symptôme | Cause probable | Solution |
 |---|---|---|
 | `Vite manifest not found` | Assets non compilés | `npm run build` (étape 5) |
+| **Page sans aucun style, icônes affichées en toutes lettres (`storefront`, `search`, `eco`)** | La feuille de style n'est pas chargée : soit `npm install` n'a pas été relancé après un `git pull` et `npm run build` a échoué, soit `npm run dev` a été lancé puis arrêté et le fichier `public/hot` est resté | `npm install` puis `npm run build`. Si le symptôme persiste, supprimer `public\hot` et rebâtir |
+| Les produits affichent des rectangles colorés au lieu de photos | La base n'a pas été ré-amorcée depuis l'ajout des photographies | `php artisan migrate:fresh --seed` |
 | Un paiement reste `pending` | File d'attente non lancée | `php artisan queue:work` |
 | `SQLSTATE[HY000] [1049] Unknown database` | Base non créée | Voir § 2.2 |
 | `Access denied ... agritech_test_test_1` | L'utilisateur MySQL ne peut pas créer de bases | Utiliser `root`, ou accorder les droits sur `agritech_test%` |
