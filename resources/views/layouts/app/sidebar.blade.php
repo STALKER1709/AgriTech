@@ -1,137 +1,141 @@
-{{-- Authenticated shell following the Stitch design system: fixed 260px
-     sidebar on desktop (like the admin web_dashboard screen), sticky top
-     header on mobile, and the bottom tab bar on small screens. --}}
+{{--
+    Coquille des espaces connectés, reprise des maquettes Stitch.
+
+    Deux formes, comme les maquettes : en dessous de `lg`, la coquille mobile
+    (`mobile_tab`) — en-tête fixe de 64 px, contenu entre 64 px et la barre
+    d'onglets, barre d'onglets basse de 64 px. À partir de `lg`, la coquille
+    web (`web_dashboard`) — rail latéral fixe de 256 px sur
+    `surface-container-low`, en-tête fixe décalé de 256 px, contenu dans la
+    gouttière de 24 px.
+
+    Les maquettes client et agriculteur n'existent qu'en mobile : la version
+    web réutilise le vocabulaire du back-office, seul écran large fourni.
+--}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-stitch-surface text-stitch-ink antialiased">
-        <div class="lg:pl-64">
-            {{-- Top bar — always visible; on mobile it carries the menu. --}}
-            <header class="fixed inset-x-0 top-0 z-40 border-b border-stitch-border bg-stitch-surface/90 shadow-card backdrop-blur-xl lg:left-64">
-                <div class="flex h-16 items-center justify-between gap-2 px-4 lg:px-8">
-                    <div class="flex min-w-0 items-center gap-2">
-                        {{-- Mobile menu toggle (Flux sidebar collapsible) --}}
-                        <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
-
-                        <a href="{{ route('dashboard') }}" wire:navigate class="flex min-w-0 items-center gap-2">
-                            <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-stitch-primary text-white shadow-card">
-                                <flux:icon.leaf class="size-4" />
-                            </span>
-                            <span class="hidden min-w-0 flex-col leading-none sm:flex">
-                                <span class="truncate font-display text-base font-bold text-stitch-primary">AgriTech</span>
-                            </span>
-                        </a>
+    <body class="bg-surface font-body-md text-body-md text-text-primary antialiased min-h-screen">
+        {{-- Rail latéral — web uniquement --}}
+        <aside class="hidden lg:flex fixed left-0 top-0 h-full w-64 bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex-col justify-between">
+            <div class="flex flex-col flex-1 overflow-y-auto">
+                <a href="{{ route('dashboard') }}" wire:navigate
+                   class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low shrink-0">
+                    <span class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+                        <x-icon name="eco" size="18" filled class="text-on-primary" />
+                    </span>
+                    <div class="flex flex-col min-w-0">
+                        <span class="font-headline-sm text-headline-sm text-text-primary tracking-tight leading-none truncate">AgriTech</span>
+                        <span class="font-label-sm text-label-sm text-text-secondary truncate mt-1">
+                            {{ \App\Support\RoleNavigation::spaceLabel(auth()->user()) }}
+                        </span>
                     </div>
+                </a>
 
-                    <div class="flex items-center gap-2">
-                        <flux:dropdown position="top" align="end">
-                            <flux:profile
-                                :initials="auth()->user()->initials()"
-                                icon-trailing="chevron-down"
-                            />
-
-                            <flux:menu>
-                                <flux:menu.radio.group>
-                                    <div class="p-0 text-sm font-normal">
-                                        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                                            <flux:avatar
-                                                :name="auth()->user()->name"
-                                                :initials="auth()->user()->initials()"
-                                            />
-
-                                            <div class="grid flex-1 text-start text-sm leading-tight">
-                                                <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
-                                                <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </flux:menu.radio.group>
-
-                                <flux:menu.separator />
-
-                                <flux:menu.radio.group>
-                                    <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
-                                        {{ __('Paramètres') }}
-                                    </flux:menu.item>
-                                    <flux:menu.item :href="route('home')" icon="building-storefront" wire:navigate>
-                                        {{ __('Catalogue public') }}
-                                    </flux:menu.item>
-                                </flux:menu.radio.group>
-
-                                <flux:menu.separator />
-
-                                <form method="POST" action="{{ route('logout') }}" class="w-full">
-                                    @csrf
-                                    <flux:menu.item
-                                        as="button"
-                                        type="submit"
-                                        icon="arrow-right-start-on-rectangle"
-                                        class="w-full cursor-pointer"
-                                        data-test="logout-button"
-                                    >
-                                        {{ __('Se déconnecter') }}
-                                    </flux:menu.item>
-                                </form>
-                            </flux:menu>
-                        </flux:dropdown>
+                <div class="px-space-md py-space-xs">
+                    <div class="px-space-sm py-1.5 rounded-lg bg-surface-container flex items-center justify-between">
+                        <span class="font-label-sm text-label-sm text-text-secondary">{{ __('Région Cameroun') }}</span>
+                        <span class="inline-flex items-center gap-1 font-label-sm text-label-sm font-semibold text-primary">
+                            <span class="w-2 h-2 rounded-full bg-status-success"></span>+237
+                        </span>
                     </div>
                 </div>
-            </header>
 
-            {{-- Desktop sidebar: fixed, 260px, light surface like the admin shell. --}}
-            <flux:sidebar class="hidden border-e border-stitch-border bg-stitch-low lg:flex lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:w-64 lg:flex-col" wire:key="sidebar">
-                <flux:sidebar.header class="!bg-transparent">
-                    <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
-                </flux:sidebar.header>
-
-                <flux:sidebar.nav class="!bg-transparent">
+                <nav class="flex-1 px-space-sm py-space-sm space-y-1" aria-label="{{ __('Navigation principale') }}">
                     @include('layouts.navigation.' . \App\Support\RoleNavigation::partialFor(auth()->user()))
-                </flux:sidebar.nav>
+                </nav>
 
-                <flux:spacer />
-
-                <flux:sidebar.nav class="!bg-transparent">
-                    <flux:sidebar.item icon="building-storefront" :href="route('home')" wire:navigate>
+                <div class="px-space-sm pb-space-sm">
+                    <x-nav-item icon="storefront" :href="route('home')" :current="false">
                         {{ __('Catalogue public') }}
-                    </flux:sidebar.item>
-                </flux:sidebar.nav>
+                    </x-nav-item>
+                </div>
+            </div>
 
-                <div class="!bg-transparent px-3 pb-4">
-                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+            {{-- Carte utilisateur en pied de rail (maquette back-office) --}}
+            <div class="p-space-sm bg-surface-container-low">
+                <div class="p-space-sm rounded-xl bg-surface-container flex items-center justify-between gap-space-xs">
+                    <div class="flex items-center gap-space-sm min-w-0">
+                        <div class="relative shrink-0">
+                            <div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-sm text-[14px]">
+                                {{ auth()->user()->initials() }}
+                            </div>
+                            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-status-success ring-2 ring-surface-white"></span>
+                        </div>
+                        <div class="flex flex-col min-w-0">
+                            <span class="font-label-lg text-label-lg text-text-primary font-semibold truncate">{{ auth()->user()->name }}</span>
+                            <a href="{{ route('profile.edit') }}" wire:navigate
+                               class="font-label-sm text-label-sm text-text-secondary truncate hover:text-primary transition-colors">
+                                {{ __('Mon compte') }}
+                            </a>
+                        </div>
+                    </div>
+
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <flux:sidebar.item
-                            as="button"
-                            type="submit"
-                            icon="arrow-right-start-on-rectangle"
-                            class="w-full cursor-pointer"
-                            data-test="logout-sidebar"
-                        >
-                            {{ __('Se déconnecter') }}
-                        </flux:sidebar.item>
+                        <button type="submit" data-test="logout-sidebar" title="{{ __('Se déconnecter') }}"
+                                class="p-1.5 rounded-lg text-text-secondary hover:bg-surface-container-high hover:text-error transition-colors shrink-0 cursor-pointer">
+                            <x-icon name="logout" size="20" />
+                            <span class="sr-only">{{ __('Se déconnecter') }}</span>
+                        </button>
                     </form>
                 </div>
-            </flux:sidebar>
+            </div>
+        </aside>
 
-            {{-- Mobile slide-over sidebar (same navigation). --}}
-            <flux:sidebar class="lg:hidden" wire:key="mobile-sidebar">
-                <flux:sidebar.header>
-                    <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
-                    <flux:sidebar.collapse class="lg:hidden" />
-                </flux:sidebar.header>
+        <div class="lg:pl-64 flex flex-col min-h-screen">
+            <x-shell-header />
 
-                <flux:sidebar.nav>
-                    @include('layouts.navigation.' . \App\Support\RoleNavigation::partialFor(auth()->user()))
-                </flux:sidebar.nav>
-            </flux:sidebar>
-
-            <main class="px-4 pb-24 pt-20 lg:px-8 lg:pb-10">
-                {{ $slot }}
+            {{-- `pt-16` dégage l'en-tête fixe, `pb-24` la barre d'onglets. Les
+                 marges verticales du contenu vivent dans le conteneur interne :
+                 une classe `py-*` sur le même élément écraserait `pt-16`. --}}
+            <main class="w-full flex-1 bg-surface pt-16 pb-24 px-margin lg:pb-space-2xl lg:px-space-lg">
+                <div class="py-space-md lg:py-space-lg">
+                    {{ $slot }}
+                </div>
             </main>
         </div>
 
         <x-bottom-nav :user="auth()->user()" />
+
+        {{-- Tiroir de navigation mobile : les maquettes s'appuient sur la barre
+             d'onglets, qui ne porte que cinq destinations. Les rôles qui en ont
+             davantage gardent ce tiroir, ouvert depuis l'en-tête. --}}
+        <div x-data="{ open: false }" x-on:open-drawer.window="open = true" x-cloak class="lg:hidden">
+            <div x-show="open" x-transition.opacity class="fixed inset-0 z-[60] bg-inverse-surface/40" x-on:click="open = false"></div>
+
+            <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
+                 class="fixed inset-y-0 left-0 z-[61] w-72 bg-surface-container-low shadow-[0_12px_28px_rgba(31,36,33,0.12)] flex flex-col">
+                <div class="h-16 px-space-md flex items-center justify-between">
+                    <span class="font-headline-sm text-headline-sm text-text-primary">AgriTech</span>
+                    <button type="button" x-on:click="open = false" class="p-2 rounded-full text-text-secondary hover:bg-surface-container">
+                        <x-icon name="close" size="22" />
+                        <span class="sr-only">{{ __('Fermer') }}</span>
+                    </button>
+                </div>
+
+                <nav class="flex-1 overflow-y-auto px-space-sm py-space-sm space-y-1">
+                    @include('layouts.navigation.' . \App\Support\RoleNavigation::partialFor(auth()->user()))
+
+                    <x-nav-item icon="storefront" :href="route('home')" :current="false">
+                        {{ __('Catalogue public') }}
+                    </x-nav-item>
+                </nav>
+
+                <form method="POST" action="{{ route('logout') }}" class="p-space-sm">
+                    @csrf
+                    <button type="submit"
+                            class="w-full flex items-center gap-3 px-space-sm py-2.5 rounded-lg text-text-secondary hover:bg-surface-container hover:text-error transition-colors cursor-pointer">
+                        <x-icon name="logout" size="20" />
+                        <span class="font-label-lg text-label-lg">{{ __('Se déconnecter') }}</span>
+                    </button>
+                </form>
+            </div>
+        </div>
 
         @persist('toast')
             <flux:toast.group>

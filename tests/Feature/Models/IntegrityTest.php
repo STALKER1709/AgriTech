@@ -92,7 +92,7 @@ describe('money handling, business rule RG10', function () {
 
         expect($product->refresh()->unit_price)->toBeInstanceOf(Money::class);
         expect($product->unit_price->amount)->toBeMoney()->toBe(2_500);
-        expect($product->unit_price->format())->toBe("2\u{202F}500\u{00A0}FCFA");
+        expect($product->unit_price->format())->toBe("2\u{00A0}500\u{00A0}FCFA");
     });
 
     it('accepts a plain integer as money too', function () {

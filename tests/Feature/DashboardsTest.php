@@ -44,10 +44,10 @@ describe('farmer dashboard', function () {
             'commission_amount' => 990,
         ]);
 
-        // Money formatting groups thousands with U+202F and binds FCFA with U+00A0.
+        // Money formatting groups thousands and binds FCFA with U+00A0.
         Livewire::actingAs($farmer)
             ->test(FarmerDashboard::class)
-            ->assertSee("14\u{202F}000\u{00A0}FCFA");
+            ->assertSee("14\u{00A0}000\u{00A0}FCFA");
     });
 
     it('lists the sub-orders waiting to be prepared', function () {

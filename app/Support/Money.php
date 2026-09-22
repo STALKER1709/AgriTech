@@ -23,10 +23,14 @@ final readonly class Money implements JsonSerializable, Stringable
     public const string CURRENCY = 'XAF';
 
     /**
-     * Narrow no-break space (U+202F), the separator French typography uses
-     * for thousands.
+     * No-break space (U+00A0) between the groups of thousands.
+     *
+     * French typography would use the narrow no-break space U+202F, and the
+     * project did until the Stitch mockups were reproduced: they group with
+     * U+00A0, and in Inter at 413px the narrow variant all but disappears —
+     * "8 000" read as "8000". Legibility and fidelity point the same way here.
      */
-    private const string THOUSANDS_SEPARATOR = "\u{202F}";
+    private const string THOUSANDS_SEPARATOR = "\u{00A0}";
 
     /**
      * No-break space (U+00A0) between the amount and the currency, so a line

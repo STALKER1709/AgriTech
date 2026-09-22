@@ -73,12 +73,12 @@ it('compares amounts', function () {
 it('formats amounts the way the interface shows them', function (int $amount, string $expected) {
     expect(Money::fromInteger($amount)->format())->toBe($expected);
 })->with([
-    // U+202F groups the thousands, U+00A0 keeps the currency on the same line.
+    // U+00A0 groups the thousands and keeps the currency on the same line (maquettes Stitch).
     'units' => [500, "500\u{00A0}FCFA"],
-    'thousands' => [12_500, "12\u{202F}500\u{00A0}FCFA"],
-    'millions' => [1_234_567, "1\u{202F}234\u{202F}567\u{00A0}FCFA"],
+    'thousands' => [12_500, "12\u{00A0}500\u{00A0}FCFA"],
+    'millions' => [1_234_567, "1\u{00A0}234\u{00A0}567\u{00A0}FCFA"],
     'zero' => [0, "0\u{00A0}FCFA"],
-    'negative' => [-2_500, "-2\u{202F}500\u{00A0}FCFA"],
+    'negative' => [-2_500, "-2\u{00A0}500\u{00A0}FCFA"],
 ]);
 
 it('serialises to its integer amount', function () {

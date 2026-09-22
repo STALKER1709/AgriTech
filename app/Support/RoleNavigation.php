@@ -32,4 +32,21 @@ final class RoleNavigation
             UserRole::Admin => 'admin',
         };
     }
+
+    /**
+     * The line under the brand in the sidebar, as the mockups word it
+     * ("Back-office Central" on the admin screens).
+     */
+    public static function spaceLabel(?User $user): string
+    {
+        if (! $user instanceof User || ! $user->isActive()) {
+            return __('Mon compte');
+        }
+
+        return match ($user->role) {
+            UserRole::Client => __('Espace client'),
+            UserRole::Farmer => __('Espace vendeur'),
+            UserRole::Admin => __('Back-office Central'),
+        };
+    }
 }
