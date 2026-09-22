@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
+use App\Support\Quantity;
+
 enum ProductUnit: string
 {
     case Kilogram = 'kg';
@@ -35,5 +37,25 @@ enum ProductUnit: string
             self::Piece => 'pièce',
             self::Tonne => 't',
         };
+    }
+
+    /**
+     * The unit as it reads after a quantity: "120 sacs", "12,5 kg".
+     *
+     * Symbols never take an s; words do. Writing "120 régime disponibles"
+     * on a product page is the sort of detail a buyer notices.
+     */
+    public function countLabel(Quantity $quantity): string
+    {
+        $plural = match ($this) {
+            self::Kilogram, self::Litre, self::Tonne => false,
+            default => true,
+        };
+
+        $label = $this->shortLabel();
+
+        return $plural && $quantity->isGreaterThan(Quantity::fromInteger(1))
+            ? $label.'s'
+            : $label;
     }
 }

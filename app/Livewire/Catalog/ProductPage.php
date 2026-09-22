@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace App\Livewire\Catalog;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\User;
 use App\Services\Messaging\MessagingService;
 use App\Services\Orders\CartService;
+use App\Support\Money;
 use App\Support\Quantity;
 use DomainException;
 use Flux\Flux;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -26,6 +30,12 @@ class ProductPage extends Component
 
     public string $quantity = '1';
 
+    /**
+     * The image shown large. The mockup's gallery switches the main picture
+     * when a thumbnail is tapped.
+     */
+    public ?int $currentImageId = null;
+
     public function mount(Product $product): void
     {
         // A draft, a product in review, or one whose farmer is suspended is
@@ -37,6 +47,83 @@ class ProductPage extends Component
         );
 
         $this->product = $product->load(['category', 'images', 'farmer.farmerProfile']);
+        $this->currentImageId = $this->product->images->first()?->id;
+    }
+
+    #[Computed]
+    public function currentImage(): ?ProductImage
+    {
+        return $this->product->images->firstWhere('id', $this->currentImageId)
+            ?? $this->product->images->first();
+    }
+
+    public function showImage(int $imageId): void
+    {
+        // Looked up in this product's own images, so another product's file
+        // cannot be shown by passing its id.
+        abort_unless($this->product->images->contains('id', $imageId), 404);
+
+        $this->currentImageId = $imageId;
+    }
+
+    /**
+     * The quantity currently asked for, or one unit when the field holds
+     * something that is not a quantity at all.
+     */
+    public function askedQuantity(): Quantity
+    {
+        try {
+            return Quantity::fromString(str_replace(',', '.', trim($this->quantity)));
+        } catch (InvalidArgumentException) {
+            return Quantity::fromInteger(1);
+        }
+    }
+
+    public function increment(): void
+    {
+        $next = $this->askedQuantity()->plus(Quantity::fromInteger(1));
+
+        if (! $this->product->hasStockFor($next)) {
+            Flux::toast(variant: 'warning', text: __('Il ne reste que :quantity :unit.', [
+                'quantity' => $this->product->stock_quantity->format(),
+                'unit' => $this->product->unit->countLabel($this->product->stock_quantity),
+            ]));
+
+            return;
+        }
+
+        $this->quantity = $next->format();
+    }
+
+    public function decrement(): void
+    {
+        $next = $this->askedQuantity()->minus(Quantity::fromInteger(1));
+
+        $this->quantity = $next->isPositive() ? $next->format() : '1';
+    }
+
+    /**
+     * What the sticky bar announces. An estimate, and named as such: the
+     * order is priced again, server-side, when it is actually placed.
+     */
+    public function estimatedTotal(): Money
+    {
+        return $this->product->unit_price->multipliedByQuantity($this->askedQuantity());
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function alsoFromFarmer(): Collection
+    {
+        return Product::query()
+            ->visibleToPublic()
+            ->with(['images', 'category', 'farmer.farmerProfile'])
+            ->where('farmer_id', $this->product->farmer_id)
+            ->whereKeyNot($this->product->id)
+            ->latest()
+            ->limit(2)
+            ->get();
     }
 
     /**

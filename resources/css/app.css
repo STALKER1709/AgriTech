@@ -239,6 +239,16 @@
 | sont des pilules ; les badges reprennent les teintes sémantiques.
 */
 @layer components {
+    /* Rangées de puces défilantes : les maquettes masquent la barre. */
+    .no-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
     /*
     | Contrôles de formulaire (DESIGN.md, « Input Fields ») : 50 px de haut,
     | rayon 12 px, fond blanc, bordure chaude de 1,5 px, focus vert forêt avec

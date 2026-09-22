@@ -1,242 +1,279 @@
-<div class="flex w-full flex-col gap-5 py-2">
-    {{-- Back breadcrumb, exactly like the Stitch fiche_produit screen. --}}
-    <div class="flex items-center justify-between gap-3">
+<div class="flex w-full flex-col pb-32 lg:pb-28">
+    {{-- Retour et fil d'Ariane — `agritech_fiche_produit` --}}
+    <div class="pt-space-xs pb-2 flex items-center justify-between gap-space-sm">
         <a href="{{ route('catalog.browse') }}" wire:navigate
-           class="inline-flex items-center gap-1.5 text-sm font-semibold text-stitch-muted transition-colors hover:text-stitch-primary">
-            <flux:icon.arrow-left class="size-4" />
-            {{ __('Retour au catalogue') }}
+           class="inline-flex items-center gap-1.5 text-text-secondary hover:text-primary transition-colors py-1">
+            <x-icon name="arrow_back" size="20" />
+            <span class="font-label-sm text-label-sm">{{ __('Retour au catalogue') }}</span>
         </a>
-        <span class="hidden text-xs text-stitch-muted sm:inline">
-            {{ $product->category->name }} <span aria-hidden>·</span> {{ $product->name }}
-        </span>
+
+        <div class="flex items-center gap-1 text-text-secondary font-label-sm text-label-sm min-w-0">
+            <span class="truncate">{{ $product->category->name }}</span>
+            <span>&gt;</span>
+            <span class="font-body-md-bold text-body-md-bold text-primary truncate">{{ $product->name }}</span>
+        </div>
     </div>
 
-    <div class="grid gap-6 lg:grid-cols-2 lg:gap-10">
-        {{-- Gallery --}}
-        <div class="flex flex-col gap-2.5">
-            <div class="relative aspect-square w-full overflow-hidden rounded-2xl bg-stitch-container shadow-card">
-                @if ($product->images->isNotEmpty())
-                    <img src="{{ $product->images->first()->url() }}" alt="{{ $product->name }}" class="size-full object-cover" />
+    <div class="lg:grid lg:grid-cols-2 lg:gap-space-lg lg:items-start">
+        {{-- Galerie --}}
+        <div class="mt-1 lg:sticky lg:top-20">
+            <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-surface-container shadow-card">
+                @if ($this->currentImage())
+                    <img src="{{ $this->currentImage()->url() }}" alt="{{ $product->name }}"
+                         class="w-full h-full object-cover transition-all duration-300" />
                 @else
-                    <div class="flex size-full items-center justify-center">
-                        <flux:icon.photo class="size-10 text-stitch-highest" />
+                    <div class="flex h-full w-full items-center justify-center">
+                        <x-icon name="photo_camera" size="40" class="text-surface-container-highest" />
                     </div>
                 @endif
 
-                {{-- Freshness badge overlaid, as in the design. --}}
-                @if ($product->isInStock())
-                    <span class="stitch-badge-success absolute left-3 top-3 shadow-sm">
-                        {{ __('Frais du jour') }}
+                <div class="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-status-success text-on-primary font-label-sm text-label-sm font-semibold shadow-card">
+                        <x-icon name="eco" size="14" />
+                        {{ $product->category->name }}
                     </span>
-                @else
-                    <span class="stitch-badge-danger absolute left-3 top-3 shadow-sm">
-                        {{ __('Rupture de stock') }}
-                    </span>
-                @endif
+
+                    @if ($product->farmer->farmerProfile?->region)
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold shadow-card">
+                            <x-icon name="location_on" size="14" />
+                            {{ __('Terroir :region', ['region' => $product->farmer->farmerProfile->region]) }}
+                        </span>
+                    @endif
+                </div>
             </div>
 
             @if ($product->images->count() > 1)
-                <div class="grid grid-cols-3 gap-2.5 sm:grid-cols-4">
-                    @foreach ($product->images->skip(1) as $image)
-                        <div class="aspect-square w-full overflow-hidden rounded-xl bg-stitch-container">
-                            <img src="{{ $image->url() }}" alt="" loading="lazy" class="size-full object-cover" />
-                        </div>
+                <div class="grid grid-cols-3 gap-2.5 mt-2.5">
+                    @foreach ($product->images as $image)
+                        <button type="button" wire:click="showImage({{ $image->id }})"
+                                aria-label="{{ __('Voir l\'image :number', ['number' => $loop->iteration]) }}"
+                                @class([
+                                    'aspect-square rounded-xl overflow-hidden bg-surface-container relative transition-all duration-200 cursor-pointer',
+                                    'ring-2 ring-primary' => $this->currentImage()?->id === $image->id,
+                                ])>
+                            <img src="{{ $image->url() }}" alt="" loading="lazy" class="w-full h-full object-cover" />
+                        </button>
                     @endforeach
                 </div>
             @endif
         </div>
 
-        {{-- Information column --}}
-        <div class="flex flex-col gap-4">
-            <div class="flex flex-col gap-1">
-                <div class="flex flex-wrap items-center gap-2">
-                    <span class="inline-flex items-center gap-1 rounded-full bg-stitch-primary/10 px-2.5 py-0.5 text-xs font-semibold text-stitch-primary">
-                        {{ $product->category->name }}
-                    </span>
-                    {{-- Stock line from the design (« 120 sacs disponibles en stock »). --}}
-                    <span class="text-xs text-stitch-muted">
-                        @if ($product->isInStock())
-                            {{ __(':quantity :unit disponibles', [
+        <div class="flex flex-col">
+            {{-- Stock et nom --}}
+            <div class="mt-space-md lg:mt-0">
+                <div class="flex items-center justify-between gap-2">
+                    @if ($product->isInStock())
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success font-label-sm text-label-sm font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-status-success"></span>
+                            {{ __(':quantity :unit disponibles en stock', [
                                 'quantity' => $product->stock_quantity->format(),
-                                'unit' => $product->unit->shortLabel(),
+                                'unit' => $product->unit->countLabel($product->stock_quantity),
                             ]) }}
-                        @else
-                            {{ __('Momentanément indisponible') }}
-                        @endif
-                    </span>
+                        </span>
+                    @else
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-error/10 text-status-error font-label-sm text-label-sm font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-status-error"></span>
+                            {{ __('Rupture de stock') }}
+                        </span>
+                    @endif
                 </div>
 
-                <h1 class="font-display text-2xl font-bold tracking-tight text-stitch-ink sm:text-3xl">
+                <h1 class="mt-2 font-headline-lg-mobile text-headline-lg-mobile lg:font-headline-lg lg:text-headline-lg text-text-primary tracking-tight">
                     {{ $product->name }}
                 </h1>
 
-                {{-- Price block on its warm pill card, with unit price detail. --}}
-                <div class="mt-2 flex items-baseline justify-between gap-3 rounded-2xl bg-stitch-low p-3">
-                    <div class="flex flex-wrap items-baseline gap-1.5">
-                        <span class="stitch-price text-2xl sm:text-3xl" data-test="product-price">
+                <div class="mt-2.5 p-3 rounded-2xl bg-surface-container-low flex items-baseline justify-between gap-2">
+                    <div class="flex items-baseline gap-1.5 min-w-0">
+                        <span class="font-display-lg-mobile text-display-lg-mobile text-primary font-bold">
                             {{ $product->unit_price->format() }}
                         </span>
-                        <span class="text-base text-stitch-muted">/ {{ $product->unit->shortLabel() }}</span>
+                        <span class="font-body-md text-body-md text-text-secondary truncate">
+                            / {{ $product->unit->label() }}
+                        </span>
                     </div>
-                    <span class="inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-0.5 text-xs font-semibold text-stitch-primary shadow-card">
-                        <flux:icon.shield-check class="size-3.5" />
-                        {{ __('Producteur vérifié') }}
-                    </span>
                 </div>
             </div>
 
-            {{-- Producer card, faithful to the design's producer block. --}}
-            <div class="rounded-2xl bg-stitch-low p-4 shadow-card">
-                <div class="flex items-center gap-3">
-                    <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-stitch-primary text-white shadow-card">
-                        <flux:icon.leaf class="size-5" />
-                    </span>
-
-                    <div class="min-w-0 flex-1">
-                        <div class="flex items-center gap-1.5">
-                            <flux:heading size="sm" class="truncate">
-                                {{ $product->farmer->farmerProfile?->farm_name }}
-                            </flux:heading>
-                            <flux:icon.shield-check class="size-4 shrink-0 text-stitch-primary" />
+            {{-- Producteur --}}
+            <div class="mt-space-md">
+                @php($profile = $product->farmer->farmerProfile)
+                <div class="p-3.5 rounded-2xl bg-surface-container shadow-card flex flex-col gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="relative shrink-0">
+                            <div class="w-12 h-12 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-sm text-[15px]">
+                                {{ $product->farmer->initials() }}
+                            </div>
+                            <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-status-success text-on-primary flex items-center justify-center">
+                                <x-icon name="check" size="12" />
+                            </div>
                         </div>
-                        <p class="flex items-center gap-1 truncate text-xs text-stitch-muted">
-                            <flux:icon.map-pin class="size-3.5 shrink-0" />
-                            {{ __('Terroir :region — :city', [
-                                'region' => $product->farmer->farmerProfile?->region ?? __('Cameroun'),
-                                'city' => $product->farmer->farmerProfile?->city ?? '—',
-                            ]) }}
-                        </p>
-                    </div>
-                </div>
 
-                @if ($this->canAddToCart())
-                    <button type="button" wire:click="contactFarmer"
-                            class="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-full bg-white text-sm font-semibold text-stitch-terra shadow-card transition-colors hover:bg-stitch-terra-soft/50">
-                        <flux:icon.chat-bubble-left-right class="size-4" />
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-1.5">
+                                <h2 class="font-headline-sm text-headline-sm text-text-primary truncate">
+                                    {{ $profile?->farm_name ?? $product->farmer->name }}
+                                </h2>
+                                <x-icon name="verified" size="16" class="text-primary" />
+                            </div>
+
+                            <p class="font-label-sm text-label-sm text-text-secondary truncate">
+                                {{ $product->farmer->name }}
+                            </p>
+
+                            @if ($profile)
+                                <p class="font-label-sm text-label-sm text-text-secondary flex items-center gap-0.5 mt-0.5">
+                                    <x-icon name="place" size="13" />
+                                    {{ collect([$profile->city, $profile->region])->filter()->join(', ') }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-1.5">
+                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm">
+                            <x-icon name="shield" size="13" />
+                            {{ __('Compte validé par AgriTech') }}
+                        </span>
+
+                        @if ($product->farmer->created_at)
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-text-secondary font-label-sm text-label-sm">
+                                <x-icon name="calendar_today" size="13" />
+                                {{ __('Membre depuis :year', ['year' => $product->farmer->created_at->year]) }}
+                            </span>
+                        @endif
+                    </div>
+
+                    <button type="button" wire:click="contactFarmer" data-test="contact-farmer"
+                            class="w-full h-11 rounded-full bg-surface-white text-secondary hover:bg-secondary-fixed/40 transition-colors font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 shadow-card cursor-pointer">
+                        <x-icon name="chat" size="18" />
                         {{ __('Contacter le producteur') }}
                     </button>
+                </div>
+            </div>
+
+            {{-- Quantité --}}
+            @if ($product->isInStock())
+                <div class="mt-space-md">
+                    <div class="p-4 rounded-2xl bg-surface-container-lowest shadow-card">
+                        <div class="flex items-center justify-between gap-space-sm">
+                            <div class="min-w-0">
+                                <span class="font-label-lg text-label-lg text-text-primary block">{{ __('Quantité souhaitée') }}</span>
+                                <span class="font-label-sm text-label-sm text-text-secondary">{{ $product->unit->label() }}</span>
+                            </div>
+
+                            <div class="flex items-center bg-surface-container rounded-full p-1 gap-2 shrink-0">
+                                <button type="button" wire:click="decrement" aria-label="{{ __('Diminuer la quantité') }}"
+                                        data-test="quantity-minus"
+                                        class="w-9 h-9 rounded-full bg-surface-white text-text-primary flex items-center justify-center shadow-card active:scale-90 transition-transform cursor-pointer">
+                                    <x-icon name="remove" size="18" />
+                                </button>
+
+                                <input type="text" wire:model.live.debounce.400ms="quantity" data-test="quantity"
+                                       aria-label="{{ __('Quantité') }}"
+                                       class="w-10 bg-transparent text-center font-body-md-bold text-body-md-bold text-text-primary focus:outline-none" />
+
+                                <button type="button" wire:click="increment" aria-label="{{ __('Augmenter la quantité') }}"
+                                        data-test="quantity-plus"
+                                        class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-card active:scale-90 transition-transform cursor-pointer">
+                                    <x-icon name="add" size="18" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            {{-- Accordéons. La maquette en a trois ; le troisième promet des
+                 modes de livraison que la plateforme n'offre pas. --}}
+            <div class="mt-space-md flex flex-col gap-2.5">
+                <details class="group rounded-2xl bg-surface-container-lowest p-4 shadow-card" open>
+                    <summary class="flex items-center justify-between cursor-pointer list-none font-headline-sm text-headline-sm text-text-primary select-none">
+                        <span class="flex items-center gap-2">
+                            <x-icon name="nutrition" size="20" class="text-primary" />
+                            {{ __('Description du produit') }}
+                        </span>
+                        <x-icon name="expand_more" size="20" class="text-text-secondary transition-transform duration-200 group-open:rotate-180" />
+                    </summary>
+
+                    <div class="mt-3 text-text-secondary font-body-md text-body-md leading-relaxed whitespace-pre-line">
+                        {{ $product->description }}
+                    </div>
+                </details>
+
+                @if ($profile)
+                    <details class="group rounded-2xl bg-surface-container-lowest p-4 shadow-card">
+                        <summary class="flex items-center justify-between cursor-pointer list-none font-headline-sm text-headline-sm text-text-primary select-none">
+                            <span class="flex items-center gap-2">
+                                <x-icon name="terrain" size="20" class="text-primary" />
+                                {{ __('Origine et exploitation') }}
+                            </span>
+                            <x-icon name="expand_more" size="20" class="text-text-secondary transition-transform duration-200 group-open:rotate-180" />
+                        </summary>
+
+                        <div class="mt-3 text-text-secondary font-body-md text-body-md leading-relaxed flex flex-col gap-2">
+                            <p>{{ $profile->description }}</p>
+
+                            <div class="p-2.5 rounded-xl bg-surface-container-high text-text-primary font-label-sm text-label-sm flex items-center gap-1.5">
+                                <x-icon name="place" size="16" class="text-primary" />
+                                {{ collect([$profile->city, $profile->region])->filter()->join(', ') }}
+                            </div>
+                        </div>
+                    </details>
                 @endif
             </div>
 
-            <div>
-                <flux:heading size="sm">{{ __('Description du produit') }}</flux:heading>
-                <flux:text class="mt-2 whitespace-pre-line leading-relaxed">{{ $product->description }}</flux:text>
-            </div>
+            {{-- Du même producteur --}}
+            @php($others = $this->alsoFromFarmer())
+            @if ($others->isNotEmpty())
+                <div class="mt-space-md flex flex-col gap-space-sm">
+                    <h2 class="font-headline-md text-headline-md text-text-primary tracking-tight">
+                        {{ __('Du même producteur') }}
+                    </h2>
 
-            <flux:separator />
-
-            @if (! $product->isInStock())
-                <flux:callout icon="x-circle" variant="warning">
-                    <flux:callout.text>
-                        {{ __('Ce produit est momentanément épuisé. Revenez bientôt ou contactez l\'agriculteur.') }}
-                    </flux:callout.text>
-                </flux:callout>
-            @elseif ($this->isVisitor())
-                <div class="rounded-2xl bg-stitch-low p-4 text-center">
-                    <flux:text class="text-sm">
-                        {{ __('Connectez-vous avec un compte client pour ajouter ce produit à votre panier.') }}
-                    </flux:text>
-                    <flux:button size="sm" variant="primary" wire:click="addToCart" class="mt-3 w-full rounded-full" data-test="add-to-cart">
-                        {{ __('Se connecter pour commander') }}
-                    </flux:button>
+                    <div class="grid grid-cols-2 gap-space-sm">
+                        @foreach ($others as $other)
+                            <x-product-card :product="$other" wire:key="other-{{ $other->id }}" />
+                        @endforeach
+                    </div>
                 </div>
-            @elseif ($this->canAddToCart())
-                {{-- Quantity stepper with − / + round controls, per the design
-                     (minimum 44px touch targets). The numeric field stays a
-                     free decimal input wired to the same `quantity` state. --}}
-                <form wire:submit="addToCart" class="flex flex-col gap-3 rounded-2xl border border-stitch-border bg-white p-4 shadow-card">
-                    <div>
-                        <flux:label>{{ __('Quantité souhaitée') }}</flux:label>
-                        <div class="mt-2 flex items-center gap-2">
-                            <div class="flex h-12 flex-1 items-center overflow-hidden rounded-full border border-stitch-border bg-white shadow-card">
-                                <button type="button"
-                                        x-data @click="
-                                            const input = $el.parentElement.querySelector('input');
-                                            input.value = Math.max(1, (parseFloat(String(input.value).replace(',', '.')) || 1) - 1);
-                                            input.dispatchEvent(new Event('input'));
-                                        "
-                                        class="grid h-full w-12 place-items-center text-lg text-stitch-muted transition hover:text-stitch-primary"
-                                        aria-label="{{ __('Diminuer la quantité') }}">−</button>
-
-                                <flux:input
-                                    wire:model="quantity"
-                                    type="text"
-                                    inputmode="decimal"
-                                    class="flex-1 [&_input]:!rounded-none [&_input]:!border-x [&_input]:!border-stitch-border [&_input]:text-center [&_input]:font-bold"
-                                    data-test="quantity" />
-
-                                <button type="button"
-                                        x-data @click="
-                                            const input = $el.parentElement.querySelector('input');
-                                            input.value = (parseFloat(String(input.value).replace(',', '.')) || 0) + 1;
-                                            input.dispatchEvent(new Event('input'));
-                                        "
-                                        class="grid h-full w-12 place-items-center text-lg text-stitch-muted transition hover:text-stitch-primary"
-                                        aria-label="{{ __('Augmenter la quantité') }}">+</button>
-                            </div>
-
-                            <span class="shrink-0 rounded-full bg-stitch-low px-3 py-2 text-xs font-semibold text-stitch-muted">
-                                {{ $product->unit->shortLabel() }}
-                            </span>
-                        </div>
-                    </div>
-
-                    {{-- Estimated total line, mirroring the « Total estimé » bar. --}}
-                    <div class="flex items-center justify-between rounded-xl bg-stitch-low px-3.5 py-2.5">
-                        <span class="text-xs font-semibold text-stitch-muted">{{ __('Total estimé') }}</span>
-                        <span class="stitch-price text-lg">
-                            {{ \App\Support\Money::fromInteger((int) round($product->unit_price->amount * max(0, (float) str_replace(',', '.', $this->quantity))))->format() }}
-                        </span>
-                    </div>
-
-                    <button type="submit"
-                            class="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-stitch-primary text-base font-bold text-white shadow-raised transition-colors hover:bg-stitch-primary-dark active:scale-[0.99]"
-                            data-test="add-to-cart">
-                        <flux:icon.shopping-cart class="size-5" />
-                        {{ __('Ajouter au panier') }}
-                    </button>
-                </form>
-            @else
-                <flux:callout icon="information-circle">
-                    <flux:callout.text>
-                        {{ __('Seul un compte client actif peut commander sur la plateforme.') }}
-                    </flux:callout.text>
-                </flux:callout>
             @endif
         </div>
     </div>
 
-    {{-- From the same producer: horizontal shelf of the farmer's other items. --}}
-    @php($sameFarmer = $product->farmer->products()
-        ->whereKeyNot($product->id)
-        ->visibleToPublic()
-        ->with(['images', 'category'])
-        ->latest()
-        ->limit(4)
-        ->get())
-    @if ($sameFarmer->isNotEmpty())
-        <section class="flex flex-col gap-3 pt-2">
-            <div class="flex items-center justify-between">
-                <h2 class="font-display text-base font-bold">{{ __('Du même producteur') }}</h2>
-            </div>
+    {{-- Barre d'achat fixe. Au-dessus de la barre d'onglets sur mobile, collée
+         en bas sur écran large où il n'y a pas d'onglets. --}}
+    <div class="fixed bottom-16 lg:bottom-0 inset-x-0 z-40 bg-surface-white/95 backdrop-blur-xl shadow-float px-gutter lg:px-space-lg py-2.5 flex items-center gap-3"
+         style="padding-bottom: calc(0.625rem + env(safe-area-inset-bottom, 0px));">
+        <div class="flex flex-col min-w-[90px]">
+            <span class="font-label-sm text-label-sm text-text-secondary">{{ __('Total estimé') }}</span>
+            <span class="font-price-tag text-price-tag text-text-primary leading-tight" data-test="estimated-total">
+                {{ $this->estimatedTotal()->format() }}
+            </span>
+            <span class="font-label-sm text-[10px] text-status-success font-medium">{{ __('Prix du producteur') }}</span>
+        </div>
 
-            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                @foreach ($sameFarmer as $other)
-                    <a href="{{ route('catalog.product', ['product' => $other->slug]) }}" wire:navigate
-                       class="stitch-card group flex flex-col overflow-hidden p-2.5 transition-shadow hover:shadow-raised">
-                        <div class="relative aspect-square w-full overflow-hidden rounded-lg bg-stitch-container">
-                            @if ($other->images->isNotEmpty())
-                                <img src="{{ $other->images->first()->url() }}" alt="{{ $other->name }}"
-                                     loading="lazy"
-                                     class="size-full object-cover transition-transform duration-300 group-hover:scale-105" />
-                            @endif
-                        </div>
-                        <span class="mt-1.5 truncate px-0.5 text-xs text-stitch-muted">{{ $other->category->name }}</span>
-                        <span class="truncate px-0.5 text-sm font-semibold">{{ $other->name }}</span>
-                        <span class="stitch-price px-0.5 pt-1 text-sm">{{ $other->unit_price->format() }}</span>
-                    </a>
-                @endforeach
+        @if (! $product->isInStock())
+            <div class="flex-1 h-12 rounded-full bg-surface-container text-text-secondary font-label-lg text-label-lg font-bold flex items-center justify-center">
+                {{ __('Momentanément épuisé') }}
             </div>
-        </section>
-    @endif
+        @elseif ($this->isVisitor() || $this->canAddToCart())
+            <button type="button" wire:click="addToCart" wire:loading.attr="disabled" data-test="add-to-cart"
+                    class="flex-1 h-12 rounded-full bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-raised active:scale-[0.98] transition-all hover:bg-primary-container cursor-pointer">
+                <x-icon name="shopping_cart" size="20" />
+                <span>{{ $this->isVisitor() ? __('Se connecter pour commander') : __('Ajouter au panier') }}</span>
+            </button>
+        @else
+            <div class="flex-1 h-12 rounded-full bg-surface-container text-text-secondary font-label-lg text-label-lg flex items-center justify-center text-center px-2">
+                {{ __('Réservé aux comptes clients') }}
+            </div>
+        @endif
+
+        @if ($this->canAddToCart())
+            <button type="button" wire:click="contactFarmer" aria-label="{{ __('Négocier par message') }}"
+                    title="{{ __('Négocier par message') }}" data-test="negotiate"
+                    class="w-12 h-12 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shadow-card active:scale-95 transition-transform shrink-0 cursor-pointer">
+                <x-icon name="forum" size="22" />
+            </button>
+        @endif
+    </div>
 </div>
