@@ -375,6 +375,12 @@ class DemoSeeder extends Seeder
             return;
         }
 
+        // Une vraie photographie vaut mieux qu'un dessin : si le dépôt en
+        // contient pour ce produit, on les prend. Le dessin GD reste le repli.
+        if ($this->attachPhotographs($product)) {
+            return;
+        }
+
         // Without GD the catalogue still works — the cards just fall back to
         // their empty-image placeholder. Seeding must never hang on a demo
         // nicety; the extension is listed as required in the README.
@@ -416,6 +422,62 @@ class DemoSeeder extends Seeder
     }
 
     /**
+     * Copy the repository's photographs for this product, if it has any.
+     *
+     * The files live in `database/seeders/photos/products`, are named after
+     * the product slug, and carry their licence in CREDITS.md next to them.
+     * They are committed rather than downloaded at seed time: seeding has to
+     * work without a network, like the rest of the application.
+     *
+     * @return bool true when photographs were attached
+     */
+    private function attachPhotographs(Product $product): bool
+    {
+        $files = $this->photographsFor('products', $product->slug);
+
+        if ($files === []) {
+            return false;
+        }
+
+        $disk = Storage::disk((string) config('catalog.images.disk', 'local'));
+
+        foreach ($files as $index => $file) {
+            $path = 'products/'.$product->id.'/'.Str::ulid()->toString().'.jpg';
+
+            $disk->put($path, (string) file_get_contents($file));
+
+            ProductImage::create([
+                'product_id' => $product->id,
+                'path' => $path,
+                'position' => $index + 1,
+            ]);
+        }
+
+        return true;
+    }
+
+    /**
+     * The repository's photographs for a slug, in display order.
+     *
+     * Accepts both `slug.jpg` and `slug-1.jpg`, `slug-2.jpg`…
+     *
+     * @return array<int, string> absolute paths
+     */
+    private function photographsFor(string $kind, string $slug): array
+    {
+        $directory = database_path('seeders/photos/'.$kind);
+
+        $files = array_merge(
+            glob($directory.'/'.$slug.'.jpg') ?: [],
+            glob($directory.'/'.$slug.'-*.jpg') ?: [],
+        );
+
+        sort($files);
+
+        return $files;
+    }
+
+    /**
      * Give a training an illustrated 16:9 cover, drawn on the private disk
      * and streamed by the cover controller like product images are. There is
      * no cover column on the model: the file is keyed by the training slug,
@@ -427,16 +489,27 @@ class DemoSeeder extends Seeder
      */
     private function attachTrainingCover(Training $training, string $scene): void
     {
-        if (! PlaceholderImage::isSupported()) {
+        $disk = Storage::disk((string) config('catalog.images.disk', 'local'));
+        $photographs = $this->photographsFor('trainings', $training->slug);
+
+        // La photographie l'emporte, y compris sur un dessin laissé par un
+        // amorçage précédent : `migrate:fresh` vide la base, pas le disque.
+        if ($photographs !== []) {
+            $disk->put(
+                'training-covers/'.$training->slug.'.jpg',
+                (string) file_get_contents($photographs[0]),
+            );
+
+            $disk->delete('training-covers/'.$training->slug.'.png');
+
             return;
         }
 
-        $path = 'training-covers/'.$training->slug.'.png';
-        $disk = Storage::disk((string) config('catalog.images.disk', 'local'));
-
-        if (! $disk->exists($path)) {
-            $disk->put($path, PlaceholderImage::cover($scene));
+        if ($training->hasCover() || ! PlaceholderImage::isSupported()) {
+            return;
         }
+
+        $disk->put('training-covers/'.$training->slug.'.png', PlaceholderImage::cover($scene));
     }
 
     /**

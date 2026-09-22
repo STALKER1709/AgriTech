@@ -88,8 +88,12 @@
             {{ $slot }}
         </main>
 
-        <footer class="hidden lg:block border-t border-border-warm bg-surface-container-lowest/60 py-space-lg text-center font-label-sm text-label-sm text-text-secondary">
-            {{ __('Cameroun • Paiements Mobile Money simulés (MTN MoMo, Orange Money)') }}
+        <footer class="border-t border-border-warm bg-surface-container-lowest/60 py-space-lg pb-24 lg:pb-space-lg text-center font-label-sm text-label-sm text-text-secondary">
+            <p>{{ __('Cameroun • Paiements Mobile Money simulés (MTN MoMo, Orange Money)') }}</p>
+
+            <a href="{{ route('credits.photos') }}" wire:navigate class="mt-1 inline-block text-primary hover:underline">
+                {{ __('Crédits photographiques') }}
+            </a>
         </footer>
 
         <x-bottom-nav :user="auth()->user()" />

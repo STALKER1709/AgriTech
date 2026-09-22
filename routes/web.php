@@ -36,9 +36,16 @@ use App\Livewire\Payments\Pending as PaymentPending;
 use App\Livewire\Payments\Sandbox as PaymentSandbox;
 use App\Livewire\Trainings\Index as TrainingsIndex;
 use App\Livewire\Trainings\Page as TrainingPage;
+use App\Support\PhotoCredits;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+
+// Mentions des photographies du jeu de démonstration : les licences CC BY
+// imposent de citer l'auteur, la licence et la source.
+Route::get('credits-photos', fn () => view('credits', [
+    'credits' => PhotoCredits::byKind(),
+]))->name('credits.photos');
 
 /*
 |--------------------------------------------------------------------------

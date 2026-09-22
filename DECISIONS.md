@@ -1146,3 +1146,58 @@ multiplateforme — le développeur Windows n'a pas `env -u`.
 
 **Vérifié.** Les 37 échecs disparaissent avec le seul changement de ces deux
 fichiers ; aucun code applicatif n'était en cause.
+
+---
+
+### 2026-09-22 — Les photographies de démonstration sont téléchargées puis commitées
+
+**Décision.** Le jeu de démonstration s'appuie désormais sur **18 photographies
+réelles** (13 pour les produits, 4 pour les formations, 1 pour l'accueil),
+rangées dans `database/seeders/photos` et `public/images`. Le dessin GD reste
+en **repli** : si un fichier manque, ou sur une machine sans l'extension GD,
+l'amorçage retombe sur les illustrations générées.
+
+**Ce que cela révise.** Une décision antérieure écartait les photos commitées
+pour deux raisons : le poids du dépôt, et l'impossibilité de verser une image
+sans connaître sa licence. La demande a changé — il fallait étoffer le design —
+et les deux objections se traitent :
+
+- **Licence.** Les fichiers viennent de dépôts libres, trouvés via
+  [Openverse](https://openverse.org), et sont limités à **CC0 1.0**,
+  **PDM 1.0** (domaine public) et **CC BY 2.0**. Aucune licence à clause de
+  partage à l'identique, aucune licence non commerciale. Le titre, l'auteur, la
+  licence et l'URL source de chaque fichier sont enregistrés dans
+  `database/seeders/photos/credits.json` et repris dans `CREDITS.md`.
+- **Poids.** Recadrées au rapport d'affichage, redimensionnées (900 px pour les
+  produits, 1 000 px pour les formations, 1 400 px pour l'accueil) et
+  enregistrées en JPEG progressif à qualité 80 : **2,9 Mo au total**.
+
+**Le téléchargement a lieu une fois, pas à l'amorçage.** Les fichiers sont dans
+le dépôt ; `php artisan migrate:fresh --seed` n'appelle aucun service distant.
+La contrainte « l'application tourne sans connexion Internet » tient toujours,
+amorçage compris.
+
+**Obligation d'attribution honorée.** Les fichiers sous CC BY exigent de citer
+l'auteur, la licence et la source. La page `/credits-photos`, liée depuis le
+pied de page public, le fait pour chacun d'eux. Ce n'est pas une politesse :
+sans cette page, l'usage de ces images ne serait pas conforme.
+
+**Alternative écartée.** Les URL distantes des maquettes
+(`lh3.googleusercontent.com`). Elles rendraient le catalogue dépendant d'un
+service tiers, donc inutilisable hors ligne, et ces URL expirent.
+
+---
+
+### 2026-09-22 — La couverture de formation accepte le JPEG comme le PNG
+
+**Décision.** `Training::coverPath()` cherche `training-covers/{slug}.jpg` puis
+`{slug}.png`, et le contrôleur sert ce que la méthode trouve.
+
+**Justification.** Une photographie se stocke en JPEG, un dessin GD en PNG. Le
+fichier reste indexé par le slug — il n'y a toujours pas de colonne de
+couverture à tenir à jour — et les deux sources coexistent sans que l'écran ait
+à savoir laquelle est là.
+
+Au passage : une photographie l'emporte sur un dessin laissé par un amorçage
+précédent. `migrate:fresh` vide la base, pas le disque ; sans cela, une machine
+déjà amorcée aurait gardé ses illustrations pour toujours.

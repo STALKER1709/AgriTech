@@ -395,6 +395,13 @@ pour tous.**
   sous-commandes), une en attente de paiement, une annulée.
 - **Un panier en cours** (deux produits, sur `client2@agritech.local`), pour
   dérouler la commande sans chercher un produit d'abord.
+- **18 photographies réelles** : 13 pour les produits, 4 pour les formations,
+  1 pour la page d'accueil. Elles sont **dans le dépôt** (`database/seeders/photos`
+  et `public/images`, 2,9 Mo), donc l'amorçage n'a besoin d'aucune connexion.
+  Licences CC0, domaine public ou CC BY ; auteurs et sources listés dans
+  `database/seeders/photos/CREDITS.md` et sur la page **`/credits-photos`**,
+  liée depuis le pied de page. Sans l'extension GD et sans ces fichiers, les
+  écrans retombent sur leur cadre vide — rien ne casse.
 - **4 paiements**, une souscription active, une conversation avec un message
   non lu côté agriculteur.
 

@@ -8,25 +8,34 @@
         plutôt que dessinée à part.
     --}}
     <div class="flex flex-col gap-space-lg py-space-sm">
-        {{-- En-tête contextuel, repris de `agritech_catalogue_produits` --}}
-        <section class="flex flex-col gap-1">
-            <div class="flex items-center justify-between gap-space-sm">
-                <span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
-                    {{ __('Cameroun • Terroirs Unis') }}
-                </span>
-                <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-status-success bg-status-success/10 px-2 py-0.5 rounded-full shrink-0">
-                    <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
-                    {{ __('Réseau en direct') }}
-                </span>
+        {{-- Bandeau d'accueil. Photographie libre enregistrée dans le dépôt
+             (voir /credits-photos) : rien n'est chargé depuis un service
+             distant, l'application reste utilisable hors ligne. --}}
+        <section class="relative overflow-hidden rounded-2xl shadow-raised">
+            <img src="{{ asset('images/accueil-hero.jpg') }}" alt=""
+                 class="absolute inset-0 h-full w-full object-cover" />
+
+            <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/85 via-inverse-surface/55 to-inverse-surface/15"></div>
+
+            <div class="relative flex flex-col gap-1 p-space-md lg:p-space-lg min-h-[13rem] lg:min-h-[19rem] justify-end">
+                <div class="flex items-center justify-between gap-space-sm">
+                    <span class="font-label-sm text-label-sm text-tertiary-fixed uppercase tracking-wider font-semibold">
+                        {{ __('Cameroun • Terroirs Unis') }}
+                    </span>
+                    <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-inverse-on-surface bg-inverse-surface/50 px-2 py-0.5 rounded-full shrink-0 backdrop-blur-sm">
+                        <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                        {{ __('Réseau en direct') }}
+                    </span>
+                </div>
+
+                <h1 class="font-headline-lg-mobile text-headline-lg-mobile lg:font-display-lg lg:text-display-lg text-inverse-on-surface tracking-tight">
+                    {{ __('Le marché fermier du Cameroun') }}
+                </h1>
+
+                <p class="font-body-md text-body-md text-inverse-on-surface/90 leading-snug max-w-xl">
+                    {{ __('Des produits frais en direct des producteurs, des formations pratiques, et le paiement Mobile Money.') }}
+                </p>
             </div>
-
-            <h1 class="font-headline-lg-mobile text-headline-lg-mobile lg:font-headline-lg lg:text-headline-lg text-text-primary tracking-tight">
-                {{ __('Le marché fermier du Cameroun') }}
-            </h1>
-
-            <p class="font-body-md text-body-md text-text-secondary leading-snug">
-                {{ __('Des produits frais en direct des producteurs, des formations pratiques, et le paiement Mobile Money.') }}
-            </p>
         </section>
 
         {{-- Actions principales --}}
@@ -117,7 +126,15 @@
                 <div class="grid gap-gutter sm:grid-cols-2">
                     @foreach ($trainings as $training)
                         <a href="{{ route('trainings.show', ['training' => $training->slug]) }}" wire:navigate
-                           class="bg-surface-container-lowest rounded-xl p-space-md flex flex-col gap-space-xs shadow-card hover:shadow-raised transition-shadow">
+                           class="bg-surface-container-lowest rounded-xl overflow-hidden flex flex-col shadow-card hover:shadow-raised transition-shadow">
+                            @if ($training->hasCover())
+                                <div class="relative aspect-video w-full overflow-hidden bg-surface-container">
+                                    <img src="{{ $training->coverUrl() }}" alt="{{ $training->title }}" loading="lazy"
+                                         class="h-full w-full object-cover" />
+                                </div>
+                            @endif
+
+                            <div class="flex flex-col gap-space-xs p-space-md">
                             <div class="flex items-center gap-space-xs">
                                 <x-badge variant="neutral" icon="{{ $training->format->value === 'pdf' ? 'description' : 'play_circle' }}">
                                     {{ $training->format->label() }}
@@ -141,6 +158,7 @@
                             <span class="font-price-tag text-price-tag text-primary mt-auto pt-space-xs">
                                 {{ $training->price->format() }}
                             </span>
+                            </div>
                         </a>
                     @endforeach
                 </div>

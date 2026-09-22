@@ -81,14 +81,34 @@ class Training extends Model
     }
 
     /**
-     * Whether an illustrated cover file exists on the private disk. Views use
-     * this to fall back to the gradient hero when the seeder did not draw one
-     * (for instance on a machine without GD).
+     * Where a training's cover lives, if it has one.
+     *
+     * A photograph is stored as .jpg, a drawn fallback as .png; the file is
+     * keyed on the slug either way, so there is no column to keep in step.
+     */
+    public function coverPath(): ?string
+    {
+        $disk = Storage::disk((string) config('catalog.images.disk', 'local'));
+
+        foreach (['jpg', 'png'] as $extension) {
+            $path = 'training-covers/'.$this->slug.'.'.$extension;
+
+            if ($disk->exists($path)) {
+                return $path;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Whether a cover file exists on the private disk. Views use this to fall
+     * back to the gradient hero when neither a photograph nor a drawing is
+     * there (for instance on a machine without GD).
      */
     public function hasCover(): bool
     {
-        return Storage::disk((string) config('catalog.images.disk', 'local'))
-            ->exists('training-covers/'.$this->slug.'.png');
+        return $this->coverPath() !== null;
     }
 
     /**
