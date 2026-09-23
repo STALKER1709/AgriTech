@@ -12,6 +12,7 @@ use App\Enums\ProductUnit;
 use App\Enums\PublicationStatus;
 use App\Enums\SubOrderStatus;
 use App\Enums\SubscriptionStatus;
+use App\Enums\TrainingContentType;
 use App\Enums\TrainingFormat;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
@@ -31,10 +32,12 @@ use App\Models\SubOrder;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
 use App\Models\Training;
+use App\Models\TrainingContent;
 use App\Models\TrainingPurchase;
 use App\Models\User;
 use App\Support\Money;
 use App\Support\PlaceholderImage;
+use App\Support\PlaceholderPdf;
 use App\Support\Quantity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -51,6 +54,38 @@ use Illuminate\Support\Str;
 class DemoSeeder extends Seeder
 {
     public const string PASSWORD = 'password';
+
+    /**
+     * The modules of each demonstration training, in reading order.
+     *
+     * @var array<string, array<int, string>>
+     */
+    private const array MODULES = [
+        'compostage' => [
+            'Pourquoi composter : ce que le sol y gagne',
+            'Monter un tas de compost en andain',
+            'Retourner, arroser, surveiller la température',
+            'Reconnaître un compost mûr et l\'épandre',
+        ],
+        'irrigation' => [
+            'Mesurer les besoins en eau de sa parcelle',
+            'Choisir tuyaux, goutteurs et filtration',
+            'Poser le réseau et régler la pression',
+            'Entretenir le système en saison sèche',
+        ],
+        'cacao' => [
+            'Reconnaître les variétés et leurs exigences',
+            'Tailler et gérer l\'ombrage',
+            'Lutter contre la pourriture brune',
+            'Récolter, écabosser, fermenter',
+            'Sécher et trier avant la vente',
+        ],
+        'conservation' => [
+            'Sécher correctement avant le stockage',
+            'Choisir sacs, greniers et palettes',
+            'Prévenir charançons et moisissures',
+        ],
+    ];
 
     private bool $gdWarned = false;
 
@@ -517,10 +552,15 @@ class DemoSeeder extends Seeder
      */
     private function createTrainings(User $firstFarmer, User $secondFarmer): array
     {
+        // Toutes au format document. Le format annonce ce que l'acheteur
+        // recevra, et une démonstration ne peut fabriquer de vidéo hors
+        // ligne : aucun encodeur n'est une dépendance du projet. Annoncer
+        // « Vidéo » sans vidéo derrière serait précisément la promesse que
+        // ce projet s'interdit. Voir DECISIONS.md.
         $definitions = [
-            'compostage' => [$firstFarmer, 'Composter ses déchets agricoles', 7500, TrainingFormat::Video, false],
-            'irrigation' => [$firstFarmer, 'Irrigation goutte à goutte à petit budget', 5000, TrainingFormat::Mixed, true],
-            'cacao' => [$secondFarmer, 'Entretenir une cacaoyère productive', 12000, TrainingFormat::Video, true],
+            'compostage' => [$firstFarmer, 'Composter ses déchets agricoles', 7500, TrainingFormat::Pdf, false],
+            'irrigation' => [$firstFarmer, 'Irrigation goutte à goutte à petit budget', 5000, TrainingFormat::Pdf, true],
+            'cacao' => [$secondFarmer, 'Entretenir une cacaoyère productive', 12000, TrainingFormat::Pdf, true],
             'conservation' => [$secondFarmer, 'Conserver les récoltes après la moisson', 4000, TrainingFormat::Pdf, true],
         ];
 
@@ -551,9 +591,45 @@ class DemoSeeder extends Seeder
 
         foreach ($trainings as $key => $training) {
             $this->attachTrainingCover($training, $coverScenes[$key]);
+            $this->attachTrainingModules($training, self::MODULES[$key]);
         }
 
         return $trainings;
+    }
+
+    /**
+     * Write the modules of a training to the private disk and record them.
+     *
+     * Without them the reader screen has nothing to read, and the entitlement
+     * check in TrainingContentController is never exercised by the demo. The
+     * files are generated, not committed: a PDF built from pure PHP needs no
+     * extension, no binary and no network.
+     *
+     * @param  array<int, string>  $titles
+     */
+    private function attachTrainingModules(Training $training, array $titles): void
+    {
+        $disk = Storage::disk((string) config('trainings.contents.disk', 'local'));
+        $directory = trim((string) config('trainings.contents.directory', 'trainings'), '/').'/'.$training->id;
+
+        foreach ($titles as $index => $title) {
+            $position = $index + 1;
+            $path = $directory.'/module-'.$position.'.pdf';
+
+            $disk->put($path, PlaceholderPdf::render($title, [
+                $training->title.' — module '.$position.' sur '.count($titles).'.',
+                'Ce document tient la place du support que l\'agriculteur téléverse. '
+                    .'Il est généré localement par le jeu de démonstration ; son contenu '
+                    .'n\'a pas de valeur agronomique.',
+                'Le fichier vit sur un disque privé et n\'est servi qu\'aux clients qui y ont droit : '
+                    .'achat de la formation, ou abonnement actif l\'incluant (règle RG05).',
+            ]));
+
+            TrainingContent::updateOrCreate(
+                ['training_id' => $training->id, 'position' => $position],
+                ['title' => $title, 'type' => TrainingContentType::Pdf, 'path' => $path],
+            );
+        }
     }
 
     /**
