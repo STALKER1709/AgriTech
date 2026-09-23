@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Storage;
  * @property bool $included_in_subscription
  * @property PublicationStatus $status
  * @property string|null $rejection_reason
+ * @property-read int|null $contents_count comptage `withCount('contents')`, absent sans lui
  */
 #[Fillable(['farmer_id', 'title', 'slug', 'description', 'price', 'format', 'included_in_subscription', 'status', 'rejection_reason'])]
 class Training extends Model

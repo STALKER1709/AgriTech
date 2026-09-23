@@ -105,6 +105,7 @@
         @php($trainings = \App\Models\Training::query()
             ->visibleToPublic()
             ->with('farmer.farmerProfile')
+            ->withCount('contents')
             ->latest()
             ->limit(2)
             ->get())
@@ -125,41 +126,7 @@
 
                 <div class="grid gap-gutter sm:grid-cols-2">
                     @foreach ($trainings as $training)
-                        <a href="{{ route('trainings.show', ['training' => $training->slug]) }}" wire:navigate
-                           class="bg-surface-container-lowest rounded-xl overflow-hidden flex flex-col shadow-card hover:shadow-raised transition-shadow">
-                            @if ($training->hasCover())
-                                <div class="relative aspect-video w-full overflow-hidden bg-surface-container">
-                                    <img src="{{ $training->coverUrl() }}" alt="{{ $training->title }}" loading="lazy"
-                                         class="h-full w-full object-cover" />
-                                </div>
-                            @endif
-
-                            <div class="flex flex-col gap-space-xs p-space-md">
-                            <div class="flex items-center gap-space-xs">
-                                <x-badge variant="neutral" icon="{{ $training->format->value === 'pdf' ? 'description' : 'play_circle' }}">
-                                    {{ $training->format->label() }}
-                                </x-badge>
-
-                                @if ($training->included_in_subscription)
-                                    <x-badge variant="gold" icon="workspace_premium">
-                                        {{ __('Incluse') }}
-                                    </x-badge>
-                                @endif
-                            </div>
-
-                            <h3 class="font-headline-sm text-headline-sm text-text-primary line-clamp-2">
-                                {{ $training->title }}
-                            </h3>
-
-                            <span class="font-label-sm text-label-sm text-text-secondary truncate">
-                                {{ $training->farmer->farmerProfile?->farm_name ?? $training->farmer->name }}
-                            </span>
-
-                            <span class="font-price-tag text-price-tag text-primary mt-auto pt-space-xs">
-                                {{ $training->price->format() }}
-                            </span>
-                            </div>
-                        </a>
+                        <x-training-card :training="$training" />
                     @endforeach
                 </div>
             </section>

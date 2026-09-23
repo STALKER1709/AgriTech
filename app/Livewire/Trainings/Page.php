@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Trainings;
 
 use App\Enums\PaymentMethod;
+use App\Models\SubscriptionPlan;
 use App\Models\Training;
 use App\Models\User;
 use App\Rules\CameroonPhoneNumber;
@@ -42,10 +43,15 @@ class Page extends Component
             404,
         );
 
-        $this->training = $training->load('farmer.farmerProfile');
+        $this->training = $training->load(['farmer.farmerProfile', 'contents']);
 
         $user = Auth::user();
-        $this->phone = $user instanceof User ? $user->phone : '';
+
+        // Le champ est précédé d'un badge « +237 » verrouillé : n'y remettre
+        // que la partie nationale, sinon l'indicatif apparaît deux fois.
+        $this->phone = $user instanceof User
+            ? (PhoneNumber::tryParse($user->phone)?->format() ?? '')
+            : '';
     }
 
     /**
@@ -112,6 +118,16 @@ class Page extends Component
         }
 
         $this->redirect($redirect->url, navigate: true);
+    }
+
+    /**
+     * The cheapest plan on offer, which is what the Pass option quotes. It is
+     * read from the database so the price shown and the price charged cannot
+     * drift apart.
+     */
+    public function entryPlan(): ?SubscriptionPlan
+    {
+        return SubscriptionPlan::query()->active()->orderBy('price')->first();
     }
 
     public function title(): string
