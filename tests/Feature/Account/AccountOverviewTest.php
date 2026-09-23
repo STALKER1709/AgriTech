@@ -26,7 +26,7 @@ it('opens for each role', function (string $state) {
     $user = User::factory()->{$state}()->create();
 
     Livewire::actingAs($user)->test(Overview::class)->assertOk();
-})->with(['client', 'farmer', 'admin']);
+})->with(['client', 'farmer', 'admin', 'awaitingPayment', 'awaitingValidation']);
 
 it('offers only entries that lead somewhere', function (string $state) {
     $user = User::factory()->{$state}()->create();
@@ -49,7 +49,7 @@ it('offers only entries that lead somewhere', function (string $state) {
 
         expect($status)->toBeIn([200, 302], $entry['href']);
     }
-})->with(['client', 'farmer', 'admin']);
+})->with(['client', 'farmer', 'admin', 'awaitingPayment', 'awaitingValidation']);
 
 it('counts what the screens it links to would show', function () {
     $client = User::factory()->client()->create();

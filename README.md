@@ -456,6 +456,7 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 | Parcours | Chemin |
 |---|---|
 | Inscription client | `/register` |
+| **Choix d'inscription** | `/inscription` |
 | **Inscription agriculteur** | `/inscription/agriculteur` |
 | Statut d'un compte non actif | `/mon-compte/statut` |
 | Catalogue public | `/catalogue` |

@@ -152,6 +152,17 @@ class Overview extends Component
     {
         $user = $this->user();
 
+        // Un compte qui n'est pas encore actif n'a pas d'espace de travail :
+        // les routes de l'agriculteur sont derrière `account.active`, et les
+        // lui proposer ne mènerait qu'à des 403.
+        if (! $user->isActive()) {
+            return [
+                ['icon' => 'hourglass_top', 'title' => (string) __('Statut de mon compte'), 'detail' => (string) __('Où en est votre dossier'), 'href' => route('account.status')],
+                ['icon' => 'storefront', 'title' => (string) __('Catalogue public'), 'detail' => (string) __('Ce que vendent les producteurs actifs'), 'href' => route('catalog.browse')],
+                ['icon' => 'school', 'title' => (string) __('Formations'), 'detail' => (string) __('Le catalogue des formations'), 'href' => route('trainings.index')],
+            ];
+        }
+
         if ($user->isFarmer()) {
             return [
                 ['icon' => 'inventory_2', 'title' => (string) __('Mes produits'), 'detail' => (string) __('Publier, corriger, retirer'), 'href' => route('farmer.products')],
