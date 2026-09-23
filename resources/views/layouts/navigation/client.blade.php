@@ -32,3 +32,8 @@
 <x-nav-item icon="receipt_long" :href="route('client.orders')" :current="request()->routeIs('client.orders*')">
     {{ __('Mes commandes') }}
 </x-nav-item>
+
+<x-nav-item icon="notifications" :href="route('notifications')" :current="request()->routeIs('notifications')"
+            :badge="auth()->user()?->unreadNotifications()->count() ?: null">
+    {{ __('Notifications') }}
+</x-nav-item>

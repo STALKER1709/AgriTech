@@ -35,12 +35,21 @@ use App\Models\Training;
 use App\Models\TrainingContent;
 use App\Models\TrainingPurchase;
 use App\Models\User;
+use App\Notifications\FarmerApproved;
+use App\Notifications\FarmerAwaitingValidation;
+use App\Notifications\NewMessage;
+use App\Notifications\OrderCancelled;
+use App\Notifications\OrderPaid;
+use App\Notifications\PublicationApproved;
+use App\Notifications\SubOrderReceived;
 use App\Support\Money;
 use App\Support\PlaceholderImage;
 use App\Support\PlaceholderPdf;
 use App\Support\Quantity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -263,7 +272,7 @@ class DemoSeeder extends Seeder
             'updated_at' => now()->subHours(4),
         ]);
 
-        Message::create([
+        $reply = Message::create([
             'conversation_id' => $conversation->id,
             'sender_id' => $activeFarmer->id,
             'content' => 'Bonjour, oui, la récolte de jeudi sera disponible dès vendredi matin.',
@@ -271,6 +280,75 @@ class DemoSeeder extends Seeder
             'created_at' => now()->subHours(2),
             'updated_at' => now()->subHours(2),
         ]);
+
+        // --- Notifications -----------------------------------------------------
+
+        $this->createNotifications($admin, $activeFarmer, $client, $paidOrder, $reply, $products['plantain']);
+    }
+
+    /**
+     * Fill the notifications screen with rows the services would really have
+     * written.
+     *
+     * The demo builds its orders and messages directly rather than through
+     * the services, so none of the notifications those services send ever
+     * fired. They are sent here, through the very same notification classes —
+     * writing the rows by hand would let the payload drift from what the
+     * application actually stores.
+     *
+     * Only the database channel is used: mailing the demo accounts at seeding
+     * time would fill the log with nine messages nobody reads.
+     */
+    private function createNotifications(
+        User $admin,
+        User $farmer,
+        User $client,
+        Order $paidOrder,
+        Message $reply,
+        Product $product,
+    ): void {
+        $pendingFarmer = User::query()->where('email', 'agriculteur-attente@agritech.local')->first();
+        $cancelled = Order::query()->where('status', OrderStatus::Cancelled)->first();
+        $subOrder = $paidOrder->subOrders()->where('farmer_id', $farmer->id)->first();
+
+        $sent = [
+            [$client, new OrderPaid($paidOrder), 2],
+            [$client, new NewMessage($reply), 2],
+            [$farmer, new PublicationApproved($product), 26],
+        ];
+
+        if ($cancelled instanceof Order) {
+            $sent[] = [$client, new OrderCancelled($cancelled, 'Paiement non confirmé dans le délai imparti.', false), 50];
+        }
+
+        if ($subOrder instanceof SubOrder) {
+            $sent[] = [$farmer, new SubOrderReceived($subOrder), 3];
+        }
+
+        if ($pendingFarmer instanceof User) {
+            $sent[] = [$admin, new FarmerAwaitingValidation($pendingFarmer), 27];
+        }
+
+        $sent[] = [$farmer, new FarmerApproved, 74];
+
+        foreach ($sent as [$notifiable, $notification, $hoursAgo]) {
+            Notification::sendNow($notifiable, $notification, ['database']);
+
+            // `sendNow` stamps the row with the current time; the demo wants
+            // them spread over three days so the screen's day grouping —
+            // « Aujourd'hui », « Hier », puis la date — has something to group.
+            $notifiable->notifications()->latest()->limit(1)->update([
+                'created_at' => now()->subHours($hoursAgo),
+                'updated_at' => now()->subHours($hoursAgo),
+            ]);
+        }
+
+        // Two rows left unread, so the badge and the "Tout lire" button both
+        // have something to do on a fresh install.
+        $client->notifications()->latest()->skip(2)->take(10)->get()
+            ->each(fn (DatabaseNotification $row) => $row->markAsRead());
+        $farmer->notifications()->latest()->skip(1)->take(10)->get()
+            ->each(fn (DatabaseNotification $row) => $row->markAsRead());
     }
 
     private function createFarmer(

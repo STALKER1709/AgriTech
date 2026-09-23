@@ -55,3 +55,8 @@
         {{ __('Catégories') }}
     </x-nav-item>
 @endcan
+
+<x-nav-item icon="notifications" :href="route('notifications')" :current="request()->routeIs('notifications')"
+            :badge="auth()->user()?->unreadNotifications()->count() ?: null">
+    {{ __('Notifications') }}
+</x-nav-item>

@@ -32,6 +32,7 @@ use App\Livewire\Farmer\ProductForm;
 use App\Livewire\Farmer\ProductList;
 use App\Livewire\Farmer\TrainingForm as FarmerTrainingForm;
 use App\Livewire\Farmer\TrainingList as FarmerTrainingList;
+use App\Livewire\Notifications\Index as NotificationList;
 use App\Livewire\Payments\Pending as PaymentPending;
 use App\Livewire\Payments\Sandbox as PaymentSandbox;
 use App\Livewire\Trainings\Index as TrainingsIndex;
@@ -115,6 +116,10 @@ Route::middleware('guest')->group(function (): void {
 Route::middleware('auth')->group(function (): void {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::get('mon-compte/statut', AccountStatus::class)->name('account.status');
+
+    // Le journal des notifications déjà écrites par les services, quel que
+    // soit le rôle : chacun n'y voit que les siennes.
+    Route::get('notifications', NotificationList::class)->name('notifications');
 });
 
 /*

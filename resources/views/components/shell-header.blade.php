@@ -12,9 +12,9 @@
 @php
     $user = auth()->user();
     $cartCount = $user?->isClient() ? $user->cartItemCount() : 0;
-    $unread = $user !== null && $user->isActive()
-        ? app(\App\Services\Messaging\MessagingService::class)->unreadTotalFor($user)
-        : 0;
+    // La cloche compte les notifications non lues, pas les messages : les
+    // deux existent, et un message non lu produit déjà sa notification.
+    $unreadNotifications = $user?->unreadNotifications()->count() ?? 0;
 @endphp
 
 <header class="fixed top-0 inset-x-0 lg:left-64 z-40 h-16 bg-surface/90 lg:bg-surface-white/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(31,36,33,0.04)]"
@@ -65,16 +65,14 @@
                 </a>
             @endif
 
-            @if ($user !== null && $user->isActive())
-                <a href="{{ route(match ($user->role) {
-                        \App\Enums\UserRole::Farmer => 'farmer.messages',
-                        \App\Enums\UserRole::Admin => 'admin.dashboard',
-                        default => 'client.messages',
-                    }) }}" wire:navigate aria-label="{{ __('Notifications') }}"
+            @if ($user !== null)
+                <a href="{{ route('notifications') }}" wire:navigate aria-label="{{ __('Notifications') }}"
                    class="relative p-2 rounded-full text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-colors">
                     <x-icon name="notifications" size="22" />
-                    @if ($unread > 0)
-                        <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-payment-orange ring-2 ring-surface-white"></span>
+                    @if ($unreadNotifications > 0)
+                        <span class="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 bg-payment-orange text-on-primary font-label-sm text-[10px] leading-tight font-bold rounded-full flex items-center justify-center ring-2 ring-surface-white">
+                            {{ $unreadNotifications > 9 ? '9+' : $unreadNotifications }}
+                        </span>
                     @endif
                 </a>
             @endif

@@ -20,3 +20,8 @@
             :badge="app(\App\Services\Messaging\MessagingService::class)->unreadTotalFor(auth()->user()) ?: null">
     {{ __('Messages') }}
 </x-nav-item>
+
+<x-nav-item icon="notifications" :href="route('notifications')" :current="request()->routeIs('notifications')"
+            :badge="auth()->user()?->unreadNotifications()->count() ?: null">
+    {{ __('Notifications') }}
+</x-nav-item>
