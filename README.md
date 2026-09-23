@@ -402,7 +402,12 @@ pour tous.**
 
 - **7 produits** répartis sur deux agriculteurs, dont **un en attente de
   modération** (« Ananas de Bafia ») pour tester l'écran d'administration.
-- **4 formations**, dont trois incluses dans l'abonnement.
+- **4 formations**, dont trois incluses dans l'abonnement, et **16 modules**
+  au total. Les modules sont des **PDF générés localement** à l'amorçage, écrits
+  sur le disque privé : le lecteur a donc quelque chose à ouvrir dès la
+  première installation, sans réseau. Aucune vidéo n'est livrée — aucun
+  encodeur n'est une dépendance du projet (voir `DECISIONS.md`) ; le formulaire
+  agriculteur accepte toujours les vidéos que vous téléversez vous-même.
 - **3 commandes** : une payée **répartie entre deux agriculteurs** (deux
   sous-commandes), une en attente de paiement, une annulée.
 - **Un panier en cours** (deux produits, sur `client2@agritech.local`), pour
@@ -455,6 +460,7 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 | **Panier** | `/client/panier` |
 | **Mes commandes** | `/client/commandes` |
 | **Mes formations** | `/client/formations` |
+| **Lecteur de formation** | `/formations/{slug}/lecteur` |
 | **Abonnement** | `/client/abonnement` |
 | **Messagerie client** | `/client/messages` |
 | Espace agriculteur | `/agriculteur/tableau-de-bord` |
@@ -472,9 +478,11 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 ### Parcours formations et abonnement
 
 Connectez-vous avec `client@agritech.local` : il a **acheté** la formation
-« Composter ses déchets agricoles ». Ouvrez-la depuis **Mes formations** : le
-bouton **Ouvrir** sert le fichier. Un visiteur, ou un client sans achat, voit
-les mêmes titres de modules — mais verrouillés.
+« Composter ses déchets agricoles ». Ouvrez-la depuis **Mes formations** :
+**Ouvrir la formation** mène au **lecteur**, qui affiche un module à la fois,
+avec la liste des modules et la navigation précédent / suivant. Un visiteur, ou
+un client sans achat, voit les mêmes titres de modules sur la fiche — mais
+verrouillés, et le lecteur lui répond **403**.
 
 Connectez-vous avec `client2@agritech.local` : il a un **abonnement
 trimestriel actif**. Les formations marquées « incluse dans l'abonnement »

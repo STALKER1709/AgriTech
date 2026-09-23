@@ -305,7 +305,7 @@ garde sa forme, le texte dit ce que la plateforme fait vraiment.
 - [x] **Lot 2** — panier, choix du moyen de paiement, passerelle de test,
       paiement en attente / réussi / échoué, détail de commande,
       mes commandes
-- [ ] **Lot 3** — formations : catalogue, fiche, lecteur, mes formations,
+- [x] **Lot 3** — formations : catalogue, fiche, lecteur, mes formations,
       abonnements
 - [ ] **Lot 4** — messagerie, notifications, mon compte
 - [ ] **Lot 5** — connexion, choix d'inscription, inscriptions client et

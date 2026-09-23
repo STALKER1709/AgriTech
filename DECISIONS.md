@@ -1222,3 +1222,60 @@ retirer l'accent est plus honnête que le rendre faux.
 **Portée.** Ces illustrations ne sont que le repli des photographies. Le
 symptôme n'apparaît que sur une machine sans photographies amorcées, ou sans
 l'extension GD — mais il n'avait aucune raison de rester.
+
+---
+
+### 2026-09-23 — Les formations de démonstration livrent des modules PDF générés
+
+**Décision.** `DemoSeeder` écrit désormais les modules de chaque formation de
+démonstration sur le disque privé, sous forme de PDF construits par
+`Support\PlaceholderPdf`, et le format des quatre formations passe à
+**Document PDF**.
+
+**Justification.** Sans modules, trois écrans du lot 3 n'ont rien à montrer :
+le programme de la fiche est vide, le lecteur n'ouvre rien, et la règle RG05
+— le fichier n'est servi qu'à qui y a droit — n'est jamais exercée par la
+démonstration. Or une vidéo ne peut pas être fabriquée ici : aucun encodeur
+n'est une dépendance du projet, et en ajouter un casserait la promesse
+d'installation 100 % locale, sous Windows comme ailleurs. Le PDF est le seul
+format de document qu'on sait produire en PHP pur, sans extension, sans
+binaire et sans réseau.
+
+Le format annonce ce que l'acheteur recevra. Laisser « Vidéo » sur une
+formation qui ne contient que des documents serait exactement la promesse que
+ce projet s'interdit d'afficher ; les quatre formations disent donc ce
+qu'elles contiennent vraiment.
+
+**Conséquence assumée.** Les pastilles « Vidéo » du catalogue tombent à zéro.
+L'écran n'affiche plus une pastille de format que personne ne vend : un filtre
+qui ne peut rien renvoyer n'est pas un filtre, c'est un cul-de-sac. Elle
+reparaît dès qu'un agriculteur téléverse une vidéo depuis son espace, ce que
+le formulaire accepte toujours.
+
+**Alternative écartée.** Télécharger une vidéo libre de droits et la committer.
+Elle pèserait plusieurs centaines de kilo-octets pour un contenu qui n'apprend
+rien, et ferait dépendre l'amorçage d'un fichier binaire de plus.
+
+---
+
+### 2026-09-23 — Le lecteur de formation n'affiche aucune progression
+
+**Décision.** L'écran `agritech_lecteur_de_formation` est reproduit sans sa
+jauge d'avancement (« 67 % · 8/12 validés »), sans le téléchargement
+hors-ligne et sans l'onglet « Notes & Discussion ». Les commandes de lecture
+dessinées dans la maquette — vitesse, sous-titres, plein écran, retour de dix
+secondes — laissent la place aux commandes natives du navigateur.
+
+**Justification.** Aucune table ne retient où un client s'est arrêté, ni ce
+qu'il a annoté. Afficher « 8 modules validés » demanderait d'inventer la
+donnée à l'affichage, et un pourcentage faux est pire qu'un pourcentage
+absent. Quant aux commandes de lecture, `<video controls>` les fournit déjà,
+correctement, y compris au clavier et aux lecteurs d'écran.
+
+**Ce qui reste.** La position du module dans la série (« Module 2 sur 5 »),
+qui se lit dans `training_contents.position`, la navigation précédent /
+suivant, et la liste des modules avec celui qui est ouvert.
+
+**Si la progression devait exister.** Il faudrait une table
+`training_progress (client_id, content_id, completed_at)` écrite par un
+service, et l'écran la lirait comme il lit tout le reste.
