@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Trainings;
 
 use App\Enums\TrainingFormat;
+use App\Models\SubscriptionPlan;
 use App\Models\Training;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\Layout;
@@ -31,6 +32,18 @@ class Index extends Component
 
     #[Url]
     public string $format = '';
+
+    /**
+     * The mockup's "Incluses abonnement" pill, which is a filter like the
+     * others rather than a decoration.
+     */
+    #[Url]
+    public bool $includedOnly = false;
+
+    public function updatedIncludedOnly(): void
+    {
+        $this->resetPage();
+    }
 
     public function updatedSearch(): void
     {
@@ -59,8 +72,46 @@ class Index extends Component
                 });
             })
             ->when($this->format !== '', fn ($query) => $query->where('format', $this->format))
+            ->when($this->includedOnly, fn ($query) => $query->where('included_in_subscription', true))
+            ->withCount('contents')
             ->orderByDesc('created_at')
             ->paginate(12);
+    }
+
+    /**
+     * How many trainings each format pill would show, and how many there are
+     * in all. The mockup prints these counts; printing a made-up one would be
+     * worse than printing none.
+     *
+     * @return array<string, int>
+     */
+    public function formatCounts(): array
+    {
+        $counts = Training::query()
+            ->visibleToPublic()
+            ->selectRaw('format, count(*) as aggregate')
+            ->groupBy('format')
+            ->pluck('aggregate', 'format');
+
+        $byFormat = [];
+
+        foreach (TrainingFormat::cases() as $case) {
+            $byFormat[$case->value] = (int) $counts->get($case->value, 0);
+        }
+
+        $byFormat['all'] = array_sum($byFormat);
+
+        return $byFormat;
+    }
+
+    /**
+     * The cheapest plan on offer, which is what the banner quotes. Reading it
+     * from the database means the price on the banner and the price charged
+     * cannot drift apart.
+     */
+    public function entryPlan(): ?SubscriptionPlan
+    {
+        return SubscriptionPlan::query()->active()->orderBy('price')->first();
     }
 
     /**
@@ -83,10 +134,17 @@ class Index extends Component
             ->count();
     }
 
+    public function activeFilterCount(): int
+    {
+        return (int) ($this->search !== '') + (int) ($this->format !== '') + (int) $this->includedOnly;
+    }
+
     public function resetFilters(): void
     {
         $this->search = '';
         $this->format = '';
+        $this->includedOnly = false;
+        $this->resetPage();
     }
 
     public function render(): mixed

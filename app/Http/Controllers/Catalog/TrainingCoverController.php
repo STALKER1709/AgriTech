@@ -31,9 +31,9 @@ final class TrainingCoverController extends Controller
         abort_unless($training->farmer->isActive(), 404);
 
         $disk = Storage::disk((string) config('catalog.images.disk', 'local'));
-        $path = 'training-covers/'.$training->slug.'.png';
+        $path = $training->coverPath();
 
-        abort_unless($disk->exists($path), 404);
+        abort_unless($path !== null, 404);
 
         return $disk->response(
             $path,

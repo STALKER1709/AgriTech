@@ -79,6 +79,25 @@ class Pending extends Component
         return route('account.status');
     }
 
+    /**
+     * The wording of the button that leads there. It is built from the same
+     * `payable` as the destination: a subscription payment offering to follow
+     * "ma commande" would promise a page that does not exist for it.
+     *
+     * @return array{label: string, icon: string}
+     */
+    public function continueAction(): array
+    {
+        $payable = $this->payment->payable;
+
+        return match (true) {
+            $payable instanceof Order => ['label' => (string) __('Suivre ma commande'), 'icon' => 'local_shipping'],
+            $payable instanceof Training => ['label' => (string) __('Ouvrir la formation'), 'icon' => 'school'],
+            $payable instanceof Subscription => ['label' => (string) __('Voir mon abonnement'), 'icon' => 'card_membership'],
+            default => ['label' => (string) __('Voir mon compte'), 'icon' => 'account_circle'],
+        };
+    }
+
     public function render(): mixed
     {
         return view('livewire.payments.pending');

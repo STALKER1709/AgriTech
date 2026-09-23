@@ -1,6 +1,13 @@
 @import 'tailwindcss';
 @import '../../vendor/livewire/flux/dist/flux.css';
 
+/*
+| Material Symbols Outlined, servi depuis node_modules et donc disponible hors
+| ligne : les maquettes Stitch utilisent cette famille d'icônes et rien d'autre.
+| Le fichier pèse 4 Mo, c'est le prix d'une reproduction fidèle sans CDN.
+*/
+@import 'material-symbols/outlined.css';
+
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
@@ -9,65 +16,196 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
-| AgriTech design system — stitch_conception_design_application/agritech_design_system
+| Design system AgriTech — stitch_conception_design_application
 |
-| Chaque valeur ci-dessous provient de DESIGN.md : ivoire chaud (#FBF9F4) plutôt
-| que blanc pur, vert forêt (#1B6B3A) pour l'action, terre cuite (#C8702A) pour
-| les accents formation et panier, or (#E8B931) pour la valeur (abonnement,
-| badges). Les rayons sont hybrides : 14px pour les cartes, pilule pour les
-| actions. Les ombres portent une trace du quasi-noir chaud #1F2421.
+| Les valeurs ci-dessous ne sont pas interprétées : elles sont extraites du
+| `tailwind.config` inline des 34 maquettes, identique sur toutes (au dièse
+| manquant près sur `surface-variant` dans cinq exports). C'est cette
+| configuration qui a produit les `screen.png`, donc c'est elle qui fait foi.
+|
+| À noter, parce que la différence est visible : la prose de DESIGN.md décrit
+| un vert #1B6B3A et une terre cuite #C8702A, mais les maquettes rendues
+| utilisent #005127 et #954A00 — vérifié en échantillonnant les pixels des
+| captures. Les jetons l'emportent sur la prose. Voir DECISIONS.md.
+|
+| Les rayons ne sont pas redéfinis : l'échelle des maquettes (0.25 / 0.5 /
+| 0.75rem, pilule) est exactement celle de Tailwind par défaut.
 */
 @theme {
-    /* Typographie : Plus Jakarta Sans (titres, prix), Inter (corps, labels) */
+    /* Couleurs — 56 rôles, repris tels quels de tailwind.config des maquettes */
+    --color-background: #fbf9f4;
+    --color-border-warm: #e5e0d8;
+    --color-error: #ba1a1a;
+    --color-error-container: #ffdad6;
+    --color-inverse-on-surface: #f2f1ec;
+    --color-inverse-primary: #8ad89c;
+    --color-inverse-surface: #30312e;
+    --color-on-background: #1b1c19;
+    --color-on-error: #ffffff;
+    --color-on-error-container: #93000a;
+    --color-on-primary: #ffffff;
+    --color-on-primary-container: #9ae9ab;
+    --color-on-primary-fixed: #00210c;
+    --color-on-primary-fixed-variant: #005227;
+    --color-on-secondary: #ffffff;
+    --color-on-secondary-container: #703500;
+    --color-on-secondary-fixed: #311400;
+    --color-on-secondary-fixed-variant: #723600;
+    --color-on-surface: #1b1c19;
+    --color-on-surface-variant: #404940;
+    --color-on-tertiary: #ffffff;
+    --color-on-tertiary-container: #ffd25c;
+    --color-on-tertiary-fixed: #251a00;
+    --color-on-tertiary-fixed-variant: #594400;
+    --color-outline: #707a6f;
+    --color-outline-variant: #bfc9bd;
+    --color-payment-mtn: #ffcc00;
+    --color-payment-orange: #ff7900;
+    --color-primary: #005127;
+    --color-primary-container: #1b6b3a;
+    --color-primary-fixed: #a5f4b6;
+    --color-primary-fixed-dim: #8ad89c;
+    --color-secondary: #954a00;
+    --color-secondary-container: #fe9b52;
+    --color-secondary-fixed: #ffdcc6;
+    --color-secondary-fixed-dim: #ffb786;
+    --color-status-error: #d32f2f;
+    --color-status-success: #2e7d32;
+    --color-status-warning: #ed6c02;
+    --color-surface: #fbf9f4;
+    --color-surface-bright: #fbf9f4;
+    --color-surface-container: #f0eee9;
+    --color-surface-container-high: #eae8e3;
+    --color-surface-container-highest: #e4e2dd;
+    --color-surface-container-low: #f5f3ee;
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-dim: #dbdad5;
+    --color-surface-tint: #1c6c3b;
+    --color-surface-variant: #e4e2dd;
+    --color-surface-white: #ffffff;
+    --color-tertiary: #584300;
+    --color-tertiary-container: #755a00;
+    --color-tertiary-fixed: #ffdf94;
+    --color-tertiary-fixed-dim: #f0c038;
+    --color-text-primary: #1f2421;
+    --color-text-secondary: #555f58;
+
+    /* Familles de police */
+    --font-body-lg: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-body-md: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-body-md-bold: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display-lg: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-display-lg-mobile: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-headline-lg: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-headline-lg-mobile: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-headline-md: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-headline-sm: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-label-lg: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-label-sm: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-price-tag: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* Échelle typographique : taille, interligne et graisse liés */
+    --text-body-lg: 18px;
+    --text-body-lg--line-height: 28px;
+    --text-body-lg--font-weight: 400;
+    --text-body-md: 16px;
+    --text-body-md--line-height: 24px;
+    --text-body-md--font-weight: 400;
+    --text-body-md-bold: 16px;
+    --text-body-md-bold--line-height: 24px;
+    --text-body-md-bold--font-weight: 600;
+    --text-display-lg: 40px;
+    --text-display-lg--line-height: 48px;
+    --text-display-lg--font-weight: 700;
+    --text-display-lg-mobile: 30px;
+    --text-display-lg-mobile--line-height: 38px;
+    --text-display-lg-mobile--font-weight: 700;
+    --text-headline-lg: 32px;
+    --text-headline-lg--line-height: 40px;
+    --text-headline-lg--font-weight: 700;
+    --text-headline-lg-mobile: 24px;
+    --text-headline-lg-mobile--line-height: 32px;
+    --text-headline-lg-mobile--font-weight: 700;
+    --text-headline-md: 22px;
+    --text-headline-md--line-height: 28px;
+    --text-headline-md--font-weight: 600;
+    --text-headline-sm: 18px;
+    --text-headline-sm--line-height: 24px;
+    --text-headline-sm--font-weight: 600;
+    --text-label-lg: 14px;
+    --text-label-lg--line-height: 20px;
+    --text-label-lg--font-weight: 600;
+    --text-label-sm: 12px;
+    --text-label-sm--line-height: 16px;
+    --text-label-sm--font-weight: 500;
+    --text-price-tag: 18px;
+    --text-price-tag--line-height: 22px;
+    --text-price-tag--font-weight: 700;
+
+    /* Espacements nommés : px-margin, gap-space-sm, py-space-lg… */
+    --spacing-gutter: 1rem;
+    --spacing-gutter-desktop: 1.5rem;
+    --spacing-margin: 1rem;
+    --spacing-margin-desktop: 2rem;
+    --spacing-space-2xl: 3rem;
+    --spacing-space-lg: 1.5rem;
+    --spacing-space-md: 1rem;
+    --spacing-space-sm: 0.5rem;
+    --spacing-space-xl: 2rem;
+    --spacing-space-xs: 0.25rem;
+
+    /*
+    | Alias de transition. Les écrans pas encore repris un à un utilisent les
+    | jetons `stitch-*` de la passe précédente ; les faire pointer sur les
+    | vraies couleurs corrige la palette partout tout de suite, sans attendre
+    | la reprise de chaque écran. À supprimer quand tous les écrans seront
+    | passés au vocabulaire des maquettes.
+    */
+    --color-stitch-surface: var(--color-surface);
+    --color-stitch-card: var(--color-surface-container-lowest);
+    --color-stitch-low: var(--color-surface-container-low);
+    --color-stitch-container: var(--color-surface-container);
+    --color-stitch-high: var(--color-surface-container-high);
+    --color-stitch-highest: var(--color-surface-container-highest);
+    --color-stitch-border: var(--color-border-warm);
+    --color-stitch-ink: var(--color-text-primary);
+    --color-stitch-muted: var(--color-text-secondary);
+    --color-stitch-primary: var(--color-primary);
+    --color-stitch-primary-dark: #003d1d;
+    --color-stitch-primary-fixed: var(--color-primary-fixed);
+    --color-stitch-primary-fixed-ink: var(--color-on-primary-fixed);
+    --color-stitch-terra: var(--color-secondary);
+    --color-stitch-terra-soft: var(--color-secondary-fixed);
+    --color-stitch-terra-ink: var(--color-on-secondary-fixed);
+    --color-stitch-gold: var(--color-tertiary-fixed-dim);
+    --color-stitch-gold-soft: var(--color-tertiary-fixed);
+    --color-stitch-gold-ink: var(--color-on-tertiary-fixed);
+    --color-stitch-success: var(--color-status-success);
+    --color-stitch-success-soft: #e8f5e9;
+    --color-stitch-warning: var(--color-status-warning);
+    --color-stitch-warning-soft: #fff3e0;
+    --color-stitch-danger: var(--color-status-error);
+    --color-stitch-danger-soft: #ffebee;
+    --color-stitch-mtn: var(--color-payment-mtn);
+    --color-stitch-orange: var(--color-payment-orange);
+
+    /* Polices utilitaires : corps par défaut et titres. */
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-    /* Canvas et surfaces (échelle Stitch) */
-    --color-stitch-surface: #fbf9f4;
-    --color-stitch-card: #ffffff;
-    --color-stitch-low: #f5f3ee;
-    --color-stitch-container: #f0eee9;
-    --color-stitch-high: #eae8e3;
-    --color-stitch-highest: #e4e2dd;
-    --color-stitch-border: #e5e0d8;
-    --color-stitch-ink: #1f2421;
-    --color-stitch-muted: #555f58;
-
-    /* Couleurs de marque */
-    --color-stitch-primary: #1b6b3a;
-    --color-stitch-primary-dark: #15542e;
-    --color-stitch-primary-fixed: #a5f4b6;
-    --color-stitch-primary-fixed-ink: #00210c;
-    --color-stitch-terra: #c8702a;
-    --color-stitch-terra-soft: #ffdcc6;
-    --color-stitch-terra-ink: #311400;
-    --color-stitch-gold: #e8b931;
-    --color-stitch-gold-soft: #ffdf94;
-    --color-stitch-gold-ink: #251a00;
-
-    /* Sémantique */
-    --color-stitch-success: #2e7d32;
-    --color-stitch-success-soft: #e8f5e9;
-    --color-stitch-warning: #ed6c02;
-    --color-stitch-warning-soft: #fff3e0;
-    --color-stitch-danger: #d32f2f;
-    --color-stitch-danger-soft: #ffebee;
-
-    /* Paiement : identité opérateurs */
-    --color-stitch-mtn: #ffcc00;
-    --color-stitch-orange: #ff7900;
-
-    /* Rayons du design system : cartes 14px, pilules pour les actions */
-    --radius-xl: 0.875rem;
-    --radius-2xl: 1rem;
-
-    /* Ombres chaudes (jamais de gris froid) */
+    /* Ombres chaudes : jamais de gris froid (DESIGN.md, « Elevation »). */
     --shadow-card: 0 2px 8px rgb(31 36 33 / 0.04);
     --shadow-raised: 0 6px 16px rgb(31 36 33 / 0.08);
     --shadow-float: 0 12px 28px rgb(31 36 33 / 0.12);
+    --shadow-overlay: 0 16px 36px rgb(31 36 33 / 0.18);
 }
 
 @layer base {
+
+    /* Alpine : évite que le tiroir n'apparaisse avant l'hydratation. */
+    [x-cloak] {
+        display: none !important;
+    }
 
     *,
     ::after,
@@ -101,6 +239,34 @@
 | sont des pilules ; les badges reprennent les teintes sémantiques.
 */
 @layer components {
+    /* Rangées de puces défilantes : les maquettes masquent la barre. */
+    .no-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /*
+    | Contrôles de formulaire (DESIGN.md, « Input Fields ») : 50 px de haut,
+    | rayon 12 px, fond blanc, bordure chaude de 1,5 px, focus vert forêt avec
+    | un anneau doux.
+    */
+    .ds-input {
+        @apply h-[50px] w-full rounded-xl border-[1.5px] border-border-warm bg-surface-container-lowest px-4 font-body-md text-body-md text-text-primary transition-colors;
+        @apply placeholder:text-text-secondary focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/15;
+    }
+
+    textarea.ds-input {
+        @apply h-auto py-3;
+    }
+
+    select.ds-input {
+        @apply appearance-none pr-10;
+    }
+
     .stitch-card {
         @apply rounded-xl border border-stitch-border bg-white shadow-card;
     }

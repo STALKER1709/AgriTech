@@ -1,54 +1,29 @@
 <x-layouts::auth :title="__('Réinitialiser le mot de passe')">
-    <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Réinitialiser le mot de passe')" :description="__('Saisissez votre nouveau mot de passe')" />
+    <div class="flex flex-col gap-space-md">
+        <x-auth-header icon="lock_reset" :title="__('Nouveau mot de passe')"
+                       :description="__('Choisissez-en un que vous saurez retrouver.')" />
 
-        <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+        <x-auth-session-status :status="session('status')" />
 
-        <form method="POST" action="{{ route('password.update') }}" class="flex flex-col gap-6">
+        <form method="POST" action="{{ route('password.update') }}"
+              class="rounded-2xl bg-surface-container-lowest p-space-md shadow-raised flex flex-col gap-space-md">
             @csrf
-            <!-- Token -->
-            <input type="hidden" name="token" value="{{ request()->route('token') }}">
+            <input type="hidden" name="token" value="{{ request()->route('token') }}" />
 
-            <!-- Email Address -->
-            <flux:input
-                name="email"
-                value="{{ request('email') }}"
-                :label="__('Adresse e-mail')"
-                type="email"
-                required
-                autocomplete="email"
-            />
+            <x-form-field name="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
+                          :value="request('email')" autocomplete="email" placeholder="vous@exemple.cm" />
 
-            <!-- Password -->
-            <flux:input
-                name="password"
-                :label="__('Mot de passe')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Mot de passe')"
-                passwordrules="{{ \Illuminate\Validation\Rules\Password::defaults()->toPasswordRulesString() }}"
-                viewable
-            />
+            <x-form-field name="password" type="password" :label="__('Nouveau mot de passe')" icon="lock"
+                          required autocomplete="new-password" />
 
-            <!-- Confirm Password -->
-            <flux:input
-                name="password_confirmation"
-                :label="__('Confirmer le mot de passe')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Confirmer le mot de passe')"
-                passwordrules="{{ \Illuminate\Validation\Rules\Password::defaults()->toPasswordRulesString() }}"
-                viewable
-            />
+            <x-form-field name="password_confirmation" type="password" :label="__('Confirmer le mot de passe')"
+                          icon="lock_reset" required autocomplete="new-password" />
 
-            <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full" data-test="reset-password-button">
-                    {{ __('Réinitialiser le mot de passe') }}
-                </flux:button>
-            </div>
+            <button type="submit" data-test="reset-password-button"
+                    class="h-14 w-full rounded-full bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-raised hover:bg-primary-container transition-colors">
+                {{ __('Réinitialiser le mot de passe') }}
+                <x-icon name="arrow_forward" size="20" />
+            </button>
         </form>
     </div>
 </x-layouts::auth>

@@ -11,7 +11,9 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 /**
  * The client's conversation list.
@@ -22,11 +24,26 @@ use Livewire\Component;
 #[Title('Mes messages')]
 class Messages extends Component
 {
+    use WithPagination;
+
     /**
      * The list filter drawn on the Stitch messages screen: every thread or
      * only those carrying unread messages.
      */
     public string $filter = '';
+
+    /**
+     * The mockup's search field. It is answered by the service, not by
+     * filtering the page in hand: a thread further down the list would
+     * otherwise be invisible to a search that should find it.
+     */
+    #[Url]
+    public string $search = '';
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
 
     public function mount(): void
     {
@@ -44,7 +61,7 @@ class Messages extends Component
 
         abort_unless($user instanceof User, 403);
 
-        return app(MessagingService::class)->conversationsFor($user);
+        return app(MessagingService::class)->conversationsFor($user, search: $this->search);
     }
 
     /**
@@ -75,6 +92,26 @@ class Messages extends Component
         return (int) collect($this->conversations()->items())->sum(
             fn (Conversation $conversation): int => $conversation->unreadCountFor($this->user()),
         );
+    }
+
+    /**
+     * The other side of a thread: the person whose name, farm and picture the
+     * row shows. The reader is never their own correspondent.
+     */
+    public function counterpart(Conversation $conversation): User
+    {
+        return $conversation->farmer;
+    }
+
+    public function activeFilterCount(): int
+    {
+        return (int) ($this->filter !== '') + (int) ($this->search !== '');
+    }
+
+    public function resetFilters(): void
+    {
+        $this->reset(['filter', 'search']);
+        $this->resetPage();
     }
 
     private function user(): User

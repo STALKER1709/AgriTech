@@ -192,6 +192,16 @@ php artisan migrate
 npm run build
 ```
 
+> **`npm install` n'est pas facultatif.** Une dépendance ajoutée entre deux
+> `git pull` — la police d'icônes Material Symbols, par exemple — fait échouer
+> `npm run build` si elle manque. Et quand la compilation échoue, l'application
+> s'affiche **sans aucun style, avec les icônes écrites en toutes lettres**.
+> Si l'écran ressemble à une page HTML nue, c'est presque toujours cela.
+
+> Les photographies du jeu de démonstration sont posées à l'amorçage :
+> `php artisan migrate:fresh --seed` est nécessaire pour les voir apparaître à
+> la place des illustrations générées.
+
 ### Récapitulatif des pièges connus
 
 | Symptôme | Cause | Solution |
@@ -200,6 +210,9 @@ npm run build
 | `Unknown database 'agritech'` | Bases non créées | Étape 4 |
 | `Connection refused` sur le port 3306 | MySQL arrêté | Étape 2 |
 | `Vite manifest not found` | Assets non compilés | `npm run build` (étape 5) |
+| **Page sans aucun style, icônes affichées en toutes lettres (`storefront`, `search`, `eco`)** | La feuille de style n'est pas chargée : soit `npm install` n'a pas été relancé après un `git pull` et `npm run build` a échoué, soit `npm run dev` a été lancé puis arrêté et le fichier `public/hot` est resté | `npm install` puis `npm run build`. Si le symptôme persiste, supprimer `public\hot` et rebâtir |
+| **`htmlspecialchars(): Argument #1 ($string) must be of type string, array given`** dans `components/bottom-nav.blade.php` | Corrigé le 23/09/2026. Un libellé d'onglet passait par `__('Validation')` : une clé sans point envoie le traducteur chercher un **groupe** de ce nom, et Windows le trouve sans tenir compte de la casse dans `lang/fr/validation.php` — un tableau, pas une chaîne | `git pull` sur la branche de développement. Trois tests (`tests/Feature/BottomNavTest.php`) empêchent la rechute, sous Windows comme ailleurs |
+| Les produits affichent des rectangles colorés au lieu de photos | La base n'a pas été ré-amorcée depuis l'ajout des photographies | `php artisan migrate:fresh --seed` |
 | Un paiement reste bloqué sur « vérification » | `queue:work` ne tourne pas | Terminal 3 |
 | `Cannot create symlink` | Droits Windows | Étape 7 |
 | `Access denied ... agritech_test_test_1` | L'utilisateur MySQL ne peut pas créer de bases | Utiliser `root`, ou accorder les droits sur `agritech_test%` |
@@ -390,11 +403,26 @@ pour tous.**
 
 - **7 produits** répartis sur deux agriculteurs, dont **un en attente de
   modération** (« Ananas de Bafia ») pour tester l'écran d'administration.
-- **4 formations**, dont trois incluses dans l'abonnement.
+- **4 formations**, dont trois incluses dans l'abonnement, et **16 modules**
+  au total. Les modules sont des **PDF générés localement** à l'amorçage, écrits
+  sur le disque privé : le lecteur a donc quelque chose à ouvrir dès la
+  première installation, sans réseau. Aucune vidéo n'est livrée — aucun
+  encodeur n'est une dépendance du projet (voir `DECISIONS.md`) ; le formulaire
+  agriculteur accepte toujours les vidéos que vous téléversez vous-même.
+- **7 notifications** envoyées par les vraies classes de notification, sur le
+  seul canal base de données, étalées sur trois jours pour que le regroupement
+  par jour de l'écran ait de quoi regrouper.
 - **3 commandes** : une payée **répartie entre deux agriculteurs** (deux
   sous-commandes), une en attente de paiement, une annulée.
 - **Un panier en cours** (deux produits, sur `client2@agritech.local`), pour
   dérouler la commande sans chercher un produit d'abord.
+- **18 photographies réelles** : 13 pour les produits, 4 pour les formations,
+  1 pour la page d'accueil. Elles sont **dans le dépôt** (`database/seeders/photos`
+  et `public/images`, 2,9 Mo), donc l'amorçage n'a besoin d'aucune connexion.
+  Licences CC0, domaine public ou CC BY ; auteurs et sources listés dans
+  `database/seeders/photos/CREDITS.md` et sur la page **`/credits-photos`**,
+  liée depuis le pied de page. Sans l'extension GD et sans ces fichiers, les
+  écrans retombent sur leur cadre vide — rien ne casse.
 - **4 paiements**, une souscription active, une conversation avec un message
   non lu côté agriculteur.
 
@@ -428,6 +456,7 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 | Parcours | Chemin |
 |---|---|
 | Inscription client | `/register` |
+| **Choix d'inscription** | `/inscription` |
 | **Inscription agriculteur** | `/inscription/agriculteur` |
 | Statut d'un compte non actif | `/mon-compte/statut` |
 | Catalogue public | `/catalogue` |
@@ -436,6 +465,9 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 | **Panier** | `/client/panier` |
 | **Mes commandes** | `/client/commandes` |
 | **Mes formations** | `/client/formations` |
+| **Lecteur de formation** | `/formations/{slug}/lecteur` |
+| **Notifications** | `/notifications` |
+| **Mon compte** | `/mon-compte` |
 | **Abonnement** | `/client/abonnement` |
 | **Messagerie client** | `/client/messages` |
 | Espace agriculteur | `/agriculteur/tableau-de-bord` |
@@ -453,9 +485,11 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 ### Parcours formations et abonnement
 
 Connectez-vous avec `client@agritech.local` : il a **acheté** la formation
-« Composter ses déchets agricoles ». Ouvrez-la depuis **Mes formations** : le
-bouton **Ouvrir** sert le fichier. Un visiteur, ou un client sans achat, voit
-les mêmes titres de modules — mais verrouillés.
+« Composter ses déchets agricoles ». Ouvrez-la depuis **Mes formations** :
+**Ouvrir la formation** mène au **lecteur**, qui affiche un module à la fois,
+avec la liste des modules et la navigation précédent / suivant. Un visiteur, ou
+un client sans achat, voit les mêmes titres de modules sur la fiche — mais
+verrouillés, et le lecteur lui répond **403**.
 
 Connectez-vous avec `client2@agritech.local` : il a un **abonnement
 trimestriel actif**. Les formations marquées « incluse dans l'abonnement »
@@ -768,6 +802,9 @@ Documents de référence à la racine :
 | Symptôme | Cause probable | Solution |
 |---|---|---|
 | `Vite manifest not found` | Assets non compilés | `npm run build` (étape 5) |
+| **Page sans aucun style, icônes affichées en toutes lettres (`storefront`, `search`, `eco`)** | La feuille de style n'est pas chargée : soit `npm install` n'a pas été relancé après un `git pull` et `npm run build` a échoué, soit `npm run dev` a été lancé puis arrêté et le fichier `public/hot` est resté | `npm install` puis `npm run build`. Si le symptôme persiste, supprimer `public\hot` et rebâtir |
+| **`htmlspecialchars(): Argument #1 ($string) must be of type string, array given`** dans `components/bottom-nav.blade.php` | Corrigé le 23/09/2026. Un libellé d'onglet passait par `__('Validation')` : une clé sans point envoie le traducteur chercher un **groupe** de ce nom, et Windows le trouve sans tenir compte de la casse dans `lang/fr/validation.php` — un tableau, pas une chaîne | `git pull` sur la branche de développement. Trois tests (`tests/Feature/BottomNavTest.php`) empêchent la rechute, sous Windows comme ailleurs |
+| Les produits affichent des rectangles colorés au lieu de photos | La base n'a pas été ré-amorcée depuis l'ajout des photographies | `php artisan migrate:fresh --seed` |
 | Un paiement reste `pending` | File d'attente non lancée | `php artisan queue:work` |
 | `SQLSTATE[HY000] [1049] Unknown database` | Base non créée | Voir § 2.2 |
 | `Access denied ... agritech_test_test_1` | L'utilisateur MySQL ne peut pas créer de bases | Utiliser `root`, ou accorder les droits sur `agritech_test%` |

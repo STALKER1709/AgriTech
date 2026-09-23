@@ -1,82 +1,102 @@
-{{-- Public layout following the Stitch mobile shell exactly: fixed 64px
-     translucent header with the two-line brand block, round 44px icon
-     actions (search, cart with terracotta badge) and the connection pill.
-     The bottom tab bar below mirrors nav of the Stitch screens. --}}
+{{--
+    Coquille publique, reprise de l'en-tête des maquettes `mobile_tab`
+    (`agritech_catalogue_produits`) : 64 px, ivoire translucide, marque sur
+    deux lignes à gauche, actions rondes de 44 px à droite, pastille de compte
+    de 32 px. La barre d'onglets basse est la même que dans les espaces
+    connectés — les maquettes la montrent aussi pour un visiteur.
+
+    Au-delà de `lg`, les maquettes ne disent rien du public : on élargit dans
+    le même vocabulaire, avec les liens de section dans l'en-tête et un
+    contenu borné à 1200 px comme le prévoit DESIGN.md.
+--}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-stitch-surface text-stitch-ink antialiased">
-        <header class="fixed inset-x-0 top-0 z-50 border-b border-stitch-border bg-stitch-surface/90 shadow-[0_1px_8px_rgba(31,36,33,0.04)] backdrop-blur-xl">
-            <div class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-2 px-4 lg:px-8">
-                {{-- Brand : logo + two-line wordmark, as drawn on every screen. --}}
-                <a href="{{ route('home') }}" wire:navigate class="flex min-w-0 items-center gap-2.5">
-                    <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-stitch-primary text-white shadow-card">
-                        <flux:icon.leaf class="size-5" />
+    <body class="bg-surface font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen">
+        <header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(31,36,33,0.04)]"
+                style="padding-top: env(safe-area-inset-top, 0px);">
+            <div class="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-space-sm px-gutter lg:px-margin-desktop">
+                <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-space-sm min-w-0">
+                    <span class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+                        <x-icon name="eco" size="18" filled class="text-on-primary" />
                     </span>
-                    <span class="flex min-w-0 flex-col leading-none">
-                        <span class="truncate font-display text-base font-bold text-stitch-primary">AgriTech</span>
-                        <span class="truncate text-xs text-stitch-muted">{{ __('Le carrefour agricole du Cameroun') }}</span>
-                    </span>
+                    <div class="flex flex-col min-w-0">
+                        <span class="font-headline-sm text-headline-sm text-primary leading-none truncate">AgriTech</span>
+                        <span class="font-label-sm text-label-sm text-text-secondary truncate">
+                            {{ __('Le carrefour agricole du Cameroun') }}
+                        </span>
+                    </div>
                 </a>
 
                 <nav class="hidden items-center gap-1 lg:flex">
                     <a href="{{ route('catalog.browse') }}" wire:navigate
-                       class="rounded-full px-4 py-2 text-sm font-semibold transition-colors {{ request()->routeIs('catalog.*') ? 'bg-stitch-primary/10 text-stitch-primary' : 'text-stitch-muted hover:bg-white hover:text-stitch-ink' }}">
-                        {{ __('Catalogue') }}
-                    </a>
+                       @class([
+                           'rounded-full px-4 h-9 inline-flex items-center font-label-lg text-label-lg transition-colors',
+                           'bg-primary/10 text-primary' => request()->routeIs('catalog.*'),
+                           'text-text-secondary hover:bg-surface-container hover:text-text-primary' => ! request()->routeIs('catalog.*'),
+                       ])>{{ __('Catalogue') }}</a>
+
                     <a href="{{ route('trainings.index') }}" wire:navigate
-                       class="rounded-full px-4 py-2 text-sm font-semibold transition-colors {{ request()->routeIs('trainings.*') ? 'bg-stitch-primary/10 text-stitch-primary' : 'text-stitch-muted hover:bg-white hover:text-stitch-ink' }}">
-                        {{ __('Formations') }}
-                    </a>
+                       @class([
+                           'rounded-full px-4 h-9 inline-flex items-center font-label-lg text-label-lg transition-colors',
+                           'bg-primary/10 text-primary' => request()->routeIs('trainings.*'),
+                           'text-text-secondary hover:bg-surface-container hover:text-text-primary' => ! request()->routeIs('trainings.*'),
+                       ])>{{ __('Formations') }}</a>
                 </nav>
 
-                <div class="flex items-center gap-1">
-                    {{-- Round 44px icon actions from the Stitch header. --}}
-                    <a href="{{ route('catalog.browse') }}" wire:navigate
-                       class="grid size-11 place-items-center rounded-full text-stitch-ink transition-colors hover:bg-stitch-high/70"
-                       aria-label="{{ __('Rechercher') }}">
-                        <flux:icon.magnifying-glass class="size-5" />
+                <div class="flex items-center gap-space-xs shrink-0">
+                    <a href="{{ route('catalog.browse') }}" wire:navigate aria-label="{{ __('Recherche') }}"
+                       class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors">
+                        <x-icon name="search" size="22" />
                     </a>
 
                     @auth
-                        <a href="{{ route('client.cart') }}" wire:navigate
-                           class="relative grid size-11 place-items-center rounded-full text-stitch-ink transition-colors hover:bg-stitch-high/70"
-                           aria-label="{{ __('Panier') }}">
-                            <flux:icon.shopping-cart class="size-5" />
-                            @php($cartCount = auth()->user()?->cartItemCount() ?? 0)
+                        @php($cartCount = auth()->user()?->isClient() ? auth()->user()->cartItemCount() : 0)
+                        <a href="{{ auth()->user()?->isClient() ? route('client.cart') : route('dashboard') }}" wire:navigate
+                           aria-label="{{ __('Panier') }}"
+                           class="relative w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors">
+                            <x-icon name="shopping_cart" size="22" />
                             @if ($cartCount > 0)
-                                <span class="absolute right-1.5 top-1.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-stitch-terra px-1 text-[10px] font-bold leading-tight text-white">
+                                <span class="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 bg-secondary text-on-secondary font-label-sm text-[10px] leading-tight font-bold rounded-full flex items-center justify-center">
                                     {{ $cartCount > 9 ? '9+' : $cartCount }}
                                 </span>
                             @endif
                         </a>
 
-                        <flux:button size="sm" variant="primary" :href="route('dashboard')" wire:navigate class="rounded-full">
-                            {{ __('Mon espace') }}
-                        </flux:button>
+                        <a href="{{ route('dashboard') }}" wire:navigate aria-label="{{ __('Mon espace') }}"
+                           class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+                            <x-icon name="person" size="18" class="text-on-primary" />
+                        </a>
                     @else
                         <a href="{{ route('login') }}" wire:navigate
-                           class="hidden h-8 items-center justify-center rounded-full bg-stitch-primary/10 px-3 text-sm font-semibold text-stitch-primary transition-colors hover:bg-stitch-primary/20 sm:inline-flex">
+                           class="hidden sm:inline-flex items-center justify-center px-3 h-8 rounded-full bg-primary/10 text-primary font-label-lg text-label-lg hover:bg-primary/20 transition-colors">
                             {{ __('Connexion') }}
                         </a>
-                        <a href="{{ route('register') }}" wire:navigate
-                           class="inline-flex h-10 items-center justify-center rounded-full bg-stitch-primary px-4 text-sm font-bold text-white shadow-card transition-colors hover:bg-stitch-primary-dark sm:inline-flex">
-                            {{ __('Créer un compte') }}
+
+                        <a href="{{ route('register.choice') }}" wire:navigate aria-label="{{ __('Créer un compte') }}"
+                           class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+                            <x-icon name="person" size="18" class="text-on-primary" />
                         </a>
                     @endauth
                 </div>
             </div>
         </header>
 
-        <main class="mx-auto w-full max-w-6xl px-4 pb-24 pt-20 lg:px-8">
+        <main class="mx-auto w-full max-w-[1200px] flex-1 px-gutter lg:px-margin-desktop pt-16 pb-24 lg:pb-space-2xl">
             {{ $slot }}
         </main>
 
-        <footer class="border-t border-stitch-border bg-white/60 py-6 text-center text-xs text-stitch-muted">
-            {{ __('Cameroun • Paiements Mobile Money simulés (MTN MoMo, Orange Money)') }}
+        <footer class="border-t border-border-warm bg-surface-container-lowest/60 py-space-lg pb-24 lg:pb-space-lg text-center font-label-sm text-label-sm text-text-secondary">
+            <p>{{ __('Cameroun • Paiements Mobile Money simulés (MTN MoMo, Orange Money)') }}</p>
+
+            <a href="{{ route('credits.photos') }}" wire:navigate class="mt-1 inline-block text-primary hover:underline">
+                {{ __('Crédits photographiques') }}
+            </a>
         </footer>
+
+        <x-bottom-nav :user="auth()->user()" />
 
         @persist('toast')
             <flux:toast.group>

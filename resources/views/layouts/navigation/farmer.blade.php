@@ -1,22 +1,27 @@
-<flux:sidebar.group :heading="__('Espace agriculteur')" class="grid">
-    <flux:sidebar.item icon="home" :href="route('farmer.dashboard')" :current="request()->routeIs('farmer.dashboard')" wire:navigate>
-        {{ __('Tableau de bord') }}
-    </flux:sidebar.item>
+{{-- Navigation latérale de l'agriculteur, d'après l'écran
+     `agritech_tableau_de_bord_vendeur`. --}}
+<x-nav-item icon="space_dashboard" :href="route('farmer.dashboard')" :current="request()->routeIs('farmer.dashboard')">
+    {{ __('Tableau de bord') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="squares-plus" :href="route('farmer.products')" :current="request()->routeIs('farmer.products*')" wire:navigate>
-        {{ __('Mes produits') }}
-    </flux:sidebar.item>
+<x-nav-item icon="inventory_2" :href="route('farmer.products')" :current="request()->routeIs('farmer.products*')">
+    {{ __('Mes produits') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="academic-cap" :href="route('farmer.trainings')" :current="request()->routeIs('farmer.trainings*')" wire:navigate>
-        {{ __('Mes formations') }}
-    </flux:sidebar.item>
+<x-nav-item icon="school" :href="route('farmer.trainings')" :current="request()->routeIs('farmer.trainings*')">
+    {{ __('Mes formations') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="clipboard-document-list" :href="route('farmer.orders')" :current="request()->routeIs('farmer.orders*')" wire:navigate>
-        {{ __('Commandes reçues') }}
-    </flux:sidebar.item>
+<x-nav-item icon="local_shipping" :href="route('farmer.orders')" :current="request()->routeIs('farmer.orders*')">
+    {{ __('Commandes reçues') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="chat-bubble-left-right" :href="route('farmer.messages')" :current="request()->routeIs('farmer.messages*')" wire:navigate
-                       :badge="app(\App\Services\Messaging\MessagingService::class)->unreadTotalFor(auth()->user()) ?: null">
-        {{ __('Messages') }}
-    </flux:sidebar.item>
-</flux:sidebar.group>
+<x-nav-item icon="chat" :href="route('farmer.messages')" :current="request()->routeIs('farmer.messages*')"
+            :badge="app(\App\Services\Messaging\MessagingService::class)->unreadTotalFor(auth()->user()) ?: null">
+    {{ __('Messages') }}
+</x-nav-item>
+
+<x-nav-item icon="notifications" :href="route('notifications')" :current="request()->routeIs('notifications')"
+            :badge="auth()->user()?->unreadNotifications()->count() ?: null">
+    {{ __('Notifications') }}
+</x-nav-item>

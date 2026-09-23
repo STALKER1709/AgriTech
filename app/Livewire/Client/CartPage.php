@@ -66,6 +66,44 @@ class CartPage extends Component
         Flux::toast(variant: 'success', text: __('Panier mis à jour.'));
     }
 
+    /**
+     * The stepper of the mockup's cart line. One unit at a time; the field
+     * between the two buttons still accepts a decimal, because a kilogram is
+     * not a sack.
+     */
+    public function increment(int $itemId, CartService $carts): void
+    {
+        $this->step($itemId, $carts, 1);
+    }
+
+    public function decrement(int $itemId, CartService $carts): void
+    {
+        $this->step($itemId, $carts, -1);
+    }
+
+    private function step(int $itemId, CartService $carts, int $by): void
+    {
+        $item = $this->item($itemId);
+        $next = $item->quantity->plus(Quantity::fromInteger($by));
+
+        if (! $next->isPositive()) {
+            $this->remove($itemId, $carts);
+
+            return;
+        }
+
+        try {
+            $carts->setQuantity($item, $next);
+        } catch (DomainException $exception) {
+            Flux::toast(variant: 'danger', text: $exception->getMessage());
+            $this->refreshCart();
+
+            return;
+        }
+
+        $this->refreshCart();
+    }
+
     public function remove(int $itemId, CartService $carts): void
     {
         $carts->remove($this->item($itemId));

@@ -1,59 +1,83 @@
-<div class="flex w-full max-w-2xl flex-1 flex-col gap-5">
-    {{-- En-tête avec pastille, cohérent avec les autres écrans d'administration --}}
-    <div class="flex items-center gap-3">
-        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-stitch-primary/10 text-stitch-primary">
-            <flux:icon.tag class="size-5" />
-        </span>
-        <div>
-            <h1 class="text-xl font-bold">{{ __('Catégories') }}</h1>
-            <p class="text-sm text-stitch-muted">{{ __('Elles structurent le catalogue et ses filtres.') }}</p>
-        </div>
-    </div>
+{{--
+    Les catégories du catalogue. Aucune maquette ne les dessine ; l'écran
+    suit la grammaire des autres pages d'administration — chapeau, création
+    en tête, puis une ligne par catégorie avec sa modification en place.
+--}}
+<div class="flex w-full max-w-3xl flex-1 flex-col gap-space-md">
+    <x-admin-header icon="category"
+                    :eyebrow="__('Catalogue')"
+                    :title="__('Catégories')"
+                    :subtitle="__('Renommer une catégorie ne change jamais son slug : des URL déjà partagées en dépendent.')" />
 
-    <form wire:submit="create" class="stitch-card flex flex-col gap-3 p-4">
-        <flux:input wire:model="newName" :label="__('Nouvelle catégorie')" type="text" required />
-        <div>
-            <flux:button variant="primary" type="submit" data-test="create-category">{{ __('Ajouter') }}</flux:button>
-        </div>
+    {{-- Création --}}
+    <form wire:submit="create" class="rounded-2xl bg-surface-container-lowest p-space-md shadow-card flex flex-col gap-space-sm sm:flex-row sm:items-end">
+        <x-form-field wire="newName" :label="__('Nouvelle catégorie')" icon="add" required
+                      :placeholder="__('Ex : Épices et condiments')" class="sm:flex-1" />
+
+        <button type="submit" data-test="create-category"
+                class="h-12 px-5 rounded-full bg-primary text-on-primary font-label-lg text-label-lg inline-flex items-center justify-center gap-1.5 shadow-card hover:bg-primary-container transition-colors shrink-0">
+            <x-icon name="add" size="18" />
+            {{ __('Ajouter') }}
+        </button>
     </form>
 
-    <div class="flex flex-col gap-2">
-        @foreach ($categories as $category)
-            <div class="flex flex-wrap items-center justify-between gap-3 stitch-card p-3">
+    {{-- Liste --}}
+    <div class="rounded-2xl bg-surface-container-lowest shadow-card overflow-hidden divide-y divide-surface-container">
+        @forelse ($categories as $category)
+            <div class="p-space-md" data-test="category-row">
                 @if ($editing === $category->id)
-                    <form wire:submit="rename" class="flex w-full flex-col gap-2 sm:flex-row sm:items-end">
-                        <flux:input wire:model="editedName" :label="__('Nom')" type="text" class="sm:flex-1" required />
-                        <div class="flex gap-2">
-                            <flux:button variant="primary" type="submit" data-test="rename-category">{{ __('Enregistrer') }}</flux:button>
-                            <flux:button variant="ghost" type="button" wire:click="cancel">{{ __('Annuler') }}</flux:button>
+                    <form wire:submit="rename" class="flex flex-col gap-space-sm sm:flex-row sm:items-end">
+                        <x-form-field wire="editedName" :label="__('Nom de la catégorie')" icon="edit" required
+                                      class="sm:flex-1" />
+
+                        <div class="flex gap-space-sm shrink-0">
+                            <button type="submit" data-test="rename-category"
+                                    class="h-12 px-5 rounded-full bg-primary text-on-primary font-label-lg text-label-lg inline-flex items-center gap-1.5 shadow-card hover:bg-primary-container transition-colors">
+                                <x-icon name="save" size="18" />
+                                {{ __('Enregistrer') }}
+                            </button>
+
+                            <button type="button" wire:click="cancel"
+                                    class="h-12 px-5 rounded-full bg-surface-container text-text-primary font-label-lg text-label-lg inline-flex items-center gap-1.5 hover:bg-surface-container-high transition-colors">
+                                {{ __('Annuler') }}
+                            </button>
                         </div>
                     </form>
                 @else
-                    <div class="min-w-0">
-                        <flux:heading size="sm">{{ $category->name }}</flux:heading>
-                        <flux:text class="text-xs">
-                            {{ trans_choice('{0}Aucun produit|{1}:count produit|[2,*]:count produits', $category->products_count, ['count' => $category->products_count]) }}
-                        </flux:text>
-                    </div>
+                    <div class="flex items-center gap-space-sm">
+                        <span class="w-10 h-10 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                            <x-icon name="category" size="18" />
+                        </span>
 
-                    <div class="flex gap-2">
-                        @can('update', $category)
-                            <flux:button size="sm" wire:click="edit({{ $category->id }})" data-test="edit-category">
-                                {{ __('Renommer') }}
-                            </flux:button>
-                        @endcan
+                        <div class="min-w-0 flex-1">
+                            <span class="font-body-md-bold text-body-md-bold text-text-primary truncate block">{{ $category->name }}</span>
+                            <span class="font-label-sm text-label-sm text-text-secondary truncate block">
+                                {{ $category->slug }}
+                                · {{ trans_choice(':count produit|:count produits', (int) $category->products_count, ['count' => (int) $category->products_count]) }}
+                            </span>
+                        </div>
 
-                        @can('delete', $category)
-                            <flux:button size="sm" variant="danger" wire:click="delete({{ $category->id }})"
-                                         wire:confirm="{{ __('Supprimer cette catégorie ?') }}" data-test="delete-category">
-                                {{ __('Supprimer') }}
-                            </flux:button>
-                        @else
-                            <flux:text class="self-center text-xs">{{ __('Contient des produits') }}</flux:text>
-                        @endcan
+                        <div class="flex gap-space-xs shrink-0">
+                            <button type="button" wire:click="edit({{ $category->id }})" data-test="edit-category"
+                                    aria-label="{{ __('Renommer') }}"
+                                    class="w-10 h-10 rounded-full bg-surface-container text-text-primary flex items-center justify-center hover:bg-surface-container-high transition-colors">
+                                <x-icon name="edit" size="18" />
+                            </button>
+
+                            <button type="button" wire:click="delete({{ $category->id }})" data-test="delete-category"
+                                    wire:confirm="{{ __('Supprimer cette catégorie ?') }}"
+                                    aria-label="{{ __('Supprimer') }}"
+                                    class="w-10 h-10 rounded-full bg-surface-container text-status-error flex items-center justify-center hover:bg-surface-container-high transition-colors">
+                                <x-icon name="delete" size="18" />
+                            </button>
+                        </div>
                     </div>
                 @endif
             </div>
-        @endforeach
+        @empty
+            <p class="p-space-md font-body-md text-body-md text-text-secondary">
+                {{ __('Aucune catégorie. Créez-en une pour que les agriculteurs puissent publier.') }}
+            </p>
+        @endforelse
     </div>
 </div>

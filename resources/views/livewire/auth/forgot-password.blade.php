@@ -1,31 +1,30 @@
 <x-layouts::auth :title="__('Mot de passe oublié')">
-    <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Mot de passe oublié')" :description="__('Saisissez votre adresse e-mail pour recevoir un lien de réinitialisation')" />
+    <div class="flex flex-col gap-space-md">
+        <x-auth-header icon="lock_reset" :title="__('Mot de passe oublié')"
+                       :description="__('Saisissez votre adresse e-mail : un lien de réinitialisation vous y attendra.')" />
 
-        <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+        <x-auth-session-status :status="session('status')" />
 
-        <form method="POST" action="{{ route('password.email') }}" class="flex flex-col gap-6">
+        <form method="POST" action="{{ route('password.email') }}"
+              class="rounded-2xl bg-surface-container-lowest p-space-md shadow-raised flex flex-col gap-space-md">
             @csrf
 
-            <!-- Email Address -->
-            <flux:input
-                name="email"
-                :label="__('Adresse e-mail')"
-                type="email"
-                required
-                autofocus
-                placeholder="email@example.com"
-            />
+            <x-form-field name="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
+                          :value="old('email')" autocomplete="email" placeholder="vous@exemple.cm"
+                          :hint="__('En local, le lien part dans le journal du mailer : storage/logs/laravel.log.')" />
 
-            <flux:button variant="primary" type="submit" class="w-full" data-test="email-password-reset-link-button">
+            <button type="submit" data-test="email-password-reset-link-button"
+                    class="h-14 w-full rounded-full bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-raised hover:bg-primary-container transition-colors">
                 {{ __('Envoyer le lien de réinitialisation') }}
-            </flux:button>
+                <x-icon name="send" size="20" />
+            </button>
         </form>
 
-        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-stitch-muted/70">
-            <span>{{ __('Ou revenez à la') }}</span>
-            <flux:link :href="route('login')" wire:navigate>{{ __('connexion') }}</flux:link>
-        </div>
+        <p class="text-center font-body-md text-body-md text-text-secondary">
+            {{ __('Ou revenez à la') }}
+            <a href="{{ route('login') }}" wire:navigate class="text-primary font-semibold hover:underline">
+                {{ __('connexion') }}
+            </a>
+        </p>
     </div>
 </x-layouts::auth>

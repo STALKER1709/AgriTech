@@ -1146,3 +1146,136 @@ multiplateforme — le développeur Windows n'a pas `env -u`.
 
 **Vérifié.** Les 37 échecs disparaissent avec le seul changement de ces deux
 fichiers ; aucun code applicatif n'était en cause.
+
+---
+
+### 2026-09-22 — Les photographies de démonstration sont téléchargées puis commitées
+
+**Décision.** Le jeu de démonstration s'appuie désormais sur **18 photographies
+réelles** (13 pour les produits, 4 pour les formations, 1 pour l'accueil),
+rangées dans `database/seeders/photos` et `public/images`. Le dessin GD reste
+en **repli** : si un fichier manque, ou sur une machine sans l'extension GD,
+l'amorçage retombe sur les illustrations générées.
+
+**Ce que cela révise.** Une décision antérieure écartait les photos commitées
+pour deux raisons : le poids du dépôt, et l'impossibilité de verser une image
+sans connaître sa licence. La demande a changé — il fallait étoffer le design —
+et les deux objections se traitent :
+
+- **Licence.** Les fichiers viennent de dépôts libres, trouvés via
+  [Openverse](https://openverse.org), et sont limités à **CC0 1.0**,
+  **PDM 1.0** (domaine public) et **CC BY 2.0**. Aucune licence à clause de
+  partage à l'identique, aucune licence non commerciale. Le titre, l'auteur, la
+  licence et l'URL source de chaque fichier sont enregistrés dans
+  `database/seeders/photos/credits.json` et repris dans `CREDITS.md`.
+- **Poids.** Recadrées au rapport d'affichage, redimensionnées (900 px pour les
+  produits, 1 000 px pour les formations, 1 400 px pour l'accueil) et
+  enregistrées en JPEG progressif à qualité 80 : **2,9 Mo au total**.
+
+**Le téléchargement a lieu une fois, pas à l'amorçage.** Les fichiers sont dans
+le dépôt ; `php artisan migrate:fresh --seed` n'appelle aucun service distant.
+La contrainte « l'application tourne sans connexion Internet » tient toujours,
+amorçage compris.
+
+**Obligation d'attribution honorée.** Les fichiers sous CC BY exigent de citer
+l'auteur, la licence et la source. La page `/credits-photos`, liée depuis le
+pied de page public, le fait pour chacun d'eux. Ce n'est pas une politesse :
+sans cette page, l'usage de ces images ne serait pas conforme.
+
+**Alternative écartée.** Les URL distantes des maquettes
+(`lh3.googleusercontent.com`). Elles rendraient le catalogue dépendant d'un
+service tiers, donc inutilisable hors ligne, et ces URL expirent.
+
+---
+
+### 2026-09-22 — La couverture de formation accepte le JPEG comme le PNG
+
+**Décision.** `Training::coverPath()` cherche `training-covers/{slug}.jpg` puis
+`{slug}.png`, et le contrôleur sert ce que la méthode trouve.
+
+**Justification.** Une photographie se stocke en JPEG, un dessin GD en PNG. Le
+fichier reste indexé par le slug — il n'y a toujours pas de colonne de
+couverture à tenir à jour — et les deux sources coexistent sans que l'écran ait
+à savoir laquelle est là.
+
+Au passage : une photographie l'emporte sur un dessin laissé par un amorçage
+précédent. `migrate:fresh` vide la base, pas le disque ; sans cela, une machine
+déjà amorcée aurait gardé ses illustrations pour toujours.
+
+---
+
+### 2026-09-22 — La légende des illustrations GD est repliée en ASCII
+
+**Symptôme.** Sur les images générées, « Régime de plantain » s'affichait
+`RÃ‰GIME DE PLANTAIN`, et le texte était décentré d'un cran par accent.
+
+**Cause.** `imagestring()` et les polices bitmap intégrées à GD travaillent
+**octet par octet**. Un « É » en UTF-8 occupe deux octets et se dessine donc
+comme deux glyphes faux ; et la largeur, mesurée en caractères avec
+`mb_strlen()`, ne correspondait plus à l'avance réelle, en octets.
+
+**Décision.** La légende est repliée en ASCII (`É` → `E`, `œ` → `oe`, les
+apostrophes typographiques → `'`), puis mesurée avec `strlen()`. Les polices
+intégrées de GD n'ont de toute façon aucun glyphe accentué à proposer :
+retirer l'accent est plus honnête que le rendre faux.
+
+**Portée.** Ces illustrations ne sont que le repli des photographies. Le
+symptôme n'apparaît que sur une machine sans photographies amorcées, ou sans
+l'extension GD — mais il n'avait aucune raison de rester.
+
+---
+
+### 2026-09-23 — Les formations de démonstration livrent des modules PDF générés
+
+**Décision.** `DemoSeeder` écrit désormais les modules de chaque formation de
+démonstration sur le disque privé, sous forme de PDF construits par
+`Support\PlaceholderPdf`, et le format des quatre formations passe à
+**Document PDF**.
+
+**Justification.** Sans modules, trois écrans du lot 3 n'ont rien à montrer :
+le programme de la fiche est vide, le lecteur n'ouvre rien, et la règle RG05
+— le fichier n'est servi qu'à qui y a droit — n'est jamais exercée par la
+démonstration. Or une vidéo ne peut pas être fabriquée ici : aucun encodeur
+n'est une dépendance du projet, et en ajouter un casserait la promesse
+d'installation 100 % locale, sous Windows comme ailleurs. Le PDF est le seul
+format de document qu'on sait produire en PHP pur, sans extension, sans
+binaire et sans réseau.
+
+Le format annonce ce que l'acheteur recevra. Laisser « Vidéo » sur une
+formation qui ne contient que des documents serait exactement la promesse que
+ce projet s'interdit d'afficher ; les quatre formations disent donc ce
+qu'elles contiennent vraiment.
+
+**Conséquence assumée.** Les pastilles « Vidéo » du catalogue tombent à zéro.
+L'écran n'affiche plus une pastille de format que personne ne vend : un filtre
+qui ne peut rien renvoyer n'est pas un filtre, c'est un cul-de-sac. Elle
+reparaît dès qu'un agriculteur téléverse une vidéo depuis son espace, ce que
+le formulaire accepte toujours.
+
+**Alternative écartée.** Télécharger une vidéo libre de droits et la committer.
+Elle pèserait plusieurs centaines de kilo-octets pour un contenu qui n'apprend
+rien, et ferait dépendre l'amorçage d'un fichier binaire de plus.
+
+---
+
+### 2026-09-23 — Le lecteur de formation n'affiche aucune progression
+
+**Décision.** L'écran `agritech_lecteur_de_formation` est reproduit sans sa
+jauge d'avancement (« 67 % · 8/12 validés »), sans le téléchargement
+hors-ligne et sans l'onglet « Notes & Discussion ». Les commandes de lecture
+dessinées dans la maquette — vitesse, sous-titres, plein écran, retour de dix
+secondes — laissent la place aux commandes natives du navigateur.
+
+**Justification.** Aucune table ne retient où un client s'est arrêté, ni ce
+qu'il a annoté. Afficher « 8 modules validés » demanderait d'inventer la
+donnée à l'affichage, et un pourcentage faux est pire qu'un pourcentage
+absent. Quant aux commandes de lecture, `<video controls>` les fournit déjà,
+correctement, y compris au clavier et aux lecteurs d'écran.
+
+**Ce qui reste.** La position du module dans la série (« Module 2 sur 5 »),
+qui se lit dans `training_contents.position`, la navigation précédent /
+suivant, et la liste des modules avec celui qui est ouvert.
+
+**Si la progression devait exister.** Il faudrait une table
+`training_progress (client_id, content_id, completed_at)` écrite par un
+service, et l'écran la lirait comme il lit tout le reste.

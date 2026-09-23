@@ -44,7 +44,9 @@ class Sandbox extends Component
         abort_unless($payment->user_id === Auth::id(), 403);
 
         $this->payment = $payment;
-        $this->phone = $payment->user->phone;
+        // Le champ est précédé d'un badge « +237 » verrouillé : n'y remettre
+        // que la partie nationale, sinon l'indicatif apparaît deux fois.
+        $this->phone = PhoneNumber::tryParse($payment->user->phone)?->format() ?? '';
 
         if (! $payment->status->isAwaitingOutcome()) {
             $this->redirectRoute('payments.pending', ['payment' => $payment->provider_reference], navigate: true);

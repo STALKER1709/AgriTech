@@ -170,3 +170,52 @@ describe('the screens', function () {
         expect(Message::query()->count())->toBe(0);
     });
 });
+
+describe('la recherche dans la liste des fils', function () {
+    it('finds a thread by the farm name of the other participant', function () {
+        $client = User::factory()->client()->create();
+        $farmer = sellingFarmer();
+        $farmer->farmerProfile->update(['farm_name' => 'Ferme des Collines']);
+
+        $other = sellingFarmer();
+        $other->farmerProfile->update(['farm_name' => 'Verger du Nord']);
+
+        Conversation::create(['client_id' => $client->id, 'farmer_id' => $farmer->id, 'last_message_at' => now()]);
+        Conversation::create(['client_id' => $client->id, 'farmer_id' => $other->id, 'last_message_at' => now()]);
+
+        $messaging = app(MessagingService::class);
+
+        expect($messaging->conversationsFor($client)->total())->toBe(2);
+        expect($messaging->conversationsFor($client, search: 'Collines')->total())->toBe(1);
+    });
+
+    it('finds a thread by what was written in it', function () {
+        $client = User::factory()->client()->create();
+        $farmer = sellingFarmer();
+
+        $conversation = Conversation::create([
+            'client_id' => $client->id,
+            'farmer_id' => $farmer->id,
+            'last_message_at' => now(),
+        ]);
+
+        app(MessagingService::class)->send($conversation, $client, 'Avez-vous du poivre de Penja ?');
+
+        $messaging = app(MessagingService::class);
+
+        expect($messaging->conversationsFor($client, search: 'Penja')->total())->toBe(1);
+        expect($messaging->conversationsFor($client, search: 'cacao')->total())->toBe(0);
+    });
+
+    it('never reaches a thread the searcher is not part of', function () {
+        $client = User::factory()->client()->create();
+        $stranger = User::factory()->client()->create();
+        $farmer = sellingFarmer();
+        $farmer->farmerProfile->update(['farm_name' => 'Ferme des Collines']);
+
+        Conversation::create(['client_id' => $stranger->id, 'farmer_id' => $farmer->id, 'last_message_at' => now()]);
+
+        expect(app(MessagingService::class)->conversationsFor($client, search: 'Collines')->total())
+            ->toBe(0);
+    });
+});

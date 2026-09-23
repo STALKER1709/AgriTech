@@ -5,6 +5,7 @@ use App\Http\Controllers\Catalog\TrainingCoverController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Payments\WebhookController;
 use App\Http\Controllers\Trainings\TrainingContentController;
+use App\Livewire\Account\Overview as AccountOverview;
 use App\Livewire\Account\Status as AccountStatus;
 use App\Livewire\Admin\AuditTrail;
 use App\Livewire\Admin\Categories as AdminCategories;
@@ -32,13 +33,22 @@ use App\Livewire\Farmer\ProductForm;
 use App\Livewire\Farmer\ProductList;
 use App\Livewire\Farmer\TrainingForm as FarmerTrainingForm;
 use App\Livewire\Farmer\TrainingList as FarmerTrainingList;
+use App\Livewire\Notifications\Index as NotificationList;
 use App\Livewire\Payments\Pending as PaymentPending;
 use App\Livewire\Payments\Sandbox as PaymentSandbox;
 use App\Livewire\Trainings\Index as TrainingsIndex;
 use App\Livewire\Trainings\Page as TrainingPage;
+use App\Livewire\Trainings\Reader as TrainingReader;
+use App\Support\PhotoCredits;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+
+// Mentions des photographies du jeu de démonstration : les licences CC BY
+// imposent de citer l'auteur, la licence et la source.
+Route::get('credits-photos', fn () => view('credits', [
+    'credits' => PhotoCredits::byKind(),
+]))->name('credits.photos');
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +67,17 @@ Route::get('images/produits/{image}', ProductImageController::class)->name('cata
 Route::get('formations', TrainingsIndex::class)->name('trainings.index');
 Route::get('images/formations/{training:slug}/couverture', TrainingCoverController::class)->name('trainings.cover');
 Route::get('formations/{training:slug}', TrainingPage::class)->name('trainings.show');
+
+/*
+| Le lecteur. La route demande une session ; le droit de lire, lui, est
+| vérifié au montage du composant, avec le même service que le contrôleur de
+| contenu — règle RG05.
+*/
+
+Route::middleware('auth')->group(function (): void {
+    Route::get('formations/{training:slug}/lecteur', TrainingReader::class)->name('trainings.read');
+    Route::get('formations/{training:slug}/lecteur/{content}', TrainingReader::class)->name('trainings.read.module');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +105,10 @@ Route::get('contenus/formation/{content}', TrainingContentController::class)
 */
 
 Route::middleware('guest')->group(function (): void {
+    // Le choix du rôle, en amont des deux formulaires : ce que l'on peut
+    // faire dépend de lui, et il ne se change pas tout seul ensuite.
+    Route::view('inscription', 'auth.choice')->name('register.choice');
+
     Route::get('inscription/agriculteur', RegisterFarmer::class)->name('register.farmer');
 });
 
@@ -96,6 +121,14 @@ Route::middleware('guest')->group(function (): void {
 Route::middleware('auth')->group(function (): void {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::get('mon-compte/statut', AccountStatus::class)->name('account.status');
+
+    // Le journal des notifications déjà écrites par les services, quel que
+    // soit le rôle : chacun n'y voit que les siennes.
+    Route::get('notifications', NotificationList::class)->name('notifications');
+
+    // Le point d'entrée du compte : qui vous êtes, trois chiffres, et le
+    // chemin vers tout le reste.
+    Route::get('mon-compte', AccountOverview::class)->name('account.overview');
 });
 
 /*

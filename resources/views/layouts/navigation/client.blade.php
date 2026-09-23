@@ -1,35 +1,39 @@
-<flux:sidebar.group :heading="__('Espace client')" class="grid">
-    <flux:sidebar.item icon="home" :href="route('client.dashboard')" :current="request()->routeIs('client.dashboard')" wire:navigate>
-        {{ __('Tableau de bord') }}
-    </flux:sidebar.item>
+{{-- Navigation latérale du client, vocabulaire d'icônes des maquettes. --}}
+<x-nav-item icon="space_dashboard" :href="route('client.dashboard')" :current="request()->routeIs('client.dashboard')">
+    {{ __('Tableau de bord') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="squares-2x2" :href="route('catalog.browse')" :current="request()->routeIs('catalog.*')" wire:navigate>
-        {{ __('Catalogue') }}
-    </flux:sidebar.item>
+<x-nav-item icon="storefront" :href="route('catalog.browse')" :current="request()->routeIs('catalog.*')">
+    {{ __('Catalogue') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="academic-cap" :href="route('trainings.index')" :current="request()->routeIs('trainings.*')" wire:navigate>
-        {{ __('Formations') }}
-    </flux:sidebar.item>
+<x-nav-item icon="school" :href="route('trainings.index')" :current="request()->routeIs('trainings.*')">
+    {{ __('Formations') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="bookmark" :href="route('client.trainings')" :current="request()->routeIs('client.trainings')" wire:navigate>
-        {{ __('Mes formations') }}
-    </flux:sidebar.item>
+<x-nav-item icon="bookmark" :href="route('client.trainings')" :current="request()->routeIs('client.trainings')">
+    {{ __('Mes formations') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="sparkles" :href="route('client.subscriptions')" :current="request()->routeIs('client.subscriptions')" wire:navigate>
-        {{ __('Abonnement') }}
-    </flux:sidebar.item>
+<x-nav-item icon="workspace_premium" :href="route('client.subscriptions')" :current="request()->routeIs('client.subscriptions')">
+    {{ __('Abonnement') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="chat-bubble-left-right" :href="route('client.messages')" :current="request()->routeIs('client.messages*')" wire:navigate
-                       :badge="app(\App\Services\Messaging\MessagingService::class)->unreadTotalFor(auth()->user()) ?: null">
-        {{ __('Messages') }}
-    </flux:sidebar.item>
+<x-nav-item icon="chat" :href="route('client.messages')" :current="request()->routeIs('client.messages*')"
+            :badge="app(\App\Services\Messaging\MessagingService::class)->unreadTotalFor(auth()->user()) ?: null">
+    {{ __('Messages') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="shopping-cart" :href="route('client.cart')" :current="request()->routeIs('client.cart')" wire:navigate
-                       :badge="auth()->user()?->cartItemCount() ?: null">
-        {{ __('Mon panier') }}
-    </flux:sidebar.item>
+<x-nav-item icon="shopping_cart" :href="route('client.cart')" :current="request()->routeIs('client.cart')"
+            :badge="auth()->user()?->cartItemCount() ?: null">
+    {{ __('Mon panier') }}
+</x-nav-item>
 
-    <flux:sidebar.item icon="clipboard-document-list" :href="route('client.orders')" :current="request()->routeIs('client.orders*')" wire:navigate>
-        {{ __('Mes commandes') }}
-    </flux:sidebar.item>
-</flux:sidebar.group>
+<x-nav-item icon="receipt_long" :href="route('client.orders')" :current="request()->routeIs('client.orders*')">
+    {{ __('Mes commandes') }}
+</x-nav-item>
+
+<x-nav-item icon="notifications" :href="route('notifications')" :current="request()->routeIs('notifications')"
+            :badge="auth()->user()?->unreadNotifications()->count() ?: null">
+    {{ __('Notifications') }}
+</x-nav-item>

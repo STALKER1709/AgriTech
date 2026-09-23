@@ -6,9 +6,11 @@ namespace App\Livewire\Farmer;
 
 use App\Enums\PublicationStatus;
 use App\Models\Training;
+use App\Models\TrainingPurchase;
 use App\Models\User;
 use App\Services\Catalog\PublicationService;
 use App\Services\Trainings\TrainingService;
+use App\Support\Money;
 use DomainException;
 use Flux\Flux;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -45,6 +47,7 @@ class TrainingList extends Component
             ->withCount('contents')
             ->where('farmer_id', $this->farmer()->id)
             ->when($this->status !== '', fn ($query) => $query->where('status', $this->status))
+            ->withCount(['contents', 'purchases'])
             ->orderByDesc('updated_at')
             ->paginate(10);
     }
@@ -55,6 +58,51 @@ class TrainingList extends Component
     public function statuses(): array
     {
         return PublicationStatus::cases();
+    }
+
+    /**
+     * Combien de formations pour chaque statut.
+     *
+     * @return array<string, int>
+     */
+    public function counts(): array
+    {
+        $counts = Training::query()
+            ->where('farmer_id', $this->farmer()->id)
+            ->selectRaw('status, count(*) as aggregate')
+            ->groupBy('status')
+            ->pluck('aggregate', 'status');
+
+        $byStatus = [];
+
+        foreach (PublicationStatus::cases() as $case) {
+            $byStatus[$case->value] = (int) $counts->get($case->value, 0);
+        }
+
+        $byStatus['all'] = array_sum($byStatus);
+
+        return $byStatus;
+    }
+
+    /**
+     * Ce que les formations ont rapporté, et à combien de personnes.
+     *
+     * Le montant est celui qui a été payé, sans retenue : contrairement aux
+     * sous-commandes, un achat de formation ne fige pas de commission et la
+     * plateforme n'en prélève pas. Appliquer le taux du moment à une vente
+     * passée dirait le contraire de ce qui s'est réellement produit.
+     *
+     * @return array{collected: Money, buyers: int}
+     */
+    public function earnings(): array
+    {
+        $purchases = TrainingPurchase::query()
+            ->whereHas('training', fn ($query) => $query->where('farmer_id', $this->farmer()->id));
+
+        return [
+            'collected' => Money::fromInteger((int) (clone $purchases)->sum('amount')),
+            'buyers' => (clone $purchases)->count(),
+        ];
     }
 
     public function submit(int $trainingId, PublicationService $publications): void

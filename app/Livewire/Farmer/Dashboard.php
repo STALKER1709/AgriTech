@@ -9,6 +9,7 @@ use App\Enums\SubOrderStatus;
 use App\Models\Product;
 use App\Models\SubOrder;
 use App\Models\Training;
+use App\Models\TrainingPurchase;
 use App\Models\User;
 use App\Services\Messaging\MessagingService;
 use App\Support\Money;
@@ -109,6 +110,74 @@ class Dashboard extends Component
             ->orderByDesc('id')
             ->limit(5)
             ->get();
+    }
+
+    /**
+     * Le chiffre encaissé, semaine par semaine, sur les quatre dernières.
+     *
+     * La maquette dessine ce graphique ; les barres viennent des
+     * sous-commandes réellement payées, pas d'un jeu de valeurs décoratives.
+     * La semaine est celle d'Africa/Douala, comme partout ailleurs.
+     *
+     * @return array<int, array{label: string, amount: Money, share: float}>
+     */
+    #[Computed]
+    public function weeklySales(): array
+    {
+        $timezone = (string) config('app.timezone');
+        $weeks = [];
+
+        for ($offset = 3; $offset >= 0; $offset--) {
+            $start = now($timezone)->startOfWeek()->subWeeks($offset);
+            $end = $start->copy()->endOfWeek();
+
+            $weeks[] = [
+                'start' => $start,
+                'amount' => Money::fromInteger(
+                    (int) SubOrder::query()
+                        ->where('farmer_id', $this->farmer()->id)
+                        ->whereIn('status', [SubOrderStatus::Paid, SubOrderStatus::Preparing, SubOrderStatus::Delivered])
+                        ->whereBetween('created_at', [$start->copy()->utc(), $end->copy()->utc()])
+                        ->sum('subtotal_amount'),
+                ),
+            ];
+        }
+
+        $highest = max(array_map(static fn (array $week): int => $week['amount']->amount, $weeks));
+
+        return array_map(static fn (array $week): array => [
+            'label' => $week['start']->translatedFormat('d M'),
+            'amount' => $week['amount'],
+            // La part de la plus haute barre, pas du total : c'est une
+            // comparaison entre semaines, pas une répartition.
+            // Cast explicite : en PHP, une division entière qui tombe juste
+            // renvoie un entier, et la forme annoncée ici est un flottant.
+            'share' => $highest > 0 ? (float) ($week['amount']->amount / $highest) : 0.0,
+        ], $weeks);
+    }
+
+    /**
+     * Combien de personnes ont acheté une de ses formations. C'est le
+     * « 14 inscrits » de la maquette, compté pour de vrai.
+     */
+    #[Computed]
+    public function trainingBuyers(): int
+    {
+        return TrainingPurchase::query()
+            ->whereHas('training', fn ($query) => $query->where('farmer_id', $this->farmer()->id))
+            ->count();
+    }
+
+    /**
+     * Combien de publications attendent encore la modération.
+     */
+    #[Computed]
+    public function inReview(): int
+    {
+        $farmer = $this->farmer();
+
+        return Product::query()->where('farmer_id', $farmer->id)->where('status', PublicationStatus::InReview)->count()
+            + Training::query()->where('farmer_id', $farmer->id)->where('status', PublicationStatus::InReview)->count();
     }
 
     private function farmer(): User

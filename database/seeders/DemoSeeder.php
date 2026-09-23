@@ -12,6 +12,7 @@ use App\Enums\ProductUnit;
 use App\Enums\PublicationStatus;
 use App\Enums\SubOrderStatus;
 use App\Enums\SubscriptionStatus;
+use App\Enums\TrainingContentType;
 use App\Enums\TrainingFormat;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
@@ -31,13 +32,24 @@ use App\Models\SubOrder;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
 use App\Models\Training;
+use App\Models\TrainingContent;
 use App\Models\TrainingPurchase;
 use App\Models\User;
+use App\Notifications\FarmerApproved;
+use App\Notifications\FarmerAwaitingValidation;
+use App\Notifications\NewMessage;
+use App\Notifications\OrderCancelled;
+use App\Notifications\OrderPaid;
+use App\Notifications\PublicationApproved;
+use App\Notifications\SubOrderReceived;
 use App\Support\Money;
 use App\Support\PlaceholderImage;
+use App\Support\PlaceholderPdf;
 use App\Support\Quantity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -51,6 +63,38 @@ use Illuminate\Support\Str;
 class DemoSeeder extends Seeder
 {
     public const string PASSWORD = 'password';
+
+    /**
+     * The modules of each demonstration training, in reading order.
+     *
+     * @var array<string, array<int, string>>
+     */
+    private const array MODULES = [
+        'compostage' => [
+            'Pourquoi composter : ce que le sol y gagne',
+            'Monter un tas de compost en andain',
+            'Retourner, arroser, surveiller la température',
+            'Reconnaître un compost mûr et l\'épandre',
+        ],
+        'irrigation' => [
+            'Mesurer les besoins en eau de sa parcelle',
+            'Choisir tuyaux, goutteurs et filtration',
+            'Poser le réseau et régler la pression',
+            'Entretenir le système en saison sèche',
+        ],
+        'cacao' => [
+            'Reconnaître les variétés et leurs exigences',
+            'Tailler et gérer l\'ombrage',
+            'Lutter contre la pourriture brune',
+            'Récolter, écabosser, fermenter',
+            'Sécher et trier avant la vente',
+        ],
+        'conservation' => [
+            'Sécher correctement avant le stockage',
+            'Choisir sacs, greniers et palettes',
+            'Prévenir charançons et moisissures',
+        ],
+    ];
 
     private bool $gdWarned = false;
 
@@ -228,7 +272,7 @@ class DemoSeeder extends Seeder
             'updated_at' => now()->subHours(4),
         ]);
 
-        Message::create([
+        $reply = Message::create([
             'conversation_id' => $conversation->id,
             'sender_id' => $activeFarmer->id,
             'content' => 'Bonjour, oui, la récolte de jeudi sera disponible dès vendredi matin.',
@@ -236,6 +280,75 @@ class DemoSeeder extends Seeder
             'created_at' => now()->subHours(2),
             'updated_at' => now()->subHours(2),
         ]);
+
+        // --- Notifications -----------------------------------------------------
+
+        $this->createNotifications($admin, $activeFarmer, $client, $paidOrder, $reply, $products['plantain']);
+    }
+
+    /**
+     * Fill the notifications screen with rows the services would really have
+     * written.
+     *
+     * The demo builds its orders and messages directly rather than through
+     * the services, so none of the notifications those services send ever
+     * fired. They are sent here, through the very same notification classes —
+     * writing the rows by hand would let the payload drift from what the
+     * application actually stores.
+     *
+     * Only the database channel is used: mailing the demo accounts at seeding
+     * time would fill the log with nine messages nobody reads.
+     */
+    private function createNotifications(
+        User $admin,
+        User $farmer,
+        User $client,
+        Order $paidOrder,
+        Message $reply,
+        Product $product,
+    ): void {
+        $pendingFarmer = User::query()->where('email', 'agriculteur-attente@agritech.local')->first();
+        $cancelled = Order::query()->where('status', OrderStatus::Cancelled)->first();
+        $subOrder = $paidOrder->subOrders()->where('farmer_id', $farmer->id)->first();
+
+        $sent = [
+            [$client, new OrderPaid($paidOrder), 2],
+            [$client, new NewMessage($reply), 2],
+            [$farmer, new PublicationApproved($product), 26],
+        ];
+
+        if ($cancelled instanceof Order) {
+            $sent[] = [$client, new OrderCancelled($cancelled, 'Paiement non confirmé dans le délai imparti.', false), 50];
+        }
+
+        if ($subOrder instanceof SubOrder) {
+            $sent[] = [$farmer, new SubOrderReceived($subOrder), 3];
+        }
+
+        if ($pendingFarmer instanceof User) {
+            $sent[] = [$admin, new FarmerAwaitingValidation($pendingFarmer), 27];
+        }
+
+        $sent[] = [$farmer, new FarmerApproved, 74];
+
+        foreach ($sent as [$notifiable, $notification, $hoursAgo]) {
+            Notification::sendNow($notifiable, $notification, ['database']);
+
+            // `sendNow` stamps the row with the current time; the demo wants
+            // them spread over three days so the screen's day grouping —
+            // « Aujourd'hui », « Hier », puis la date — has something to group.
+            $notifiable->notifications()->latest()->limit(1)->update([
+                'created_at' => now()->subHours($hoursAgo),
+                'updated_at' => now()->subHours($hoursAgo),
+            ]);
+        }
+
+        // Two rows left unread, so the badge and the "Tout lire" button both
+        // have something to do on a fresh install.
+        $client->notifications()->latest()->skip(2)->take(10)->get()
+            ->each(fn (DatabaseNotification $row) => $row->markAsRead());
+        $farmer->notifications()->latest()->skip(1)->take(10)->get()
+            ->each(fn (DatabaseNotification $row) => $row->markAsRead());
     }
 
     private function createFarmer(
@@ -375,6 +488,12 @@ class DemoSeeder extends Seeder
             return;
         }
 
+        // Une vraie photographie vaut mieux qu'un dessin : si le dépôt en
+        // contient pour ce produit, on les prend. Le dessin GD reste le repli.
+        if ($this->attachPhotographs($product)) {
+            return;
+        }
+
         // Without GD the catalogue still works — the cards just fall back to
         // their empty-image placeholder. Seeding must never hang on a demo
         // nicety; the extension is listed as required in the README.
@@ -416,6 +535,62 @@ class DemoSeeder extends Seeder
     }
 
     /**
+     * Copy the repository's photographs for this product, if it has any.
+     *
+     * The files live in `database/seeders/photos/products`, are named after
+     * the product slug, and carry their licence in CREDITS.md next to them.
+     * They are committed rather than downloaded at seed time: seeding has to
+     * work without a network, like the rest of the application.
+     *
+     * @return bool true when photographs were attached
+     */
+    private function attachPhotographs(Product $product): bool
+    {
+        $files = $this->photographsFor('products', $product->slug);
+
+        if ($files === []) {
+            return false;
+        }
+
+        $disk = Storage::disk((string) config('catalog.images.disk', 'local'));
+
+        foreach ($files as $index => $file) {
+            $path = 'products/'.$product->id.'/'.Str::ulid()->toString().'.jpg';
+
+            $disk->put($path, (string) file_get_contents($file));
+
+            ProductImage::create([
+                'product_id' => $product->id,
+                'path' => $path,
+                'position' => $index + 1,
+            ]);
+        }
+
+        return true;
+    }
+
+    /**
+     * The repository's photographs for a slug, in display order.
+     *
+     * Accepts both `slug.jpg` and `slug-1.jpg`, `slug-2.jpg`…
+     *
+     * @return array<int, string> absolute paths
+     */
+    private function photographsFor(string $kind, string $slug): array
+    {
+        $directory = database_path('seeders/photos/'.$kind);
+
+        $files = array_merge(
+            glob($directory.'/'.$slug.'.jpg') ?: [],
+            glob($directory.'/'.$slug.'-*.jpg') ?: [],
+        );
+
+        sort($files);
+
+        return $files;
+    }
+
+    /**
      * Give a training an illustrated 16:9 cover, drawn on the private disk
      * and streamed by the cover controller like product images are. There is
      * no cover column on the model: the file is keyed by the training slug,
@@ -427,16 +602,27 @@ class DemoSeeder extends Seeder
      */
     private function attachTrainingCover(Training $training, string $scene): void
     {
-        if (! PlaceholderImage::isSupported()) {
+        $disk = Storage::disk((string) config('catalog.images.disk', 'local'));
+        $photographs = $this->photographsFor('trainings', $training->slug);
+
+        // La photographie l'emporte, y compris sur un dessin laissé par un
+        // amorçage précédent : `migrate:fresh` vide la base, pas le disque.
+        if ($photographs !== []) {
+            $disk->put(
+                'training-covers/'.$training->slug.'.jpg',
+                (string) file_get_contents($photographs[0]),
+            );
+
+            $disk->delete('training-covers/'.$training->slug.'.png');
+
             return;
         }
 
-        $path = 'training-covers/'.$training->slug.'.png';
-        $disk = Storage::disk((string) config('catalog.images.disk', 'local'));
-
-        if (! $disk->exists($path)) {
-            $disk->put($path, PlaceholderImage::cover($scene));
+        if ($training->hasCover() || ! PlaceholderImage::isSupported()) {
+            return;
         }
+
+        $disk->put('training-covers/'.$training->slug.'.png', PlaceholderImage::cover($scene));
     }
 
     /**
@@ -444,10 +630,15 @@ class DemoSeeder extends Seeder
      */
     private function createTrainings(User $firstFarmer, User $secondFarmer): array
     {
+        // Toutes au format document. Le format annonce ce que l'acheteur
+        // recevra, et une démonstration ne peut fabriquer de vidéo hors
+        // ligne : aucun encodeur n'est une dépendance du projet. Annoncer
+        // « Vidéo » sans vidéo derrière serait précisément la promesse que
+        // ce projet s'interdit. Voir DECISIONS.md.
         $definitions = [
-            'compostage' => [$firstFarmer, 'Composter ses déchets agricoles', 7500, TrainingFormat::Video, false],
-            'irrigation' => [$firstFarmer, 'Irrigation goutte à goutte à petit budget', 5000, TrainingFormat::Mixed, true],
-            'cacao' => [$secondFarmer, 'Entretenir une cacaoyère productive', 12000, TrainingFormat::Video, true],
+            'compostage' => [$firstFarmer, 'Composter ses déchets agricoles', 7500, TrainingFormat::Pdf, false],
+            'irrigation' => [$firstFarmer, 'Irrigation goutte à goutte à petit budget', 5000, TrainingFormat::Pdf, true],
+            'cacao' => [$secondFarmer, 'Entretenir une cacaoyère productive', 12000, TrainingFormat::Pdf, true],
             'conservation' => [$secondFarmer, 'Conserver les récoltes après la moisson', 4000, TrainingFormat::Pdf, true],
         ];
 
@@ -478,9 +669,45 @@ class DemoSeeder extends Seeder
 
         foreach ($trainings as $key => $training) {
             $this->attachTrainingCover($training, $coverScenes[$key]);
+            $this->attachTrainingModules($training, self::MODULES[$key]);
         }
 
         return $trainings;
+    }
+
+    /**
+     * Write the modules of a training to the private disk and record them.
+     *
+     * Without them the reader screen has nothing to read, and the entitlement
+     * check in TrainingContentController is never exercised by the demo. The
+     * files are generated, not committed: a PDF built from pure PHP needs no
+     * extension, no binary and no network.
+     *
+     * @param  array<int, string>  $titles
+     */
+    private function attachTrainingModules(Training $training, array $titles): void
+    {
+        $disk = Storage::disk((string) config('trainings.contents.disk', 'local'));
+        $directory = trim((string) config('trainings.contents.directory', 'trainings'), '/').'/'.$training->id;
+
+        foreach ($titles as $index => $title) {
+            $position = $index + 1;
+            $path = $directory.'/module-'.$position.'.pdf';
+
+            $disk->put($path, PlaceholderPdf::render($title, [
+                $training->title.' — module '.$position.' sur '.count($titles).'.',
+                'Ce document tient la place du support que l\'agriculteur téléverse. '
+                    .'Il est généré localement par le jeu de démonstration ; son contenu '
+                    .'n\'a pas de valeur agronomique.',
+                'Le fichier vit sur un disque privé et n\'est servi qu\'aux clients qui y ont droit : '
+                    .'achat de la formation, ou abonnement actif l\'incluant (règle RG05).',
+            ]));
+
+            TrainingContent::updateOrCreate(
+                ['training_id' => $training->id, 'position' => $position],
+                ['title' => $title, 'type' => TrainingContentType::Pdf, 'path' => $path],
+            );
+        }
     }
 
     /**

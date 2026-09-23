@@ -87,8 +87,11 @@ it('shows the registration fee on the status screen', function () {
 
     $this->get(route('account.status'))
         ->assertOk()
-        ->assertSee("Frais d'inscription à régler")
-        ->assertSee('10'."\u{202F}".'000'."\u{00A0}".'FCFA');
+        ->assertSee("Frais d'inscription")
+        ->assertSee('10'."\u{00A0}".'000'."\u{00A0}".'FCFA')
+        // Le montant est lu côté serveur : le bouton le répète, il ne le
+        // reçoit pas du formulaire.
+        ->assertSee('Payer 10'."\u{00A0}".'000'."\u{00A0}".'FCFA');
 });
 
 it('leaves nothing behind when validation fails', function () {
