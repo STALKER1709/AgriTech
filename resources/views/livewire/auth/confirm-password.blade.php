@@ -9,7 +9,7 @@
               class="rounded-2xl bg-surface-container-lowest p-space-md shadow-raised flex flex-col gap-space-md">
             @csrf
 
-            <x-auth-field name="password" type="password" :label="__('Mot de passe')" icon="lock"
+            <x-form-field name="password" type="password" :label="__('Mot de passe')" icon="lock"
                           required autocomplete="current-password" />
 
             <button type="submit" data-test="confirm-password-button"

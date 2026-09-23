@@ -38,17 +38,17 @@
             </div>
 
             <div class="grid gap-space-md sm:grid-cols-2">
-                <x-auth-field name="first_name" :label="__('Prénom')" icon="badge" required
+                <x-form-field name="first_name" :label="__('Prénom')" icon="badge" required
                               :value="old('first_name')" autocomplete="given-name" placeholder="Clarisse" />
 
-                <x-auth-field name="last_name" :label="__('Nom')" icon="badge" required
+                <x-form-field name="last_name" :label="__('Nom')" icon="badge" required
                               :value="old('last_name')" autocomplete="family-name" placeholder="Etoundi" />
             </div>
 
-            <x-auth-field name="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
+            <x-form-field name="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
                           :value="old('email')" autocomplete="email" placeholder="vous@exemple.cm" />
 
-            <x-auth-field name="phone" type="tel" :label="__('Numéro de téléphone')" prefix="+237" required
+            <x-form-field name="phone" type="tel" :label="__('Numéro de téléphone')" prefix="+237" required
                           :value="old('phone')" autocomplete="tel-national" placeholder="6XX XX XX XX"
                           :hint="__('Il sert aussi d\'identifiant de connexion.')" />
 
@@ -57,10 +57,10 @@
                 <h2 class="font-headline-sm text-headline-sm text-text-primary">{{ __('Votre mot de passe') }}</h2>
             </div>
 
-            <x-auth-field name="password" type="password" :label="__('Mot de passe')" icon="lock" required
+            <x-form-field name="password" type="password" :label="__('Mot de passe')" icon="lock" required
                           autocomplete="new-password" />
 
-            <x-auth-field name="password_confirmation" type="password" :label="__('Confirmer le mot de passe')"
+            <x-form-field name="password_confirmation" type="password" :label="__('Confirmer le mot de passe')"
                           icon="lock_reset" required autocomplete="new-password" />
 
             <button type="submit" data-test="register-user-button"

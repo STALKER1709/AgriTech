@@ -183,7 +183,7 @@
                     @endforeach
                 </div>
 
-                <x-auth-field wire="phone" type="tel" :label="__('Numéro du compte payeur')" prefix="+237"
+                <x-form-field wire="phone" type="tel" :label="__('Numéro du compte payeur')" prefix="+237"
                               required placeholder="670 12 34 56" />
 
                 <button type="submit" data-test="pay-registration-fee" wire:loading.attr="disabled"

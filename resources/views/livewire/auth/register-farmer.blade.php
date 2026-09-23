@@ -71,18 +71,18 @@
         </div>
 
         <div class="grid gap-space-md sm:grid-cols-2">
-            <x-auth-field wire="first_name" :label="__('Prénom')" icon="badge" required
+            <x-form-field wire="first_name" :label="__('Prénom')" icon="badge" required
                           autocomplete="given-name" placeholder="Bernard" />
 
-            <x-auth-field wire="last_name" :label="__('Nom')" icon="badge" required
+            <x-form-field wire="last_name" :label="__('Nom')" icon="badge" required
                           autocomplete="family-name" placeholder="Awono" />
         </div>
 
         <div class="grid gap-space-md sm:grid-cols-2">
-            <x-auth-field wire="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
+            <x-form-field wire="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
                           autocomplete="email" placeholder="vous@exemple.cm" />
 
-            <x-auth-field wire="phone" type="tel" :label="__('Téléphone')" prefix="+237" required
+            <x-form-field wire="phone" type="tel" :label="__('Téléphone')" prefix="+237" required
                           autocomplete="tel-national" placeholder="6XX XX XX XX" />
         </div>
 
@@ -91,18 +91,18 @@
             <h2 class="font-headline-sm text-headline-sm text-text-primary">{{ __('Votre exploitation') }}</h2>
         </div>
 
-        <x-auth-field wire="farm_name" :label="__('Nom de l\'exploitation')" icon="store" required
+        <x-form-field wire="farm_name" :label="__('Nom de l\'exploitation')" icon="store" required
                       :placeholder="__('Ex : Ferme du Mbam')" />
 
         <div class="grid gap-space-md sm:grid-cols-2">
-            <x-auth-field wire="region" type="select" :label="__('Région')" icon="explore" required
+            <x-form-field wire="region" type="select" :label="__('Région')" icon="explore" required
                           :options="$this->regions()" :placeholder="__('Choisir une région')" />
 
-            <x-auth-field wire="city" :label="__('Ville ou village')" icon="pin_drop" required
+            <x-form-field wire="city" :label="__('Ville ou village')" icon="pin_drop" required
                           :placeholder="__('Ex : Obala')" />
         </div>
 
-        <x-auth-field wire="description" type="textarea" :label="__('Votre exploitation en quelques lignes')"
+        <x-form-field wire="description" type="textarea" :label="__('Votre exploitation en quelques lignes')"
                       icon="notes" :rows="4"
                       :placeholder="__('Vos cultures, vos saisons de récolte, vos méthodes…')" />
 
@@ -112,10 +112,10 @@
         </div>
 
         <div class="grid gap-space-md sm:grid-cols-2">
-            <x-auth-field wire="password" type="password" :label="__('Mot de passe')" icon="lock" required
+            <x-form-field wire="password" type="password" :label="__('Mot de passe')" icon="lock" required
                           autocomplete="new-password" />
 
-            <x-auth-field wire="password_confirmation" type="password" :label="__('Confirmer')"
+            <x-form-field wire="password_confirmation" type="password" :label="__('Confirmer')"
                           icon="lock_reset" required autocomplete="new-password" />
         </div>
 

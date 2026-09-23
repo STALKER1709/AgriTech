@@ -174,6 +174,36 @@ final readonly class Money implements JsonSerializable, Stringable
         return $sign.implode(self::THOUSANDS_SEPARATOR, $groups);
     }
 
+    /**
+     * Une écriture courte, pour les endroits où la place manque — l'étiquette
+     * d'une barre de graphique, typiquement : « 72,5 k », « 1,2 M ».
+     *
+     * Elle ne remplace jamais `format()` : elle arrondit, donc elle ne sert
+     * qu'à comparer d'un coup d'œil. Le montant exact reste à portée, dans
+     * l'infobulle ou la ligne voisine.
+     */
+    public function formatCompact(): string
+    {
+        $sign = $this->amount < 0 ? '-' : '';
+        $value = abs($this->amount);
+
+        if ($value < 1_000) {
+            return $sign.$value;
+        }
+
+        [$divisor, $suffix] = $value < 1_000_000 ? [1_000, 'k'] : [1_000_000, 'M'];
+
+        $scaled = $value / $divisor;
+
+        // Une décimale seulement quand elle dit quelque chose : « 8 k », pas
+        // « 8,0 k », et « 72,5 k » plutôt que « 73 k ».
+        $rendered = fmod($scaled, 1.0) < 0.05 || $scaled >= 100
+            ? (string) (int) round($scaled)
+            : str_replace('.', ',', (string) round($scaled, 1));
+
+        return $sign.$rendered.self::CURRENCY_SEPARATOR.$suffix;
+    }
+
     public function __toString(): string
     {
         return $this->format();

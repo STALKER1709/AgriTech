@@ -9,7 +9,7 @@
               class="rounded-2xl bg-surface-container-lowest p-space-md shadow-raised flex flex-col gap-space-md">
             @csrf
 
-            <x-auth-field name="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
+            <x-form-field name="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
                           :value="old('email')" autocomplete="email" placeholder="vous@exemple.cm"
                           :hint="__('En local, le lien part dans le journal du mailer : storage/logs/laravel.log.')" />
 

@@ -1,7 +1,7 @@
 {{--
-    Champ des écrans d'authentification, repris de `agritech_connexion` et
-    `agritech_inscription_agriculteur` : libellé au-dessus, contrôle de 50 px
-    à rayon 12 px précédé d'une icône, message d'erreur dessous.
+    Champ de formulaire du design system, repris de `agritech_connexion` et
+    `agritech_formulaire_produit` : libellé au-dessus, contrôle de 50 px à
+    rayon 12 px précédé d'une icône, message d'erreur dessous.
 
     `wire` pilote un composant Livewire ; `name` un formulaire POST classique.
     Les deux ne se mélangent pas : l'un ou l'autre.
@@ -23,13 +23,27 @@
     'hint' => null,
     'rows' => 3,
     'prefix' => null,
+    'suffix' => null,
+    'inputmode' => null,
+    'numeric' => false,
 ])
 
 @php
     $id = $name ?? $wire ?? 'field-'.uniqid();
     $error = $name ? $errors->first($name) : ($wire ? $errors->first($wire) : null);
-    $binding = new \Illuminate\View\ComponentAttributeBag($wire ? ['wire:model' => $wire] : ['name' => $name]);
+    // `.number` : un `<select>` renvoie toujours une chaîne, et une propriété
+    // Livewire typée `?int` la refuse sous `strict_types`. Le modificateur
+    // fait la conversion là où elle appartient, au moment de l'hydratation.
+    $binding = new \Illuminate\View\ComponentAttributeBag(
+        $wire ? ['wire:model'.($numeric ? '.number' : '') => $wire] : ['name' => $name],
+    );
     $control = 'w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline outline-none';
+
+    // Une liste simple se suffit à elle-même ; sinon la clé porte la valeur.
+    // Le test porte sur la forme du tableau, pas sur le type d'une clé : des
+    // identifiants entiers font des clés entières, et les prendre pour les
+    // indices d'une liste renverrait le libellé à la place de la valeur.
+    $keyed = ! array_is_list($options);
 @endphp
 
 <div {{ $attributes->class('flex flex-col gap-1.5') }} x-data="{ show: false }">
@@ -59,8 +73,10 @@
             <select id="{{ $id }}" @required($required) {{ $binding }}
                     class="{{ $control }} h-9 appearance-none cursor-pointer">
                 <option value="">{{ $placeholder ?? __('Choisir…') }}</option>
-                @foreach ($options as $option)
-                    <option value="{{ $option }}" @selected($value === $option)>{{ $option }}</option>
+                @foreach ($options as $key => $option)
+                    @php($optionValue = $keyed ? $key : $option)
+                <option value="{{ $optionValue }}"
+                        @selected((string) $value === (string) $optionValue)>{{ $option }}</option>
                 @endforeach
             </select>
             <x-icon name="expand_more" size="20" class="text-text-secondary shrink-0 pointer-events-none" />
@@ -82,8 +98,13 @@
         @else
             <input id="{{ $id }}" type="{{ $type }}" @required($required) {{ $binding }}
                    value="{{ $wire ? '' : $value }}"
+                   @if ($inputmode) inputmode="{{ $inputmode }}" @endif
                    autocomplete="{{ $autocomplete }}" placeholder="{{ $placeholder }}"
                    class="{{ $control }} h-9" />
+
+            @if ($suffix)
+                <span class="font-label-lg text-label-lg text-text-secondary shrink-0 select-none">{{ $suffix }}</span>
+            @endif
         @endif
     </div>
 

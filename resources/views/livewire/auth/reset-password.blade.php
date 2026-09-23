@@ -10,13 +10,13 @@
             @csrf
             <input type="hidden" name="token" value="{{ request()->route('token') }}" />
 
-            <x-auth-field name="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
+            <x-form-field name="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
                           :value="request('email')" autocomplete="email" placeholder="vous@exemple.cm" />
 
-            <x-auth-field name="password" type="password" :label="__('Nouveau mot de passe')" icon="lock"
+            <x-form-field name="password" type="password" :label="__('Nouveau mot de passe')" icon="lock"
                           required autocomplete="new-password" />
 
-            <x-auth-field name="password_confirmation" type="password" :label="__('Confirmer le mot de passe')"
+            <x-form-field name="password_confirmation" type="password" :label="__('Confirmer le mot de passe')"
                           icon="lock_reset" required autocomplete="new-password" />
 
             <button type="submit" data-test="reset-password-button"

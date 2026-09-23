@@ -1,138 +1,190 @@
-<div class="flex w-full flex-1 flex-col gap-5">
-    {{-- Salutation façon écran Stitch « Tableau de bord Vendeur » --}}
-    <div class="flex flex-wrap items-start justify-between gap-3">
-        <div>
-            <h1 class="text-xl font-bold">
-                {{ __('Bonjour :name', ['name' => auth()->user()?->first_name]) }}
+{{--
+    Reproduction de `agritech_tableau_de_bord_vendeur` : salutation, carte de
+    solde vert forêt avec ses raccourcis, grille de quatre indicateurs,
+    graphique des ventes hebdomadaires, puis la file de travail.
+
+    Écarts : la maquette propose un sélecteur de période, un virement « vers
+    MTN MoMo » et une comparaison au mois précédent. Aucun virement n'existe
+    — la plateforme ne verse rien, elle enregistre — et rien ne conserve les
+    totaux d'un mois passé pour les comparer. Le graphique, lui, reste :
+    quatre semaines de sous-commandes réellement payées.
+--}}
+@php($farmer = auth()->user())
+@php($profile = $farmer?->farmerProfile)
+
+<div class="flex w-full flex-1 flex-col gap-space-md">
+    {{-- Salutation --}}
+    <section class="flex items-center gap-space-sm min-w-0">
+        <span class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center font-headline-sm text-primary shrink-0">
+            {{ $farmer?->initials() }}
+        </span>
+
+        <div class="min-w-0">
+            <h1 class="font-headline-md text-headline-md text-text-primary tracking-tight truncate">
+                {{ __('Bonjour :name', ['name' => $farmer?->first_name]) }}
             </h1>
-            <p class="text-sm text-stitch-muted">
-                {{ auth()->user()?->farmerProfile?->farm_name ?? __('Votre exploitation') }}
-                @if (auth()->user()?->isActive())
-                    <span class="stitch-badge-success ml-1">{{ __('Certifié') }} ✓</span>
+            <p class="font-label-sm text-label-sm text-text-secondary flex items-center gap-1 truncate">
+                <x-icon name="agriculture" size="15" class="text-secondary shrink-0" />
+                {{ $profile?->farm_name ?? __('Votre exploitation') }}
+                @if ($profile?->isValidated())
+                    <x-icon name="verified" size="15" filled class="text-primary shrink-0" />
                 @endif
             </p>
         </div>
-    </div>
+    </section>
 
-    {{-- Wallet : carte vert forêt avec solde + raccourcis création --}}
-    <div class="flex flex-col gap-4 rounded-2xl bg-stitch-primary p-5 text-white shadow-raised sm:p-6">
-        <div class="flex flex-wrap items-start justify-between gap-3">
-            <div class="flex items-center gap-3">
-                <span class="flex size-10 items-center justify-center rounded-full bg-white/15">
-                    <flux:icon.wallet class="size-5" />
+    {{-- Solde --}}
+    <section class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-[#165a31] to-[#0d3f20] text-on-primary p-space-md shadow-raised flex flex-col gap-space-md">
+        <span class="absolute -right-10 -bottom-10 w-40 h-40 rounded-full bg-tertiary-fixed/10 pointer-events-none" aria-hidden="true"></span>
+
+        <div class="relative z-10 flex items-start gap-space-sm">
+            <span class="w-10 h-10 rounded-full bg-on-primary/15 flex items-center justify-center shrink-0">
+                <x-icon name="account_balance_wallet" size="20" />
+            </span>
+
+            <div class="min-w-0">
+                <span class="font-label-sm text-label-sm text-on-primary/75 uppercase tracking-wide block">
+                    {{ __('Revenu net encaissé') }}
                 </span>
-                <div>
-                    <p class="text-xs font-medium uppercase tracking-wide text-white/70">{{ __('Solde disponible') }}</p>
-                    <p class="stitch-price text-2xl !text-white">{{ $this->earnedTotal->minus($this->commissionTotal)->format() }}</p>
-                    <p class="text-xs text-white/70">
-                        {{ __('CA :amount · commission :commission', [
-                            'amount' => $this->earnedTotal->format(),
-                            'commission' => $this->commissionTotal->format(),
-                        ]) }}
-                    </p>
-                </div>
+                <span class="font-headline-md text-headline-md text-on-primary" data-test="net-revenue">
+                    {{ $this->earnedTotal->minus($this->commissionTotal)->format() }}
+                </span>
+                <span class="font-label-sm text-label-sm text-on-primary/75 block">
+                    {{ __('Chiffre :amount, dont :commission de commission', [
+                        'amount' => $this->earnedTotal->format(),
+                        'commission' => $this->commissionTotal->format(),
+                    ]) }}
+                </span>
             </div>
         </div>
 
-        <div class="flex flex-wrap gap-2">
+        <div class="relative z-10 flex flex-wrap gap-2">
             <a href="{{ route('farmer.products.create') }}" wire:navigate
-               class="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-bold text-stitch-primary shadow-card transition hover:bg-white/90">
-                <flux:icon.plus class="size-4" />
+               class="h-11 px-4 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-lg text-label-lg inline-flex items-center gap-1.5 shadow-card hover:bg-secondary-fixed-dim transition-colors">
+                <x-icon name="add_circle" size="18" />
                 {{ __('Produit') }}
             </a>
+
             <a href="{{ route('farmer.trainings.create') }}" wire:navigate
-               class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-2 text-sm font-bold text-white transition hover:bg-white/25">
-                <flux:icon.video-camera class="size-4" />
+               class="h-11 px-4 rounded-full bg-on-primary/15 font-label-lg text-label-lg inline-flex items-center gap-1.5 hover:bg-on-primary/25 transition-colors">
+                <x-icon name="video_call" size="18" />
                 {{ __('Formation') }}
             </a>
+
             <a href="{{ route('farmer.orders') }}" wire:navigate
-               class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-2 text-sm font-bold text-white transition hover:bg-white/25">
-                <flux:icon.truck class="size-4" />
+               class="h-11 px-4 rounded-full bg-on-primary/15 font-label-lg text-label-lg inline-flex items-center gap-1.5 hover:bg-on-primary/25 transition-colors">
+                <x-icon name="local_shipping" size="18" />
                 {{ __('Commandes') }}
             </a>
         </div>
-    </div>
+    </section>
 
-    {{-- KPI bento : ventes, catalogue, formations, messages --}}
-    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="stitch-card flex flex-col gap-1 p-4">
-            <span class="flex size-9 items-center justify-center rounded-full bg-stitch-terra-soft text-stitch-terra">
-                <flux:icon.chart-bar class="size-4" />
-            </span>
-            <p class="mt-1 text-xs font-medium text-stitch-muted">{{ __('Chiffre d\'affaires payé') }}</p>
-            <p class="stitch-price text-xl">{{ $this->earnedTotal->format() }}</p>
-            <p class="text-xs text-stitch-muted">
-                {{ __('dont :amount de commission plateforme', ['amount' => $this->commissionTotal->format()]) }}
-            </p>
-        </div>
+    {{-- Indicateurs --}}
+    <section class="grid grid-cols-2 gap-space-xs lg:grid-cols-4 lg:gap-space-sm">
+        @foreach ([
+            [
+                'icon' => 'payments',
+                'tint' => 'tertiary',
+                'label' => __('Chiffre encaissé'),
+                'value' => $this->earnedTotal->format(),
+                'detail' => __('dont :amount de commission', ['amount' => $this->commissionTotal->format()]),
+            ],
+            [
+                'icon' => 'inventory',
+                'tint' => 'secondary',
+                'label' => __('À préparer'),
+                'value' => (string) $this->toPrepare,
+                'detail' => trans_choice(':count sous-commande payée|:count sous-commandes payées', $this->toPrepare, ['count' => $this->toPrepare]),
+            ],
+            [
+                'icon' => 'storefront',
+                'tint' => 'primary',
+                'label' => __('Produits publiés'),
+                'value' => (string) $this->publishedProducts,
+                'detail' => $this->inReview > 0
+                    ? trans_choice(':count en modération|:count en modération', $this->inReview, ['count' => $this->inReview])
+                    : __('rien en modération'),
+            ],
+            [
+                'icon' => 'school',
+                'tint' => 'primary',
+                'label' => __('Formations publiées'),
+                'value' => (string) $this->publishedTrainings,
+                'detail' => trans_choice(':count inscrit|:count inscrits', $this->trainingBuyers, ['count' => $this->trainingBuyers]),
+            ],
+        ] as $kpi)
+            <div class="rounded-xl bg-surface-container-lowest p-space-sm shadow-card flex flex-col gap-1">
+                <span @class([
+                    'w-9 h-9 rounded-full flex items-center justify-center',
+                    'bg-tertiary-fixed text-on-tertiary-fixed-variant' => $kpi['tint'] === 'tertiary',
+                    'bg-secondary-fixed text-on-secondary-fixed-variant' => $kpi['tint'] === 'secondary',
+                    'bg-primary-fixed text-primary' => $kpi['tint'] === 'primary',
+                ])>
+                    <x-icon :name="$kpi['icon']" size="18" />
+                </span>
 
-        <div class="stitch-card flex flex-col gap-1 p-4">
-            <span class="flex size-9 items-center justify-center rounded-full bg-stitch-warning-soft text-stitch-warning">
-                <flux:icon.queue-list class="size-4" />
-            </span>
-            <p class="mt-1 text-xs font-medium text-stitch-muted">{{ __('À préparer') }}</p>
-            <p class="stitch-price text-xl">{{ $this->toPrepare }}</p>
-            <p class="text-xs text-stitch-muted">{{ __('sous-commandes en attente') }}</p>
-        </div>
+                <span class="font-label-sm text-label-sm text-text-secondary mt-1">{{ $kpi['label'] }}</span>
+                <span class="font-headline-sm text-headline-sm text-text-primary truncate">{{ $kpi['value'] }}</span>
+                <span class="font-label-sm text-label-sm text-text-secondary leading-tight">{{ $kpi['detail'] }}</span>
+            </div>
+        @endforeach
+    </section>
 
-        <div class="stitch-card flex flex-col gap-1 p-4">
-            <span class="flex size-9 items-center justify-center rounded-full bg-stitch-primary/10 text-stitch-primary">
-                <flux:icon.squares-plus class="size-4" />
-            </span>
-            <p class="mt-1 text-xs font-medium text-stitch-muted">{{ __('Catalogue') }}</p>
-            <p class="stitch-price text-xl">{{ $this->publishedProducts }}</p>
-            <p class="text-xs text-stitch-muted">
-                {{ trans_choice('{0}produit publié|{1}:count produit publié|[2,*]:count produits publiés', $this->publishedProducts) }}
-                · {{ $this->publishedTrainings }} {{ __('formation(s)') }}
-            </p>
-        </div>
+    {{-- Ventes hebdomadaires --}}
+    <section class="rounded-2xl bg-surface-container-lowest p-space-md shadow-card">
+        <x-weekly-bars :series="$this->weeklySales"
+                       :title="__('Ventes hebdomadaires')"
+                       :subtitle="__('4 dernières semaines, en FCFA')" />
+    </section>
 
-        <div class="stitch-card flex flex-col gap-1 p-4">
-            <span class="flex size-9 items-center justify-center rounded-full bg-stitch-terra-soft text-stitch-terra">
-                <flux:icon.chat-bubble-left-right class="size-4" />
-            </span>
-            <p class="mt-1 text-xs font-medium text-stitch-muted">{{ __('Messages non lus') }}</p>
-            <p class="stitch-price text-xl">{{ $this->unreadMessages }}</p>
-            <p class="text-xs text-stitch-muted">{{ __('de vos clients') }}</p>
-        </div>
-    </div>
+    {{-- File de travail --}}
+    <section class="flex flex-col gap-space-sm">
+        <div class="flex items-center justify-between gap-space-sm">
+            <h2 class="font-label-lg text-label-lg text-text-secondary uppercase tracking-wide">
+                {{ __('À préparer maintenant') }}
+            </h2>
 
-    {{-- File de travail : à préparer maintenant --}}
-    <div class="flex flex-col gap-3">
-        <div class="flex items-center justify-between">
-            <h2 class="text-sm font-bold uppercase tracking-wide text-stitch-muted">{{ __('À préparer maintenant') }}</h2>
-            <flux:button size="sm" variant="ghost" :href="route('farmer.orders')" wire:navigate>
+            <a href="{{ route('farmer.orders') }}" wire:navigate
+               class="font-label-sm text-label-sm text-primary font-semibold hover:underline shrink-0">
                 {{ __('Toutes les commandes') }}
-            </flux:button>
+            </a>
         </div>
 
         @if ($this->pendingWork()->isEmpty())
-            <div class="flex items-center gap-3 rounded-xl border border-stitch-border bg-stitch-success-soft px-4 py-3">
-                <flux:icon.check-circle class="size-5 shrink-0 text-stitch-success" />
-                <p class="text-sm font-medium text-stitch-success">{{ __('Rien à préparer pour l\'instant. Profitez-en !') }}</p>
+            <div class="flex items-center gap-space-sm rounded-xl bg-[#e8f5e9] px-space-md py-space-sm">
+                <x-icon name="check_circle" size="20" class="text-status-success shrink-0" />
+                <p class="font-body-md text-body-md text-status-success">
+                    {{ __('Rien à préparer pour l\'instant.') }}
+                </p>
             </div>
         @else
-            <div class="flex flex-col gap-2.5">
+            <div class="flex flex-col gap-space-sm">
                 @foreach ($this->pendingWork() as $subOrder)
-                    <div class="stitch-card flex flex-wrap items-center justify-between gap-3 p-4">
-                        <div class="min-w-0">
-                            <p class="truncate font-display text-sm font-bold">
-                                {{ $subOrder->reference }} — {{ $subOrder->order->client->name }}
-                            </p>
-                            <p class="mt-0.5 truncate text-sm text-stitch-muted">
+                    <article class="rounded-xl bg-surface-container-lowest p-space-md shadow-card flex flex-col gap-space-sm sm:flex-row sm:items-center sm:justify-between">
+                        <div class="min-w-0 sm:flex-1">
+                            <div class="flex items-center gap-1.5 min-w-0">
+                                <span class="font-headline-sm text-headline-sm text-text-primary truncate">{{ $subOrder->reference }}</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                                <span class="font-label-sm text-label-sm text-text-secondary truncate">{{ $subOrder->order->client->name }}</span>
+                            </div>
+
+                            <p class="font-label-sm text-label-sm text-text-secondary truncate mt-0.5">
                                 {{ $subOrder->items->map(fn ($item) => $item->product->name)->implode(', ') }}
                             </p>
                         </div>
 
-                        <div class="flex items-center gap-3">
-                            <span class="stitch-price text-base">{{ $subOrder->subtotal_amount->format() }}</span>
-                            <flux:button size="sm" variant="primary" :href="route('farmer.orders')" wire:navigate>
+                        <div class="flex items-center justify-between gap-space-sm sm:shrink-0">
+                            <span class="font-price-tag text-price-tag text-primary">{{ $subOrder->subtotal_amount->format() }}</span>
+
+                            <a href="{{ route('farmer.orders') }}" wire:navigate
+                               class="h-10 px-4 rounded-full bg-primary text-on-primary font-label-lg text-label-lg inline-flex items-center gap-1.5 shadow-card hover:bg-primary-container transition-colors">
                                 {{ __('Préparer') }}
-                            </flux:button>
+                                <x-icon name="arrow_forward" size="16" />
+                            </a>
                         </div>
-                    </div>
+                    </article>
                 @endforeach
             </div>
         @endif
-    </div>
+    </section>
 </div>

@@ -28,7 +28,13 @@ class ProductForm extends Component
 
     public string $name = '';
 
-    public ?int $category_id = null;
+    /**
+     * Le champ reçoit ce que le navigateur envoie : un `<select>` renvoie
+     * toujours une chaîne, et une propriété typée `?int` la refuse sous
+     * `strict_types`. La règle `integer` la valide, et `save()` la convertit
+     * une fois, au moment d'écrire.
+     */
+    public int|string|null $category_id = null;
 
     public string $description = '';
 

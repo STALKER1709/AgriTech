@@ -310,7 +310,7 @@ garde sa forme, le texte dit ce que la plateforme fait vraiment.
 - [x] **Lot 4** — messagerie, notifications, mon compte
 - [x] **Lot 5** — connexion, choix d'inscription, inscriptions client et
       agriculteur, compte en attente de validation
-- [ ] **Lot 6** — espace agriculteur : tableau de bord, mes produits,
+- [x] **Lot 6** — espace agriculteur : tableau de bord, mes produits,
       formulaire produit, mes formations
 - [ ] **Lot 7** — administration : tableau de bord, utilisateurs,
       agriculteurs à valider, modération, privilèges, journal d'audit,
