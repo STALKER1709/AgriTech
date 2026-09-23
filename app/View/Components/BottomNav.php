@@ -88,7 +88,7 @@ class BottomNav extends Component
             ['label' => __('Statut'), 'href' => route('account.status'), 'icon' => 'hourglass_top', 'current' => request()->routeIs('account.status'), 'badge' => null],
             ['label' => __('Catalogue'), 'href' => route('catalog.browse'), 'icon' => 'storefront', 'current' => request()->routeIs('catalog.*'), 'badge' => null],
             ['label' => __('Formations'), 'href' => route('trainings.index'), 'icon' => 'school', 'current' => request()->routeIs('trainings.*'), 'badge' => null],
-            ['label' => __('Profil'), 'href' => route('profile.edit'), 'icon' => 'person', 'current' => false, 'badge' => null],
+            ['label' => __('Profil'), 'href' => route('account.overview'), 'icon' => 'person', 'current' => request()->routeIs('account.overview'), 'badge' => null],
         ];
     }
 
@@ -105,7 +105,7 @@ class BottomNav extends Component
             ['label' => __('Catalogue'), 'href' => route('catalog.browse'), 'icon' => 'storefront', 'current' => request()->routeIs('catalog.*'), 'badge' => null],
             ['label' => __('Formations'), 'href' => route('client.trainings'), 'icon' => 'school', 'current' => request()->routeIs('client.trainings'), 'badge' => null],
             ['label' => __('Messages'), 'href' => route('client.messages'), 'icon' => 'chat', 'current' => request()->routeIs('client.messages*'), 'badge' => $this->unreadCount($user)],
-            ['label' => __('Compte'), 'href' => route('profile.edit'), 'icon' => 'person', 'current' => request()->routeIs('profile.edit'), 'badge' => null],
+            ['label' => __('Compte'), 'href' => route('account.overview'), 'icon' => 'person', 'current' => request()->routeIs('account.overview'), 'badge' => null],
         ];
     }
 
@@ -120,7 +120,7 @@ class BottomNav extends Component
             ['label' => __('Formations'), 'href' => route('farmer.trainings'), 'icon' => 'school', 'current' => request()->routeIs('farmer.trainings*'), 'badge' => null],
             ['label' => __('Commandes'), 'href' => route('farmer.orders'), 'icon' => 'local_shipping', 'current' => request()->routeIs('farmer.orders*'), 'badge' => null],
             ['label' => __('Messages'), 'href' => route('farmer.messages'), 'icon' => 'chat', 'current' => request()->routeIs('farmer.messages*'), 'badge' => $this->unreadCount(auth()->user())],
-            ['label' => __('Compte'), 'href' => route('profile.edit'), 'icon' => 'person', 'current' => request()->routeIs('profile.edit'), 'badge' => null],
+            ['label' => __('Compte'), 'href' => route('account.overview'), 'icon' => 'person', 'current' => request()->routeIs('account.overview'), 'badge' => null],
         ];
     }
 

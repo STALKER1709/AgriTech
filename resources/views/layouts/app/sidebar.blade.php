@@ -65,7 +65,7 @@
                         </div>
                         <div class="flex flex-col min-w-0">
                             <span class="font-label-lg text-label-lg text-text-primary font-semibold truncate">{{ auth()->user()->name }}</span>
-                            <a href="{{ route('profile.edit') }}" wire:navigate
+                            <a href="{{ route('account.overview') }}" wire:navigate
                                class="font-label-sm text-label-sm text-text-secondary truncate hover:text-primary transition-colors">
                                 {{ __('Mon compte') }}
                             </a>

@@ -90,6 +90,9 @@
                 </button>
 
                 <flux:menu>
+                    <flux:menu.item :href="route('account.overview')" icon="user" wire:navigate>
+                        {{ __('Mon compte') }}
+                    </flux:menu.item>
                     <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
                         {{ __('Paramètres') }}
                     </flux:menu.item>

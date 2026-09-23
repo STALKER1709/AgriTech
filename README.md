@@ -409,6 +409,9 @@ pour tous.**
   première installation, sans réseau. Aucune vidéo n'est livrée — aucun
   encodeur n'est une dépendance du projet (voir `DECISIONS.md`) ; le formulaire
   agriculteur accepte toujours les vidéos que vous téléversez vous-même.
+- **7 notifications** envoyées par les vraies classes de notification, sur le
+  seul canal base de données, étalées sur trois jours pour que le regroupement
+  par jour de l'écran ait de quoi regrouper.
 - **3 commandes** : une payée **répartie entre deux agriculteurs** (deux
   sous-commandes), une en attente de paiement, une annulée.
 - **Un panier en cours** (deux produits, sur `client2@agritech.local`), pour
@@ -462,6 +465,8 @@ connecter : ils reçoivent un message qui explique pourquoi, et non un
 | **Mes commandes** | `/client/commandes` |
 | **Mes formations** | `/client/formations` |
 | **Lecteur de formation** | `/formations/{slug}/lecteur` |
+| **Notifications** | `/notifications` |
+| **Mon compte** | `/mon-compte` |
 | **Abonnement** | `/client/abonnement` |
 | **Messagerie client** | `/client/messages` |
 | Espace agriculteur | `/agriculteur/tableau-de-bord` |

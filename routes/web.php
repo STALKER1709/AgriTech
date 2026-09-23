@@ -5,6 +5,7 @@ use App\Http\Controllers\Catalog\TrainingCoverController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Payments\WebhookController;
 use App\Http\Controllers\Trainings\TrainingContentController;
+use App\Livewire\Account\Overview as AccountOverview;
 use App\Livewire\Account\Status as AccountStatus;
 use App\Livewire\Admin\AuditTrail;
 use App\Livewire\Admin\Categories as AdminCategories;
@@ -120,6 +121,10 @@ Route::middleware('auth')->group(function (): void {
     // Le journal des notifications déjà écrites par les services, quel que
     // soit le rôle : chacun n'y voit que les siennes.
     Route::get('notifications', NotificationList::class)->name('notifications');
+
+    // Le point d'entrée du compte : qui vous êtes, trois chiffres, et le
+    // chemin vers tout le reste.
+    Route::get('mon-compte', AccountOverview::class)->name('account.overview');
 });
 
 /*

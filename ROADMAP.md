@@ -307,7 +307,7 @@ garde sa forme, le texte dit ce que la plateforme fait vraiment.
       mes commandes
 - [x] **Lot 3** — formations : catalogue, fiche, lecteur, mes formations,
       abonnements
-- [ ] **Lot 4** — messagerie, notifications, mon compte
+- [x] **Lot 4** — messagerie, notifications, mon compte
 - [ ] **Lot 5** — connexion, choix d'inscription, inscriptions client et
       agriculteur, compte en attente de validation
 - [ ] **Lot 6** — espace agriculteur : tableau de bord, mes produits,
