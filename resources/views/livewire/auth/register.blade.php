@@ -1,95 +1,80 @@
-<x-layouts::auth :title="__('Inscription')">
-    <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Créer un compte client')" :description="__('Renseignez vos informations pour créer votre compte client')" />
+{{--
+    Inscription client. La maquette `agritech_inscription_agriculteur` est la
+    seule des deux à être dessinée ; ce formulaire en reprend la grammaire —
+    frise d'étapes, sections titrées, champs à icône — pour la version courte.
 
-        <!-- Session Status -->
+    Il n'y a pas d'étape « Adhésion » ici : un compte client est actif
+    immédiatement, sans frais d'inscription.
+--}}
+<x-layouts::auth :title="__('Inscription')">
+    <div class="flex flex-col gap-space-md">
+        <div class="flex flex-col items-center text-center gap-space-xs">
+            <a href="{{ route('register.choice') }}" wire:navigate
+               class="self-start inline-flex items-center gap-1.5 text-primary font-label-lg text-label-lg py-1 hover:opacity-80 transition-opacity">
+                <x-icon name="arrow_back" size="18" />
+                {{ __('Changer de rôle') }}
+            </a>
+
+            <span class="flex w-16 h-16 items-center justify-center rounded-full bg-primary text-on-primary shadow-raised">
+                <x-icon name="shopping_basket" size="30" />
+            </span>
+            <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-text-primary tracking-tight">
+                {{ __('Créer un compte client') }}
+            </h1>
+            <p class="font-body-md text-body-md text-text-secondary">
+                {{ __('Votre compte est actif dès l\'inscription. Aucun frais.') }}
+            </p>
+        </div>
+
         <x-auth-session-status class="text-center" :status="session('status')" />
 
-        <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
+        <form method="POST" action="{{ route('register.store') }}"
+              class="rounded-2xl bg-surface-container-lowest p-space-md shadow-raised flex flex-col gap-space-md">
             @csrf
-            <!-- First name -->
-            <flux:input
-                name="first_name"
-                :label="__('Prénom')"
-                :value="old('first_name')"
-                type="text"
-                required
-                autofocus
-                autocomplete="given-name"
-            />
 
-            <!-- Last name -->
-            <flux:input
-                name="last_name"
-                :label="__('Nom')"
-                :value="old('last_name')"
-                type="text"
-                required
-                autocomplete="family-name"
-            />
-
-            <!-- Email Address -->
-            <flux:input
-                name="email"
-                :label="__('Adresse e-mail')"
-                :value="old('email')"
-                type="email"
-                required
-                autocomplete="email"
-                placeholder="email@example.com"
-            />
-
-            <!-- Phone number -->
-            <flux:input
-                name="phone"
-                :label="__('Numéro de téléphone')"
-                :value="old('phone')"
-                type="tel"
-                required
-                autocomplete="tel"
-                placeholder="6XX XX XX XX"
-            />
-
-            <!-- Password -->
-            <flux:input
-                name="password"
-                :label="__('Mot de passe')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Mot de passe')"
-                passwordrules="{{ \Illuminate\Validation\Rules\Password::defaults()->toPasswordRulesString() }}"
-                viewable
-            />
-
-            <!-- Confirm Password -->
-            <flux:input
-                name="password_confirmation"
-                :label="__('Confirmer le mot de passe')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Confirmer le mot de passe')"
-                passwordrules="{{ \Illuminate\Validation\Rules\Password::defaults()->toPasswordRulesString() }}"
-                viewable
-            />
-
-            <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
-                    {{ __('Créer mon compte') }}
-                </flux:button>
+            <div class="flex items-center gap-space-xs">
+                <x-icon name="person_check" size="20" class="text-primary" />
+                <h2 class="font-headline-sm text-headline-sm text-text-primary">{{ __('Votre identité') }}</h2>
             </div>
+
+            <div class="grid gap-space-md sm:grid-cols-2">
+                <x-auth-field name="first_name" :label="__('Prénom')" icon="badge" required
+                              :value="old('first_name')" autocomplete="given-name" placeholder="Clarisse" />
+
+                <x-auth-field name="last_name" :label="__('Nom')" icon="badge" required
+                              :value="old('last_name')" autocomplete="family-name" placeholder="Etoundi" />
+            </div>
+
+            <x-auth-field name="email" type="email" :label="__('Adresse e-mail')" icon="mail" required
+                          :value="old('email')" autocomplete="email" placeholder="vous@exemple.cm" />
+
+            <x-auth-field name="phone" type="tel" :label="__('Numéro de téléphone')" prefix="+237" required
+                          :value="old('phone')" autocomplete="tel-national" placeholder="6XX XX XX XX"
+                          :hint="__('Il sert aussi d\'identifiant de connexion.')" />
+
+            <div class="flex items-center gap-space-xs pt-1">
+                <x-icon name="lock" size="20" class="text-primary" />
+                <h2 class="font-headline-sm text-headline-sm text-text-primary">{{ __('Votre mot de passe') }}</h2>
+            </div>
+
+            <x-auth-field name="password" type="password" :label="__('Mot de passe')" icon="lock" required
+                          autocomplete="new-password" />
+
+            <x-auth-field name="password_confirmation" type="password" :label="__('Confirmer le mot de passe')"
+                          icon="lock_reset" required autocomplete="new-password" />
+
+            <button type="submit" data-test="register-user-button"
+                    class="h-14 w-full rounded-full bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-raised hover:bg-primary-container transition-colors">
+                {{ __('Créer mon compte') }}
+                <x-icon name="arrow_forward" size="20" />
+            </button>
         </form>
 
-        <div class="flex flex-col gap-1 text-sm text-center text-stitch-muted ">
-            <div class="space-x-1 rtl:space-x-reverse">
-                <span>{{ __('Vous avez déjà un compte ?') }}</span>
-                <flux:link :href="route('login')" wire:navigate>{{ __('Se connecter') }}</flux:link>
-            </div>
-            <div class="space-x-1 rtl:space-x-reverse">
-                <span>{{ __('Vous vendez des produits agricoles ?') }}</span>
-                <flux:link :href="route('register.farmer')" wire:navigate>{{ __('Créer un compte agriculteur') }}</flux:link>
-            </div>
-        </div>
+        <p class="text-center font-body-md text-body-md text-text-secondary">
+            {{ __('Vous avez déjà un compte ?') }}
+            <a href="{{ route('login') }}" wire:navigate class="text-primary font-semibold hover:underline">
+                {{ __('Se connecter') }}
+            </a>
+        </p>
     </div>
 </x-layouts::auth>
