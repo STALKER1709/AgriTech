@@ -26,6 +26,9 @@
     'suffix' => null,
     'inputmode' => null,
     'numeric' => false,
+    // Un filtre n'est pas « facultatif » au sens d'un formulaire : il n'y a
+    // rien à remplir, seulement à restreindre. La mention se coupe là.
+    'markOptional' => true,
 ])
 
 @php
@@ -50,7 +53,7 @@
     @if ($label)
         <label for="{{ $id }}" class="font-label-lg text-label-lg text-text-secondary">
             {{ $label }}
-            @if (! $required)
+            @if (! $required && $markOptional)
                 <span class="text-outline">{{ __('(facultatif)') }}</span>
             @endif
         </label>

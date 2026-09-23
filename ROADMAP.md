@@ -312,10 +312,14 @@ garde sa forme, le texte dit ce que la plateforme fait vraiment.
       agriculteur, compte en attente de validation
 - [x] **Lot 6** — espace agriculteur : tableau de bord, mes produits,
       formulaire produit, mes formations
-- [ ] **Lot 7** — administration : tableau de bord, utilisateurs,
+- [x] **Lot 7** — administration : tableau de bord, utilisateurs,
       agriculteurs à valider, modération, privilèges, journal d'audit,
-      paramètres
+      paramètres (et l'écran des catégories, qui n'a pas de maquette)
 
 **Acceptation d'un lot :** écrans lisibles à 360 px et en version large,
 `composer test` propre (Pint, Larastan niveau 7, suite complète), captures
 prises dans un vrai navigateur.
+
+**Les 35 écrans sont reproduits.** Ce qui reste à faire, le cas échéant :
+repasser sur les écarts consignés si une donnée manquante venait à exister
+(progression de lecture d'une formation, avis, suivi de livraison, exports).
