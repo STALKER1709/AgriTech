@@ -280,3 +280,42 @@ l'installer et tester tous les parcours en suivant uniquement le `README.md`.
 > de développement écrasaient celles de `phpunit.xml` (voir DECISIONS.md) ; le
 > correctif (`force="true"` + promotion `$_ENV` → `$_SERVER`) rend la suite
 > insensible à l'environnement du shell, sous Windows comme sous Linux.
+
+---
+
+## Refonte du design — reproduction des maquettes Stitch
+
+Le dossier `stitch_conception_design_application/` contient 35 écrans. La
+consigne retenue est la **reproduction stricte** : jetons, typographie,
+icônes Material Symbols et marquage repris des maquettes. Les écrans
+client et agriculteur n'existent qu'en version mobile ; la version large
+est extrapolée des maquettes `web_dashboard` de l'administration.
+
+Un principe éditorial traverse tous les lots : **ne jamais afficher une
+promesse que le serveur ne tient pas.** Les maquettes annoncent des notes
+d'avis, des remises sur volume, des délais de livraison, des factures PDF
+et un numéro d'assistance ; rien de tout cela n'existe. L'emplacement
+garde sa forme, le texte dit ce que la plateforme fait vraiment.
+
+- [x] **Lot 0** — fondations : jetons `@theme` dérivés des maquettes, polices
+      auto-hébergées, Material Symbols, composants `x-icon`, `x-button`,
+      `x-card`, `x-badge`, `x-chip`, `x-field`, `x-nav-item`, coquilles
+      mobile et large
+- [x] **Lot 1** — accueil, catalogue produits, fiche produit
+- [x] **Lot 2** — panier, choix du moyen de paiement, passerelle de test,
+      paiement en attente / réussi / échoué, détail de commande,
+      mes commandes
+- [ ] **Lot 3** — formations : catalogue, fiche, lecteur, mes formations,
+      abonnements
+- [ ] **Lot 4** — messagerie, notifications, mon compte
+- [ ] **Lot 5** — connexion, choix d'inscription, inscriptions client et
+      agriculteur, compte en attente de validation
+- [ ] **Lot 6** — espace agriculteur : tableau de bord, mes produits,
+      formulaire produit, mes formations
+- [ ] **Lot 7** — administration : tableau de bord, utilisateurs,
+      agriculteurs à valider, modération, privilèges, journal d'audit,
+      paramètres
+
+**Acceptation d'un lot :** écrans lisibles à 360 px et en version large,
+`composer test` propre (Pint, Larastan niveau 7, suite complète), captures
+prises dans un vrai navigateur.
