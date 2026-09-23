@@ -44,6 +44,37 @@ class MessageThread extends Component
         return $this->conversation->messages()->with('sender')->orderBy('id')->get();
     }
 
+    /**
+     * The messages grouped by day, for the date separators the mockup draws:
+     * « Aujourd'hui », « Hier », then the date itself.
+     *
+     * @return Collection<string, Collection<int, Message>>
+     */
+    public function days(): Collection
+    {
+        return $this->messages()->groupBy(function (Message $message): string {
+            $at = $message->created_at?->timezone(config('app.timezone'));
+
+            if ($at === null) {
+                return (string) __('Sans date');
+            }
+
+            return match (true) {
+                $at->isToday() => (string) __('Aujourd\'hui'),
+                $at->isYesterday() => (string) __('Hier'),
+                default => $at->translatedFormat('d F Y'),
+            };
+        });
+    }
+
+    /**
+     * The other side of the thread, whose name the header carries.
+     */
+    public function counterpart(): User
+    {
+        return $this->conversation->client;
+    }
+
     public function send(MessagingService $messaging): void
     {
         $user = Auth::user();

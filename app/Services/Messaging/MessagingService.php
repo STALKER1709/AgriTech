@@ -120,16 +120,34 @@ final class MessagingService
     /**
      * The user's conversations, busiest first, with the unread badge data.
      *
+     * The search covers the other participant — their name and, for a farmer,
+     * the farm — and the messages themselves. It belongs here rather than in
+     * the screen: filtering a page of results would hide threads that are
+     * simply further down the list.
+     *
      * @return LengthAwarePaginator<int, Conversation>
      */
-    public function conversationsFor(User $user, int $perPage = 20): LengthAwarePaginator
+    public function conversationsFor(User $user, int $perPage = 20, string $search = ''): LengthAwarePaginator
     {
         $column = $user->isClient() ? 'client_id' : 'farmer_id';
+        $otherColumn = $user->isClient() ? 'farmer' : 'client';
 
         return Conversation::query()
             ->with(['messages' => fn ($query) => $query->latest('id')->limit(1)])
             ->with(['client.farmerProfile', 'farmer.farmerProfile'])
             ->where($column, $user->id)
+            ->when($search !== '', function ($query) use ($search, $otherColumn): void {
+                $term = '%'.str_replace(['%', '_'], ['\%', '\_'], $search).'%';
+
+                $query->where(function ($inner) use ($term, $otherColumn): void {
+                    $inner
+                        ->whereHas($otherColumn, fn ($participant) => $participant
+                            ->where('first_name', 'like', $term)
+                            ->orWhere('last_name', 'like', $term)
+                            ->orWhereHas('farmerProfile', fn ($profile) => $profile->where('farm_name', 'like', $term)))
+                        ->orWhereHas('messages', fn ($message) => $message->where('content', 'like', $term));
+                });
+            })
             ->orderByDesc('last_message_at')
             ->orderByDesc('id')
             ->paginate($perPage);
