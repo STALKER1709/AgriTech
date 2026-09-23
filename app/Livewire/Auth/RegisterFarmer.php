@@ -13,7 +13,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Layout('layouts::auth')]
+#[Layout('layouts::auth', ['wide' => true])]
 #[Title('Inscription agriculteur')]
 class RegisterFarmer extends Component
 {

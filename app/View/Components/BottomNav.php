@@ -72,7 +72,7 @@ class BottomNav extends Component
             ['label' => __('Catalogue'), 'href' => route('catalog.browse'), 'icon' => 'storefront', 'current' => request()->routeIs('catalog.*'), 'badge' => null],
             ['label' => __('Formations'), 'href' => route('trainings.index'), 'icon' => 'school', 'current' => request()->routeIs('trainings.*'), 'badge' => null],
             ['label' => __('Connexion'), 'href' => route('login'), 'icon' => 'person', 'current' => request()->routeIs('login'), 'badge' => null],
-            ['label' => __('Inscription'), 'href' => route('register'), 'icon' => 'person_add', 'current' => request()->routeIs('register'), 'badge' => null],
+            ['label' => __('Inscription'), 'href' => route('register.choice'), 'icon' => 'person_add', 'current' => request()->routeIs('register*'), 'badge' => null],
         ];
     }
 

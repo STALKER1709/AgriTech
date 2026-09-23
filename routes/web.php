@@ -105,6 +105,10 @@ Route::get('contenus/formation/{content}', TrainingContentController::class)
 */
 
 Route::middleware('guest')->group(function (): void {
+    // Le choix du rôle, en amont des deux formulaires : ce que l'on peut
+    // faire dépend de lui, et il ne se change pas tout seul ensuite.
+    Route::view('inscription', 'auth.choice')->name('register.choice');
+
     Route::get('inscription/agriculteur', RegisterFarmer::class)->name('register.farmer');
 });
 

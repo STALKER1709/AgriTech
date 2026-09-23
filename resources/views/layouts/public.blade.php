@@ -75,7 +75,7 @@
                             {{ __('Connexion') }}
                         </a>
 
-                        <a href="{{ route('register') }}" wire:navigate aria-label="{{ __('Créer un compte') }}"
+                        <a href="{{ route('register.choice') }}" wire:navigate aria-label="{{ __('Créer un compte') }}"
                            class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
                             <x-icon name="person" size="18" class="text-on-primary" />
                         </a>
