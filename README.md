@@ -211,6 +211,7 @@ npm run build
 | `Connection refused` sur le port 3306 | MySQL arrêté | Étape 2 |
 | `Vite manifest not found` | Assets non compilés | `npm run build` (étape 5) |
 | **Page sans aucun style, icônes affichées en toutes lettres (`storefront`, `search`, `eco`)** | La feuille de style n'est pas chargée : soit `npm install` n'a pas été relancé après un `git pull` et `npm run build` a échoué, soit `npm run dev` a été lancé puis arrêté et le fichier `public/hot` est resté | `npm install` puis `npm run build`. Si le symptôme persiste, supprimer `public\hot` et rebâtir |
+| **`htmlspecialchars(): Argument #1 ($string) must be of type string, array given`** dans `components/bottom-nav.blade.php` | Corrigé le 23/09/2026. Un libellé d'onglet passait par `__('Validation')` : une clé sans point envoie le traducteur chercher un **groupe** de ce nom, et Windows le trouve sans tenir compte de la casse dans `lang/fr/validation.php` — un tableau, pas une chaîne | `git pull` sur la branche de développement. Trois tests (`tests/Feature/BottomNavTest.php`) empêchent la rechute, sous Windows comme ailleurs |
 | Les produits affichent des rectangles colorés au lieu de photos | La base n'a pas été ré-amorcée depuis l'ajout des photographies | `php artisan migrate:fresh --seed` |
 | Un paiement reste bloqué sur « vérification » | `queue:work` ne tourne pas | Terminal 3 |
 | `Cannot create symlink` | Droits Windows | Étape 7 |
@@ -796,6 +797,7 @@ Documents de référence à la racine :
 |---|---|---|
 | `Vite manifest not found` | Assets non compilés | `npm run build` (étape 5) |
 | **Page sans aucun style, icônes affichées en toutes lettres (`storefront`, `search`, `eco`)** | La feuille de style n'est pas chargée : soit `npm install` n'a pas été relancé après un `git pull` et `npm run build` a échoué, soit `npm run dev` a été lancé puis arrêté et le fichier `public/hot` est resté | `npm install` puis `npm run build`. Si le symptôme persiste, supprimer `public\hot` et rebâtir |
+| **`htmlspecialchars(): Argument #1 ($string) must be of type string, array given`** dans `components/bottom-nav.blade.php` | Corrigé le 23/09/2026. Un libellé d'onglet passait par `__('Validation')` : une clé sans point envoie le traducteur chercher un **groupe** de ce nom, et Windows le trouve sans tenir compte de la casse dans `lang/fr/validation.php` — un tableau, pas une chaîne | `git pull` sur la branche de développement. Trois tests (`tests/Feature/BottomNavTest.php`) empêchent la rechute, sous Windows comme ailleurs |
 | Les produits affichent des rectangles colorés au lieu de photos | La base n'a pas été ré-amorcée depuis l'ajout des photographies | `php artisan migrate:fresh --seed` |
 | Un paiement reste `pending` | File d'attente non lancée | `php artisan queue:work` |
 | `SQLSTATE[HY000] [1049] Unknown database` | Base non créée | Voir § 2.2 |
